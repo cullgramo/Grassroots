@@ -1,0 +1,13 @@
+{
+  "name": "grassroots",
+  "version": "1.0.0",
+  "description": "This repository includes a simple demo of a Gaelic games event finder. Open `index.html` in a browser to view an interactive map with event markers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

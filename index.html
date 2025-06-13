@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grassroots Interactive Map</title>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 1rem; }
+    #map { height: 300px; margin: 1rem 0; border-radius: 8px; overflow: hidden; }
+    .filter { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const countyCrests = {
+      Cork: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7d/Cork_GAA_logo.svg/1200px-Cork_GAA_logo.svg.png",
+      Limerick: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Limerick_GAA_logo.svg/1200px-Limerick_GAA_logo.svg.png",
+      Down: "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/Down_GAA_logo.svg/1200px-Down_GAA_logo.svg.png",
+      Laois: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Laois_GAA_logo.svg/1200px-Laois_GAA_logo.svg.png",
+      Meath: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Meath_GAA_logo.svg/1200px-Meath_GAA_logo.svg.png",
+      Antrim: "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Antrim_GAA_logo.svg/1200px-Antrim_GAA_logo.svg.png",
+    };
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLon = ((lon2 - lon1) * Math.PI) / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1 * Math.PI) / 180) *
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function GrassrootsApp() {
+      const [userLocation, setUserLocation] = useState(null);
+      const [sportFilter, setSportFilter] = useState("");
+      const [distanceFilter, setDistanceFilter] = useState(null);
+      const [countyFilter, setCountyFilter] = useState("");
+      const mapContainer = useRef(null);
+      const map = useRef(null);
+      const markers = useRef([]);
+
+      const events = [
+        {
+          sport: "Hurling",
+          location: "SuperValu Páirc Uí Chaoimh, Cork",
+          county: "Cork",
+          teams: "Cork vs Limerick",
+          purpose: "Munster Championship Round 3",
+          datetime: "2024-06-15T16:00",
+          latitude: 51.8955,
+          longitude: -8.4662,
+          ticketed: true,
+          ticketLink: "https://www.ticketmaster.ie/event/4",
+        },
+        {
+          sport: "Gaelic Football",
+          location: "Páirc Esler, Newry",
+          county: "Down",
+          teams: "Down vs Laois",
+          purpose: "Tailteann Cup Quarter-Final",
+          datetime: "2024-06-01T18:30",
+          latitude: 54.179,
+          longitude: -6.335,
+          ticketed: true,
+          ticketLink: "https://www.ticketmaster.ie/event/1",
+        },
+        {
+          sport: "Gaelic Football",
+          location: "Páirc Tailteann, Navan",
+          county: "Meath",
+          teams: "Meath vs Antrim",
+          purpose: "Tailteann Cup Quarter-Final",
+          datetime: "2024-06-01T17:00",
+          latitude: 53.6522,
+          longitude: -6.686,
+          ticketed: true,
+          ticketLink: "https://www.ticketmaster.ie/event/2",
+        },
+      ];
+
+      useEffect(() => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setUserLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+          });
+        }
+      }, []);
+
+      const filteredEvents = events.filter((event) => {
+        const matchesSport = sportFilter
+          ? event.sport.toLowerCase() === sportFilter.toLowerCase()
+          : true;
+        const withinDistance =
+          userLocation && distanceFilter
+            ? calculateDistance(
+                userLocation.latitude,
+                userLocation.longitude,
+                event.latitude,
+                event.longitude
+              ) <= distanceFilter
+            : true;
+        const matchesCounty = countyFilter
+          ? event.county.toLowerCase() === countyFilter.toLowerCase()
+          : true;
+        return withinDistance && matchesCounty && matchesSport;
+      });
+
+      useEffect(() => {
+        mapboxgl.accessToken =
+          "pk.eyJ1IjoiZ3Jhc3Nyb290czI1LS0iLCJhIjoiY21ic2h1cTcxMDdvbzJqc2lmN3VoNHhzcCJ9.-Z8s9LVQTB6WaMheLjEAoA";
+        map.current = new mapboxgl.Map({
+          container: mapContainer.current,
+          style: "mapbox://styles/mapbox/streets-v11",
+          center: [-6.5, 53.3],
+          zoom: 6,
+        });
+
+        return () => map.current && map.current.remove();
+      }, []);
+
+      useEffect(() => {
+        if (!map.current) return;
+        markers.current.forEach((m) => m.remove());
+        markers.current = [];
+        filteredEvents.forEach((event) => {
+          const el = document.createElement("div");
+          el.className = "marker";
+          el.style.width = "20px";
+          el.style.height = "20px";
+          el.style.background = "#f00";
+          el.style.borderRadius = "50%";
+          el.style.border = "2px solid #fff";
+          el.style.boxSizing = "border-box";
+          const marker = new mapboxgl.Marker(el)
+            .setLngLat([event.longitude, event.latitude])
+            .setPopup(
+              new mapboxgl.Popup({ offset: 25 }).setHTML(
+                `<strong>${event.teams}</strong><br/>${event.location}`
+              )
+            )
+            .addTo(map.current);
+          markers.current.push(marker);
+        });
+      }, [filteredEvents]);
+
+      return (
+        <div>
+          <h1>🏐 Grassroots</h1>
+          <div className="filter">
+            {[2, 5, 10].map((km) => (
+              <button
+                key={km}
+                onClick={() => setDistanceFilter(km)}
+                style={{ marginRight: "4px" }}
+              >
+                {km} km
+              </button>
+            ))}
+            <button onClick={() => setDistanceFilter(10)}>Near Me</button>
+            <button onClick={() => setDistanceFilter(null)}>Clear</button>
+          </div>
+          <div className="filter">
+            <label>
+              County:
+              <select
+                value={countyFilter}
+                onChange={(e) => setCountyFilter(e.target.value)}
+              >
+                <option value="">All Counties</option>
+                {[...new Set(events.map((e) => e.county))].map((county) => (
+                  <option key={county}>{county}</option>
+                ))}
+              </select>
+            </label>
+            <label style={{ marginLeft: "8px" }}>
+              Sport:
+              <select
+                value={sportFilter}
+                onChange={(e) => setSportFilter(e.target.value)}
+              >
+                <option value="">All Sports</option>
+                {[...new Set(events.map((e) => e.sport))].map((sport) => (
+                  <option key={sport}>{sport}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div id="map" ref={mapContainer}></div>
+          {filteredEvents
+            .sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
+            .map((event, index) => {
+              const distance = userLocation
+                ? calculateDistance(
+                    userLocation.latitude,
+                    userLocation.longitude,
+                    event.latitude,
+                    event.longitude
+                  ).toFixed(1)
+                : null;
+              const eventDate = new Date(event.datetime);
+              const formattedTime = eventDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+              const formattedDate = eventDate.toLocaleDateString();
+              const formattedDay = eventDate.toLocaleDateString(undefined, {
+                weekday: "long",
+              });
+              const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                `${event.location}, ${event.county}`
+              )}&travelmode=driving`;
+              return (
+                <div key={index} style={{ borderBottom: "1px solid #ccc", padding: "8px 0" }}>
+                  <h3>
+                    {countyCrests[event.county] && (
+                      <img src={countyCrests[event.county]} alt="crest" style={{ width: "20px", height: "20px", verticalAlign: "middle" }} />
+                    )}
+                    {" "}
+                    {event.teams}
+                  </h3>
+                  <p>{event.sport}</p>
+                  <p>
+                    <span style="margin-right:4px">{event.purpose}</span>
+                    {event.ticketed && (
+                      <span style="background:#e0f2ff; color:#0369a1; padding:2px 4px; border-radius:4px; font-size:12px; margin-right:4px">Ticketed</span>
+                    )}
+                  </p>
+                  <p>
+                    {event.location}, {event.county}
+                    {distance && <span> ({distance} km away)</span>}
+                    <a
+                      href={mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ marginLeft: "6px", padding: "2px 4px", background: "#16a34a", color: "#fff", borderRadius: "4px", fontSize: "12px" }}
+                    >
+                      Directions
+                    </a>
+                  </p>
+                  <p>
+                    <strong>Day:</strong> {formattedDay}
+                  </p>
+                  <p>
+                    <strong>Date:</strong> {formattedDate}
+                  </p>
+                  <p>
+                    <strong>Time:</strong> {formattedTime}
+                  </p>
+                  {event.ticketed && event.ticketLink && (
+                    <a
+                      href={event.ticketLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: "inline-block", marginTop: "4px", padding: "2px 4px", background: "#16a34a", color: "#fff", borderRadius: "4px", fontSize: "12px" }}
+                    >
+                      Get Tickets
+                    </a>
+                  )}
+                </div>
+              );
+            })}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<GrassrootsApp />);
+  </script>
+</body>
+</html>
