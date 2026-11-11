@@ -7,6 +7,11 @@ declare const Deno: any;
 
 type Json = Record<string, any>;
 
+// Runs in two places: as a Supabase function (Deno) and from the daily collector (Node).
+// deno-lint-ignore no-explicit-any
+declare const process: any;
+const env = (name: string): string | undefined => (typeof Deno !== 'undefined' ? Deno.env.get(name) : process.env[name]);
+
 export interface ImportedFixture {
   sport_id: string;
   level: 'top' | 'local';
@@ -226,7 +231,7 @@ async function fetchEvents(key: string, filter: string, errors: string[]): Promi
         `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${encodeURIComponent(key)}` +
         `&${filter}&${area}&startDateTime=${from}&sort=date,asc&size=200&page=${page}`;
       // Ticketmaster allows five requests a second; stay well under it.
-      await new Promise((r) => setTimeout(r, Number(Deno.env.get('IMPORT_DELAY_MS') ?? 220)));
+      await new Promise((r) => setTimeout(r, Number(env('IMPORT_DELAY_MS') ?? 220)));
       const res = await fetch(url);
       if (!res.ok) {
         // One failed search should not lose the others.
@@ -244,8 +249,8 @@ async function fetchEvents(key: string, filter: string, errors: string[]): Promi
 }
 
 async function db(path: string, body: unknown, prefer: string): Promise<Json[]> {
-  const base = Deno.env.get('SUPABASE_URL');
-  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const base = env('SUPABASE_URL');
+  const key = env('SUPABASE_SERVICE_ROLE_KEY') ?? '';
   const res = await fetch(`${base}/rest/v1/${path}`, {
     method: 'POST',
     headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: prefer },
@@ -260,8 +265,8 @@ async function db(path: string, body: unknown, prefer: string): Promise<Json[]> 
  * seller disappear. Every fixture just saved has a fresh updated_at, so anything older is stale.
  */
 async function removeStale(runStarted: string): Promise<number> {
-  const base = Deno.env.get('SUPABASE_URL');
-  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  const base = env('SUPABASE_URL');
+  const key = env('SUPABASE_SERVICE_ROLE_KEY') ?? '';
   // Two minutes of slack, in case this function's clock and the database's differ slightly.
   const cutoff = new Date(new Date(runStarted).getTime() - 120_000).toISOString();
   const filter = `source=eq.ticketmaster&updated_at=lt.${encodeURIComponent(cutoff)}&starts_at=gt.${encodeURIComponent(runStarted)}`;
@@ -376,7 +381,7 @@ const json = (body: unknown, status = 200) =>
 
 if (typeof Deno !== 'undefined') {
   Deno.serve(async (req: Request) => {
-    const secret = (Deno.env.get('IMPORT_SECRET') ?? '').trim();
+    const secret = (env('IMPORT_SECRET') ?? '').trim();
     // The phrase may come as a header (for the scheduler) or in the JSON body (easier from the dashboard).
     const body: Json = await req.json().catch(() => ({}));
     const given = String(req.headers.get('x-import-secret') ?? body?.secret ?? '').trim();
@@ -385,7 +390,7 @@ if (typeof Deno !== 'undefined') {
     if (given !== secret) {
       return json({ error: `The secret sent (${given.length} characters) does not match IMPORT_SECRET.` }, 401);
     }
-    const key = Deno.env.get('TICKETMASTER_KEY');
+    const key = env('TICKETMASTER_KEY');
     if (!key) return json({ error: 'TICKETMASTER_KEY secret is not set' }, 500);
     const dry = new URL(req.url).searchParams.has('dry') || body?.dry === true || body?.dry === 1;
     try {
