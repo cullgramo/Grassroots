@@ -130,3 +130,23 @@ describe('map helpers', () => {
     expect(describeWhere({ ...DEFAULT_FILTERS, distanceKm: 25 }, false)).toBe('All Ireland');
   });
 });
+
+describe('ticketLink', () => {
+  const { ticketLink } = require('../tickets');
+  const f = fixtures[0];
+  it('uses the seller link when one is given', () => {
+    expect(ticketLink({ ...f, ticketed: true, ticketUrl: 'https://example.com/t' })).toEqual({ url: 'https://example.com/t', kind: 'seller' });
+  });
+  it('falls back to a web search for ticketed fixtures with no link', () => {
+    const link = ticketLink({ ...f, ticketed: true, homeTeam: 'Cork', awayTeam: 'Kerry' });
+    expect(link.kind).toBe('search');
+    expect(link.url).toBe('https://www.google.com/search?q=Cork%20v%20Kerry%20Croke%20Park%20tickets');
+  });
+  it('offers nothing for fixtures that are not ticketed', () => {
+    expect(ticketLink({ ...f, ticketed: false })).toBeNull();
+  });
+  it('never opens a link that is not a web address', () => {
+    expect(ticketLink({ ...f, ticketed: false, ticketUrl: 'javascript:alert(1)' })).toBeNull();
+    expect(ticketLink({ ...f, ticketed: true, ticketUrl: 'tel:123' }).kind).toBe('search');
+  });
+});

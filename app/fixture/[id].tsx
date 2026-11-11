@@ -1,4 +1,5 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { SaveButton } from '@/components/FixtureCard';
@@ -10,6 +11,7 @@ import { getFixture } from '@/data/fixtures';
 import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
 import { formatDistance } from '@/utils/distance';
+import { ticketLink } from '@/utils/tickets';
 import { distanceTo } from '@/utils/filterFixtures';
 
 function Row({ label, value }: { label: string; value: string }) {
@@ -45,6 +47,7 @@ export default function FixtureScreen() {
     day: 'numeric',
     month: 'long',
   });
+  const tickets = ticketLink(fixture);
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${fixture.latitude},${fixture.longitude}`;
 
   return (
@@ -75,23 +78,29 @@ export default function FixtureScreen() {
           <Row label={sport.startWord} value={timeLabel(fixture.startsAt)} />
           <Row label="Venue" value={`${fixture.venue}, ${fixture.county}`} />
           {km != null ? <Row label="Distance" value={`${formatDistance(km)} away`} /> : null}
-          <Row label="Entry" value={fixture.ticketed ? 'Ticket required' : 'Not ticketed'} />
+          <Row label="Entry" value={tickets ? 'Ticket required' : 'Not ticketed'} />
         </View>
 
+        {tickets ? (
+          <Pressable
+            onPress={() => WebBrowser.openBrowserAsync(tickets.url)}
+            accessibilityRole="link"
+            accessibilityHint={tickets.kind === 'search' ? 'Searches the web for tickets' : 'Opens the ticket seller'}
+            style={[styles.primary, { backgroundColor: t.tint }]}>
+            <Text style={[styles.primaryText, { color: t.onTint }]}>Check tickets</Text>
+          </Pressable>
+        ) : null}
+        {tickets?.kind === 'search' ? (
+          <Text style={[styles.hint, { color: t.muted }]}>No ticket link listed yet, so this searches the web.</Text>
+        ) : null}
         <Pressable
           onPress={() => Linking.openURL(directions)}
           accessibilityRole="link"
-          style={[styles.primary, { backgroundColor: t.tint }]}>
-          <Text style={[styles.primaryText, { color: t.onTint }]}>Get directions</Text>
+          style={tickets ? [styles.secondary, { borderColor: t.tint }] : [styles.primary, { backgroundColor: t.tint }]}>
+          <Text style={tickets ? [styles.secondaryText, { color: t.tint }] : [styles.primaryText, { color: t.onTint }]}>
+            Get directions
+          </Text>
         </Pressable>
-        {fixture.ticketUrl ? (
-          <Pressable
-            onPress={() => Linking.openURL(fixture.ticketUrl!)}
-            accessibilityRole="link"
-            style={[styles.secondary, { borderColor: t.tint }]}>
-            <Text style={[styles.secondaryText, { color: t.tint }]}>Get tickets</Text>
-          </Pressable>
-        ) : null}
       </View>
     </ScrollView>
   );
@@ -112,6 +121,7 @@ const styles = StyleSheet.create({
   rowValue: { fontSize: 15, fontWeight: '600', flexShrink: 1, textAlign: 'right' },
   primary: { minHeight: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', marginTop: 20 },
   primaryText: { fontSize: 17, fontWeight: '800' },
+  hint: { fontSize: 13, textAlign: 'center', marginTop: 8 },
   secondary: { minHeight: 52, borderRadius: 26, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 12 },
   secondaryText: { fontSize: 17, fontWeight: '800' },
 });

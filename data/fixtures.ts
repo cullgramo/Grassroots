@@ -60,14 +60,18 @@ type Seed = Pick<Fixture, 'sport' | 'level' | 'competition'> & {
   day: number;
   time: string;
   ticketed?: boolean;
+  tickets?: string;
 };
 
+// Sample link only: the seller's home page, not a real listing for these invented fixtures.
+const TICKETMASTER = 'https://www.ticketmaster.ie/';
+
 const seeds: Seed[] = [
-  { sport: 'hurling', level: 'Top level', competition: 'Munster Championship, Round 3', home: 'Cork', away: 'Limerick', at: VENUES.pairc, day: 0, time: '19:30', ticketed: true },
+  { sport: 'hurling', level: 'Top level', competition: 'Munster Championship, Round 3', home: 'Cork', away: 'Limerick', at: VENUES.pairc, day: 0, time: '19:30', ticketed: true, tickets: TICKETMASTER },
   { sport: 'gaelic-football', level: 'Local', competition: 'Dublin Senior Championship', home: 'Kilmacud Crokes', away: "St Vincent's", at: VENUES.parnell, day: 0, time: '20:00' },
   { sport: 'soccer', level: 'Top level', competition: 'League of Ireland Premier Division', home: 'Shamrock Rovers', away: 'Bohemians', at: VENUES.tallaght, day: 0, time: '19:45', ticketed: true },
   { sport: 'basketball', level: 'Top level', competition: 'Super League', home: 'Templeogue', away: 'Killester', at: VENUES.arena, day: 0, time: '20:15' },
-  { sport: 'camogie', level: 'Top level', competition: 'All-Ireland Senior Semi-Final', home: 'Kilkenny', away: 'Cork', at: VENUES.croke, day: 1, time: '15:15', ticketed: true },
+  { sport: 'camogie', level: 'Top level', competition: 'All-Ireland Senior Semi-Final', home: 'Kilkenny', away: 'Cork', at: VENUES.croke, day: 1, time: '15:15', ticketed: true, tickets: TICKETMASTER },
   { sport: 'rugby', level: 'Top level', competition: 'United Rugby Championship', home: 'Munster', away: 'Ulster', at: VENUES.thomond, day: 1, time: '19:35', ticketed: true },
   { sport: 'horse-racing', level: 'Top level', competition: 'National Hunt meeting', title: 'Leopardstown Races', at: VENUES.leopardstown, day: 1, time: '12:40', ticketed: true },
   { sport: 'gaelic-football', level: 'Top level', competition: 'Tailteann Cup Quarter-Final', home: 'Down', away: 'Laois', at: VENUES.esler, day: 2, time: '18:30', ticketed: true },
@@ -91,8 +95,8 @@ const seeds: Seed[] = [
   { sport: 'soccer', level: 'Top level', competition: 'Irish Premiership', home: 'Linfield', away: 'Glentoran', at: VENUES.windsor, day: 6, time: '15:00', ticketed: true },
   { sport: 'athletics', level: 'Top level', competition: 'Track and field', title: 'National Senior Championships', at: VENUES.morton, day: 6, time: '11:00', ticketed: true },
   { sport: 'horse-racing', level: 'Top level', competition: 'Flat meeting', title: 'Curragh Races', at: VENUES.curragh, day: 7, time: '13:15', ticketed: true },
-  { sport: 'gaelic-football', level: 'Top level', competition: 'Connacht Championship Final', home: 'Mayo', away: 'Galway', at: VENUES.machale, day: 8, time: '16:00', ticketed: true },
-  { sport: 'rugby', level: 'Top level', competition: 'International', home: 'Ireland', away: 'Scotland', at: VENUES.aviva, day: 8, time: '14:15', ticketed: true },
+  { sport: 'gaelic-football', level: 'Top level', competition: 'Connacht Championship Final', home: 'Mayo', away: 'Galway', at: VENUES.machale, day: 8, time: '16:00', ticketed: true, tickets: TICKETMASTER },
+  { sport: 'rugby', level: 'Top level', competition: 'International', home: 'Ireland', away: 'Scotland', at: VENUES.aviva, day: 8, time: '14:15', ticketed: true, tickets: TICKETMASTER },
   { sport: 'cricket', level: 'Top level', competition: 'One-day international', home: 'Ireland', away: 'Scotland', at: VENUES.malahide, day: 8, time: '10:45', ticketed: true },
   { sport: 'gaelic-football', level: 'Top level', competition: 'Ulster Championship Final', home: 'Armagh', away: 'Donegal', at: VENUES.clones, day: 9, time: '14:00', ticketed: true },
   { sport: 'rugby', level: 'Top level', competition: 'United Rugby Championship', home: 'Ulster', away: 'Leinster', at: VENUES.ravenhill, day: 9, time: '19:35', ticketed: true },
@@ -115,6 +119,7 @@ export const fixtures: Fixture[] = seeds.map((s, i) => ({
   ...s.at,
   startsAt: at(s.day, s.time),
   ticketed: s.ticketed ?? false,
+  ticketUrl: s.tickets,
 }));
 
 export function getFixture(id: string): Fixture | undefined {
