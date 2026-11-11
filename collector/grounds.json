@@ -211,6 +211,52 @@
  },
  "Dublin|woodlands 11 a side all weather|": null,
  "Dublin|woodlands 5 a side grass|": null,
+ "Leinster|athy|": null,
+ "Leinster|college park newbridge|": null,
+ "Leinster|dr kelly s field|": null,
+ "Leinster|dunlavin|": null,
+ "Leinster|edgeworthstown|": null,
+ "Leinster|freshford gaa|": null,
+ "Leinster|glenisk o connor park|": null,
+ "Leinster|kilbeggan|": null,
+ "Leinster|loetb centre of excellence|": null,
+ "Leinster|longwood|": null,
+ "Leinster|maynooth university north campus|": {
+  "name": "Maynooth University North Campus",
+  "county": "Kildare",
+  "latitude": 53.384767,
+  "longitude": -6.601028,
+  "how": "place search (amenity/university: Maynooth University North Campus)"
+ },
+ "Leinster|mccauley park bellefield|": null,
+ "Leinster|mcgrath park bagenalstown|": null,
+ "Leinster|mountmellick gaa|": {
+  "name": "Mountmellick GAA",
+  "county": "Laois",
+  "latitude": 53.104093,
+  "longitude": -7.304146,
+  "how": "place search (leisure/sports_centre: Mountmellick GAA)"
+ },
+ "Leinster|rathdowney|": null,
+ "Leinster|ros glas|": null,
+ "Leinster|skerries cc|": null,
+ "Leinster|st annes|": null,
+ "Leinster|st brendan s|": null,
+ "Leinster|st kieran s college|": {
+  "name": "St. Kieran's College",
+  "county": "Kilkenny",
+  "latitude": 52.647139,
+  "longitude": -7.254957,
+  "how": "place search (building/school: Saint Kieran's College)"
+ },
+ "Leinster|trinity gaels|": {
+  "name": "Trinity Gaels",
+  "county": "Dublin",
+  "latitude": 53.414424,
+  "longitude": -6.164447,
+  "how": "place search (leisure/sports_centre: Trinity Gaels GAA Club)"
+ },
+ "Leinster|tullow cs|": null,
  "Ulster|bangor aurora|BT20 4UT": {
   "name": "Bangor Aurora",
   "county": "Down",

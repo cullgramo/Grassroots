@@ -17,7 +17,7 @@ export async function getPage(url, gapMs = 2000) {
   if (process.env.COLLECTOR_USE_CURL === '1') {
     return execFileSync('curl', ['-sS', '-m', '40', '-L', '--fail', '-A', USER_AGENT, url], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   }
-  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html' } });
+  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/json' } });
   if (!res.ok) throw new Error(`${host} answered ${res.status}`);
   return res.text();
 }

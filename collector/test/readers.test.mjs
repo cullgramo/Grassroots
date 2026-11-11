@@ -84,3 +84,22 @@ test('dates and times', () => {
   assert.equal(irishTimeToIso('2026-07-19', '15:30'), '2026-07-19T14:30:00.000Z');
   assert.equal(irishTimeToIso('2026-11-14', '12:30'), '2026-11-14T12:30:00.000Z');
 });
+
+test('Leinster GAA: reads both lists, keeps ticket link and position, never the referee', async () => {
+  const leinster = await import('../sources/leinster-gaa.mjs');
+  const fx = {
+    id: 'abc', startDate: '2026-11-14T13:30:00.000Z', isResult: false, isPostponed: false, round: 'Quarter-Final',
+    homeTeam: { name: "St. Brigid's" }, awayTeam: { name: "St Kevin's" }, refereeName: 'Someone',
+    competition: { name: 'AIB Leinster Club Junior Football Championship 2026', activity: 'football', gender: 'male' },
+    place: { name: 'Echelon Park, Aughrim', latitude: 52.852883, longitude: -6.334953 },
+  };
+  const plain = leinster.read(JSON.stringify({ records: [{ ...fx, place: { name: 'Daingean GAA' } }, { ...fx, id: 'old', isResult: true }, { ...fx, id: 'tbc', startDate: '2026-11-20T00:00:00.000Z' }] }), leinster.pages[0]);
+  assert.equal(plain.length, 2);
+  assert.equal(plain[0].sport, 'gaelic-football');
+  assert.equal(plain[0].latitude, null);
+  assert.equal(plain[1].time, null);
+  const sold = leinster.read(JSON.stringify({ records: [{ bookingUrl: 'https://www.universe.com/events/x', fixtureData: fx, eventData: { address: 'Aughrim, Co. Wicklow', ticketsSold: 5 } }] }), leinster.pages[1]);
+  assert.equal(sold[0].ticketUrl, 'https://www.universe.com/events/x');
+  assert.equal(sold[0].county, 'Wicklow');
+  assert.ok(!JSON.stringify(sold).includes('Someone') && !JSON.stringify(sold).includes('ticketsSold'));
+});

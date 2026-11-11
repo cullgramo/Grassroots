@@ -29,7 +29,7 @@ for (const [key, source] of Object.entries(SOURCES)) {
     const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, venue: f.venue, reason });
     if (!f.venue) { leave('No ground given'); continue; }
     if (!f.startsAt && !f.time) { leave('Start time not set yet'); continue; }
-    const ground = grounds[groundKey(f)];
+    const ground = f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : grounds[groundKey(f)];
     if (!ground) { leave('Ground not placed on the map yet'); continue; }
     const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time);
     const ref = `${key}-${f.ref}`;
@@ -55,14 +55,14 @@ const sql = [
   'on conflict (name, county) do nothing;',
   '',
   'insert into public.fixtures',
-  '  (sport_id, level, category, competition, home_team, away_team, venue_id, starts_at, ticketed, approval, source, source_ref, source_url)',
-  "select s.sport_id, s.level, s.category, s.competition, s.home_team, s.away_team, v.id, s.starts_at::timestamptz, false, 'approved', s.source, s.source_ref, s.source_url",
+  '  (sport_id, level, category, competition, home_team, away_team, venue_id, starts_at, ticketed, ticket_url, status, approval, source, source_ref, source_url)',
+  "select s.sport_id, s.level, s.category, s.competition, s.home_team, s.away_team, v.id, s.starts_at::timestamptz, s.ticket_url is not null, s.ticket_url, s.status, 'approved', s.source, s.source_ref, s.source_url",
   'from (values',
-  fixtures.map((f) => `  (${q(f.source)}, ${q(f.ref)}, ${q(f.sport)}, ${q(f.level)}, ${q(f.category)}, ${q(f.competition)}, ${q(f.home)}, ${q(f.away)}, ${q(f.ground.name)}, ${q(f.ground.county)}, ${q(f.startsAt)}, ${q(f.url)})`).join(',\n'),
-  ') as s (source, source_ref, sport_id, level, category, competition, home_team, away_team, venue_name, venue_county, starts_at, source_url)',
+  fixtures.map((f) => `  (${q(f.source)}, ${q(f.ref)}, ${q(f.sport)}, ${q(f.level)}, ${q(f.category)}, ${q(f.competition)}, ${q(f.home)}, ${q(f.away)}, ${q(f.ground.name)}, ${q(f.ground.county)}, ${q(f.startsAt)}, ${q(f.url)}, ${q(f.ticketUrl ?? null)}, ${q(f.status ?? 'scheduled')})`).join(',\n'),
+  ') as s (source, source_ref, sport_id, level, category, competition, home_team, away_team, venue_name, venue_county, starts_at, source_url, ticket_url, status)',
   'join public.venues v on v.name = s.venue_name and v.county = s.venue_county',
   'on conflict (source, source_ref) do update set starts_at = excluded.starts_at, competition = excluded.competition, venue_id = excluded.venue_id,',
-  '  home_team = excluded.home_team, away_team = excluded.away_team;',
+  '  home_team = excluded.home_team, away_team = excluded.away_team, ticketed = excluded.ticketed, ticket_url = excluded.ticket_url, status = excluded.status;',
   '',
   '-- A game no longer on its source page has been moved or called off, so it comes off the app.',
   ...Object.entries(live).filter(([, refs]) => refs.length).map(([key, refs]) =>

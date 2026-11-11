@@ -8,13 +8,14 @@ let asked = 0;
 for (const [key, source] of Object.entries(SOURCES)) {
   const { upcoming } = await collect(source);
   const fresh = new Map();
-  for (const f of upcoming) if (f.venue && !(groundKey(f) in grounds)) fresh.set(groundKey(f), f);
+  // A fixture that arrives with its own map position needs no lookup.
+  for (const f of upcoming) if (f.venue && f.latitude == null && !(groundKey(f) in grounds)) fresh.set(groundKey(f), f);
   for (const [k, f] of fresh) {
     grounds[k] = await findGround(f).catch(() => null);
     asked++;
     if (asked % 10 === 0) saveGrounds(grounds);
   }
-  const mine = [...new Set(upcoming.filter((f) => f.venue).map(groundKey))];
+  const mine = [...new Set(upcoming.filter((f) => f.venue && f.latitude == null).map(groundKey))];
   console.log(`${source.name}: ${mine.length} grounds, ${mine.filter((k) => grounds[k]).length} placed, ${mine.filter((k) => !grounds[k]).length} not found (${fresh.size} newly looked up)`);
 }
 saveGrounds(grounds);

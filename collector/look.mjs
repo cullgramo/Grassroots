@@ -5,8 +5,9 @@ import * as ddsl from './sources/ddsl.mjs';
 import * as basketball from './sources/basketball.mjs';
 import * as dublinGaa from './sources/dublin-gaa.mjs';
 import * as ulsterHockey from './sources/ulster-hockey.mjs';
+import * as leinsterGaa from './sources/leinster-gaa.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa };
 
 export async function collect(source, now = new Date()) {
   const all = [];
@@ -18,9 +19,11 @@ export async function collect(source, now = new Date()) {
       problems.push(`${page.url}: ${e.message}`);
     }
   }
+  // The same fixture can appear on two of a site's pages; the later page's copy is kept.
+  const unique = [...new Map(all.map((f) => [f.ref, f])).values()];
   const today = now.toISOString().slice(0, 10);
-  const upcoming = all.filter((f) => f.date && f.date >= today);
-  return { all, upcoming, problems };
+  const upcoming = unique.filter((f) => f.date && f.date >= today);
+  return { all: unique, upcoming, problems };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
