@@ -1,0 +1,108 @@
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { FixtureMap } from '@/components/FixtureMap';
+import { useTheme } from '@/components/useTheme';
+import { SPORT_COLORS } from '@/constants/sports';
+import { useApp } from '@/context/AppContext';
+import { getFixture } from '@/data/fixtures';
+import { timeLabel } from '@/utils/date';
+import { formatDistance } from '@/utils/distance';
+import { distanceTo } from '@/utils/filterFixtures';
+
+function Row({ label, value }: { label: string; value: string }) {
+  const t = useTheme();
+  return (
+    <View style={[styles.row, { borderColor: t.border }]}>
+      <Text style={[styles.rowLabel, { color: t.muted }]}>{label}</Text>
+      <Text style={[styles.rowValue, { color: t.text }]}>{value}</Text>
+    </View>
+  );
+}
+
+export default function FixtureScreen() {
+  const t = useTheme();
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { location } = useApp();
+  const fixture = getFixture(id);
+
+  if (!fixture) {
+    return (
+      <View style={[styles.missing, { backgroundColor: t.background }]}>
+        <Stack.Screen options={{ title: 'Not found' }} />
+        <Text style={[styles.rowValue, { color: t.text }]}>This fixture is no longer listed.</Text>
+      </View>
+    );
+  }
+
+  const color = SPORT_COLORS[fixture.sport];
+  const km = distanceTo(fixture, location);
+  const date = new Date(fixture.startsAt).toLocaleDateString(undefined, {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
+  const directions = `https://www.google.com/maps/dir/?api=1&destination=${fixture.latitude},${fixture.longitude}`;
+
+  return (
+    <ScrollView style={{ backgroundColor: t.background }} contentContainerStyle={styles.content}>
+      <Stack.Screen options={{ title: fixture.sport }} />
+
+      <View style={styles.map}>
+        <FixtureMap fixtures={[fixture]} selectedId={fixture.id} userLocation={location} interactive={false} />
+      </View>
+
+      <View style={styles.body}>
+        <Text style={[styles.sport, { color }]}>
+          {fixture.sport.toUpperCase()} · {fixture.level.toUpperCase()}
+        </Text>
+        <Text style={[styles.teams, { color: t.text }]}>{fixture.homeTeam}</Text>
+        <Text style={[styles.versus, { color: t.muted }]}>v</Text>
+        <Text style={[styles.teams, { color: t.text }]}>{fixture.awayTeam}</Text>
+        <Text style={[styles.competition, { color: t.muted }]}>{fixture.competition}</Text>
+
+        <View style={[styles.card, { backgroundColor: t.card, borderColor: t.border }]}>
+          <Row label="Date" value={date} />
+          <Row label="Throw-in" value={timeLabel(fixture.startsAt)} />
+          <Row label="Venue" value={`${fixture.venue}, ${fixture.county}`} />
+          {km != null ? <Row label="Distance" value={`${formatDistance(km)} away`} /> : null}
+          <Row label="Entry" value={fixture.ticketed ? 'Ticket required' : 'Not ticketed'} />
+        </View>
+
+        <Pressable
+          onPress={() => Linking.openURL(directions)}
+          accessibilityRole="link"
+          style={[styles.primary, { backgroundColor: t.tint }]}>
+          <Text style={[styles.primaryText, { color: t.onTint }]}>Get directions</Text>
+        </Pressable>
+        {fixture.ticketUrl ? (
+          <Pressable
+            onPress={() => Linking.openURL(fixture.ticketUrl!)}
+            accessibilityRole="link"
+            style={[styles.secondary, { borderColor: t.tint }]}>
+            <Text style={[styles.secondaryText, { color: t.tint }]}>Get tickets</Text>
+          </Pressable>
+        ) : null}
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  content: { paddingBottom: 32 },
+  missing: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  map: { height: 220 },
+  body: { padding: 16 },
+  sport: { fontSize: 12, fontWeight: '800', letterSpacing: 0.6, marginBottom: 8 },
+  teams: { fontSize: 28, fontWeight: '800' },
+  versus: { fontSize: 15, fontWeight: '600', marginVertical: 2 },
+  competition: { fontSize: 15, marginTop: 8 },
+  card: { borderRadius: 16, borderWidth: 1, marginTop: 20, paddingHorizontal: 14 },
+  row: { flexDirection: 'row', justifyContent: 'space-between', gap: 16, paddingVertical: 13, borderBottomWidth: StyleSheet.hairlineWidth },
+  rowLabel: { fontSize: 15 },
+  rowValue: { fontSize: 15, fontWeight: '600', flexShrink: 1, textAlign: 'right' },
+  primary: { minHeight: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', marginTop: 20 },
+  primaryText: { fontSize: 17, fontWeight: '800' },
+  secondary: { minHeight: 52, borderRadius: 26, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 12 },
+  secondaryText: { fontSize: 17, fontWeight: '800' },
+});
