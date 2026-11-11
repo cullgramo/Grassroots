@@ -4,23 +4,23 @@ import { useApp } from '@/context/AppContext';
 import { widerDistance } from '@/utils/filterFixtures';
 import { useTheme } from './useTheme';
 
-/** Explains why no games are showing and offers the one action most likely to fix it. */
+/** Explains why no fixtures are showing and offers the one action most likely to fix it. */
 export function EmptyState({ onShowAll }: { onShowAll: () => void }) {
   const t = useTheme();
   const { fixtures, filters, location, setFilters, resetFilters } = useApp();
 
-  let title = 'No games in this area';
-  let action = `Show all ${fixtures.length} games`;
+  let title = 'No fixtures in this area';
+  let action = `Show all ${fixtures.length} fixtures`;
   let run = onShowAll;
 
   if (fixtures.length === 0) {
     if (filters.distanceKm != null && location) {
       const wider = widerDistance(filters.distanceKm);
-      title = `No games within ${filters.distanceKm}km`;
+      title = `No fixtures within ${filters.distanceKm}km`;
       action = wider ? `Widen to ${wider}km` : 'Search any distance';
       run = () => setFilters({ distanceKm: wider });
     } else {
-      title = 'No games match these filters';
+      title = 'No fixtures match these filters';
       action = 'Clear filters';
       run = resetFilters;
     }

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
+import type { SportId } from '@/constants/sports';
 import { fixtures as allFixtures } from '@/data/fixtures';
 import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import { filterFixtures } from '@/utils/filterFixtures';
@@ -16,9 +17,15 @@ interface AppState {
   fixtures: Fixture[];
   savedIds: string[];
   toggleSaved: (id: string) => void;
+  /** Sports the user follows. Empty means every sport. */
+  mySports: SportId[];
+  setMySports: (ids: SportId[]) => void;
+  /** True once we know the user has never chosen their sports. */
+  needsSportsChoice: boolean;
 }
 
 const SAVED_KEY = 'grassroots.saved';
+const SPORTS_KEY = 'grassroots.mySports';
 
 const AppContext = createContext<AppState | null>(null);
 
@@ -63,11 +70,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setFilters = useCallback((patch: Partial<Filters>) => setAll((f) => ({ ...f, ...patch })), []);
   const resetFilters = useCallback(() => setAll(DEFAULT_FILTERS), []);
 
-  const fixtures = useMemo(() => filterFixtures(allFixtures, filters, location), [filters, location]);
+  const [mySports, setMine] = useState<SportId[]>([]);
+  const [needsSportsChoice, setNeedsSportsChoice] = useState(false);
+  useEffect(() => {
+    AsyncStorage.getItem(SPORTS_KEY)
+      .then((raw) => (raw ? setMine(JSON.parse(raw)) : setNeedsSportsChoice(true)))
+      .catch(() => {});
+  }, []);
+  const setMySports = useCallback((ids: SportId[]) => {
+    setMine(ids);
+    setNeedsSportsChoice(false);
+    AsyncStorage.setItem(SPORTS_KEY, JSON.stringify(ids)).catch(() => {});
+  }, []);
+
+  const fixtures = useMemo(
+    () => filterFixtures(allFixtures, filters, location, new Date(), mySports),
+    [filters, location, mySports]
+  );
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

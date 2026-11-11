@@ -41,6 +41,15 @@ export function timeLabel(startsAt: string): string {
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+/** Day shown in a card's time block: "TODAY", "SAT", or "19 NOV" beyond a week. */
+export function shortDay(startsAt: string, now: Date = new Date()): string {
+  const d = new Date(startsAt);
+  const days = getDaysUntil(startsAt, now);
+  if (days === 0) return 'TODAY';
+  if (days > 0 && days < 7) return WEEKDAYS[d.getDay()].toUpperCase();
+  return `${d.getDate()} ${MONTHS[d.getMonth()]}`.toUpperCase();
+}
+
 /** Short label for a map pin: "Today 19:30", "Sat 14:00", "19 Nov". */
 export function pinLabel(startsAt: string, now: Date = new Date()): string {
   const d = new Date(startsAt);

@@ -30,9 +30,9 @@ export default function SavedScreen() {
       ListEmptyComponent={
         <View style={styles.empty}>
           <Text style={styles.emptyHeart}>{'♡'}</Text>
-          <Text style={[styles.emptyTitle, { color: t.text }]}>No saved games yet</Text>
+          <Text style={[styles.emptyTitle, { color: t.text }]}>No saved fixtures yet</Text>
           <Text style={[styles.emptyText, { color: t.muted }]}>
-            Tap the heart on any game to keep it here.
+            Tap the heart on any fixture to keep it here.
           </Text>
         </View>
       }

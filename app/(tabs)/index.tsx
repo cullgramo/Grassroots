@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -15,21 +15,26 @@ import { useApp } from '@/context/AppContext';
 import { toSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
 
 const PEEK = 76;
+const TOP_BAR = 140;
 
 const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', params: { id } });
 
 export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, filters, location, requestLocation } = useApp();
+  const { fixtures, filters, location, requestLocation, needsSportsChoice } = useApp();
   const [height, setHeight] = useState(0);
-  const [topBar, setTopBar] = useState(140);
+  const [topBar, setTopBar] = useState(TOP_BAR);
   const [snap, setSnap] = useState<Snap>('peek');
   const [pickedId, setPickedId] = useState<string | null>(null);
   const [bounds, setBounds] = useState<Bounds | null>(null);
   const [venueIds, setVenueIds] = useState<string[] | null>(null);
   const [recenterKey, setRecenterKey] = useState(0);
   const [fitKey, setFitKey] = useState(0);
+
+  useEffect(() => {
+    if (needsSportsChoice) router.push('/sports');
+  }, [needsSportsChoice]);
 
   const selected = fixtures.find((f) => f.id === pickedId) ?? null;
 
@@ -65,10 +70,10 @@ export default function ExploreScreen() {
 
   const count = visible.length;
   const title = venueIds
-    ? `${count} games at ${visible[0]?.venue ?? 'this venue'}`
+    ? `${count} fixtures at ${visible[0]?.venue ?? 'this venue'}`
     : count === 0
-      ? 'No games in this area'
-      : `${count} ${count === 1 ? 'game' : 'games'} in this area`;
+      ? 'No fixtures in this area'
+      : `${count} ${count === 1 ? 'fixture' : 'fixtures'} in this area`;
   const floating = snap === 'peek' && (selected || count === 0);
 
   return (

@@ -1,3 +1,4 @@
+import { getSport, type SportId } from '@/constants/sports';
 import type { Filters, Fixture, UserLocation } from '@/types/fixture';
 import { addDays, startOfDay, weekendRange } from './date';
 import { calculateDistance } from './distance';
@@ -11,7 +12,9 @@ export function filterFixtures(
   fixtures: Fixture[],
   filters: Filters,
   location: UserLocation | null,
-  now: Date = new Date()
+  now: Date = new Date(),
+  /** Sports the user follows; used when no sport or group is picked. Empty means every sport. */
+  mySports: readonly SportId[] = []
 ): Fixture[] {
   const today = startOfDay(now);
   let from: Date | null = null;
@@ -22,7 +25,13 @@ export function filterFixtures(
 
   return fixtures
     .filter((f) => {
-      if (filters.sport && f.sport !== filters.sport) return false;
+      if (filters.sport) {
+        if (f.sport !== filters.sport) return false;
+      } else if (filters.group) {
+        if (getSport(f.sport).group !== filters.group) return false;
+      } else if (mySports.length > 0 && !mySports.includes(f.sport)) {
+        return false;
+      }
       if (filters.level && f.level !== filters.level) return false;
       if (filters.county && f.county !== filters.county) return false;
       if (filters.distanceKm != null && location) {

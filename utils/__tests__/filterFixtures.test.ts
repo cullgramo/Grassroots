@@ -8,13 +8,13 @@ const now = new Date(2026, 5, 10, 12, 0);
 const iso = (day: number, hour = 15) => new Date(2026, 5, day, hour, 0).toISOString();
 
 const base: Omit<Fixture, 'id' | 'startsAt'> = {
-  sport: 'Hurling', level: 'Club', competition: 'c', homeTeam: 'a', awayTeam: 'b',
+  sport: 'hurling', level: 'Local', competition: 'c', homeTeam: 'a', awayTeam: 'b',
   venue: 'Croke Park', county: 'Dublin', latitude: 53.3607, longitude: -6.2511, ticketed: false,
 };
 const fixtures: Fixture[] = [
   { ...base, id: 'sat', startsAt: iso(13) },
   { ...base, id: 'today', startsAt: iso(10, 19) },
-  { ...base, id: 'cork', startsAt: iso(11), sport: 'Gaelic Football', level: 'Inter-county', county: 'Cork', latitude: 51.8996, longitude: -8.4353 },
+  { ...base, id: 'cork', startsAt: iso(11), sport: 'soccer', level: 'Top level', county: 'Cork', latitude: 51.8996, longitude: -8.4353 },
   { ...base, id: 'later', startsAt: iso(25) },
 ];
 const ids = (f: Fixture[]) => f.map((x) => x.id);
@@ -25,8 +25,8 @@ describe('filterFixtures', () => {
     expect(ids(filterFixtures(fixtures, DEFAULT_FILTERS, null, now))).toEqual(['today', 'cork', 'sat', 'later']);
   });
   it('filters by sport, level and county', () => {
-    expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, sport: 'Gaelic Football' }, null, now))).toEqual(['cork']);
-    expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, level: 'Inter-county' }, null, now))).toEqual(['cork']);
+    expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, sport: 'soccer' }, null, now))).toEqual(['cork']);
+    expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, level: 'Top level' }, null, now))).toEqual(['cork']);
     expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, county: 'Dublin' }, null, now))).toEqual(['today', 'sat', 'later']);
   });
   it('filters by when', () => {
@@ -39,8 +39,26 @@ describe('filterFixtures', () => {
     expect(ids(filterFixtures(fixtures, f, dublin, now))).toEqual(['today', 'sat', 'later']);
     expect(filterFixtures(fixtures, f, null, now)).toHaveLength(4);
   });
+  it('filters by group, and by followed sports when nothing is picked', () => {
+    expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, group: 'gaa' }, null, now))).toEqual(['today', 'sat', 'later']);
+    expect(ids(filterFixtures(fixtures, DEFAULT_FILTERS, null, now, ['soccer']))).toEqual(['cork']);
+    expect(filterFixtures(fixtures, DEFAULT_FILTERS, null, now, [])).toHaveLength(4);
+    // An explicit pick wins over followed sports.
+    expect(ids(filterFixtures(fixtures, { ...DEFAULT_FILTERS, group: 'soccer' }, null, now, ['hurling']))).toEqual(['cork']);
+  });
+  it('titles matches and events, and knows each sport', () => {
+    const { fixtureTitle } = require('@/types/fixture');
+    const { getSport, SPORTS, GROUPS } = require('@/constants/sports');
+    expect(fixtureTitle({ homeTeam: 'Cork', awayTeam: 'Kerry' })).toBe('Cork v Kerry');
+    expect(fixtureTitle({ title: 'Galway Races' })).toBe('Galway Races');
+    expect(getSport('basketball').startWord).toBe('Tip-off');
+    expect(getSport('horse-racing').shape).toBe('event');
+    expect(getSport('made-up').name).toBe('Sport');
+    expect(SPORTS).toHaveLength(13);
+    for (const s of SPORTS) expect(GROUPS.some((g: { id: string }) => g.id === s.group)).toBe(true);
+  });
   it('counts active filters, excluding sport', () => {
-    expect(activeFilterCount({ ...DEFAULT_FILTERS, sport: 'Hurling', when: 'today', county: 'Cork' })).toBe(2);
+    expect(activeFilterCount({ ...DEFAULT_FILTERS, sport: 'hurling', when: 'today', county: 'Cork' })).toBe(2);
   });
 });
 
@@ -68,7 +86,7 @@ describe('date and distance helpers', () => {
 describe('map helpers', () => {
   const { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM, WORLD } = require('../cluster');
   const { withinBounds, widerDistance, toSections, describeWhere } = require('../filterFixtures');
-  const { pinLabel, urgencyLabel, timeLabel } = require('../date');
+  const { pinLabel, urgencyLabel, timeLabel, shortDay } = require('../date');
 
   it('withinBounds keeps only fixtures inside the box', () => {
     const leinster = { north: 54, south: 52.5, east: -6, west: -7 };
@@ -101,6 +119,7 @@ describe('map helpers', () => {
     expect(pinLabel(iso(10, 19), now)).toBe('Today 19:00');
     expect(pinLabel(iso(13), now)).toBe('Sat 15:00');
     expect(pinLabel(iso(25), now)).toBe('25 Jun');
+    expect([shortDay(iso(10, 19), now), shortDay(iso(11), now), shortDay(iso(25), now)]).toEqual(['TODAY', 'THU', '25 JUN']);
     expect(urgencyLabel(iso(10, 9), now)).toBe('Started');
     expect(urgencyLabel(new Date(2026, 5, 10, 12, 40).toISOString(), now)).toBe('In 40 min');
     expect(urgencyLabel(iso(10, 15), now)).toBe('In 3h');

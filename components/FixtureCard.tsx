@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { SPORT_COLORS } from '@/constants/sports';
+import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
-import type { Fixture } from '@/types/fixture';
-import { dayLabel, timeLabel, urgencyLabel } from '@/utils/date';
+import { fixtureTitle, type Fixture } from '@/types/fixture';
+import { shortDay, timeLabel, urgencyLabel } from '@/utils/date';
 import { formatDistance } from '@/utils/distance';
 import { distanceTo } from '@/utils/filterFixtures';
 import { useTheme } from './useTheme';
@@ -18,7 +18,7 @@ export function SaveButton({ fixture, size = 24 }: { fixture: Fixture; size?: nu
       hitSlop={10}
       accessibilityRole="button"
       accessibilityState={{ selected: saved }}
-      accessibilityLabel={`${saved ? 'Remove' : 'Save'} ${fixture.homeTeam} v ${fixture.awayTeam}`}
+      accessibilityLabel={`${saved ? 'Remove' : 'Save'} ${fixtureTitle(fixture)}`}
       style={styles.heart}>
       <Text style={{ fontSize: size, lineHeight: size + 4, color: saved ? '#e11d48' : t.muted }}>
         {saved ? '♥' : '♡'}
@@ -37,23 +37,24 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
   const t = useTheme();
   const { location } = useApp();
   const km = distanceTo(fixture, location);
-  const color = SPORT_COLORS[fixture.sport];
+  const sport = getSport(fixture.sport);
+  const color = sport.color;
   const urgency = urgencyLabel(fixture.startsAt);
 
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`${fixture.homeTeam} versus ${fixture.awayTeam}, ${fixture.sport}`}
+      accessibilityLabel={`${fixtureTitle(fixture)}, ${sport.name}`}
       style={[styles.card, { backgroundColor: t.card, borderColor: t.border }, elevated && styles.elevated]}>
       <View style={[styles.time, { backgroundColor: color }]}>
-        <Text style={styles.timeDay}>{dayLabel(fixture.startsAt).split(',')[0].toUpperCase()}</Text>
+        <Text style={styles.timeDay}>{shortDay(fixture.startsAt)}</Text>
         <Text style={styles.timeClock}>{timeLabel(fixture.startsAt)}</Text>
       </View>
       <View style={styles.body}>
         <View style={styles.topRow}>
           <Text style={[styles.sport, { color }]} numberOfLines={1}>
-            {fixture.sport.toUpperCase()}
+            {sport.name.toUpperCase()}
           </Text>
           {urgency ? (
             <View style={styles.badge}>
@@ -62,7 +63,7 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
           ) : null}
         </View>
         <Text style={[styles.teams, { color: t.text }]} numberOfLines={2}>
-          {fixture.homeTeam} v {fixture.awayTeam}
+          {fixtureTitle(fixture)}
         </Text>
         <Text style={[styles.meta, { color: t.muted }]} numberOfLines={1}>
           {fixture.competition}

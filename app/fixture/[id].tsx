@@ -4,9 +4,10 @@ import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-na
 import { SaveButton } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
-import { SPORT_COLORS } from '@/constants/sports';
+import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { getFixture } from '@/data/fixtures';
+import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
 import { formatDistance } from '@/utils/distance';
 import { distanceTo } from '@/utils/filterFixtures';
@@ -36,7 +37,8 @@ export default function FixtureScreen() {
     );
   }
 
-  const color = SPORT_COLORS[fixture.sport];
+  const sport = getSport(fixture.sport);
+  const color = sport.color;
   const km = distanceTo(fixture, location);
   const date = new Date(fixture.startsAt).toLocaleDateString(undefined, {
     weekday: 'long',
@@ -47,7 +49,7 @@ export default function FixtureScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: t.background }} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: fixture.sport, headerRight: () => <SaveButton fixture={fixture} size={26} /> }} />
+      <Stack.Screen options={{ title: sport.name, headerRight: () => <SaveButton fixture={fixture} size={26} /> }} />
 
       <View style={styles.map}>
         <FixtureMap fixtures={[fixture]} selectedId={fixture.id} userLocation={location} interactive={false} />
@@ -55,16 +57,22 @@ export default function FixtureScreen() {
 
       <View style={styles.body}>
         <Text style={[styles.sport, { color }]}>
-          {fixture.sport.toUpperCase()} · {fixture.level.toUpperCase()}
+          {sport.name.toUpperCase()} · {fixture.level.toUpperCase()}
         </Text>
-        <Text style={[styles.teams, { color: t.text }]}>{fixture.homeTeam}</Text>
-        <Text style={[styles.versus, { color: t.muted }]}>v</Text>
-        <Text style={[styles.teams, { color: t.text }]}>{fixture.awayTeam}</Text>
+        {fixture.homeTeam && fixture.awayTeam ? (
+          <>
+            <Text style={[styles.teams, { color: t.text }]}>{fixture.homeTeam}</Text>
+            <Text style={[styles.versus, { color: t.muted }]}>v</Text>
+            <Text style={[styles.teams, { color: t.text }]}>{fixture.awayTeam}</Text>
+          </>
+        ) : (
+          <Text style={[styles.teams, { color: t.text }]}>{fixtureTitle(fixture)}</Text>
+        )}
         <Text style={[styles.competition, { color: t.muted }]}>{fixture.competition}</Text>
 
         <View style={[styles.card, { backgroundColor: t.card, borderColor: t.border }]}>
           <Row label="Date" value={date} />
-          <Row label="Throw-in" value={timeLabel(fixture.startsAt)} />
+          <Row label={sport.startWord} value={timeLabel(fixture.startsAt)} />
           <Row label="Venue" value={`${fixture.venue}, ${fixture.county}`} />
           {km != null ? <Row label="Distance" value={`${formatDistance(km)} away`} /> : null}
           <Row label="Entry" value={fixture.ticketed ? 'Ticket required' : 'Not ticketed'} />

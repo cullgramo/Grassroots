@@ -3,7 +3,8 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { SPORT_COLORS } from '@/constants/sports';
+import { getSport } from '@/constants/sports';
+import { fixtureTitle } from '@/types/fixture';
 import { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM } from '@/utils/cluster';
 import { pinLabel } from '@/utils/date';
 import type { Bounds } from '@/utils/filterFixtures';
@@ -106,7 +107,7 @@ export function FixtureMap({
     group.clearLayers();
     getMapItems(index, fixtures, view.bounds, view.zoom).forEach((item) => {
       if (item.type === 'cluster') {
-        L.marker([item.latitude, item.longitude], { icon: clusterIcon(item.count), title: `${item.count} games` })
+        L.marker([item.latitude, item.longitude], { icon: clusterIcon(item.count), title: `${item.count} fixtures` })
           .on('click', () => {
             if (item.expansionZoom > MAX_SPLIT_ZOOM) handlers.current.onVenuePress?.(item.fixtureIds);
             else m.setView([item.latitude, item.longitude], item.expansionZoom);
@@ -117,9 +118,9 @@ export function FixtureMap({
       const f = item.fixture;
       const isSelected = f.id === selectedId;
       L.marker([f.latitude, f.longitude], {
-        icon: pillIcon(pinLabel(f.startsAt), SPORT_COLORS[f.sport], isSelected),
+        icon: pillIcon(pinLabel(f.startsAt), getSport(f.sport).color, isSelected),
         zIndexOffset: isSelected ? 1000 : 0,
-        title: `${f.homeTeam} v ${f.awayTeam}`,
+        title: fixtureTitle(f),
         interactive: interactive,
       })
         .on('click', () => handlers.current.onSelect?.(f.id))

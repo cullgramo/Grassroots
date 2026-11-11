@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Chip } from '@/components/Chip';
 import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
+import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { COUNTIES } from '@/data/counties';
 import type { Level, When } from '@/types/fixture';
@@ -16,7 +17,7 @@ const WHEN: { value: When; label: string }[] = [
   { value: 'weekend', label: 'This weekend' },
   { value: 'week', label: 'Next 7 days' },
 ];
-const LEVELS: Level[] = ['Club', 'Inter-county'];
+const LEVELS: Level[] = ['Local', 'Top level'];
 const DISTANCES = [5, 10, 25, 50, 100];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -32,7 +33,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 export default function FiltersScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { filters, setFilters, resetFilters, fixtures, location, requestLocation } = useApp();
+  const { filters, setFilters, resetFilters, fixtures, location, requestLocation, mySports } = useApp();
 
   return (
     <View style={[styles.screen, { backgroundColor: t.background }]}>
@@ -59,7 +60,7 @@ export default function FiltersScreen() {
           ) : (
             <View style={styles.locationNote}>
               <Text style={[styles.note, { color: t.muted }]}>
-                Turn on location to find games near you.
+                Turn on location to find fixtures near you.
               </Text>
               <Chip label="Use my location" onPress={requestLocation} />
             </View>
@@ -81,6 +82,13 @@ export default function FiltersScreen() {
           ))}
         </Section>
 
+        <Section title="My sports">
+          <Text style={[styles.note, { color: t.muted }]}>
+            {mySports.length === 0 ? 'Every sport' : mySports.map((id) => getSport(id).name).join(', ')}
+          </Text>
+          <Chip label="Change my sports" onPress={() => router.push('/sports')} />
+        </Section>
+
         <Section title="County">
           <Chip label="All counties" selected={!filters.county} onPress={() => setFilters({ county: null })} />
           {COUNTIES.map((c) => (
@@ -95,7 +103,7 @@ export default function FiltersScreen() {
         </Pressable>
         <Pressable onPress={() => router.back()} accessibilityRole="button" style={[styles.apply, { backgroundColor: t.tint }]}>
           <Text style={[styles.applyText, { color: t.onTint }]}>
-            Show {fixtures.length} {fixtures.length === 1 ? 'game' : 'games'}
+            Show {fixtures.length} {fixtures.length === 1 ? 'fixture' : 'fixtures'}
           </Text>
         </Pressable>
       </View>
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
   more: { fontSize: 12, fontWeight: '800', letterSpacing: 0.8, marginBottom: 14 },
   section: { marginBottom: 24 },
   sectionTitle: { fontSize: 17, fontWeight: '800', marginBottom: 10 },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
   locationNote: { gap: 10, alignItems: 'flex-start' },
   note: { fontSize: 14 },
   footer: { flexDirection: 'row', gap: 12, padding: 12, borderTopWidth: 1 },
