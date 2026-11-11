@@ -96,8 +96,12 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
     handler(new Request(`https://fn.test/${path}`, { method: 'POST', headers: secret ? { 'x-import-secret': secret } : {} }));
 
   it('refuses callers without the secret, and calls nothing', async () => {
-    expect((await run('')).status).toBe(401);
-    expect((await run('', 'wrong')).status).toBe(401);
+    const missing = await run('');
+    expect([missing.status, (await missing.json()).error]).toEqual([401, 'No x-import-secret header arrived. Add it under Headers in the test panel.']);
+    const wrong = await run('', 'wrong');
+    expect([wrong.status, (await wrong.json()).error]).toEqual([401, 'The x-import-secret header (5 characters) does not match IMPORT_SECRET.']);
+    expect((await run('?dry=1', '  s3cret ')).status).toBe(200);
+    calls.length = 0;
     expect(calls).toHaveLength(0);
   });
   it('dry run reports but writes nothing', async () => {

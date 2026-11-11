@@ -200,8 +200,13 @@ const json = (body: unknown, status = 200) =>
 
 if (typeof Deno !== 'undefined') {
   Deno.serve(async (req: Request) => {
-    const secret = Deno.env.get('IMPORT_SECRET');
-    if (!secret || req.headers.get('x-import-secret') !== secret) return json({ error: 'Not allowed' }, 401);
+    const secret = (Deno.env.get('IMPORT_SECRET') ?? '').trim();
+    const given = (req.headers.get('x-import-secret') ?? '').trim();
+    if (!secret) return json({ error: 'IMPORT_SECRET is not set. Add it under Edge Functions > Secrets, then send again.' }, 500);
+    if (!given) return json({ error: 'No x-import-secret header arrived. Add it under Headers in the test panel.' }, 401);
+    if (given !== secret) {
+      return json({ error: `The x-import-secret header (${given.length} characters) does not match IMPORT_SECRET.` }, 401);
+    }
     const key = Deno.env.get('TICKETMASTER_KEY');
     if (!key) return json({ error: 'TICKETMASTER_KEY secret is not set' }, 500);
     const dry = new URL(req.url).searchParams.has('dry');
