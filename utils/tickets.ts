@@ -6,7 +6,7 @@ export interface TicketLink {
   kind: 'seller' | 'search';
 }
 
-/** Where "Check tickets" should go, or null when the fixture is not ticketed. */
+/** Where "Get tickets" should go, or null when the fixture is not ticketed. */
 export function ticketLink(f: Fixture): TicketLink | null {
   // Links are submitted by the public, so only plain web addresses are ever opened.
   if (f.ticketUrl && /^https?:\/\//i.test(f.ticketUrl.trim())) return { url: f.ticketUrl.trim(), kind: 'seller' };

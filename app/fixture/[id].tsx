@@ -87,7 +87,7 @@ export default function FixtureScreen() {
             accessibilityRole="link"
             accessibilityHint={tickets.kind === 'search' ? 'Searches the web for tickets' : 'Opens the ticket seller'}
             style={[styles.primary, { backgroundColor: t.tint }]}>
-            <Text style={[styles.primaryText, { color: t.onTint }]}>Check tickets</Text>
+            <Text style={[styles.primaryText, { color: t.onTint }]}>Get tickets</Text>
           </Pressable>
         ) : null}
         {tickets?.kind === 'search' ? (
