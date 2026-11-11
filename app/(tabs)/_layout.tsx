@@ -15,7 +15,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Map',
+          title: 'Explore',
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <SymbolView name={{ ios: 'map', android: 'map', web: 'map' }} tintColor={color} size={28} />
@@ -23,11 +23,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="fixtures"
+        name="saved"
         options={{
-          title: 'Fixtures',
+          title: 'Saved',
           tabBarIcon: ({ color }) => (
-            <SymbolView name={{ ios: 'calendar', android: 'event', web: 'event' }} tintColor={color} size={28} />
+            <SymbolView name={{ ios: 'heart', android: 'favorite', web: 'favorite' }} tintColor={color} size={28} />
           ),
         }}
       />

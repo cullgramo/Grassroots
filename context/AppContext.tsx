@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
@@ -13,7 +14,11 @@ interface AppState {
   locationDenied: boolean;
   requestLocation: () => Promise<void>;
   fixtures: Fixture[];
+  savedIds: string[];
+  toggleSaved: (id: string) => void;
 }
+
+const SAVED_KEY = 'grassroots.saved';
 
 const AppContext = createContext<AppState | null>(null);
 
@@ -41,14 +46,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
     requestLocation();
   }, [requestLocation]);
 
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+  useEffect(() => {
+    AsyncStorage.getItem(SAVED_KEY)
+      .then((raw) => raw && setSavedIds(JSON.parse(raw)))
+      .catch(() => {});
+  }, []);
+  const toggleSaved = useCallback((id: string) => {
+    setSavedIds((ids) => {
+      const next = ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
+      AsyncStorage.setItem(SAVED_KEY, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }, []);
+
   const setFilters = useCallback((patch: Partial<Filters>) => setAll((f) => ({ ...f, ...patch })), []);
   const resetFilters = useCallback(() => setAll(DEFAULT_FILTERS), []);
 
   const fixtures = useMemo(() => filterFixtures(allFixtures, filters, location), [filters, location]);
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

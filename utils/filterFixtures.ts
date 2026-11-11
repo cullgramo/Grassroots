@@ -44,3 +44,50 @@ export function activeFilterCount(filters: Filters): number {
     (filters.when !== 'any' ? 1 : 0)
   );
 }
+
+export interface Bounds {
+  north: number;
+  south: number;
+  east: number;
+  west: number;
+}
+
+export function withinBounds(f: Fixture, b: Bounds): boolean {
+  return f.latitude <= b.north && f.latitude >= b.south && f.longitude <= b.east && f.longitude >= b.west;
+}
+
+const DISTANCE_STEPS = [5, 10, 25, 50, 100];
+
+/** Next wider search radius to offer when a distance filter returns nothing; null means "any distance". */
+export function widerDistance(km: number): number | null {
+  return DISTANCE_STEPS.find((d) => d > km) ?? null;
+}
+
+export function toSections(fixtures: Fixture[], now: Date = new Date()) {
+  const [weekendStart, weekendEnd] = weekendRange(now);
+  const today: Fixture[] = [];
+  const weekend: Fixture[] = [];
+  const later: Fixture[] = [];
+  for (const f of fixtures) {
+    const t = new Date(f.startsAt);
+    if (startOfDay(t).getTime() === startOfDay(now).getTime()) today.push(f);
+    else if (t >= weekendStart && t < weekendEnd) weekend.push(f);
+    else later.push(f);
+  }
+  return [
+    { title: 'On today', data: today },
+    { title: 'This weekend', data: weekend },
+    { title: 'Coming up', data: later },
+  ].filter((s) => s.data.length > 0);
+}
+
+export function describeWhere(filters: Filters, hasLocation: boolean): string {
+  if (filters.county) return filters.county;
+  if (filters.distanceKm != null && hasLocation) return `Within ${filters.distanceKm}km of you`;
+  return 'All Ireland';
+}
+
+export function describeWhen(filters: Filters): string {
+  const when = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days' }[filters.when];
+  return `${when} · ${filters.level ?? 'All levels'}`;
+}

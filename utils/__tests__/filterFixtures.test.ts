@@ -64,3 +64,50 @@ describe('date and distance helpers', () => {
     expect(formatDistance(219.6)).toBe('220km');
   });
 });
+
+describe('map helpers', () => {
+  const { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM, WORLD } = require('../cluster');
+  const { withinBounds, widerDistance, toSections, describeWhere } = require('../filterFixtures');
+  const { pinLabel, urgencyLabel, timeLabel } = require('../date');
+
+  it('withinBounds keeps only fixtures inside the box', () => {
+    const leinster = { north: 54, south: 52.5, east: -6, west: -7 };
+    expect(ids(fixtures.filter((f) => withinBounds(f, leinster)))).toEqual(['sat', 'today', 'later']);
+  });
+  it('clusters games zoomed out and separates venues zoomed in', () => {
+    const index = buildClusterIndex(fixtures);
+    const far = getMapItems(index, fixtures, WORLD, 2);
+    expect(far).toHaveLength(1);
+    expect(far[0]).toMatchObject({ type: 'cluster', count: 4 });
+    const near = getMapItems(index, fixtures, WORLD, 12);
+    expect(near.filter((i: { type: string }) => i.type === 'fixture').map((i: { fixture: Fixture }) => i.fixture.id)).toEqual(['cork']);
+    const venue = near.find((i: { type: string }) => i.type === 'cluster');
+    expect(venue.fixtureIds.sort()).toEqual(['later', 'sat', 'today']);
+    expect(venue.expansionZoom).toBeGreaterThan(MAX_SPLIT_ZOOM);
+  });
+  it('offers the next wider radius', () => {
+    expect(widerDistance(10)).toBe(25);
+    expect(widerDistance(100)).toBeNull();
+  });
+  it('groups fixtures into today, weekend and later', () => {
+    expect(toSections(fixtures, now).map((s: { title: string; data: Fixture[] }) => [s.title, ids(s.data)])).toEqual([
+      ['On today', ['today']],
+      ['This weekend', ['sat']],
+      ['Coming up', ['cork', 'later']],
+    ]);
+  });
+  it('labels pins, urgency and filters', () => {
+    expect(timeLabel(iso(10, 9))).toBe('09:00');
+    expect(pinLabel(iso(10, 19), now)).toBe('Today 19:00');
+    expect(pinLabel(iso(13), now)).toBe('Sat 15:00');
+    expect(pinLabel(iso(25), now)).toBe('25 Jun');
+    expect(urgencyLabel(iso(10, 9), now)).toBe('Started');
+    expect(urgencyLabel(new Date(2026, 5, 10, 12, 40).toISOString(), now)).toBe('In 40 min');
+    expect(urgencyLabel(iso(10, 15), now)).toBe('In 3h');
+    expect(urgencyLabel(iso(10, 23), now)).toBe('Today');
+    expect(urgencyLabel(iso(11), now)).toBe('Tomorrow');
+    expect(urgencyLabel(iso(13), now)).toBeNull();
+    expect(describeWhere({ ...DEFAULT_FILTERS, distanceKm: 25 }, true)).toBe('Within 25km of you');
+    expect(describeWhere({ ...DEFAULT_FILTERS, distanceKm: 25 }, false)).toBe('All Ireland');
+  });
+});

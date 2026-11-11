@@ -4,6 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Chip } from '@/components/Chip';
+import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { COUNTIES } from '@/data/counties';
@@ -36,18 +37,16 @@ export default function FiltersScreen() {
   return (
     <View style={[styles.screen, { backgroundColor: t.background }]}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Section title="When">
-          {WHEN.map((w) => (
-            <Chip key={w.value} label={w.label} selected={filters.when === w.value} onPress={() => setFilters({ when: w.value })} />
-          ))}
-        </Section>
-
-        <Section title="Level">
-          <Chip label="All levels" selected={!filters.level} onPress={() => setFilters({ level: null })} />
-          {LEVELS.map((l) => (
-            <Chip key={l} label={l} selected={filters.level === l} onPress={() => setFilters({ level: l })} />
-          ))}
-        </Section>
+        <View style={styles.map}>
+          <FixtureMap
+            fixtures={fixtures}
+            selectedId={null}
+            userLocation={location}
+            radiusKm={filters.distanceKm}
+            fitRadius
+            interactive={false}
+          />
+        </View>
 
         <Section title="Distance from you">
           {location ? (
@@ -65,6 +64,21 @@ export default function FiltersScreen() {
               <Chip label="Use my location" onPress={requestLocation} />
             </View>
           )}
+        </Section>
+
+        <Section title="When">
+          {WHEN.map((w) => (
+            <Chip key={w.value} label={w.label} selected={filters.when === w.value} onPress={() => setFilters({ when: w.value })} />
+          ))}
+        </Section>
+
+        <Text style={[styles.more, { color: t.muted }]}>MORE FILTERS</Text>
+
+        <Section title="Level">
+          <Chip label="All levels" selected={!filters.level} onPress={() => setFilters({ level: null })} />
+          {LEVELS.map((l) => (
+            <Chip key={l} label={l} selected={filters.level === l} onPress={() => setFilters({ level: l })} />
+          ))}
         </Section>
 
         <Section title="County">
@@ -92,6 +106,8 @@ export default function FiltersScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1 },
   content: { padding: 16, paddingBottom: 32 },
+  map: { height: 200, borderRadius: 18, overflow: 'hidden', marginBottom: 20 },
+  more: { fontSize: 12, fontWeight: '800', letterSpacing: 0.8, marginBottom: 14 },
   section: { marginBottom: 24 },
   sectionTitle: { fontSize: 17, fontWeight: '800', marginBottom: 10 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },

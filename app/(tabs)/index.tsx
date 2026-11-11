@@ -1,47 +1,61 @@
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
-import { useCallback, useRef, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { useCallback, useMemo, useState } from 'react';
+import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { EmptyState } from '@/components/EmptyState';
 import { FixtureCard } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
+import { SearchPill } from '@/components/SearchPill';
+import { Sheet, type Snap } from '@/components/Sheet';
 import { SportChips } from '@/components/SportChips';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
-import type { Fixture } from '@/types/fixture';
+import { toSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
 
-const GAP = 12;
-const SIDE = 16;
+const PEEK = 76;
 
-export default function MapScreen() {
+const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', params: { id } });
+
+export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
-  const { fixtures, location, requestLocation, resetFilters } = useApp();
-  const [pickedId, setSelectedId] = useState<string | null>(null);
-  const selectedId = fixtures.some((f) => f.id === pickedId) ? pickedId : (fixtures[0]?.id ?? null);
+  const { fixtures, filters, location, requestLocation } = useApp();
+  const [height, setHeight] = useState(0);
+  const [topBar, setTopBar] = useState(140);
+  const [snap, setSnap] = useState<Snap>('peek');
+  const [pickedId, setPickedId] = useState<string | null>(null);
+  const [bounds, setBounds] = useState<Bounds | null>(null);
+  const [venueIds, setVenueIds] = useState<string[] | null>(null);
   const [recenterKey, setRecenterKey] = useState(0);
-  const list = useRef<FlatList<Fixture>>(null);
-  const ignoreScrollUntil = useRef(0);
-  const cardWidth = Math.min(width - SIDE * 2 - 24, 420);
+  const [fitKey, setFitKey] = useState(0);
 
-  const selectFromMap = useCallback(
-    (id: string) => {
-      const index = fixtures.findIndex((f) => f.id === id);
-      if (index < 0) return;
-      // The scroll below passes over other cards; do not let them steal the selection.
-      ignoreScrollUntil.current = Date.now() + 700;
-      setSelectedId(id);
-      list.current?.scrollToOffset({ offset: index * (cardWidth + GAP), animated: true });
-    },
-    [fixtures, cardWidth]
-  );
+  const selected = fixtures.find((f) => f.id === pickedId) ?? null;
 
-  const onViewable = useCallback(({ viewableItems }: { viewableItems: { item: Fixture }[] }) => {
-    if (Date.now() < ignoreScrollUntil.current) return;
-    const first = viewableItems[0]?.item;
-    if (first) setSelectedId(first.id);
+  const visible = useMemo(() => {
+    if (venueIds) return fixtures.filter((f) => venueIds.includes(f.id));
+    return bounds ? fixtures.filter((f) => withinBounds(f, bounds)) : fixtures;
+  }, [fixtures, bounds, venueIds]);
+  const sections = useMemo(() => toSections(visible), [visible]);
+
+  const onBoundsChange = useCallback((b: Bounds) => {
+    setBounds(b);
+    setVenueIds(null);
+  }, []);
+  const onSelect = useCallback((id: string | null) => {
+    setPickedId(id);
+    setVenueIds(null);
+    setSnap('peek');
+  }, []);
+  const onVenuePress = useCallback((ids: string[]) => {
+    setPickedId(null);
+    setVenueIds(ids);
+    setSnap('half');
+  }, []);
+  const showAll = useCallback(() => {
+    setSnap('peek');
+    setFitKey((k) => k + 1);
   }, []);
 
   const locate = async () => {
@@ -49,27 +63,40 @@ export default function MapScreen() {
     setRecenterKey((k) => k + 1);
   };
 
+  const count = visible.length;
+  const title = venueIds
+    ? `${count} games at ${visible[0]?.venue ?? 'this venue'}`
+    : count === 0
+      ? 'No games in this area'
+      : `${count} ${count === 1 ? 'game' : 'games'} in this area`;
+  const floating = snap === 'peek' && (selected || count === 0);
+
   return (
-    <View style={styles.screen}>
+    <View style={styles.screen} onLayout={(e) => setHeight(e.nativeEvent.layout.height)}>
       <FixtureMap
         fixtures={fixtures}
-        selectedId={selectedId}
-        onSelect={selectFromMap}
+        selectedId={selected?.id ?? null}
+        onSelect={onSelect}
+        onVenuePress={onVenuePress}
+        onBoundsChange={onBoundsChange}
         userLocation={location}
+        radiusKm={filters.distanceKm}
+        fitRadius
+        startOnUser
         recenterKey={recenterKey}
+        fitKey={fitKey}
       />
 
-      <View style={[styles.top, { paddingTop: insets.top + 4 }]} pointerEvents="box-none">
+      <View
+        style={[styles.top, { paddingTop: insets.top + 8 }]}
+        pointerEvents="box-none"
+        onLayout={(e) => setTopBar(e.nativeEvent.layout.height)}>
+        <SearchPill />
         <SportChips elevated />
       </View>
 
-      <View style={styles.bottom} pointerEvents="box-none">
-        <View style={styles.bottomBar} pointerEvents="box-none">
-          <View style={[styles.count, { backgroundColor: t.card }]}>
-            <Text style={[styles.countText, { color: t.text }]}>
-              {fixtures.length} {fixtures.length === 1 ? 'game' : 'games'}
-            </Text>
-          </View>
+      {snap === 'peek' ? (
+        <View style={[styles.floating, { bottom: PEEK + 12 }]} pointerEvents="box-none">
           <Pressable
             onPress={locate}
             accessibilityRole="button"
@@ -81,69 +108,80 @@ export default function MapScreen() {
               size={22}
             />
           </Pressable>
+          {floating ? (
+            selected ? (
+              <FixtureCard fixture={selected} elevated onPress={() => openFixture(selected.id)} />
+            ) : (
+              <View style={[styles.emptyCard, { backgroundColor: t.card }]}>
+                <EmptyState onShowAll={showAll} />
+              </View>
+            )
+          ) : null}
         </View>
+      ) : null}
 
-        {fixtures.length === 0 ? (
-          <View style={[styles.empty, { backgroundColor: t.card, borderColor: t.border }]}>
-            <Text style={[styles.emptyTitle, { color: t.text }]}>No games match these filters</Text>
-            <Pressable onPress={resetFilters} accessibilityRole="button" style={styles.emptyButton}>
-              <Text style={[styles.emptyAction, { color: t.tint }]}>Clear filters</Text>
-            </Pressable>
+      <Sheet
+        height={height}
+        topOffset={topBar + 4}
+        peekHeight={PEEK}
+        snap={snap}
+        onSnap={setSnap}
+        header={
+          <View style={styles.sheetHeader}>
+            <Text style={[styles.sheetTitle, { color: t.text }]}>{title}</Text>
+            <Text style={[styles.sheetHint, { color: t.muted }]}>
+              {snap === 'full' ? 'Tap to show the map' : snap === 'half' ? 'Pull up for more' : 'Pull up for the list'}
+            </Text>
           </View>
-        ) : (
-          <FlatList
-            ref={list}
-            data={fixtures}
+        }>
+        {(hidden) => (
+          <SectionList
+            sections={sections}
             keyExtractor={(f) => f.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            snapToInterval={cardWidth + GAP}
-            decelerationRate="fast"
-            contentContainerStyle={styles.cards}
-            getItemLayout={(_, index) => ({ length: cardWidth + GAP, offset: (cardWidth + GAP) * index, index })}
-            onViewableItemsChanged={onViewable}
-            viewabilityConfig={{ itemVisiblePercentThreshold: 70 }}
+            stickySectionHeadersEnabled={false}
+            contentContainerStyle={[styles.list, { paddingBottom: hidden + 24 }]}
+            renderSectionHeader={({ section }) => (
+              <Text style={[styles.section, { color: t.text }]}>{section.title}</Text>
+            )}
             renderItem={({ item }) => (
-              <View style={{ width: cardWidth }}>
-                <FixtureCard
-                  fixture={item}
-                  elevated
-                  selected={item.id === selectedId}
-                  onPress={() => router.push({ pathname: '/fixture/[id]', params: { id: item.id } })}
-                />
+              <View style={styles.item}>
+                <FixtureCard fixture={item} onPress={() => openFixture(item.id)} />
               </View>
             )}
+            ListEmptyComponent={<EmptyState onShowAll={showAll} />}
           />
         )}
-      </View>
+      </Sheet>
     </View>
   );
 }
 
 const shadow = {
   shadowColor: '#000',
-  shadowOpacity: 0.18,
-  shadowRadius: 8,
+  shadowOpacity: 0.2,
+  shadowRadius: 10,
   shadowOffset: { width: 0, height: 3 },
-  elevation: 4,
+  elevation: 5,
 };
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
+  screen: { flex: 1, overflow: 'hidden' },
   top: { position: 'absolute', top: 0, left: 0, right: 0 },
-  bottom: { position: 'absolute', bottom: 0, left: 0, right: 0 },
-  bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    paddingHorizontal: SIDE,
+  floating: { position: 'absolute', left: 16, right: 16, gap: 12 },
+  locate: {
+    alignSelf: 'flex-end',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...shadow,
   },
-  count: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 14, ...shadow },
-  countText: { fontSize: 13, fontWeight: '700' },
-  locate: { width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center', ...shadow },
-  cards: { paddingHorizontal: SIDE, paddingTop: 10, paddingBottom: 16, gap: GAP },
-  empty: { margin: SIDE, padding: 18, borderRadius: 16, borderWidth: 1, alignItems: 'center', ...shadow },
-  emptyTitle: { fontSize: 16, fontWeight: '700' },
-  emptyButton: { minHeight: 44, justifyContent: 'center', paddingHorizontal: 12 },
-  emptyAction: { fontSize: 15, fontWeight: '700' },
+  emptyCard: { borderRadius: 18, ...shadow },
+  sheetHeader: { alignItems: 'center', paddingTop: 10, paddingBottom: 14 },
+  sheetTitle: { fontSize: 16, fontWeight: '800' },
+  sheetHint: { fontSize: 12, marginTop: 2 },
+  list: { paddingHorizontal: 16 },
+  section: { fontSize: 20, fontWeight: '800', marginTop: 8, marginBottom: 10 },
+  item: { marginBottom: 12 },
 });

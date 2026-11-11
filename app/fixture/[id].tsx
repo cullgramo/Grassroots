@@ -1,6 +1,7 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { SaveButton } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
 import { SPORT_COLORS } from '@/constants/sports';
@@ -46,7 +47,7 @@ export default function FixtureScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: t.background }} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: fixture.sport }} />
+      <Stack.Screen options={{ title: fixture.sport, headerRight: () => <SaveButton fixture={fixture} size={26} /> }} />
 
       <View style={styles.map}>
         <FixtureMap fixtures={[fixture]} selectedId={fixture.id} userLocation={location} interactive={false} />
