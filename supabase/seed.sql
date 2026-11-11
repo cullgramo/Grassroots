@@ -9,12 +9,13 @@ insert into public.sports (id, name, sport_group, shape, color, start_word, sort
   ('soccer', 'Soccer', 'soccer', 'match', '#2563eb', 'Kick-off', 4),
   ('rugby', 'Rugby', 'rugby', 'match', '#1e3a8a', 'Kick-off', 5),
   ('hockey', 'Hockey', 'hockey', 'match', '#0891b2', 'Push-back', 6),
-  ('basketball', 'Basketball', 'basketball', 'match', '#d97706', 'Tip-off', 7),
-  ('cricket', 'Cricket', 'cricket', 'match', '#4d7c0f', 'First ball', 8),
-  ('athletics', 'Athletics', 'athletics', 'event', '#dc2626', 'Start', 9),
-  ('golf', 'Golf', 'golf', 'event', '#0f766e', 'First tee', 10),
-  ('horse-racing', 'Horse Racing', 'racing', 'event', '#7c2d12', 'First race', 11),
-  ('boxing', 'Boxing', 'boxing', 'event', '#475569', 'First bell', 12)
+  ('ice-hockey', 'Ice Hockey', 'ice-hockey', 'match', '#6366f1', 'Face-off', 7),
+  ('basketball', 'Basketball', 'basketball', 'match', '#d97706', 'Tip-off', 8),
+  ('cricket', 'Cricket', 'cricket', 'match', '#4d7c0f', 'First ball', 9),
+  ('athletics', 'Athletics', 'athletics', 'event', '#dc2626', 'Start', 10),
+  ('golf', 'Golf', 'golf', 'event', '#0f766e', 'First tee', 11),
+  ('horse-racing', 'Horse Racing', 'racing', 'event', '#7c2d12', 'First race', 12),
+  ('boxing', 'Boxing', 'boxing', 'event', '#475569', 'First bell', 13)
 on conflict (id) do update set name = excluded.name, sport_group = excluded.sport_group, shape = excluded.shape,
   color = excluded.color, start_word = excluded.start_word, sort_order = excluded.sort_order;
 

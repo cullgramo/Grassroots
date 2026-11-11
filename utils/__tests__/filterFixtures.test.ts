@@ -54,7 +54,8 @@ describe('filterFixtures', () => {
     expect(getSport('basketball').startWord).toBe('Tip-off');
     expect(getSport('horse-racing').shape).toBe('event');
     expect(getSport('made-up').name).toBe('Sport');
-    expect(SPORTS).toHaveLength(13);
+    expect(SPORTS).toHaveLength(14);
+    expect(getSport('ice-hockey')).toMatchObject({ name: 'Ice Hockey', startWord: 'Face-off' });
     for (const s of SPORTS) expect(GROUPS.some((g: { id: string }) => g.id === s.group)).toBe(true);
   });
   it('counts active filters, excluding sport', () => {

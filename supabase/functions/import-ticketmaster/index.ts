@@ -1,5 +1,5 @@
-// Imports ticketed sports fixtures on the island of Ireland from Ticketmaster into the fixtures table.
-// Runs inside Supabase. Needs two secrets: TICKETMASTER_KEY and IMPORT_SECRET.
+// Imports ticketed sports fixtures on the island of Ireland from Ticketmaster (including Universe listings)
+// into the fixtures table. Runs inside Supabase. Needs two secrets: TICKETMASTER_KEY and IMPORT_SECRET.
 // Call with the body {"secret": "<IMPORT_SECRET>"}. Add "dry": true to see what would be imported without saving.
 
 // deno-lint-ignore no-explicit-any
@@ -9,7 +9,7 @@ type Json = Record<string, any>;
 
 export interface ImportedFixture {
   sport_id: string;
-  level: 'top';
+  level: 'top' | 'local';
   competition: string;
   home_team: string | null;
   away_team: string | null;
@@ -33,12 +33,15 @@ const GENRES: Record<string, string> = {
   camogie: 'camogie',
   'gaelic football': 'gaelic-football',
   'gaelic games': 'gaelic-football',
+  'international rules': 'gaelic-football',
   gaa: 'gaelic-football',
   soccer: 'soccer',
   rugby: 'rugby',
   'rugby union': 'rugby',
   'rugby league': 'rugby',
-  hockey: 'hockey',
+  // Ticketmaster's "Hockey" is ice hockey; field hockey is named as such.
+  hockey: 'ice-hockey',
+  'ice hockey': 'ice-hockey',
   'field hockey': 'hockey',
   basketball: 'basketball',
   cricket: 'cricket',
@@ -56,13 +59,26 @@ const STRONG_HINTS: [RegExp, string][] = [
   [/\bcamogie\b/i, 'camogie'],
   [/\b(ladies football|lgfa)\b/i, 'ladies-football'],
   [/\bhurling\b/i, 'hurling'],
+  [/\bfield hockey\b/i, 'hockey'],
 ];
-/** Used only when the genre is one we do not recognise. */
-const WEAK_HINTS: [RegExp, string][] = [[/\b(gaelic football|gaa)\b/i, 'gaelic-football']];
+/** Used only when the genre is one we do not recognise, as with listings created by clubs. */
+const WEAK_HINTS: [RegExp, string][] = [
+  [/\b[sijm]hc\b/i, 'hurling'],
+  [/\b[sijm]fc\b/i, 'gaelic-football'],
+  [/\b(gaelic football|gaa|football championship|football final)\b/i, 'gaelic-football'],
+  [/\bsoccer\b/i, 'soccer'],
+  [/\brugby\b/i, 'rugby'],
+  [/\bbasketball\b/i, 'basketball'],
+  [/\bcricket\b/i, 'cricket'],
+  [/\bboxing\b/i, 'boxing'],
+  [/\b(5k|10k|half marathon|marathon|road race|fun run)\b/i, 'athletics'],
+  [/\b(racecourse|raceday|race day)\b/i, 'horse-racing'],
+];
+const NOT_SPORT_SEGMENTS = new Set(['Music', 'Arts & Theatre', 'Film']);
 
 export function sportFor(event: Json): string | null {
   const c = (event.classifications ?? [])[0] ?? {};
-  if (c.segment?.name && c.segment.name !== 'Sports') return null;
+  if (NOT_SPORT_SEGMENTS.has(c.segment?.name)) return null;
   const name = event.name ?? '';
   for (const [pattern, sport] of STRONG_HINTS) if (pattern.test(name)) return sport;
   for (const genre of [c.subGenre?.name, c.genre?.name]) {
@@ -71,6 +87,18 @@ export function sportFor(event: Json): string | null {
   }
   for (const [pattern, sport] of WEAK_HINTS) if (pattern.test(name)) return sport;
   return null;
+}
+
+// Clubs also sell dinner dances, draws and camps through the same ticketing. Those are not fixtures.
+const NOT_A_FIXTURE =
+  /\b(dinner|dance|lotto|draw|raffle|membership|quiz|golf classic|camp|gala|awards?|social|concert|fundraiser|fundraising|training|registration|bingo|ball|night out|tour|coaching|course|workshop)\b/i;
+const FIXTURE_WORDS = /\b(final|semi|quarter|championship|league|round|cup|shield|fixture|match|game|derby|meeting|races)\b/i;
+
+const TEAM_SPLIT = /\s+(?:v|vs|vs\.|v\.)\s+/i;
+
+/** True when a club-created listing reads like a sporting fixture rather than a social event. */
+export function looksLikeFixture(name: string): boolean {
+  return !NOT_A_FIXTURE.test(name) && (TEAM_SPLIT.test(name) || FIXTURE_WORDS.test(name));
 }
 
 // Approximate centre of each county: a last resort when Ticketmaster does not name the county.
@@ -103,16 +131,25 @@ export function countyFor(venue: Json, latitude: number, longitude: number): str
   return best[0];
 }
 
-/** Splits "Leinster v Munster" into two teams; anything else stays a single title. */
-export function splitTeams(name: string): [string, string] | null {
-  const parts = name.split(/\s+(?:v|vs|vs\.|v\.)\s+/i);
-  if (parts.length !== 2) return null;
-  const [home, away] = parts.map((p) => p.trim());
-  return home && away ? [home, away] : null;
+/**
+ * Splits "Nations Championship 2026 - Ireland v Fiji" into a competition and two teams.
+ * Returns null for anything that is not exactly one fixture, such as "A v B & C v D".
+ */
+export function splitTeams(name: string): { competition: string; home: string; away: string } | null {
+  const segments = name.split(/\s+[-–—]\s+|:\s+/).map((s) => s.trim()).filter(Boolean);
+  const pairs = segments.map((s) => s.split(TEAM_SPLIT).map((p) => p.trim()));
+  const matches = pairs.map((p, i) => (p.length === 2 && p[0] && p[1] ? i : -1)).filter((i) => i >= 0);
+  if (matches.length !== 1 || pairs.some((p) => p.length > 2)) return null;
+  const at = matches[0];
+  return {
+    competition: segments.filter((_, i) => i !== at).join(' - '),
+    home: pairs[at][0],
+    away: pairs[at][1],
+  };
 }
 
 /** Converts one Ticketmaster event, or says why it was skipped. */
-export function mapEvent(event: Json): { fixture: ImportedFixture } | { skipped: string } {
+export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture: ImportedFixture } | { skipped: string } {
   const sport = sportFor(event);
   if (!sport) {
     const c = (event.classifications ?? [])[0] ?? {};
@@ -132,10 +169,10 @@ export function mapEvent(event: Json): { fixture: ImportedFixture } | { skipped:
   return {
     fixture: {
       sport_id: sport,
-      level: 'top',
-      competition: '',
-      home_team: teams ? teams[0] : null,
-      away_team: teams ? teams[1] : null,
+      level,
+      competition: teams?.competition ?? '',
+      home_team: teams ? teams.home : null,
+      away_team: teams ? teams.away : null,
       title: teams ? null : event.name,
       starts_at: new Date(start.dateTime).toISOString(),
       ticketed: true,
@@ -151,21 +188,27 @@ export function mapEvent(event: Json): { fixture: ImportedFixture } | { skipped:
 }
 
 // The Republic by country code, and Northern Ireland by distance from mid-Ulster (it is listed under GB).
-const SEARCHES = ['countryCode=IE', 'latlong=54.62,-6.7&radius=85&unit=km'];
+const AREAS = ['countryCode=IE', 'latlong=54.62,-6.7&radius=85&unit=km'];
 
-async function fetchEvents(key: string): Promise<Json[]> {
+async function fetchEvents(key: string, filter: string, errors: string[]): Promise<Json[]> {
   const events = new Map<string, Json>();
   const from = new Date().toISOString().slice(0, 19) + 'Z';
-  for (const where of SEARCHES) {
+  for (const area of AREAS) {
     for (let page = 0; page < 5; page++) {
       const url =
         `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${encodeURIComponent(key)}` +
-        `&classificationName=sports&${where}&startDateTime=${from}&sort=date,asc&size=200&page=${page}`;
+        `&${filter}&${area}&startDateTime=${from}&sort=date,asc&size=200&page=${page}`;
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`Ticketmaster answered ${res.status}: ${(await res.text()).slice(0, 200)}`);
+      if (!res.ok) {
+        // One failed search should not lose the others.
+        errors.push(`${filter} ${area} page ${page}: Ticketmaster answered ${res.status}: ${(await res.text()).slice(0, 160)}`);
+        break;
+      }
       const body = await res.json();
       for (const e of body._embedded?.events ?? []) events.set(e.id, e);
-      if (page + 1 >= (body.page?.totalPages ?? 1)) break;
+      const pages = body.page?.totalPages ?? 1;
+      if (page === 4 && pages > 5) errors.push(`${filter} ${area}: more than 1,000 listings, only the soonest 1,000 were read`);
+      if (page + 1 >= pages) break;
       await new Promise((r) => setTimeout(r, 250));
     }
   }
@@ -195,6 +238,73 @@ async function save(fixtures: ImportedFixture[]): Promise<number> {
   return written.length;
 }
 
+const describe = (f: ImportedFixture) => ({
+  what: f.title ?? `${f.home_team} v ${f.away_team}`,
+  competition: f.competition || undefined,
+  sport: f.sport_id,
+  when: f.starts_at,
+  where: `${f.venue.name}, ${f.venue.county}`,
+});
+
+/** Runs the whole import and returns the report. */
+export async function runImport(key: string, dry: boolean): Promise<Json> {
+  const errors: string[] = [];
+  const fixtures = new Map<string, ImportedFixture>();
+  const skipped: Record<string, { count: number; examples: string[] }> = {};
+  const skip = (reason: string, name: string) => {
+    const entry = (skipped[reason] ??= { count: 0, examples: [] });
+    entry.count++;
+    if (entry.examples.length < 5) entry.examples.push(name);
+  };
+
+  // Pass 1: everything Ticketmaster tags as sport, from its own listings and Universe's.
+  const tagged = await fetchEvents(key, 'classificationName=sports&source=ticketmaster,universe', errors);
+  for (const event of tagged) {
+    const result = mapEvent(event);
+    if ('fixture' in result) fixtures.set(event.id, result.fixture);
+    else skip(result.skipped, event.name);
+  }
+
+  // Pass 2: Universe listings with no sport tag, which is how clubs and county boards tend to list.
+  const universe = await fetchEvents(key, 'source=universe', errors);
+  const universeFixtures: ImportedFixture[] = [];
+  const unplaced: string[] = [];
+  let unplacedCount = 0;
+  for (const event of universe) {
+    if (fixtures.has(event.id) || tagged.some((t) => t.id === event.id)) continue;
+    const segment = (event.classifications ?? [])[0]?.segment?.name;
+    const result = looksLikeFixture(event.name ?? '') ? mapEvent(event, 'local') : { skipped: 'not a fixture' };
+    if ('fixture' in result) {
+      fixtures.set(event.id, result.fixture);
+      universeFixtures.push(result.fixture);
+    } else if (!NOT_SPORT_SEGMENTS.has(segment)) {
+      unplacedCount++;
+      if (unplaced.length < 30) unplaced.push(`${event.name} [${result.skipped}]`);
+    }
+  }
+
+  const all = [...fixtures.values()];
+  const bySport: Record<string, number> = {};
+  for (const f of all) bySport[f.sport_id] = (bySport[f.sport_id] ?? 0) + 1;
+  return {
+    dryRun: dry,
+    found: tagged.length,
+    importable: all.length,
+    saved: dry ? 0 : await save(all),
+    bySport,
+    skipped,
+    universe: {
+      found: universe.length,
+      importable: universeFixtures.length,
+      examples: universeFixtures.slice(0, 10).map(describe),
+      unplaced: unplacedCount,
+      unplacedExamples: unplaced,
+    },
+    errors,
+    examples: all.slice(0, 8).map(describe),
+  };
+}
+
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body, null, 2), { status, headers: { 'Content-Type': 'application/json' } });
 
@@ -213,30 +323,7 @@ if (typeof Deno !== 'undefined') {
     if (!key) return json({ error: 'TICKETMASTER_KEY secret is not set' }, 500);
     const dry = new URL(req.url).searchParams.has('dry') || body?.dry === true || body?.dry === 1;
     try {
-      const events = await fetchEvents(key);
-      const fixtures: ImportedFixture[] = [];
-      const skipped: Record<string, number> = {};
-      for (const event of events) {
-        const result = mapEvent(event);
-        if ('fixture' in result) fixtures.push(result.fixture);
-        else skipped[result.skipped] = (skipped[result.skipped] ?? 0) + 1;
-      }
-      const bySport: Record<string, number> = {};
-      for (const f of fixtures) bySport[f.sport_id] = (bySport[f.sport_id] ?? 0) + 1;
-      return json({
-        dryRun: dry,
-        found: events.length,
-        importable: fixtures.length,
-        saved: dry ? 0 : await save(fixtures),
-        bySport,
-        skipped,
-        examples: fixtures.slice(0, 8).map((f) => ({
-          what: f.title ?? `${f.home_team} v ${f.away_team}`,
-          sport: f.sport_id,
-          when: f.starts_at,
-          where: `${f.venue.name}, ${f.venue.county}`,
-        })),
-      });
+      return json(await runImport(key, dry));
     } catch (e) {
       return json({ error: String((e as Error).message ?? e) }, 502);
     }
