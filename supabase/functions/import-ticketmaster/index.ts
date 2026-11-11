@@ -160,11 +160,16 @@ export function splitTeams(name: string): { competition: string; home: string; a
   };
 }
 
+// Sellers also list passes, multi-game packs, gift cards and hospitality add-ons. Those are not fixtures.
+const NOT_ONE_FIXTURE =
+  /\b(gift card|voucher|game pass|\d+ day pass|season tickets?|game pack|pack|package|bundle|membership|hospitality|share a suite|parking)\b/i;
+
 const tidy = (text: unknown) => String(text ?? '').replace(/\s+/g, ' ').trim();
 
 /** Converts one Ticketmaster event, or says why it was skipped. */
 export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture: ImportedFixture } | { skipped: string } {
   const name = tidy(event.name);
+  if (NOT_ONE_FIXTURE.test(name)) return { skipped: 'a pass, pack or gift card, not a fixture' };
   const sport = sportFor(event, level === 'local');
   if (!sport) {
     const c = (event.classifications ?? [])[0] ?? {};
@@ -250,6 +255,24 @@ async function db(path: string, body: unknown, prefer: string): Promise<Json[]> 
   return res.json();
 }
 
+/**
+ * Removes upcoming imported fixtures that this run did not see again, so listings withdrawn by the
+ * seller disappear. Every fixture just saved has a fresh updated_at, so anything older is stale.
+ */
+async function removeStale(runStarted: string): Promise<number> {
+  const base = Deno.env.get('SUPABASE_URL');
+  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  // Two minutes of slack, in case this function's clock and the database's differ slightly.
+  const cutoff = new Date(new Date(runStarted).getTime() - 120_000).toISOString();
+  const filter = `source=eq.ticketmaster&updated_at=lt.${encodeURIComponent(cutoff)}&starts_at=gt.${encodeURIComponent(runStarted)}`;
+  const res = await fetch(`${base}/rest/v1/fixtures?${filter}`, {
+    method: 'DELETE',
+    headers: { apikey: key, Authorization: `Bearer ${key}`, Prefer: 'return=representation' },
+  });
+  if (!res.ok) throw new Error(`Database answered ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  return (await res.json()).length;
+}
+
 async function save(fixtures: ImportedFixture[]): Promise<number> {
   if (fixtures.length === 0) return 0;
   const venues = new Map<string, ImportedFixture['venue']>();
@@ -271,6 +294,7 @@ const describe = (f: ImportedFixture) => ({
 
 /** Runs the whole import and returns the report. */
 export async function runImport(key: string, dry: boolean): Promise<Json> {
+  const runStarted = new Date().toISOString();
   const errors: string[] = [];
   const fixtures = new Map<string, ImportedFixture>();
   const skipped: Record<string, { count: number; examples: string[] }> = {};
@@ -322,11 +346,15 @@ export async function runImport(key: string, dry: boolean): Promise<Json> {
   const all = [...fixtures.values()];
   const bySport: Record<string, number> = {};
   for (const f of all) bySport[f.sport_id] = (bySport[f.sport_id] ?? 0) + 1;
+  const saved = dry ? 0 : await save(all);
+  // Only tidy up after a clean, non-empty run: a failed search must not wipe good fixtures.
+  const removed = !dry && errors.length === 0 && saved > 0 ? await removeStale(runStarted) : 0;
   return {
     dryRun: dry,
     found: tagged.length,
     importable: all.length,
-    saved: dry ? 0 : await save(all),
+    saved,
+    removedAsNoLongerListed: removed,
     bySport,
     skipped,
     universe: {

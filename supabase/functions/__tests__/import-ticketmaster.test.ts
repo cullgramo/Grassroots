@@ -79,6 +79,13 @@ describe('Ticketmaster import', () => {
     const messy = [{ name: "St Trea's GAA, Ballymaguigan - Ballymaguigan GAA Grounds        ", city: { name: 'Magherafelt' }, location: { latitude: '54.72', longitude: '-6.55' } }];
     expect(club('Ulster Ladies Minor Club Championship: A v B', messy).venue.name).toBe("St Trea's GAA, Ballymaguigan - Ballymaguigan GAA Grounds");
   });
+  it('leaves out passes, packs and gift cards, using names from the saved data', () => {
+    for (const n of ['Ulster Rugby TM Gift Card', 'Munster Rugby URC Three Game Pack', '2026/27 Ulster Rugby Game Pass', 'Friendship Four - 2 Day Pass', 'Share a Suite - Belfast Giants vs Cardiff Devils', '2027 GAA Season Tickets']) {
+      expect(skipped({ name: n })).toBe('a pass, pack or gift card, not a fixture');
+    }
+    expect(fixture({ name: 'Warrington Wolves v Wigan Warriors' })).toMatchObject({ home_team: 'Warrington Wolves', away_team: 'Wigan Warriors' });
+    expect(fixture({ name: 'Munster v Leinster' }).home_team).toBe('Munster');
+  });
   it('splits team names', () => {
     expect(splitTeams('Ireland vs Scotland')).toEqual({ competition: '', home: 'Ireland', away: 'Scotland' });
     expect(splitTeams('Shamrock Rovers v. Bohemians')).toEqual({ competition: '', home: 'Shamrock Rovers', away: 'Bohemians' });
@@ -153,6 +160,7 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
         return new Response(JSON.stringify({ _embedded: { events }, page: { totalPages: 1 } }));
       }
       if (url.includes('/venues')) return new Response(JSON.stringify(init.body ? JSON.parse(init.body).map((v: any) => ({ ...v, id: 'venue-1' })) : []));
+      if (init.method === 'DELETE') return new Response(JSON.stringify([{ id: 'old-1' }]));
       return new Response(init.body);
     };
     jest.isolateModules(() => require('../import-ticketmaster/index'));
@@ -210,5 +218,22 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
     expect(writes[1].body[0]).toMatchObject({ venue_id: 'venue-1', source: 'ticketmaster', source_ref: 'Z698xZb_Z17a1', approval: 'approved' });
     expect(writes[1].body[0].venue).toBeUndefined();
     expect(writes[1].headers.Authorization).toBe('Bearer service');
+    expect(body.removedAsNoLongerListed).toBe(1);
+    const del = calls.filter((c) => c.method === 'DELETE');
+    expect(del).toHaveLength(1);
+    expect(del[0].url).toMatch(/^https:\/\/db\.test\/rest\/v1\/fixtures\?source=eq\.ticketmaster&updated_at=lt\.2\d{3}-.*&starts_at=gt\.2\d{3}-/);
+  });
+  it('does not remove anything on a dry run or when a search failed', async () => {
+    await run('?dry=1', 's3cret');
+    expect(calls.some((c) => c.method === 'DELETE')).toBe(false);
+    const realFetch = (globalThis as any).fetch;
+    (globalThis as any).fetch = async (url: string, init: any = {}) =>
+      url.includes('keyword=boxing') ? new Response('rate limited', { status: 429 }) : realFetch(url, init);
+    calls.length = 0;
+    const body = await (await run('', 's3cret')).json();
+    (globalThis as any).fetch = realFetch;
+    expect(body.errors.length).toBeGreaterThan(0);
+    expect(body).toMatchObject({ saved: 2, removedAsNoLongerListed: 0 });
+    expect(calls.some((c) => c.method === 'DELETE')).toBe(false);
   });
 });
