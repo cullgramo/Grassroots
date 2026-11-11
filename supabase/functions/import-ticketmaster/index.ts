@@ -74,9 +74,17 @@ const WEAK_HINTS: [RegExp, string][] = [
   [/\b(5k|10k|half marathon|marathon|road race|fun run)\b/i, 'athletics'],
   [/\b(racecourse|raceday|race day)\b/i, 'horse-racing'],
 ];
+/**
+ * Extra hints for listings created by clubs and county boards, tried last. There, a fixture called
+ * "football" is Gaelic football unless it names itself as soccer.
+ */
+const CLUB_HINTS: [RegExp, string][] = [
+  [/\b(fai|afc|fc|league of ireland|schoolboys?|schoolgirls?)\b/i, 'soccer'],
+  [/\b(football|clg|gaels)\b/i, 'gaelic-football'],
+];
 const NOT_SPORT_SEGMENTS = new Set(['Music', 'Arts & Theatre', 'Film']);
 
-export function sportFor(event: Json): string | null {
+export function sportFor(event: Json, clubListing = false): string | null {
   const c = (event.classifications ?? [])[0] ?? {};
   if (NOT_SPORT_SEGMENTS.has(c.segment?.name)) return null;
   const name = event.name ?? '';
@@ -86,6 +94,7 @@ export function sportFor(event: Json): string | null {
     if (sport) return sport;
   }
   for (const [pattern, sport] of WEAK_HINTS) if (pattern.test(name)) return sport;
+  if (clubListing) for (const [pattern, sport] of CLUB_HINTS) if (pattern.test(name)) return sport;
   return null;
 }
 
@@ -150,7 +159,7 @@ export function splitTeams(name: string): { competition: string; home: string; a
 
 /** Converts one Ticketmaster event, or says why it was skipped. */
 export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture: ImportedFixture } | { skipped: string } {
-  const sport = sportFor(event);
+  const sport = sportFor(event, level === 'local');
   if (!sport) {
     const c = (event.classifications ?? [])[0] ?? {};
     return { skipped: `sport not covered: ${c.genre?.name ?? 'unknown'} / ${c.subGenre?.name ?? 'unknown'}` };
@@ -187,6 +196,12 @@ export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture
   };
 }
 
+// Words searched for on Universe. A listing only has to match one.
+const UNIVERSE_KEYWORDS = [
+  'GAA', 'LGFA', 'football', 'hurling', 'camogie', 'championship', 'final', 'league', 'cup',
+  'rugby', 'soccer', 'basketball', 'hockey', 'cricket', 'boxing',
+];
+
 // The Republic by country code, and Northern Ireland by distance from mid-Ulster (it is listed under GB).
 const AREAS = ['countryCode=IE', 'latlong=54.62,-6.7&radius=85&unit=km'];
 
@@ -198,6 +213,8 @@ async function fetchEvents(key: string, filter: string, errors: string[]): Promi
       const url =
         `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${encodeURIComponent(key)}` +
         `&${filter}&${area}&startDateTime=${from}&sort=date,asc&size=200&page=${page}`;
+      // Ticketmaster allows five requests a second; stay well under it.
+      await new Promise((r) => setTimeout(r, Number(Deno.env.get('IMPORT_DELAY_MS') ?? 220)));
       const res = await fetch(url);
       if (!res.ok) {
         // One failed search should not lose the others.
@@ -209,7 +226,6 @@ async function fetchEvents(key: string, filter: string, errors: string[]): Promi
       const pages = body.page?.totalPages ?? 1;
       if (page === 4 && pages > 5) errors.push(`${filter} ${area}: more than 1,000 listings, only the soonest 1,000 were read`);
       if (page + 1 >= pages) break;
-      await new Promise((r) => setTimeout(r, 250));
     }
   }
   return [...events.values()];
@@ -265,21 +281,34 @@ export async function runImport(key: string, dry: boolean): Promise<Json> {
     else skip(result.skipped, event.name);
   }
 
-  // Pass 2: Universe listings with no sport tag, which is how clubs and county boards tend to list.
-  const universe = await fetchEvents(key, 'source=universe', errors);
+  // Pass 2: Universe, which is where clubs and county boards list. It holds thousands of unrelated
+  // listings, so search it by sporting words instead of reading everything.
+  const universe = new Map<string, Json>();
+  const byKeyword: Record<string, number> = {};
+  for (const keyword of UNIVERSE_KEYWORDS) {
+    const hits = await fetchEvents(key, `source=universe&keyword=${encodeURIComponent(keyword)}`, errors);
+    byKeyword[keyword] = hits.length;
+    for (const e of hits) universe.set(e.id, e);
+  }
+  const taggedIds = new Set(tagged.map((t) => t.id));
   const universeFixtures: ImportedFixture[] = [];
-  const unplaced: string[] = [];
-  let unplacedCount = 0;
-  for (const event of universe) {
-    if (fixtures.has(event.id) || tagged.some((t) => t.id === event.id)) continue;
-    const segment = (event.classifications ?? [])[0]?.segment?.name;
-    const result = looksLikeFixture(event.name ?? '') ? mapEvent(event, 'local') : { skipped: 'not a fixture' };
+  const unknownSport = new Set<string>();
+  const otherReasons: Record<string, number> = {};
+  let notFixtures = 0;
+  for (const event of universe.values()) {
+    if (taggedIds.has(event.id)) continue;
+    if (!looksLikeFixture(event.name ?? '')) {
+      notFixtures++;
+      continue;
+    }
+    const result = mapEvent(event, 'local');
     if ('fixture' in result) {
       fixtures.set(event.id, result.fixture);
       universeFixtures.push(result.fixture);
-    } else if (!NOT_SPORT_SEGMENTS.has(segment)) {
-      unplacedCount++;
-      if (unplaced.length < 30) unplaced.push(`${event.name} [${result.skipped}]`);
+    } else if (result.skipped.startsWith('sport not covered')) {
+      unknownSport.add(event.name);
+    } else {
+      otherReasons[result.skipped] = (otherReasons[result.skipped] ?? 0) + 1;
     }
   }
 
@@ -294,11 +323,13 @@ export async function runImport(key: string, dry: boolean): Promise<Json> {
     bySport,
     skipped,
     universe: {
-      found: universe.length,
+      found: universe.size,
+      byKeyword,
       importable: universeFixtures.length,
-      examples: universeFixtures.slice(0, 10).map(describe),
-      unplaced: unplacedCount,
-      unplacedExamples: unplaced,
+      examples: universeFixtures.slice(0, 25).map(describe),
+      ignoredAsNotFixtures: notFixtures,
+      fixtureLikeButSportUnknown: [...unknownSport].slice(0, 40),
+      skippedForOtherReasons: otherReasons,
     },
     errors,
     examples: all.slice(0, 8).map(describe),

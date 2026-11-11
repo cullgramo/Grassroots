@@ -94,6 +94,17 @@ describe('Ticketmaster import', () => {
     expect(looksLikeFixture('GAA Summer Camp')).toBe(false);
     expect(looksLikeFixture('St Vincents GAA')).toBe(false);
   });
+  it('reads a club "football" fixture as Gaelic football, but only for club listings', () => {
+    const none = [{ segment: { name: 'Miscellaneous' } }];
+    const killucan = 'Morans Coaches U20 Football Div 2 Final: Killucan v Coralstown/Kinnegad';
+    expect(looksLikeFixture(killucan)).toBe(true);
+    expect(sportFor({ name: killucan, classifications: none }, true)).toBe('gaelic-football');
+    expect(sportFor({ name: killucan, classifications: none })).toBeNull();
+    expect(sportFor({ name: 'Athlone Town AFC v Longford Town', classifications: none }, true)).toBe('soccer');
+    expect(sportFor({ name: 'Aer Lingus College Football Classic', classifications: [{ segment: { name: 'Sports' }, genre: { name: 'Football' }, subGenre: { name: 'College' } }] })).toBeNull();
+    const r = mapEvent(event({ name: killucan, classifications: none }), 'local');
+    expect('fixture' in r && r.fixture).toMatchObject({ sport_id: 'gaelic-football', level: 'local', competition: 'Morans Coaches U20 Football Div 2 Final', home_team: 'Killucan', away_team: 'Coralstown/Kinnegad' });
+  });
 });
 
 describe('Ticketmaster import, end to end with a fake Ticketmaster and database', () => {
@@ -102,7 +113,7 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
 
   beforeAll(() => {
     const env: Record<string, string> = {
-      IMPORT_SECRET: 's3cret', TICKETMASTER_KEY: 'tm-key', SUPABASE_URL: 'https://db.test', SUPABASE_SERVICE_ROLE_KEY: 'service',
+      IMPORT_SECRET: 's3cret', TICKETMASTER_KEY: 'tm-key', IMPORT_DELAY_MS: '0', SUPABASE_URL: 'https://db.test', SUPABASE_SERVICE_ROLE_KEY: 'service',
     };
     (globalThis as any).Deno = { env: { get: (k: string) => env[k] }, serve: (h: typeof handler) => (handler = h) };
     (globalThis as any).fetch = async (url: string, init: any = {}) => {
@@ -119,6 +130,7 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
                 event({ id: 'u1', name: "Meath SFC Final: Navan O'Mahonys v Summerhill", url: 'https://www.universe.com/events/u1', classifications: misc, _embedded: { venues: [navan] } }),
                 event({ id: 'u2', name: 'Navan GAA Dinner Dance', classifications: misc, _embedded: { venues: [navan] } }),
                 event({ id: 'u3', name: 'Winter Concert', classifications: [{ segment: { name: 'Music' }, genre: { name: 'Rock' } }] }),
+                event({ id: 'u4', name: 'Tug of War League Final', classifications: misc, _embedded: { venues: [navan] } }),
               ];
         return new Response(JSON.stringify({ _embedded: { events }, page: { totalPages: 1 } }));
       }
@@ -153,12 +165,14 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
     expect(body).toMatchObject({
       dryRun: true, found: 2, importable: 2, saved: 0, bySport: { rugby: 1, 'gaelic-football': 1 }, errors: [],
       skipped: { 'sport not covered: Darts / unknown': { count: 1, examples: ['Darts Night'] } },
-      universe: { found: 4, importable: 1, unplaced: 1, unplacedExamples: ['Navan GAA Dinner Dance [not a fixture]'] },
+      universe: { found: 5, importable: 1, ignoredAsNotFixtures: 2, fixtureLikeButSportUnknown: ['Tug of War League Final'], skippedForOtherReasons: {} },
     });
+    expect(body.universe.byKeyword).toMatchObject({ GAA: 5, football: 5, boxing: 5 });
     expect(body.universe.examples[0]).toEqual({ what: "Navan O'Mahonys v Summerhill", competition: 'Meath SFC Final', sport: 'gaelic-football', when: '2026-12-26T17:30:00.000Z', where: 'Páirc Tailteann, Meath' });
     const asked = calls.map((c) => c.url);
     expect(asked.filter((u) => u.includes('classificationName=sports&source=ticketmaster,universe'))).toHaveLength(2);
-    expect(asked.filter((u) => u.includes('&source=universe&'))).toHaveLength(2);
+    expect(asked.filter((u) => u.includes('&source=universe&keyword='))).toHaveLength(30);
+    expect(asked.some((u) => u.includes('&source=universe&keyword=camogie&countryCode=IE'))).toBe(true);
     expect(calls.every((c) => c.url.includes('ticketmaster.com'))).toBe(true);
   });
   it('real run saves the venue, then the fixture linked to it', async () => {
