@@ -95,6 +95,9 @@ export default function FiltersScreen() {
             <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c })} />
           ))}
         </Section>
+        <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>
+          <Text style={[styles.note, { color: t.muted }]}>Add fixtures (admin)</Text>
+        </Pressable>
       </ScrollView>
 
       <View style={[styles.footer, { backgroundColor: t.card, borderColor: t.border, paddingBottom: insets.bottom + 12 }]}>
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
   content: { padding: 16, paddingBottom: 32 },
   map: { height: 200, borderRadius: 18, overflow: 'hidden', marginBottom: 20 },
   more: { fontSize: 12, fontWeight: '800', letterSpacing: 0.8, marginBottom: 14 },
+  adminLink: { minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' },
   section: { marginBottom: 24 },
   sectionTitle: { fontSize: 17, fontWeight: '800', marginBottom: 10 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
