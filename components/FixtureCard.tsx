@@ -39,7 +39,8 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
   const km = distanceTo(fixture, location);
   const sport = getSport(fixture.sport);
   const color = sport.color;
-  const urgency = urgencyLabel(fixture.startsAt);
+  const off = fixture.status === 'cancelled' ? 'Cancelled' : fixture.status === 'postponed' ? 'Postponed' : null;
+  const urgency = off ?? urgencyLabel(fixture.startsAt);
 
   return (
     <Pressable
@@ -57,8 +58,8 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
             {sport.name.toUpperCase()}
           </Text>
           {urgency ? (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{urgency}</Text>
+            <View style={[styles.badge, off && styles.badgeOff]}>
+              <Text style={[styles.badgeText, off && styles.badgeTextOff]}>{urgency}</Text>
             </View>
           ) : null}
         </View>
@@ -97,6 +98,8 @@ const styles = StyleSheet.create({
   sport: { fontSize: 11, fontWeight: '800', letterSpacing: 0.6 },
   badge: { backgroundColor: '#fef3c7', borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 },
   badgeText: { color: '#92400e', fontSize: 11, fontWeight: '800' },
+  badgeOff: { backgroundColor: '#fee2e2' },
+  badgeTextOff: { color: '#991b1b' },
   teams: { fontSize: 17, fontWeight: '800' },
   meta: { fontSize: 13 },
   strong: { fontWeight: '700' },

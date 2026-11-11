@@ -7,7 +7,6 @@ import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
-import { getFixture } from '@/data/fixtures';
 import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
 import { formatDistance } from '@/utils/distance';
@@ -27,14 +26,14 @@ function Row({ label, value }: { label: string; value: string }) {
 export default function FixtureScreen() {
   const t = useTheme();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { location } = useApp();
-  const fixture = getFixture(id);
+  const { location, allFixtures, loadState } = useApp();
+  const fixture = allFixtures.find((f) => f.id === id);
 
   if (!fixture) {
     return (
       <View style={[styles.missing, { backgroundColor: t.background }]}>
         <Stack.Screen options={{ title: 'Not found' }} />
-        <Text style={[styles.rowValue, { color: t.text }]}>This fixture is no longer listed.</Text>
+        <Text style={[styles.rowValue, { color: t.text }]}>{loadState === 'loading' ? 'Loading…' : 'This fixture is no longer listed.'}</Text>
       </View>
     );
   }
@@ -72,6 +71,14 @@ export default function FixtureScreen() {
           <Text style={[styles.teams, { color: t.text }]}>{fixtureTitle(fixture)}</Text>
         )}
         <Text style={[styles.competition, { color: t.muted }]}>{fixture.competition}</Text>
+
+        {fixture.status === 'cancelled' || fixture.status === 'postponed' ? (
+          <View style={styles.alert}>
+            <Text style={styles.alertText}>
+              {fixture.status === 'cancelled' ? 'This fixture has been cancelled.' : 'This fixture has been postponed.'}
+            </Text>
+          </View>
+        ) : null}
 
         <View style={[styles.card, { backgroundColor: t.card, borderColor: t.border }]}>
           <Row label="Date" value={date} />
@@ -121,6 +128,8 @@ const styles = StyleSheet.create({
   rowValue: { fontSize: 15, fontWeight: '600', flexShrink: 1, textAlign: 'right' },
   primary: { minHeight: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', marginTop: 20 },
   primaryText: { fontSize: 17, fontWeight: '800' },
+  alert: { backgroundColor: '#fee2e2', borderRadius: 12, padding: 12, marginTop: 16 },
+  alertText: { color: '#991b1b', fontSize: 15, fontWeight: '700' },
   hint: { fontSize: 13, textAlign: 'center', marginTop: 8 },
   secondary: { minHeight: 52, borderRadius: 26, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 12 },
   secondaryText: { fontSize: 17, fontWeight: '800' },

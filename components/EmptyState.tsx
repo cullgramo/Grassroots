@@ -7,13 +7,25 @@ import { useTheme } from './useTheme';
 /** Explains why no fixtures are showing and offers the one action most likely to fix it. */
 export function EmptyState({ onShowAll }: { onShowAll: () => void }) {
   const t = useTheme();
-  const { fixtures, filters, location, setFilters, resetFilters } = useApp();
+  const { fixtures, filters, location, setFilters, resetFilters, loadState, refresh } = useApp();
 
   let title = 'No fixtures in this area';
   let action = `Show all ${fixtures.length} fixtures`;
   let run = onShowAll;
 
-  if (fixtures.length === 0) {
+  if (loadState === 'loading') {
+    return (
+      <View style={styles.box}>
+        <Text style={[styles.title, { color: t.text }]}>Loading fixtures…</Text>
+      </View>
+    );
+  }
+
+  if (loadState === 'error') {
+    title = "Couldn't load fixtures";
+    action = 'Try again';
+    run = refresh;
+  } else if (fixtures.length === 0) {
     if (filters.distanceKm != null && location) {
       const wider = widerDistance(filters.distanceKm);
       title = `No fixtures within ${filters.distanceKm}km`;

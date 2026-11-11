@@ -150,3 +150,31 @@ describe('ticketLink', () => {
     expect(ticketLink({ ...f, ticketed: true, ticketUrl: 'tel:123' }).kind).toBe('search');
   });
 });
+
+describe('mapFixture', () => {
+  const { mapFixture } = require('@/lib/fixtures');
+  const row = {
+    id: 'abc', sport_id: 'rugby', level: 'top', competition: 'URC', home_team: 'Munster', away_team: 'Ulster', title: null,
+    starts_at: '2026-06-13T18:35:00+00:00', ticketed: true, ticket_url: 'https://example.com/t', status: 'scheduled',
+    venue: { name: 'Thomond Park', county: 'Limerick', latitude: 52.6742, longitude: -8.6425 },
+  };
+  it('converts a match row', () => {
+    expect(mapFixture(row)).toEqual({
+      id: 'abc', sport: 'rugby', level: 'Top level', competition: 'URC', homeTeam: 'Munster', awayTeam: 'Ulster', title: undefined,
+      venue: 'Thomond Park', county: 'Limerick', latitude: 52.6742, longitude: -8.6425,
+      startsAt: '2026-06-13T18:35:00.000Z', ticketed: true, ticketUrl: 'https://example.com/t', status: 'scheduled',
+    });
+  });
+  it('converts an event row and a cancelled one', () => {
+    const event = mapFixture({ ...row, home_team: null, away_team: null, title: 'Galway Races', level: 'local', status: 'cancelled', competition: null, ticket_url: null });
+    expect(event).toMatchObject({ title: 'Galway Races', level: 'Local', status: 'cancelled', competition: '', ticketUrl: undefined });
+  });
+  it('drops rows that cannot be shown', () => {
+    expect(mapFixture({ ...row, venue: null })).toBeNull();
+    expect(mapFixture({ ...row, starts_at: 'not a date' })).toBeNull();
+    expect(mapFixture({ ...row, away_team: null })).toBeNull();
+  });
+  it('treats an unknown status as scheduled', () => {
+    expect(mapFixture({ ...row, status: 'abandoned' }).status).toBe('scheduled');
+  });
+});

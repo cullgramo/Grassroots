@@ -1,6 +1,7 @@
 import type { GroupId, SportId } from '@/constants/sports';
 
 export type Level = 'Local' | 'Top level';
+export type FixtureStatus = 'scheduled' | 'postponed' | 'cancelled' | 'finished';
 export type When = 'any' | 'today' | 'weekend' | 'week';
 
 export interface Fixture {
@@ -19,6 +20,8 @@ export interface Fixture {
   startsAt: string;
   ticketed: boolean;
   ticketUrl?: string;
+  /** Missing means scheduled. */
+  status?: FixtureStatus;
 }
 
 export function fixtureTitle(f: Pick<Fixture, 'title' | 'homeTeam' | 'awayTeam'>): string {

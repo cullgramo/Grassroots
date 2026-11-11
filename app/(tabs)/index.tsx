@@ -22,7 +22,8 @@ const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', par
 export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, filters, location, requestLocation, needsSportsChoice } = useApp();
+  const { fixtures, filters, location, requestLocation, needsSportsChoice, loadState, isStale, refreshing, refresh } =
+    useApp();
   const [height, setHeight] = useState(0);
   const [topBar, setTopBar] = useState(TOP_BAR);
   const [snap, setSnap] = useState<Snap>('peek');
@@ -69,7 +70,11 @@ export default function ExploreScreen() {
   };
 
   const count = visible.length;
-  const title = venueIds
+  const title = loadState === 'loading'
+    ? 'Loading fixtures…'
+    : loadState === 'error'
+      ? "Couldn't load fixtures"
+      : venueIds
     ? `${count} fixtures at ${visible[0]?.venue ?? 'this venue'}`
     : count === 0
       ? 'No fixtures in this area'
@@ -135,7 +140,13 @@ export default function ExploreScreen() {
           <View style={styles.sheetHeader}>
             <Text style={[styles.sheetTitle, { color: t.text }]}>{title}</Text>
             <Text style={[styles.sheetHint, { color: t.muted }]}>
-              {snap === 'full' ? 'Tap to show the map' : snap === 'half' ? 'Pull up for more' : 'Pull up for the list'}
+              {isStale && loadState === 'ready'
+                ? 'Offline: showing the last saved copy'
+                : snap === 'full'
+                  ? 'Tap to show the map'
+                  : snap === 'half'
+                    ? 'Pull up for more'
+                    : 'Pull up for the list'}
             </Text>
           </View>
         }>
@@ -144,6 +155,8 @@ export default function ExploreScreen() {
             sections={sections}
             keyExtractor={(f) => f.id}
             stickySectionHeadersEnabled={false}
+            refreshing={refreshing}
+            onRefresh={refresh}
             contentContainerStyle={[styles.list, { paddingBottom: hidden + 24 }]}
             renderSectionHeader={({ section }) => (
               <Text style={[styles.section, { color: t.text }]}>{section.title}</Text>

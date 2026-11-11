@@ -3,7 +3,8 @@ import * as Location from 'expo-location';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
 import type { SportId } from '@/constants/sports';
-import { fixtures as allFixtures } from '@/data/fixtures';
+import { fixtures as sampleFixtures } from '@/data/fixtures';
+import { backendConfigured, fetchFixtures } from '@/lib/fixtures';
 import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import { filterFixtures } from '@/utils/filterFixtures';
 
@@ -14,7 +15,15 @@ interface AppState {
   location: UserLocation | null;
   locationDenied: boolean;
   requestLocation: () => Promise<void>;
+  /** Fixtures after the current filters. */
   fixtures: Fixture[];
+  /** Every loaded fixture, unfiltered. */
+  allFixtures: Fixture[];
+  loadState: 'loading' | 'ready' | 'error';
+  /** True when showing a copy saved on the phone because the latest could not be loaded. */
+  isStale: boolean;
+  refreshing: boolean;
+  refresh: () => Promise<void>;
   savedIds: string[];
   toggleSaved: (id: string) => void;
   /** Sports the user follows. Empty means every sport. */
@@ -26,6 +35,7 @@ interface AppState {
 
 const SAVED_KEY = 'grassroots.saved';
 const SPORTS_KEY = 'grassroots.mySports';
+const FIXTURES_KEY = 'grassroots.fixtures';
 
 const AppContext = createContext<AppState | null>(null);
 
@@ -70,6 +80,45 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setFilters = useCallback((patch: Partial<Filters>) => setAll((f) => ({ ...f, ...patch })), []);
   const resetFilters = useCallback(() => setAll(DEFAULT_FILTERS), []);
 
+  const [allFixtures, setAllFixtures] = useState<Fixture[]>(backendConfigured ? [] : sampleFixtures);
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>(backendConfigured ? 'loading' : 'ready');
+  const [isStale, setIsStale] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const load = useCallback(async () => {
+    if (!backendConfigured) return;
+    try {
+      const fresh = await fetchFixtures();
+      setAllFixtures(fresh);
+      setIsStale(false);
+      setLoadState('ready');
+      AsyncStorage.setItem(FIXTURES_KEY, JSON.stringify(fresh)).catch(() => {});
+    } catch {
+      // Keep whatever is already showing; only report an error when there is nothing to show.
+      setLoadState((state) => (state === 'ready' ? 'ready' : 'error'));
+      setIsStale(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!backendConfigured) return;
+    AsyncStorage.getItem(FIXTURES_KEY)
+      .then((raw) => {
+        if (!raw) return;
+        setAllFixtures((current) => (current.length > 0 ? current : JSON.parse(raw)));
+        setLoadState((state) => (state === 'loading' ? 'ready' : state));
+      })
+      .catch(() => {})
+      .finally(load);
+  }, [load]);
+
+  const refresh = useCallback(async () => {
+    setRefreshing(true);
+    setLoadState((state) => (state === 'error' ? 'loading' : state));
+    await load();
+    setRefreshing(false);
+  }, [load]);
+
   const [mySports, setMine] = useState<SportId[]>([]);
   const [needsSportsChoice, setNeedsSportsChoice] = useState(false);
   useEffect(() => {
@@ -85,12 +134,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const fixtures = useMemo(
     () => filterFixtures(allFixtures, filters, location, new Date(), mySports),
-    [filters, location, mySports]
+    [allFixtures, filters, location, mySports]
   );
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
