@@ -97,12 +97,20 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
 
   it('refuses callers without the secret, and calls nothing', async () => {
     const missing = await run('');
-    expect([missing.status, (await missing.json()).error]).toEqual([401, 'No x-import-secret header arrived. Add it under Headers in the test panel.']);
+    expect([missing.status, (await missing.json()).error]).toEqual([401, 'No secret arrived. Send a body like {"secret": "your phrase", "dry": true}.']);
     const wrong = await run('', 'wrong');
-    expect([wrong.status, (await wrong.json()).error]).toEqual([401, 'The x-import-secret header (5 characters) does not match IMPORT_SECRET.']);
+    expect([wrong.status, (await wrong.json()).error]).toEqual([401, 'The secret sent (5 characters) does not match IMPORT_SECRET.']);
     expect((await run('?dry=1', '  s3cret ')).status).toBe(200);
     calls.length = 0;
     expect(calls).toHaveLength(0);
+  });
+  it('accepts the secret and dry flag in the body', async () => {
+    const post = (body: unknown) => handler(new Request('https://fn.test/', { method: 'POST', body: JSON.stringify(body) }));
+    const ok = await (await post({ secret: 's3cret', dry: true })).json();
+    expect(ok).toMatchObject({ dryRun: true, importable: 1, saved: 0 });
+    expect(calls.every((c) => c.url.includes('ticketmaster.com'))).toBe(true);
+    expect((await post({ secret: 'nope', dry: true })).status).toBe(401);
+    expect((await post({ name: 'Functions' })).status).toBe(401);
   });
   it('dry run reports but writes nothing', async () => {
     const body = await (await run('?dry=1', 's3cret')).json();

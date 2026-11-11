@@ -1,6 +1,6 @@
 // Imports ticketed sports fixtures on the island of Ireland from Ticketmaster into the fixtures table.
 // Runs inside Supabase. Needs two secrets: TICKETMASTER_KEY and IMPORT_SECRET.
-// Call with header "x-import-secret: <IMPORT_SECRET>". Add "?dry=1" to see what would be imported without saving.
+// Call with the body {"secret": "<IMPORT_SECRET>"}. Add "dry": true to see what would be imported without saving.
 
 // deno-lint-ignore no-explicit-any
 declare const Deno: any;
@@ -201,15 +201,17 @@ const json = (body: unknown, status = 200) =>
 if (typeof Deno !== 'undefined') {
   Deno.serve(async (req: Request) => {
     const secret = (Deno.env.get('IMPORT_SECRET') ?? '').trim();
-    const given = (req.headers.get('x-import-secret') ?? '').trim();
+    // The phrase may come as a header (for the scheduler) or in the JSON body (easier from the dashboard).
+    const body: Json = await req.json().catch(() => ({}));
+    const given = String(req.headers.get('x-import-secret') ?? body?.secret ?? '').trim();
     if (!secret) return json({ error: 'IMPORT_SECRET is not set. Add it under Edge Functions > Secrets, then send again.' }, 500);
-    if (!given) return json({ error: 'No x-import-secret header arrived. Add it under Headers in the test panel.' }, 401);
+    if (!given) return json({ error: 'No secret arrived. Send a body like {"secret": "your phrase", "dry": true}.' }, 401);
     if (given !== secret) {
-      return json({ error: `The x-import-secret header (${given.length} characters) does not match IMPORT_SECRET.` }, 401);
+      return json({ error: `The secret sent (${given.length} characters) does not match IMPORT_SECRET.` }, 401);
     }
     const key = Deno.env.get('TICKETMASTER_KEY');
     if (!key) return json({ error: 'TICKETMASTER_KEY secret is not set' }, 500);
-    const dry = new URL(req.url).searchParams.has('dry');
+    const dry = new URL(req.url).searchParams.has('dry') || body?.dry === true || body?.dry === 1;
     try {
       const events = await fetchEvents(key);
       const fixtures: ImportedFixture[] = [];
