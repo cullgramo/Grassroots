@@ -175,6 +175,13 @@ for (const group of groups.values()) {
   const venue = venues.get(vKey);
   if (!venue) { leave(r, 'Ground not found on the map'); continue; }
 
+  // The same game can arrive from two sources with the club named differently. Same sport, time and ground,
+  // sharing a team word, is the same game.
+  const words = (t) => norm(t).split(' ').filter((w) => w.length >= 5);
+  const twin = fixtures.find((f) => f.sport === sport && f.startsAt === startsAt && f.venue.latitude === venue.latitude && f.venue.longitude === venue.longitude &&
+    [...words(f.home), ...words(f.away)].some((w) => [...words(r.home_team), ...words(r.away_team)].includes(w)));
+  if (twin) { leave(r, `Same game as ${twin.id} (${twin.home} v ${twin.away})`); continue; }
+
   fixtures.push({
     ref: `csv-${hash([sport, norm(r.home_team), norm(r.away_team), date].join('|'))}`,
     sport, category, competition: r.competition.split(';')[0].trim(), home: r.home_team, away: r.away_team,
