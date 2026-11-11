@@ -35,6 +35,7 @@
     "eslint-config-expo": "^58.0.4",
     "jest": "^30.5.2",
     "jest-expo": "~58.0.14",
+    "node-html-parser": "^9.0.7",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -43,7 +44,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test:collector": "node --experimental-strip-types --test collector/test/readers.test.mjs"
   },
   "private": true,
   "jest": {

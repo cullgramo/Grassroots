@@ -1,0 +1,476 @@
+{
+ "Dublin|5 acres perrystown|": null,
+ "Dublin|archerstown|": null,
+ "Dublin|aul complex|": {
+  "name": "AUL Complex",
+  "county": "Dublin",
+  "latitude": 53.419777,
+  "longitude": -6.216204,
+  "how": "place search (leisure/sports_centre: AUL Complex)"
+ },
+ "Dublin|balheary res|": null,
+ "Dublin|ballywaltrim bray|": null,
+ "Dublin|belvedere clontarf astro|": null,
+ "Dublin|blackrock rugby club|": null,
+ "Dublin|bluebell comm centre|": null,
+ "Dublin|bushy park|": {
+  "name": "Bushy Park",
+  "county": "Dublin",
+  "latitude": 53.30212,
+  "longitude": -6.291446,
+  "how": "place search (leisure/park: Bushy Park)"
+ },
+ "Dublin|carrick hill|": null,
+ "Dublin|castlemartin|": null,
+ "Dublin|celtic park|": null,
+ "Dublin|cherry orchard|": null,
+ "Dublin|clonturk park|": {
+  "name": "Clonturk Park",
+  "county": "Dublin",
+  "latitude": 53.368377,
+  "longitude": -6.25035,
+  "how": "place search (leisure/sports_centre: Clonturk Park)"
+ },
+ "Dublin|corduff park|": {
+  "name": "Corduff Park",
+  "county": "Dublin",
+  "latitude": 53.397476,
+  "longitude": -6.379025,
+  "how": "place search (leisure/park: Corduff Park)"
+ },
+ "Dublin|cross chapel|": null,
+ "Dublin|crumlin united|": null,
+ "Dublin|dr ryan park|": null,
+ "Dublin|edenmore|": null,
+ "Dublin|fr collins park|": {
+  "name": "FR Collins Park",
+  "county": "Dublin",
+  "latitude": 53.405412,
+  "longitude": -6.160651,
+  "how": "place search (leisure/park: Father Collins Park)"
+ },
+ "Dublin|frank cox park|": null,
+ "Dublin|frank kelly park|": {
+  "name": "Frank Kelly Park",
+  "county": "Dublin",
+  "latitude": 53.259868,
+  "longitude": -6.302801,
+  "how": "place search (leisure/sports_centre: Frank Kelly Park)"
+ },
+ "Dublin|gerry keaneally park|": null,
+ "Dublin|glin road coolock|": null,
+ "Dublin|gormanstown park|": null,
+ "Dublin|greenogue|": null,
+ "Dublin|griffeen valley park|": {
+  "name": "Griffeen Valley Park",
+  "county": "Dublin",
+  "latitude": 53.3445,
+  "longitude": -6.438714,
+  "how": "place search (leisure/park: Griffeen Valley Park)"
+ },
+ "Dublin|hartstown park|": {
+  "name": "Hartstown Park",
+  "county": "Dublin",
+  "latitude": 53.395715,
+  "longitude": -6.412493,
+  "how": "place search (leisure/park: Hartstown Park)"
+ },
+ "Dublin|herbert park|": {
+  "name": "Herbert Park",
+  "county": "Dublin",
+  "latitude": 53.325724,
+  "longitude": -6.234415,
+  "how": "place search (leisure/park: Herbert Park)"
+ },
+ "Dublin|hyde park|": null,
+ "Dublin|jackson park|": {
+  "name": "Jackson Park",
+  "county": "Dublin",
+  "latitude": 53.240803,
+  "longitude": -6.187517,
+  "how": "place search (leisure/sports_centre: Jackson Park)"
+ },
+ "Dublin|jamestown road|": null,
+ "Dublin|joe maughan park|": null,
+ "Dublin|john paul park|": null,
+ "Dublin|kilbogget park|": {
+  "name": "Kilbogget Park",
+  "county": "Dublin",
+  "latitude": 53.257674,
+  "longitude": -6.139592,
+  "how": "place search (leisure/park: Kilbogget Park)"
+ },
+ "Dublin|kildonan road|": null,
+ "Dublin|le fanu road|": null,
+ "Dublin|lein road mcauley park ptch|": null,
+ "Dublin|loreto park|": {
+  "name": "Loreto Park",
+  "county": "Dublin",
+  "latitude": 53.289892,
+  "longitude": -6.270209,
+  "how": "place search (leisure/park: Loreto Park)"
+ },
+ "Dublin|lourdes celtic|": null,
+ "Dublin|malahide united|": null,
+ "Dublin|mount merrion|": null,
+ "Dublin|mountview park|": null,
+ "Dublin|ned kelly park kilnamanagh|": null,
+ "Dublin|oscar traynor complex|": null,
+ "Dublin|paddy brennan park|": {
+  "name": "Paddy Brennan Park",
+  "county": "Dublin",
+  "latitude": 53.317564,
+  "longitude": -6.281547,
+  "how": "place search (leisure/sports_centre: The Paddy Brennan Rosary Park)"
+ },
+ "Dublin|pairc ui ruairc|": null,
+ "Dublin|pearse park sallynoggin|": null,
+ "Dublin|porterstown park|": {
+  "name": "Porterstown Park",
+  "county": "Dublin",
+  "latitude": 53.369052,
+  "longitude": -6.4026,
+  "how": "place search (leisure/park: Porterstown Park)"
+ },
+ "Dublin|racecourse park|": {
+  "name": "Racecourse Park",
+  "county": "Dublin",
+  "latitude": 53.399923,
+  "longitude": -6.134778,
+  "how": "place search (leisure/park: Racecourse Park)"
+ },
+ "Dublin|railway union|": {
+  "name": "Railway Union",
+  "county": "Dublin",
+  "latitude": 53.326415,
+  "longitude": -6.210997,
+  "how": "place search (leisure/sports_centre: Railway Union Sports Club)"
+ },
+ "Dublin|rathcoffey pitch 2 mtfc|": null,
+ "Dublin|ridgewood pitches|": {
+  "name": "Ridgewood Pitches",
+  "county": "Dublin",
+  "latitude": 53.447868,
+  "longitude": -6.254817,
+  "how": "place search (leisure/sports_centre: Ridgewood Playing Pitches)"
+ },
+ "Dublin|ringsend park|": {
+  "name": "Ringsend Park",
+  "county": "Dublin",
+  "latitude": 53.341613,
+  "longitude": -6.221503,
+  "how": "place search (leisure/park: Ringsend Park)"
+ },
+ "Dublin|roadstone sports club|": {
+  "name": "Roadstone Sports Club",
+  "county": "Dublin",
+  "latitude": 53.299119,
+  "longitude": -6.415531,
+  "how": "place search (leisure/sports_centre: Roadstone Group Sports Club)"
+ },
+ "Dublin|rosemount mulvey|": null,
+ "Dublin|royal hospital donnybrook|": null,
+ "Dublin|shanganagh park|": {
+  "name": "Shanganagh Park",
+  "county": "Dublin",
+  "latitude": 53.22595,
+  "longitude": -6.114636,
+  "how": "place search (leisure/park: Shanganagh Park)"
+ },
+ "Dublin|sportslink santry|": {
+  "name": "Sportslink, Santry",
+  "county": "Dublin",
+  "latitude": 53.408104,
+  "longitude": -6.24675,
+  "how": "place search (leisure/sports_centre: Sportslink)"
+ },
+ "Dublin|st catherines park co kildare|": null,
+ "Dublin|st kevins boys|": null,
+ "Dublin|templeogue united|": {
+  "name": "Templeogue United",
+  "county": "Dublin",
+  "latitude": 53.296867,
+  "longitude": -6.328611,
+  "how": "place search (leisure/sports_centre: Templeogue United)"
+ },
+ "Dublin|tolka vally road|": null,
+ "Dublin|town park balbriggan|": {
+  "name": "Town Park Balbriggan",
+  "county": "Dublin",
+  "latitude": 53.604167,
+  "longitude": -6.182125,
+  "how": "place search (leisure/park: Balbriggan Town Park)"
+ },
+ "Dublin|vec whitehall|": null,
+ "Dublin|whelan park|": {
+  "name": "Whelan Park",
+  "county": "Dublin",
+  "latitude": 53.317275,
+  "longitude": -6.291036,
+  "how": "place search (leisure/sports_centre: Whelan Park (Larkview Football Club))"
+ },
+ "Dublin|woodlands 11 a side all weather|": null,
+ "Dublin|woodlands 5 a side grass|": null,
+ "Ulster|bangor aurora|BT20 4UT": {
+  "name": "Bangor Aurora",
+  "county": "Down",
+  "latitude": 54.652781,
+  "longitude": -5.664104,
+  "how": "place search (leisure/sports_centre: Bangor Aurora Aquatic & Leisure Complex)"
+ },
+ "Ulster|camlin park cookstown hs|BT80 8PQ": {
+  "name": "Camlin Park (Cookstown HS)",
+  "county": "Derry",
+  "latitude": 54.642958,
+  "longitude": -6.737383,
+  "how": "postcode"
+ },
+ "Ulster|campsie pitch|BT79 0EQ": {
+  "name": "Campsie Pitch",
+  "county": "Tyrone",
+  "latitude": 54.599463,
+  "longitude": -7.288173,
+  "how": "postcode"
+ },
+ "Ulster|ciyms sports ground|BT4 2GD": null,
+ "Ulster|comber road lisnagarvey hc|BT26 6LN": {
+  "name": "Comber Road (Lisnagarvey HC)",
+  "county": "Down",
+  "latitude": 54.461386,
+  "longitude": -6.064025,
+  "how": "postcode"
+ },
+ "Ulster|havelock park|BT32 4LU": {
+  "name": "Havelock Park",
+  "county": "Down",
+  "latitude": 54.360111,
+  "longitude": -6.278181,
+  "how": "place search (leisure/park: Havelock Park)"
+ },
+ "Ulster|lurgan junior h s|BT66 8SU": {
+  "name": "Lurgan Junior H.S.",
+  "county": "Armagh",
+  "latitude": 54.454648,
+  "longitude": -6.326759,
+  "how": "postcode"
+ },
+ "Ulster|rugby avenue|BT52 1JL": {
+  "name": "Rugby Avenue",
+  "county": "Derry",
+  "latitude": 55.121504,
+  "longitude": -6.657767,
+  "how": "postcode"
+ },
+ "Ulster|shaw s bridge sports complex|BT8 7XP": null,
+ "Ulster|strathearn school|BT4 2AU": {
+  "name": "Strathearn School",
+  "county": "Down",
+  "latitude": 54.601447,
+  "longitude": -5.862093,
+  "how": "postcode"
+ },
+ "|alsaa|": {
+  "name": "ALSAA",
+  "county": "Dublin",
+  "latitude": 53.419465,
+  "longitude": -6.230548,
+  "how": "place search (leisure/sports_centre: ALSAA)"
+ },
+ "|ballinfoile community centre|": null,
+ "|ballymakenny college|": {
+  "name": "Ballymakenny College",
+  "county": "Louth",
+  "latitude": 53.731307,
+  "longitude": -6.344777,
+  "how": "place search (amenity/school: Ballymakenny College)"
+ },
+ "|calasanctius college|": {
+  "name": "Calasanctius College",
+  "county": "Galway",
+  "latitude": 53.267269,
+  "longitude": -8.932729,
+  "how": "place search (amenity/school: Calasanctius College)"
+ },
+ "|castleisland cc|": null,
+ "|castleisland community centre|": {
+  "name": "Castleisland Community Centre",
+  "county": "Kerry",
+  "latitude": 52.226892,
+  "longitude": -9.457452,
+  "how": "place search (amenity/community_centre: Castleisland Community Centre)"
+ },
+ "|castlepark school dalkey|": null,
+ "|colaiste bride|": {
+  "name": "Coláiste Bríde",
+  "county": "Dublin",
+  "latitude": 53.317679,
+  "longitude": -6.388686,
+  "how": "place search (amenity/school: Coláiste Bríde)"
+ },
+ "|colaiste eanna|": null,
+ "|colaiste iosagain|": {
+  "name": "Coláiste Íosagáin",
+  "county": "Dublin",
+  "latitude": 53.301947,
+  "longitude": -6.204856,
+  "how": "place search (amenity/school: Coláiste Eoin / Coláiste Íosagáin)"
+ },
+ "|corrandulla community centre|": {
+  "name": "Corrandulla Community Centre",
+  "county": "Galway",
+  "latitude": 53.3976,
+  "longitude": -8.993512,
+  "how": "place search (amenity/community_centre: Corrandulla Community Centre)"
+ },
+ "|crescent college|": {
+  "name": "Crescent College",
+  "county": "Limerick",
+  "latitude": 52.635384,
+  "longitude": -8.639159,
+  "how": "place search (amenity/school: Crescent College Comprehensive)"
+ },
+ "|fr mathews arena|": null,
+ "|hansfield etss|": null,
+ "|iwa clontarf|": null,
+ "|jordanstown sports village|": null,
+ "|kerry sports academy|": null,
+ "|killarney sports leisure centre|": {
+  "name": "Killarney Sports & Leisure Centre",
+  "county": "Kerry",
+  "latitude": 52.062078,
+  "longitude": -9.485733,
+  "how": "place search (leisure/sports_centre: Killarney Sports & Leisure Centre)"
+ },
+ "|killorglin sports complex|": null,
+ "|kingfisher sports centre|": null,
+ "|leixlip amenities|": {
+  "name": "Leixlip Amenities",
+  "county": "Kildare",
+  "latitude": 53.371053,
+  "longitude": -6.51618,
+  "how": "place search (leisure/pitch: Leixlip Amenities Sports Centre)"
+ },
+ "|limerick educate together|": null,
+ "|lisburn racquets club|": {
+  "name": "Lisburn Racquets Club",
+  "county": "Antrim",
+  "latitude": 54.517937,
+  "longitude": -6.033243,
+  "how": "place search (leisure/sports_centre: Lisburn Racquets Club)"
+ },
+ "|malahide community school|": {
+  "name": "Malahide Community School",
+  "county": "Dublin",
+  "latitude": 53.438537,
+  "longitude": -6.152838,
+  "how": "place search (amenity/school: Malahide Community School)"
+ },
+ "|mardyke arena|": {
+  "name": "Mardyke Arena",
+  "county": "Cork",
+  "latitude": 51.894729,
+  "longitude": -8.500151,
+  "how": "place search (leisure/sports_centre: Mardyke Arena)"
+ },
+ "|mercy college sligo|": {
+  "name": "Mercy College, Sligo",
+  "county": "Sligo",
+  "latitude": 54.266971,
+  "longitude": -8.467304,
+  "how": "place search (amenity/school: Mercy College)"
+ },
+ "|mercy college|": null,
+ "|mercy mounthawk|": null,
+ "|mtu arena|": null,
+ "|national basketball arena|": {
+  "name": "National Basketball Arena",
+  "county": "Dublin",
+  "latitude": 53.292482,
+  "longitude": -6.334121,
+  "how": "place search (leisure/stadium: National Basketball Arena)"
+ },
+ "|neptune stadium|": {
+  "name": "Neptune Stadium",
+  "county": "Cork",
+  "latitude": 51.907175,
+  "longitude": -8.476996,
+  "how": "place search (building/stadium: Neptune Stadium)"
+ },
+ "|newforge sports complex|": null,
+ "|o loughlin gaels|": {
+  "name": "O'Loughlin Gaels",
+  "county": "Kilkenny",
+  "latitude": 52.659112,
+  "longitude": -7.235454,
+  "how": "place search (leisure/sports_centre: O'Loughlin Gaels GAA Club)"
+ },
+ "|oblate hall inchicore|": {
+  "name": "Oblate Hall, Inchicore",
+  "county": "Dublin",
+  "latitude": 53.337599,
+  "longitude": -6.326403,
+  "how": "place search (building/sports_hall: Oblate Hall)"
+ },
+ "|oblate hall|": {
+  "name": "Oblate Hall",
+  "county": "Dublin",
+  "latitude": 53.337599,
+  "longitude": -6.326403,
+  "how": "place search (building/sports_hall: Oblate Hall)"
+ },
+ "|parochial hall|": {
+  "name": "Parochial Hall",
+  "county": "Cork",
+  "latitude": 51.907751,
+  "longitude": -8.49003,
+  "how": "place search (amenity/community_centre: Gurranabraher Parochial Hall)"
+ },
+ "|phoenix centre|": {
+  "name": "Phoenix Centre",
+  "county": "Monaghan",
+  "latitude": 53.977137,
+  "longitude": -6.716337,
+  "how": "place search (leisure/fitness_centre: Phoenix Centre)"
+ },
+ "|scoil ruain killenaule|": {
+  "name": "Scoil Ruáin, Killenaule",
+  "county": "Tipperary",
+  "latitude": 52.572005,
+  "longitude": -7.677623,
+  "how": "place search (amenity/school: Scoil Ruáin)"
+ },
+ "|sportlann naomh anna|": {
+  "name": "Sportlann Naomh Anna",
+  "county": "Galway",
+  "latitude": 53.278699,
+  "longitude": -9.659711,
+  "how": "place search (leisure/sports_centre: Sportlann Naomh Anna)"
+ },
+ "|st mary s hall|": null,
+ "|st munchins college|": null,
+ "|st vincent s glasnevin|": null,
+ "|tolka rovers sports complex|": null,
+ "|trinity sports centre|": {
+  "name": "Trinity Sports Centre",
+  "county": "Dublin",
+  "latitude": 53.343969,
+  "longitude": -6.249929,
+  "how": "place search (leisure/sports_centre: Trinity College Sports Centre)"
+ },
+ "|tud tallaght|": null,
+ "|ucd sports centre|": {
+  "name": "UCD Sports Centre",
+  "county": "Dublin",
+  "latitude": 53.308418,
+  "longitude": -6.229114,
+  "how": "place search (building/university: UCD Sports Centre)"
+ },
+ "|ul arena|": null,
+ "|virginia show centre|": {
+  "name": "Virginia Show Centre",
+  "county": "Cavan",
+  "latitude": 53.833349,
+  "longitude": -7.083905,
+  "how": "place search (amenity/community_centre: Virginia Show Centre)"
+ }
+}

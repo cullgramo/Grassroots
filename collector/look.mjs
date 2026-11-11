@@ -1,0 +1,41 @@
+// "Look only": runs the public-page readers and prints what they found. Saves nothing.
+// Usage: node collector/look.mjs [source-name ...]
+import { getPage } from './lib/util.mjs';
+import * as ddsl from './sources/ddsl.mjs';
+import * as basketball from './sources/basketball.mjs';
+import * as dublinGaa from './sources/dublin-gaa.mjs';
+import * as ulsterHockey from './sources/ulster-hockey.mjs';
+
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey };
+
+export async function collect(source, now = new Date()) {
+  const all = [];
+  const problems = [];
+  for (const page of source.pages) {
+    try {
+      all.push(...source.read(await getPage(page.url, page.gapMs), page, now));
+    } catch (e) {
+      problems.push(`${page.url}: ${e.message}`);
+    }
+  }
+  const today = now.toISOString().slice(0, 10);
+  const upcoming = all.filter((f) => f.date && f.date >= today);
+  return { all, upcoming, problems };
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const wanted = process.argv.slice(2);
+  for (const [key, source] of Object.entries(SOURCES)) {
+    if (wanted.length && !wanted.includes(key)) continue;
+    const { all, upcoming, problems } = await collect(source);
+    const missing = (k) => upcoming.filter((f) => !f[k]).length;
+    console.log(`\n=== ${source.name}: ${all.length} on the pages, ${upcoming.length} still to be played`);
+    console.log(`    no date ${all.filter((f) => !f.date).length} | no time ${missing('time')} | no ground ${missing('venue')} | different grounds ${new Set(upcoming.map((f) => f.venue)).size}`);
+    if (upcoming.length) console.log(`    from ${upcoming.map((f) => f.date).sort()[0]} to ${upcoming.map((f) => f.date).sort().at(-1)}`);
+    for (const p of problems) console.log(`    PROBLEM ${p}`);
+    const step = Math.max(1, Math.floor(upcoming.length / 10));
+    for (const f of upcoming.filter((_, i) => i % step === 0).slice(0, 10)) {
+      console.log(`    ${f.date} ${f.time ?? '--:--'} | ${f.home} v ${f.away} | ${f.competition} | ${f.venue || '(no ground)'}${f.postcode ? ' ' + f.postcode : ''}`);
+    }
+  }
+}

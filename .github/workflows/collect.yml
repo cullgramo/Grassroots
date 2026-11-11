@@ -30,6 +30,11 @@ jobs:
         with:
           node-version: 24
 
+      - run: npm ci
+
+      - name: Check the readers
+        run: node --test collector/test/readers.test.mjs
+
       - name: Apply database changes
         if: ${{ !inputs.dry }}
         env:

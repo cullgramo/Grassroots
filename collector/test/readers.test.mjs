@@ -1,0 +1,86 @@
+// Each sample below copies the real page's structure, trimmed to one or two fixtures.
+// If a site changes its layout, its reader returns nothing and these tests show what it expected.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as ddsl from '../sources/ddsl.mjs';
+import * as basketball from '../sources/basketball.mjs';
+import * as dublinGaa from '../sources/dublin-gaa.mjs';
+import * as ulsterHockey from '../sources/ulster-hockey.mjs';
+import { irishTimeToIso, readDate, readTime } from '../lib/util.mjs';
+
+const now = new Date('2026-11-11T12:00:00Z');
+
+test('DDSL: reads teams, time and ground; skips the referee; 01:00 means no time', () => {
+  const html = `<table id="fixtureTable"><thead><tr><th colspan="8"><label> Friday 13 November 2026 </label></th></tr></thead><tbody>
+    <tr class="column-eight competitionName"><td><a href="https://ddsl.ie/league/217848">18 Premier Boys Sun</a></td></tr>
+    <tr class="column-eight fixtures- desktop-view"><td class="fteam1"><span class="data"><a href="https://ddsl.ie/clubprofile/8189/?competition_id=217848&team_id=359909">St Kevin's FC</a></span></td>
+      <td class="ftime"><span class="data">19:45</span></td><td class="fteam2"><span class="data"><a href="https://ddsl.ie/clubprofile/87084/?competition_id=217848&team_id=361641">Raheny United FC</a></span></td>
+      <td class="fvenue"><span class="data">St Kevins Boys</span></td><td class="freferee"><span class="data">A Referee</span></td></tr>
+    <tr class="table-body fixtures- mobile-view"><td>copy for phones</td></tr>
+    <tr class="column-eight fixtures- desktop-view"><td class="fteam1"><a href="?competition_id=1&team_id=2">Home Farm FC</a></td><td class="ftime"><span class="data">01:00</span></td>
+      <td class="fteam2"><a href="?competition_id=1&team_id=3">Lourdes Celtic FC</a></td><td class="fvenue"><span class="data">VEC Whitehall</span></td></tr></tbody></table>`;
+  const got = ddsl.read(html, ddsl.pages[0], now);
+  assert.equal(got.length, 2);
+  assert.deepEqual({ ...got[0] }, {
+    ref: '217848-359909-361641-2026-11-13', sport: 'soccer', level: 'local', category: null, competition: 'DDSL 18 Premier Boys Sun',
+    home: "St Kevin's FC", away: 'Raheny United FC', title: null, date: '2026-11-13', time: '19:45', venue: 'St Kevins Boys',
+    county: null, postcode: null, area: 'Dublin', url: 'https://ddsl.ie/fixtures/',
+  });
+  assert.equal(got[1].time, null);
+  assert.ok(!JSON.stringify(got).includes('Referee'));
+});
+
+test('Basketball Ireland: uses the exact timestamp on the page and knows the arena county', () => {
+  const html = `<div><ul class="column-seven table-header"><li>Date</li></ul>
+    <ul class="column-seven table-body results" data-date="2026-11-14T19:00:00.000Z" data-fixtureId="abc123"  >
+      <li class="smallview-hide ldate"><span class="data">14/11/2026</span></li><li class="smallview-hide ltime"><span class="data">19:00</span></li>
+      <li class="largeview-hide lvenue"><span class="data">Kingfisher Sports Centre</span></li>
+      <li class="smallview-hide lteam1"><span class="data team1"> <strong> <img /> Maigh Cuilinn</span></strong></li>
+      <li class="largeview-hide lteam1"><span class="data team1"> <strong> <img /> Maigh Cuilinn</strong></span></li>
+      <li class="smallview-hide lteam2"><span class="data team2"> <strong> <img /> SPK Utility Trust Lakers </strong></span></li>
+      <li class="smallview-hide lvenue"><span class="data">Kingfisher Sports Centre</span></li></ul>
+    <ul class="column-seven table-body results" data-date="" data-fixtureId="nodate"><li class="smallview-hide lteam1"><span class="data">A</span></li><li class="smallview-hide lteam2"><span class="data">B</span></li></ul></div>`;
+  const got = basketball.read(html, basketball.pages[2]);
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].ref, got[0].home, got[0].away, got[0].startsAt, got[0].venue, got[0].counties, got[0].category, got[0].level],
+    ['abc123', 'Maigh Cuilinn', 'SPK Utility Trust Lakers', '2026-11-14T19:00:00.000Z', 'Kingfisher Sports Centre', ['Galway'], 'men', 'local']);
+});
+
+test('Dublin GAA: pairs each fixture with the ground in its footer row and works out the year', () => {
+  const html = `<div class="match-container"><table class="sp-table-container"><thead><tr><td><div class="comp-header"><div class="date">Sunday November 15<sup>th</sup></div>
+    <div class="comp-name"><a href="https://dublingaa.sportlomo.com/league-2/213118?user_id=7130">PTSB Adult Football League 6</a></div></div></td></tr></thead>
+    <tbody><tr class="desktop"><td class="time"><span>11:00</span></td><td><span class="team-name"><a href="/clubprofile/3554?u=1">Beann Eadair</a></span></td><td class="vs">VS</td>
+      <td><span class="team-name"><a href="/clubprofile/3557?u=1">Civil Service Football</a></span></td></tr>
+    <tr class="mobile"><td><span class="team-name"><a href="/clubprofile/3554">Beann Eadair</a></span></td></tr>
+    <tr class="footer-tr"><td><div class="venue"><span>Pairc Ui Ruairc</span></div><div class="referee"><span>A Referee</span></div></td></tr></tbody></table></div>`;
+  const got = dublinGaa.read(html, dublinGaa.pages[0], now);
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].ref, got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].county],
+    ['213118-3554-3557-2026-11-15', 'gaelic-football', 'Beann Eadair', 'Civil Service Football', '2026-11-15', '11:00', 'Pairc Ui Ruairc', 'Dublin']);
+  assert.ok(!JSON.stringify(got).includes('Referee'));
+});
+
+test('Ulster Hockey: reads the postcode and never the umpires', () => {
+  const html = `<table><tbody><tr class="text-left font-weight-bold"><td colspan="10">Thursday 12th November 2026</td></tr>
+    <tr class="text-left font-weight-bold"><td></td><td colspan="9">Women - Stevenson Senior Bowl</td></tr>
+    <tr class="text-left"><td></td><td></td><td>14:00</td><td></td><td></td><td><div class="d-inline d-sm-none">Glenlola v Foyle College</div>
+      <div class="d-none d-sm-inline"><span>Glenlola</span> v <span>Foyle College</span></div> @ <a href="https://www.google.co.uk/maps/search/BT26+6LN/">Comber Road (Lisnagarvey HC)</a></td>
+      <td>UlsterHUA</td><td><span>Some Umpire</span> (umpires)</td></tr></tbody></table>`;
+  const got = ulsterHockey.read(html, ulsterHockey.pages[0], now);
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].postcode, got[0].category, got[0].competition],
+    ['Glenlola', 'Foyle College', '2026-11-12', '14:00', 'Comber Road (Lisnagarvey HC)', 'BT26 6LN', 'women', 'Ulster Stevenson Senior Bowl']);
+  assert.ok(!JSON.stringify(got).includes('Umpire'));
+});
+
+test('dates and times', () => {
+  assert.equal(readDate('Friday 13 November 2026', now), '2026-11-13');
+  assert.equal(readDate('Sunday November 15th', now), '2026-11-15');
+  assert.equal(readDate('Saturday January 9th', now), '2027-01-09');
+  assert.equal(readDate('14/11/2026', now), '2026-11-14');
+  assert.equal(readDate('no date here', now), null);
+  assert.equal(readTime('7.30pm'), '19:30');
+  assert.equal(readTime('00:00'), null);
+  assert.equal(irishTimeToIso('2026-07-19', '15:30'), '2026-07-19T14:30:00.000Z');
+  assert.equal(irishTimeToIso('2026-11-14', '12:30'), '2026-11-14T12:30:00.000Z');
+});
