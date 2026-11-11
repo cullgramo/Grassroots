@@ -58,13 +58,15 @@ const GENRES: Record<string, string> = {
 const STRONG_HINTS: [RegExp, string][] = [
   [/\bcamogie\b/i, 'camogie'],
   [/\b(ladies football|lgfa)\b/i, 'ladies-football'],
+  [/\bladies\b[^:]*\bfootball\b/i, 'ladies-football'],
   [/\bhurling\b/i, 'hurling'],
   [/\bfield hockey\b/i, 'hockey'],
 ];
 /** Used only when the genre is one we do not recognise, as with listings created by clubs. */
 const WEAK_HINTS: [RegExp, string][] = [
-  [/\b[sijm]hc\b/i, 'hurling'],
-  [/\b[sijm]fc\b/i, 'gaelic-football'],
+  // Championship codes such as SHC, JBFC and PIFC: optional "premier", a grade, an optional A to C, then the sport.
+  [/\bp?[sijm][a-c]?hc\b/i, 'hurling'],
+  [/\bp?[sijm][a-c]?fc\b/i, 'gaelic-football'],
   [/\b(gaelic football|gaa|football championship|football final)\b/i, 'gaelic-football'],
   [/\bsoccer\b/i, 'soccer'],
   [/\brugby\b/i, 'rugby'],
@@ -80,6 +82,7 @@ const WEAK_HINTS: [RegExp, string][] = [
  */
 const CLUB_HINTS: [RegExp, string][] = [
   [/\b(fai|afc|fc|league of ireland|schoolboys?|schoolgirls?)\b/i, 'soccer'],
+  [/\bladies\b/i, 'ladies-football'],
   [/\b(football|clg|gaels)\b/i, 'gaelic-football'],
 ];
 const NOT_SPORT_SEGMENTS = new Set(['Music', 'Arts & Theatre', 'Film']);
@@ -157,8 +160,11 @@ export function splitTeams(name: string): { competition: string; home: string; a
   };
 }
 
+const tidy = (text: unknown) => String(text ?? '').replace(/\s+/g, ' ').trim();
+
 /** Converts one Ticketmaster event, or says why it was skipped. */
 export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture: ImportedFixture } | { skipped: string } {
+  const name = tidy(event.name);
   const sport = sportFor(event, level === 'local');
   if (!sport) {
     const c = (event.classifications ?? [])[0] ?? {};
@@ -169,12 +175,13 @@ export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture
   const venue = (event._embedded?.venues ?? [])[0];
   const latitude = Number(venue?.location?.latitude);
   const longitude = Number(venue?.location?.longitude);
-  if (!venue?.name || !Number.isFinite(latitude) || !Number.isFinite(longitude)) return { skipped: 'venue has no map position' };
+  const venueName = tidy(venue?.name);
+  if (!venueName || !Number.isFinite(latitude) || !Number.isFinite(longitude)) return { skipped: 'venue has no map position' };
   if (latitude < 51 || latitude > 56 || longitude < -11 || longitude > -5.4) return { skipped: 'outside Ireland' };
   if (!event.url || !/^https?:\/\//i.test(event.url)) return { skipped: 'no ticket link' };
 
   const code = event.dates?.status?.code;
-  const teams = EVENT_SPORTS.has(sport) ? null : splitTeams(event.name);
+  const teams = EVENT_SPORTS.has(sport) ? null : splitTeams(name);
   return {
     fixture: {
       sport_id: sport,
@@ -182,7 +189,7 @@ export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture
       competition: teams?.competition ?? '',
       home_team: teams ? teams.home : null,
       away_team: teams ? teams.away : null,
-      title: teams ? null : event.name,
+      title: teams ? null : name,
       starts_at: new Date(start.dateTime).toISOString(),
       ticketed: true,
       ticket_url: event.url,
@@ -191,7 +198,7 @@ export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture
       source: 'ticketmaster',
       source_ref: event.id,
       source_url: event.url,
-      venue: { name: venue.name, county: countyFor(venue, latitude, longitude), latitude, longitude },
+      venue: { name: venueName, county: countyFor(venue, latitude, longitude), latitude, longitude },
     },
   };
 }

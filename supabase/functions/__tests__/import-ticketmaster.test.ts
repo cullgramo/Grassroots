@@ -61,6 +61,24 @@ describe('Ticketmaster import', () => {
     expect(countyFor({ city: { name: 'Thurles' } }, 52.68, -7.82)).toBe('Tipperary');
     expect(countyFor({}, 53.2795, -9.038)).toBe('Galway');
   });
+  it('places the listings the third real run got wrong', () => {
+    const none = [{ segment: { name: 'Miscellaneous' } }];
+    const club = (name: string, venues?: unknown) => {
+      const r = mapEvent(event({ name, classifications: none, ...(venues ? { _embedded: { venues } } : {}) }), 'local');
+      if (!('fixture' in r)) throw new Error(r.skipped);
+      return r.fixture;
+    };
+    for (const n of ['Ballymaguigan v Enniskillen Gaels', 'Magheracloone v Carryduff', 'Ballybars v Dromintee']) {
+      expect(club(`Ulster Ladies Minor Club Championship: ${n}`)).toMatchObject({ sport_id: 'ladies-football', competition: 'Ulster Ladies Minor Club Championship' });
+    }
+    expect(club('Douglas v Blarney  - JBFC QF')).toMatchObject({ sport_id: 'gaelic-football', home_team: 'Douglas', away_team: 'Blarney', competition: 'JBFC QF' });
+    expect(sportFor({ name: 'Cork PIHC Final', classifications: none })).toBe('hurling');
+    expect(sportFor({ name: 'Kerry Ladies Senior Football Championship Final', classifications: none })).toBe('ladies-football');
+    expect(sportFor({ name: 'Ladies Camogie Championship Final', classifications: none }, true)).toBe('camogie');
+    expect(sportFor({ name: 'Athlone Town AFC v Longford Town', classifications: none }, true)).toBe('soccer');
+    const messy = [{ name: "St Trea's GAA, Ballymaguigan - Ballymaguigan GAA Grounds        ", city: { name: 'Magherafelt' }, location: { latitude: '54.72', longitude: '-6.55' } }];
+    expect(club('Ulster Ladies Minor Club Championship: A v B', messy).venue.name).toBe("St Trea's GAA, Ballymaguigan - Ballymaguigan GAA Grounds");
+  });
   it('splits team names', () => {
     expect(splitTeams('Ireland vs Scotland')).toEqual({ competition: '', home: 'Ireland', away: 'Scotland' });
     expect(splitTeams('Shamrock Rovers v. Bohemians')).toEqual({ competition: '', home: 'Shamrock Rovers', away: 'Bohemians' });
