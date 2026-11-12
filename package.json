@@ -50,6 +50,7 @@
   "private": true,
   "jest": {
     "preset": "jest-expo",
+    "testPathIgnorePatterns": ["/node_modules/", "/collector/"],
     "transformIgnorePatterns": [
       "/node_modules/(?!(supercluster|kdbush)/|(.pnpm|react-native|@react-native|@react-native-community|expo|@expo|@expo-google-fonts|react-navigation|@react-navigation|@sentry/react-native|native-base|standard-navigation))",
       "/node_modules/react-native-reanimated/plugin/",

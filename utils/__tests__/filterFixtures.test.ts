@@ -179,3 +179,27 @@ describe('mapFixture', () => {
     expect(mapFixture({ ...row, status: 'abandoned' }).status).toBe('scheduled');
   });
 });
+
+describe('searchFixtures', () => {
+  const { searchFixtures } = require('../filterFixtures');
+  const list = [
+    { id: 'a', sport: 'hurling', homeTeam: 'Naomh Éanna', awayTeam: "St Kevin's", competition: 'Junior Cup', venue: 'Parnell Park', county: 'Dublin' },
+    { id: 'b', sport: 'basketball', homeTeam: 'Killester', awayTeam: 'Templeogue', competition: 'Super League', venue: 'IWA Clontarf', county: 'Dublin' },
+    { id: 'c', sport: 'horse-racing', title: 'Leopardstown, Day 1', competition: 'Christmas Festival', venue: 'Leopardstown', county: 'Dublin' },
+  ];
+  const ids = (q: string) => searchFixtures(list, q).map((f: { id: string }) => f.id);
+  it('returns everything for an empty search', () => expect(ids('  ')).toEqual(['a', 'b', 'c']));
+  it('finds by team, ground, competition, title and sport', () => {
+    expect(ids('killester')).toEqual(['b']);
+    expect(ids('parnell')).toEqual(['a']);
+    expect(ids('super league')).toEqual(['b']);
+    expect(ids('leopardstown')).toEqual(['c']);
+    expect(ids('hurling')).toEqual(['a']);
+  });
+  it('ignores accents, capitals and apostrophes, and needs every word', () => {
+    expect(ids('NAOMH eanna')).toEqual(['a']);
+    expect(ids('st kevins')).toEqual(['a']);
+    expect(ids('st kevin')).toEqual(['a']);
+    expect(ids('killester hurling')).toEqual([]);
+  });
+});

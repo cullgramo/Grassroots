@@ -100,3 +100,23 @@ export function describeWhen(filters: Filters): string {
   const when = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days' }[filters.when];
   return `${when} · ${filters.level ?? 'All levels'}`;
 }
+
+const plain = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9 ]+/g, ' ');
+
+/** Text search across teams, title, competition, ground, county and sport. Every word typed must appear. */
+export function searchFixtures(fixtures: Fixture[], query: string): Fixture[] {
+  const words = plain(query).split(' ').filter(Boolean);
+  if (words.length === 0) return fixtures;
+  return fixtures.filter((f) => {
+    const text = plain(
+      [f.homeTeam, f.awayTeam, f.title, f.competition, f.venue, f.county, getSport(f.sport).name].filter(Boolean).join(' ')
+    );
+    return words.every((w) => text.includes(w));
+  });
+}
