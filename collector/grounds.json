@@ -670,7 +670,13 @@
  "Leinster|ashtown lane|": null,
  "Leinster|athy|": null,
  "Leinster|baldonnel farm|": null,
- "Leinster|ballycorus rd|": null,
+ "Leinster|ballycorus rd|": {
+  "name": "Ballycorus Rd",
+  "county": "Dublin",
+  "latitude": 53.234684,
+  "longitude": -6.181083,
+  "how": "home club search, address matches the ground name (leisure/sports_centre: Old Wesley Rugby Football Club, Ballycorus Road)"
+ },
  "Leinster|balreask old|": null,
  "Leinster|belfield|": null,
  "Leinster|bowhill balrothery|": null,
@@ -823,7 +829,13 @@
  "Leinster|mccauley park bellefield|": null,
  "Leinster|mcgrath park bagenalstown|": null,
  "Leinster|merrion rd|": null,
- "Leinster|mill rd|": null,
+ "Leinster|mill rd|": {
+  "name": "Mill Rd",
+  "county": "Louth",
+  "latitude": 54.019687,
+  "longitude": -6.433315,
+  "how": "home club search, address matches the ground name (leisure/sports_centre: Dundalk Rugby Club, Mill Road)"
+ },
  "Leinster|milltown house|": null,
  "Leinster|monkstown|": null,
  "Leinster|mountmellick gaa|": {
@@ -903,7 +915,13 @@
   "longitude": -6.8030131130815885,
   "how": "position from the source; county from the map"
  },
- "Leinster|stradbrook|": null,
+ "Leinster|stradbrook|": {
+  "name": "Stradbrook",
+  "county": "Dublin",
+  "latitude": 53.289794,
+  "longitude": -6.160362,
+  "how": "home club search, address matches the ground name (leisure/sports_centre: Blackrock College RFC, Wynberg Park)"
+ },
  "Leinster|teg cusack park westmeath|": {
   "name": "TEG Cusack Park, Westmeath",
   "county": "Westmeath",
