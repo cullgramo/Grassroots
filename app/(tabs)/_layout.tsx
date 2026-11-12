@@ -23,6 +23,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="list"
+        options={{
+          title: 'List',
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <SymbolView name={{ ios: 'list.bullet', android: 'list', web: 'list' }} tintColor={color} size={28} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="saved"
         options={{
           title: 'Saved',

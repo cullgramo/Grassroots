@@ -73,8 +73,8 @@ export default function ExploreScreen() {
     setQuery(q);
     setPickedId(null);
     setVenueIds(null);
-    // Typing opens the list of matches and fits the map to them.
-    if (q.trim()) setSnap('full');
+    // Typing narrows the map to the matches and fits it to them.
+    setSnap('peek');
     setFitKey((k) => k + 1);
   }, []);
 
@@ -123,15 +123,6 @@ export default function ExploreScreen() {
 
       {snap === 'peek' ? (
         <View style={[styles.floating, { bottom: PEEK + 12 }]} pointerEvents="box-none">
-          <View style={styles.buttons} pointerEvents="box-none">
-          <Pressable
-            onPress={() => setSnap('full')}
-            accessibilityRole="button"
-            accessibilityLabel="Show fixtures as a list"
-            style={[styles.toggle, { backgroundColor: t.text }]}>
-            <SymbolView name={{ ios: 'list.bullet', android: 'list', web: 'list' }} tintColor={t.background} size={18} />
-            <Text style={[styles.toggleText, { color: t.background }]}>List</Text>
-          </Pressable>
           <Pressable
             onPress={locate}
             accessibilityRole="button"
@@ -143,7 +134,6 @@ export default function ExploreScreen() {
               size={22}
             />
           </Pressable>
-          </View>
           {floating ? (
             selected ? (
               <FixtureCard fixture={selected} elevated onPress={() => openFixture(selected.id)} />
@@ -183,7 +173,7 @@ export default function ExploreScreen() {
             stickySectionHeadersEnabled={false}
             refreshing={refreshing}
             onRefresh={refresh}
-            contentContainerStyle={[styles.list, { paddingBottom: hidden + 96 }]}
+            contentContainerStyle={[styles.list, { paddingBottom: hidden + 24 }]}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
             renderSectionHeader={({ section }) => (
@@ -198,19 +188,6 @@ export default function ExploreScreen() {
           />
         )}
       </Sheet>
-
-      {snap !== 'peek' ? (
-        <View style={[styles.mapButton, { bottom: insets.bottom + 16 }]} pointerEvents="box-none">
-          <Pressable
-            onPress={() => setSnap('peek')}
-            accessibilityRole="button"
-            accessibilityLabel="Show fixtures on the map"
-            style={[styles.toggle, { backgroundColor: t.text }]}>
-            <SymbolView name={{ ios: 'map.fill', android: 'map', web: 'map' }} tintColor={t.background} size={18} />
-            <Text style={[styles.toggleText, { color: t.background }]}>Map</Text>
-          </Pressable>
-        </View>
-      ) : null}
     </View>
   );
 }
@@ -227,19 +204,8 @@ const styles = StyleSheet.create({
   screen: { flex: 1, overflow: 'hidden' },
   top: { position: 'absolute', top: 0, left: 0, right: 0 },
   floating: { position: 'absolute', left: 16, right: 16, gap: 12 },
-  buttons: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  toggle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 18,
-    minHeight: 48,
-    borderRadius: 24,
-    ...shadow,
-  },
-  toggleText: { fontSize: 15, fontWeight: '800' },
-  mapButton: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },
   locate: {
+    alignSelf: 'flex-end',
     width: 48,
     height: 48,
     borderRadius: 24,
