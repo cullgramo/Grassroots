@@ -82,5 +82,15 @@ async function findRugbyClub(f, allowed) {
     });
     if (h) return { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: `rugby club search (${h.category}/${h.type}: ${h.name ?? ''}); the source names the club or town, not the pitch` };
   }
-  return null;
+  // Last try: look up the home club, and accept it only if the map's own address for that club
+  // contains the ground name the source gives ("Castle Avenue" for Clontarf). The home ground is never assumed.
+  const club = norm(f.home ?? '').replace(/\b(rfc|rugby|football|club|fc|xv|1st|2nd|3rd|\dth|u\d+|j\d|girls|boys|women|men|seconds|thirds|\d+)\b/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!club || wanted.some((w) => w.length < 4)) return null;
+  const hits = await getJson(SEARCH + encodeURIComponent(`${club} RFC, Ireland`));
+  const h = hits.find((x) => {
+    const where = norm(x.display_name ?? '');
+    const sporty = x.category === 'leisure' || x.category === 'club' || x.category === 'landuse';
+    return sporty && wanted.every((w) => where.includes(w)) && inIreland(+x.lat, +x.lon) && allowed.includes(countyOf(x));
+  });
+  return h ? { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: `home club search, address matches the ground name (${h.category}/${h.type}: ${(h.display_name ?? '').split(',').slice(0, 2).join(',')})` } : null;
 }

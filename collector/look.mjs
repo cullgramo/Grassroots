@@ -12,8 +12,9 @@ import * as munsterGaa from './sources/munster-gaa.mjs';
 import * as connachtGaa from './sources/connacht-gaa.mjs';
 import * as clubRugby from './sources/club-rugby.mjs';
 import * as horseRacing from './sources/horse-racing.mjs';
+import * as countyGaa from './sources/county-gaa.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa };
 
 export async function collect(source, now = new Date()) {
   const all = [];

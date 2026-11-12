@@ -23,7 +23,7 @@ export function read(html, page, now = new Date()) {
       const away = tidy(row.querySelector('.away_team')?.text);
       if (!home || !away || !date) continue;
       // "Winner of Semi-Final 1" is a placeholder, not a team.
-      if (/^(winner|loser|runner)/i.test(home) || /^(winner|loser|runner)/i.test(away)) continue;
+      if (/\b(winner|loser|runner.up)\b/i.test(home) || /\b(winner|loser|runner.up)\b/i.test(away)) continue;
       let info = row.nextElementSibling;
       if (!info?.classList?.contains('more_info')) info = null;
       // Only the venue link is read from this row; the referee's name beside it is left alone.
@@ -32,7 +32,8 @@ export function read(html, page, now = new Date()) {
       out.push({
         ref: `${id(compLink?.getAttribute('href')) ?? competition}-${ids[0]}-${ids[1]}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
         sport: gaaSport(competition) ?? 'gaelic-football',
-        level: /club|school|college|pps/i.test(competition) ? 'local' : 'top', category: null, competition,
+        level: /club|school|college|pps/i.test(competition) ? 'local' : 'top', category: null,
+        competition: page.prefix && !new RegExp(page.prefix, 'i').test(competition) ? `${page.prefix} ${competition}` : competition,
         home, away, title: null, date, time: readTime(row.querySelector('.time')?.text ?? ''),
         venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null, area: page.area ?? 'Ulster', url: page.url,
       });
