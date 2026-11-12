@@ -126,13 +126,20 @@ test('Ulster GAA: reads date, teams, time and ground, and never the referee', as
     <h3 class="fix_res_date">Saturday 14th Nov 2026</h3>
     <div class="competition">
       <div class="competition-name"><a href="/fixtures-results/football/club/junior/x/bb70af5d-5fe0-4d99-91c1-eb3377783caa/">2026 Ulster GAA Football Junior Club Championship - Semi Final 2</a></div>
+      <div class="comp_details">
       <div class="home_team"><a href="/fixtures-results/team/a/3fb451ca-2e89-b3a1-3095-b059d8701522/">Fionntamhnach Na Piarsaigh</a></div>
       <div class="time football">13:30</div>
       <div class="away_team"><a href="/fixtures-results/team/b/9fe97fff-97f0-8966-1135-d04878431698/">Lacken GAA</a></div>
+      </div>
       <div class="more_info"><p><strong>Venue:</strong> <a href="/fixtures-results/venue/shamrock-park-roslea/79cf7d93/">Shamrock Park, Roslea</a> <span><strong>Referee:</strong> Some Person</span></p></div>
+      <div class="comp_details"><div class="home_team"><a href="#">Winner of Semi-Final 1</a></div><div class="time">14:00</div><div class="away_team"><a href="#">Winner of Semi-Final 2</a></div></div>
+      <div class="more_info"><p><strong>Venue:</strong> <a href="#">TBC</a></p></div>
+      <div class="comp_details"><div class="home_team"><a href="#">Gort CS</a></div><div class="time">11:00</div><div class="away_team"><a href="#">Athenry</a></div></div>
+      <div class="more_info"><p><strong>Venue:</strong> <a href="#">TBC</a></p></div>
     </div></div>`;
   const out = ulster.read(html, ulster.pages[0], new Date('2026-11-12T12:00:00Z'));
-  assert.equal(out.length, 1);
+  assert.equal(out.length, 2);
+  assert.equal(out[1].venue, '');
   assert.deepEqual([out[0].date, out[0].time, out[0].home, out[0].away, out[0].venue, out[0].sport, out[0].level],
     ['2026-11-14', '13:30', 'Fionntamhnach Na Piarsaigh', 'Lacken GAA', 'Shamrock Park, Roslea', 'gaelic-football', 'local']);
   assert.ok(!JSON.stringify(out).includes('Some Person'));

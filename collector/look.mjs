@@ -9,8 +9,9 @@ import * as leinsterGaa from './sources/leinster-gaa.mjs';
 import * as irishHockey from './sources/irish-hockey.mjs';
 import * as ulsterGaa from './sources/ulster-gaa.mjs';
 import * as munsterGaa from './sources/munster-gaa.mjs';
+import * as connachtGaa from './sources/connacht-gaa.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa };
 
 export async function collect(source, now = new Date()) {
   const all = [];

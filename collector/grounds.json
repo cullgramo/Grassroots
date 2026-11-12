@@ -1,4 +1,95 @@
 {
+ "Connacht|carnmore gaa club|": {
+  "name": "Carnmore GAA Club",
+  "county": "Galway",
+  "latitude": 53.30521,
+  "longitude": -8.90419,
+  "how": "checked by hand (OpenStreetMap: Carnmore GAA Ground)"
+ },
+ "Connacht|castlerea st kevins|": null,
+ "Connacht|connacht gaa centre|": {
+  "name": "Connacht GAA Centre",
+  "county": "Mayo",
+  "latitude": 53.773491,
+  "longitude": -8.852861,
+  "how": "place search (leisure/sports_centre: Connacht GAA Centre Of Excellence)"
+ },
+ "Connacht|cregg|": null,
+ "Connacht|fr o hara park charlestown|": null,
+ "Connacht|gort gaa grounds|": {
+  "name": "Gort GAA Grounds",
+  "county": "Galway",
+  "latitude": 53.043912,
+  "longitude": -8.834138,
+  "how": "place search (leisure/sports_centre: Gort GAA Grounds)"
+ },
+ "Connacht|hastings insurance machale park castlebar|": {
+  "name": "Hastings Insurance MacHale Park, Castlebar",
+  "county": "Mayo",
+  "latitude": 53.85336,
+  "longitude": -9.2865,
+  "how": "checked by hand (OpenStreetMap: MacHale Park, Castlebar)"
+ },
+ "Connacht|islandeady|": {
+  "name": "Islandeady",
+  "county": "Mayo",
+  "latitude": 53.82677,
+  "longitude": -9.40427,
+  "how": "checked by hand (OpenStreetMap: Islandeady GAA); the source gives only the place name, and this is its GAA ground"
+ },
+ "Connacht|kiltimagh gaa club|": {
+  "name": "Kiltimagh GAA Club",
+  "county": "Mayo",
+  "latitude": 53.8483,
+  "longitude": -9.01087,
+  "how": "checked by hand (OpenStreetMap: Kiltimagh GAA)"
+ },
+ "Connacht|king moffatt dr hyde park|": null,
+ "Connacht|lisnamult|": {
+  "name": "Lisnamult",
+  "county": "Roscommon",
+  "latitude": 53.621,
+  "longitude": -8.20885,
+  "how": "checked by hand (OpenStreetMap: Roscommon Gaels GAA, Lisnamult); the source gives only the place name, and this is its GAA ground"
+ },
+ "Connacht|markievicz park sligo|": {
+  "name": "Markievicz Park, Sligo",
+  "county": "Sligo",
+  "latitude": 54.25711,
+  "longitude": -8.465744,
+  "how": "place search (leisure/stadium: Markievicz Park)"
+ },
+ "Connacht|mcgovern park ruislip|": null,
+ "Connacht|milltown gaa club|": {
+  "name": "Milltown GAA Club",
+  "county": "Galway",
+  "latitude": 53.61399,
+  "longitude": -8.90529,
+  "how": "checked by hand (OpenStreetMap: Milltown GAA)"
+ },
+ "Connacht|pearse stadium salthill|": {
+  "name": "Pearse Stadium, Salthill",
+  "county": "Galway",
+  "latitude": 53.263186,
+  "longitude": -9.084307,
+  "how": "place search (leisure/stadium: Pearse Stadium)"
+ },
+ "Connacht|summerhill astro|": {
+  "name": "Summerhill Astro",
+  "county": "Sligo",
+  "latitude": 54.264612,
+  "longitude": -8.477321,
+  "how": "place search (leisure/pitch: Summerhill College Astro)"
+ },
+ "Connacht|tallagh|": null,
+ "Connacht|tuam stadium|": null,
+ "Connacht|westport gaa|": {
+  "name": "Westport GAA",
+  "county": "Mayo",
+  "latitude": 53.808041,
+  "longitude": -9.521522,
+  "how": "place search (landuse/recreation_ground: Westport GAA)"
+ },
  "Dublin|5 acres perrystown|": null,
  "Dublin|archerstown|": null,
  "Dublin|aul complex|": {
@@ -40,6 +131,7 @@
  },
  "Dublin|cross chapel|": null,
  "Dublin|crumlin united|": null,
+ "Dublin|damastown park|": null,
  "Dublin|dr ryan park|": null,
  "Dublin|edenmore|": null,
  "Dublin|fr collins park|": {
@@ -331,6 +423,7 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|edgeworthstown|": null,
+ "Leinster|enfield|": null,
  "Leinster|ferbane gaa|": {
   "name": "Ferbane GAA",
   "county": "Offaly",
@@ -348,6 +441,7 @@
  },
  "Leinster|glenisk o connor park|": null,
  "Leinster|kilbeggan|": null,
+ "Leinster|kilcormac|": null,
  "Leinster|kilkenny college|": {
   "name": "Kilkenny College",
   "county": "Kilkenny",
@@ -395,6 +489,8 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|rathdowney|": null,
+ "Leinster|rathnew|": null,
+ "Leinster|rochfortbridge|": null,
  "Leinster|ros glas|": null,
  "Leinster|sallins|": {
   "name": "Sallins",
@@ -571,6 +667,14 @@
   "longitude": -6.662293,
   "how": "place search (leisure/stadium: BOX-IT Athletic Grounds)"
  },
+ "Ulster|brewster park enniskillen|": {
+  "name": "Brewster Park, Enniskillen",
+  "county": "Fermanagh",
+  "latitude": 54.351034,
+  "longitude": -7.634909,
+  "how": "place search (leisure/pitch: Brewster Park)"
+ },
+ "Ulster|burren|": null,
  "Ulster|camlin park cookstown hs|BT80 8PQ": {
   "name": "Camlin Park (Cookstown HS)",
   "county": "Derry",
@@ -622,6 +726,13 @@
   "longitude": -7.29721,
   "how": "checked by hand (OpenStreetMap: Healy Park, Gortin Road, Omagh)"
  },
+ "Ulster|pairc esler newry|": {
+  "name": "Páirc Esler, Newry",
+  "county": "Armagh",
+  "latitude": 54.163075,
+  "longitude": -6.334875,
+  "how": "place search (leisure/stadium: Páirc Esler (Down GAA & Newry Shamrocks GAC))"
+ },
  "Ulster|rugby avenue|BT52 1JL": {
   "name": "Rugby Avenue",
   "county": "Derry",
@@ -629,7 +740,13 @@
   "longitude": -6.657767,
   "how": "postcode"
  },
- "Ulster|shamrock park roslea|": null,
+ "Ulster|shamrock park roslea|": {
+  "name": "Shamrock Park, Roslea",
+  "county": "Fermanagh",
+  "latitude": 54.24062,
+  "longitude": -7.16995,
+  "how": "checked by hand (OpenStreetMap: Roslea GAA)"
+ },
  "Ulster|shaw s bridge sports complex|BT8 7XP": null,
  "Ulster|st colm s ballinascreen|": {
   "name": "St Colm's Ballinascreen",

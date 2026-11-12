@@ -4,7 +4,7 @@ import { parse } from 'node-html-parser';
 import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Ulster GAA';
-export const pages = [{ url: 'https://ulster.gaa.ie/fixtures-results/' }];
+export const pages = [{ url: 'https://ulster.gaa.ie/fixtures-results/', area: 'Ulster' }];
 
 export function read(html, page, now = new Date()) {
   const out = [];
@@ -16,19 +16,27 @@ export function read(html, page, now = new Date()) {
     if (!el.classList.contains('competition')) continue;
     const compLink = el.querySelector('.competition-name a');
     const competition = tidy(compLink?.text).replace(/^\d{4}\s+/, '');
-    const home = tidy(el.querySelector('.home_team')?.text);
-    const away = tidy(el.querySelector('.away_team')?.text);
-    if (!home || !away || !date) continue;
-    const venueLink = el.querySelector('.more_info a[href*="/venue/"]');
     const id = (s) => (s ?? '').match(/([0-9a-f-]{36})\/?$/)?.[1];
-    const ids = [el.querySelector('.home_team a'), el.querySelector('.away_team a')].map((a) => id(a?.getAttribute('href')) ?? tidy(a?.text));
-    out.push({
-      ref: `${id(compLink?.getAttribute('href')) ?? competition}-${ids[0]}-${ids[1]}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football',
-      level: /club|school|college|colleges/i.test(competition) ? 'local' : 'top', category: null, competition,
-      home, away, title: null, date, time: readTime(el.querySelector('.time')?.text ?? ''),
-      venue: tidy(venueLink?.text), county: null, postcode: null, area: 'Ulster', url: page.url,
-    });
+    // One competition block can hold several games: each is a teams row followed by its venue row.
+    for (const row of el.querySelectorAll('.comp_details')) {
+      const home = tidy(row.querySelector('.home_team')?.text);
+      const away = tidy(row.querySelector('.away_team')?.text);
+      if (!home || !away || !date) continue;
+      // "Winner of Semi-Final 1" is a placeholder, not a team.
+      if (/^(winner|loser|runner)/i.test(home) || /^(winner|loser|runner)/i.test(away)) continue;
+      let info = row.nextElementSibling;
+      if (!info?.classList?.contains('more_info')) info = null;
+      // Only the venue link is read from this row; the referee's name beside it is left alone.
+      const venue = tidy(info?.querySelector('a')?.text);
+      const ids = [row.querySelector('.home_team a'), row.querySelector('.away_team a')].map((a) => id(a?.getAttribute('href')) ?? tidy(a?.text));
+      out.push({
+        ref: `${id(compLink?.getAttribute('href')) ?? competition}-${ids[0]}-${ids[1]}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        sport: gaaSport(competition) ?? 'gaelic-football',
+        level: /club|school|college|pps/i.test(competition) ? 'local' : 'top', category: null, competition,
+        home, away, title: null, date, time: readTime(row.querySelector('.time')?.text ?? ''),
+        venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null, area: page.area ?? 'Ulster', url: page.url,
+      });
+    }
   }
   return out;
 }
