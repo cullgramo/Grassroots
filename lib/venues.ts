@@ -1,4 +1,5 @@
 import { countyFor } from '@/data/counties';
+import { SUPABASE_KEY, SUPABASE_URL } from './config';
 
 export interface Venue {
   name: string;
@@ -7,8 +8,8 @@ export interface Venue {
   longitude: number;
 }
 
-const BASE = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+const BASE = SUPABASE_URL;
+const KEY = SUPABASE_KEY;
 
 export async function fetchVenues(): Promise<Venue[]> {
   const res = await fetch(`${BASE}/rest/v1/venues?select=name,county,latitude,longitude&limit=5000`, {

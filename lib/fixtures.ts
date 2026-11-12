@@ -1,10 +1,9 @@
 import type { SportId } from '@/constants/sports';
 import type { Fixture, FixtureStatus } from '@/types/fixture';
 
-const URL_BASE = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+import { SUPABASE_KEY as KEY, SUPABASE_URL as URL_BASE } from './config';
 
-/** False until the project's .env is filled in; the app then runs on its built-in sample fixtures. */
+/** True when the app knows which database to read; otherwise it runs on its built-in sample fixtures. */
 export const backendConfigured = Boolean(URL_BASE && KEY);
 
 export interface FixtureRow {
