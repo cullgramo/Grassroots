@@ -69,7 +69,13 @@
   "how": "checked by hand (OpenStreetMap: Galway Corinthians RFC, Cloonacauneen)"
  },
  "Connacht|corrib rfc|": null,
- "Connacht|creggs rfc|": null,
+ "Connacht|creggs rfc|": {
+  "name": "Creggs RFC",
+  "county": "Galway",
+  "latitude": 53.59469,
+  "longitude": -8.361627,
+  "how": "coordinates supplied by the app owner as club-published (The Green, Creggs, F42 YA24); checked on the map to fall in Creggs village"
+ },
  "Connacht|cregg|": {
   "name": "Cregg",
   "county": "Galway",
@@ -1724,7 +1730,13 @@
   "how": "rugby club search (leisure/sports_centre: Kinsale Rugby Football Club); the source names the club or town, not the pitch"
  },
  "Munster|lahinch ns|": null,
- "Munster|lansdowne|": null,
+ "Munster|lansdowne|": {
+  "name": "Lansdowne",
+  "county": "Cork",
+  "latitude": 51.90338,
+  "longitude": -8.468348,
+  "how": "address supplied by the app owner (Christian Brothers College, Sidney Hill, Wellington Road, Cork, T23 FY09; address confirmed); placed at the college, which the map shows beside the Lansdowne neighbourhood"
+ },
  "Munster|leahy park cashel|": {
   "name": "Leahy Park Cashel",
   "county": "Tipperary",
@@ -2769,7 +2781,13 @@
   "longitude": -8.639159,
   "how": "place search (amenity/school: Crescent College Comprehensive)"
  },
- "|fr mathews arena|": null,
+ "|fr mathews arena|": {
+  "name": "Fr Mathews Arena",
+  "county": "Cork",
+  "latitude": 51.890651,
+  "longitude": -8.538149,
+  "how": "Eircode supplied by the app owner as club-published (Eden Hall, Model Farm Road, Cork, T12 A9XE); the map knows this Eircode"
+ },
  "|hansfield etss|": {
   "name": "Hansfield ETSS",
   "county": "Dublin",
@@ -2805,7 +2823,13 @@
   "longitude": -9.485733,
   "how": "place search (leisure/sports_centre: Killarney Sports & Leisure Centre)"
  },
- "|killorglin sports complex|": null,
+ "|killorglin sports complex|": {
+  "name": "Killorglin Sports Complex",
+  "county": "Kerry",
+  "latitude": 52.104388,
+  "longitude": -9.78679,
+  "how": "address supplied by the app owner (Langford Street, Killorglin); placed on Langford Street, not on the building itself"
+ },
  "|kingfisher sports centre|": {
   "name": "Kingfisher Sports Centre",
   "county": "Galway",
