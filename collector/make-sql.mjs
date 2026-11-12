@@ -21,6 +21,8 @@ const fixtures = [];
 const leftOut = [];
 const replaced = new Set();
 const live = {};
+// The same game can be listed by two sources (a national list and a provincial one); the first copy is kept.
+const seen = new Set();
 for (const [key, source] of Object.entries(SOURCES)) {
   const { upcoming, problems } = await collect(source);
   // Only tidy away a source's old fixtures when every one of its pages was read.
@@ -31,6 +33,9 @@ for (const [key, source] of Object.entries(SOURCES)) {
     if (!f.startsAt && !f.time) { leave('Start time not set yet'); continue; }
     const ground = grounds[groundKey(f)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
     if (!ground) { leave('Ground not placed on the map yet'); continue; }
+    const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}`;
+    if (seen.has(game)) { leave('Already listed by another source'); continue; }
+    seen.add(game);
     const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time);
     const ref = `${key}-${f.ref}`;
     live[key]?.push(ref);

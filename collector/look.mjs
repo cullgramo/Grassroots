@@ -6,8 +6,9 @@ import * as basketball from './sources/basketball.mjs';
 import * as dublinGaa from './sources/dublin-gaa.mjs';
 import * as ulsterHockey from './sources/ulster-hockey.mjs';
 import * as leinsterGaa from './sources/leinster-gaa.mjs';
+import * as irishHockey from './sources/irish-hockey.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey };
 
 export async function collect(source, now = new Date()) {
   const all = [];

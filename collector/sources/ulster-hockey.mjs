@@ -4,7 +4,7 @@ import { parse } from 'node-html-parser';
 import { readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Ulster Hockey';
-export const pages = [{ url: 'https://ulsterhockeyumpires.com/public/fixturesquick.php' }];
+export const pages = [{ url: 'https://ulsterhockeyumpires.com/public/fixturesquick.php', prefix: 'Ulster', area: 'Ulster' }];
 
 export function read(html, page, now = new Date()) {
   const out = [];
@@ -30,14 +30,17 @@ export function read(html, page, now = new Date()) {
     const [home, away] = tidy(teams?.text).split(/\s+v\s+/);
     if (!home || !away) continue;
     const ground = game.querySelector('a[href*="maps"]');
+    // Some grounds are plain text after an @ sign, with no map link.
+    const plainGround = game.text.includes('@') ? tidy(game.text.slice(game.text.lastIndexOf('@') + 1)) : '';
+    const prefix = page.prefix ?? 'Ulster';
     const postcode = decodeURIComponent((ground?.getAttribute('href') ?? '').match(/search\/([^/]+)/)?.[1] ?? '').replace(/\+/g, ' ').trim();
     const time = readTime(cells.map((c) => c.text).find((t) => /^\s*\d{1,2}:\d{2}\s*$/.test(t)) ?? '');
     out.push({
       ref: `${date}-${home}-${away}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: 'hockey', level: 'local', category, competition: /ulster/i.test(competition) ? competition : tidy(`Ulster ${competition}`),
+      sport: 'hockey', level: page.level ?? 'local', category, competition: !prefix || new RegExp(prefix, 'i').test(competition) ? competition : tidy(`${prefix} ${competition}`),
       home, away, title: null, date, time,
-      venue: tidy(ground?.text), county: null, postcode: /^BT\d/i.test(postcode) ? postcode.toUpperCase() : null,
-      area: 'Ulster', url: page.url,
+      venue: tidy(ground?.text) || plainGround, county: null, postcode: /^BT\d/i.test(postcode) ? postcode.toUpperCase() : null,
+      area: page.area ?? 'Ulster', url: page.url,
     });
   }
   return out;

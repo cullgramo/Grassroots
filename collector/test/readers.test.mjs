@@ -103,3 +103,19 @@ test('Leinster GAA: reads both lists, keeps ticket link and position, never the 
   assert.equal(sold[0].county, 'Wicklow');
   assert.ok(!JSON.stringify(sold).includes('Someone') && !JSON.stringify(sold).includes('ticketsSold'));
 });
+
+test('Irish hockey: reads a ground written as plain text, with no province prefix, and no umpire names', async () => {
+  const irish = await import('../sources/irish-hockey.mjs');
+  const html = `<table>
+    <tr class="font-weight-bold"><td>Saturday 14th November 2026</td></tr>
+    <tr class="font-weight-bold"><td>Men - EYHL Division 1</td></tr>
+    <tr><td>14:30</td><td><div class="d-inline d-sm-none">Cork Harlequins v YMCA</div><div class="d-none d-sm-inline"><span>Cork Harlequins</span> v <span>YMCA</span></div> @ Farmers' Cross</td><td>IrishHUA</td><td><span>Some Umpire</span></td></tr>
+  </table>`;
+  const out = irish.read(html, irish.pages[0], new Date('2026-11-12T12:00:00Z'));
+  assert.equal(out.length, 1);
+  assert.equal(out[0].venue, "Farmers' Cross");
+  assert.equal(out[0].competition, 'EYHL Division 1');
+  assert.equal(out[0].level, 'top');
+  assert.equal(out[0].category, 'men');
+  assert.ok(!JSON.stringify(out).includes('Umpire'));
+});

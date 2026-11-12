@@ -211,6 +211,65 @@
  },
  "Dublin|woodlands 11 a side all weather|": null,
  "Dublin|woodlands 5 a side grass|": null,
+ "Ireland|alexandra college|": {
+  "name": "Alexandra College",
+  "county": "Dublin",
+  "latitude": 53.31085,
+  "longitude": -6.25006,
+  "how": "place search (amenity/school: Alexandra College)"
+ },
+ "Ireland|comber road lisnagarvey hc|BT26 6LN": {
+  "name": "Comber Road (Lisnagarvey HC)",
+  "county": "Down",
+  "latitude": 54.461386,
+  "longitude": -6.064025,
+  "how": "postcode"
+ },
+ "Ireland|farmers cross|": null,
+ "Ireland|havelock park|BT32 4LU": {
+  "name": "Havelock Park",
+  "county": "Down",
+  "latitude": 54.360111,
+  "longitude": -6.278181,
+  "how": "place search (leisure/park: Havelock Park)"
+ },
+ "Ireland|londonderry park|BT23 8SG": {
+  "name": "Londonderry Park",
+  "county": "Down",
+  "latitude": 54.587062,
+  "longitude": -5.682344,
+  "how": "place search (leisure/park: Londonderry Park)"
+ },
+ "Ireland|loreto high school grange road|": {
+  "name": "Loreto High School, Grange Road",
+  "county": "Dublin",
+  "latitude": 53.292747,
+  "longitude": -6.2844,
+  "how": "place search (amenity/school: Loreto High School Beaufort)"
+ },
+ "Ireland|rathdown sch|": {
+  "name": "Rathdown Sch.",
+  "county": "Dublin",
+  "latitude": 53.27673,
+  "longitude": -6.13113,
+  "how": "checked by hand (OpenStreetMap: Rathdown School, Glenageary)"
+ },
+ "Ireland|rosbrien|": {
+  "name": "Rosbrien",
+  "county": "Limerick",
+  "latitude": 52.64525,
+  "longitude": -8.63368,
+  "how": "checked by hand (OpenStreetMap: Catholic Institute Athletics Club, Limerick)"
+ },
+ "Ireland|the dub malone playing fields|BT9 5NA": null,
+ "Ireland|the glade|BT36 5NN": {
+  "name": "The Glade",
+  "county": "Antrim",
+  "latitude": 54.69608,
+  "longitude": -5.95294,
+  "how": "checked by hand (OpenStreetMap: Mossley Hockey Club, The Glade)"
+ },
+ "Ireland|whitechurch park|": null,
  "Leinster|athy|": null,
  "Leinster|bunclody|": {
   "name": "Bunclody",
@@ -289,6 +348,13 @@
  },
  "Leinster|glenisk o connor park|": null,
  "Leinster|kilbeggan|": null,
+ "Leinster|kilkenny college|": {
+  "name": "Kilkenny College",
+  "county": "Kilkenny",
+  "latitude": 52.66767,
+  "longitude": -7.246483,
+  "how": "place search (amenity/school: Kilkenny College)"
+ },
  "Leinster|loetb centre of excellence|": null,
  "Leinster|longwood|": null,
  "Leinster|maynooth university north campus|": {
@@ -313,6 +379,13 @@
   "latitude": 52.847007,
   "longitude": -6.916258,
   "how": "position from the source; county from the map"
+ },
+ "Leinster|newpark comprehensive sch|": {
+  "name": "Newpark Comprehensive Sch.",
+  "county": "Dublin",
+  "latitude": 53.28931,
+  "longitude": -6.17247,
+  "how": "checked by hand (OpenStreetMap: Newpark Comprehensive Secondary School, Blackrock)"
  },
  "Leinster|parnell park dublin|": {
   "name": "Parnell Park, Dublin",
@@ -340,6 +413,13 @@
  },
  "Leinster|st annes|": null,
  "Leinster|st brendan s|": null,
+ "Leinster|st columba s college kilmashogue lane rathfarnham dublin|": {
+  "name": "St. Columba's College, Kilmashogue Lane, Rathfarnham, Dublin",
+  "county": "Dublin",
+  "latitude": 53.265799,
+  "longitude": -6.271912,
+  "how": "place search (amenity/school: Saint Columba's College)"
+ },
  "Leinster|st kieran s college|": {
   "name": "St. Kieran's College",
   "county": "Kilkenny",
@@ -361,6 +441,7 @@
   "longitude": -7.337773,
   "how": "position from the source; county from the map"
  },
+ "Leinster|three rock rovers hc|": null,
  "Leinster|trinity gaels|": {
   "name": "Trinity Gaels",
   "county": "Dublin",
@@ -375,6 +456,36 @@
   "latitude": 52.656397,
   "longitude": -7.239681,
   "how": "position from the source; county from the map"
+ },
+ "Munster|bandon grammar sch|": {
+  "name": "Bandon Grammar Sch.",
+  "county": "Cork",
+  "latitude": 51.73467,
+  "longitude": -8.74811,
+  "how": "checked by hand (OpenStreetMap: Bandon Grammar School)"
+ },
+ "Munster|farmers cross|": null,
+ "Munster|mardyke|": null,
+ "Munster|midleton college|": {
+  "name": "Midleton College",
+  "county": "Cork",
+  "latitude": 51.915529,
+  "longitude": -8.16848,
+  "how": "place search (amenity/school: Midleton College)"
+ },
+ "Munster|newtown sch|": {
+  "name": "Newtown Sch.",
+  "county": "Waterford",
+  "latitude": 52.25129,
+  "longitude": -7.10107,
+  "how": "checked by hand (OpenStreetMap: Newtown School, Waterford)"
+ },
+ "Munster|rosbrien|": {
+  "name": "Rosbrien",
+  "county": "Limerick",
+  "latitude": 52.64525,
+  "longitude": -8.63368,
+  "how": "checked by hand (OpenStreetMap: Catholic Institute Athletics Club, Limerick)"
  },
  "Ulster|bangor aurora|BT20 4UT": {
   "name": "Bangor Aurora",

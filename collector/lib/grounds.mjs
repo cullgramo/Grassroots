@@ -9,7 +9,9 @@ export const groundKey = (f) => `${f.area ?? ''}|${norm(f.venue)}|${f.postcode ?
 export const loadGrounds = () => JSON.parse(readFileSync(FILE, 'utf8'));
 export const saveGrounds = (g) => writeFileSync(FILE, JSON.stringify(Object.fromEntries(Object.entries(g).sort()), null, 1) + '\n');
 
-const AREAS = { Leinster: ['Carlow', 'Dublin', 'Kildare', 'Kilkenny', 'Laois', 'Longford', 'Louth', 'Meath', 'Offaly', 'Westmeath', 'Wexford', 'Wicklow'], Dublin: ['Dublin', 'Kildare', 'Wicklow', 'Meath', 'Louth'], Ulster: ['Antrim', 'Armagh', 'Cavan', 'Derry', 'Donegal', 'Down', 'Fermanagh', 'Monaghan', 'Tyrone'] };
+const MUNSTER = ['Clare', 'Cork', 'Kerry', 'Limerick', 'Tipperary', 'Waterford'];
+const CONNACHT = ['Galway', 'Leitrim', 'Mayo', 'Roscommon', 'Sligo'];
+const AREAS = { Munster: MUNSTER, Connacht: CONNACHT, Leinster: ['Carlow', 'Dublin', 'Kildare', 'Kilkenny', 'Laois', 'Longford', 'Louth', 'Meath', 'Offaly', 'Westmeath', 'Wexford', 'Wicklow'], Dublin: ['Dublin', 'Kildare', 'Wicklow', 'Meath', 'Louth'], Ulster: ['Antrim', 'Armagh', 'Cavan', 'Derry', 'Donegal', 'Down', 'Fermanagh', 'Monaghan', 'Tyrone'] };
 const SEARCH = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&countrycodes=ie,gb&limit=5&q=';
 const GENERIC = new Set(['college', 'university', 'celtics', 'eagles', 'thunder', 'warriors', 'sports', 'trust', 'utility', 'credit', 'union', 'decisions', 'career', 'energywise', 'ireland', 'lions', 'titans', 'mystics', 'meteors', 'panthers', 'rockets', 'stars', 'united', 'rovers', 'celtic', 'school', 'saints', 'griffith', 'flexachem', 'flomax', 'abbey', 'seals', 'talons', 'wolves', 'lakers', 'demons', 'giants', 'storm', 'knights', 'killester']);
 const inIreland = (lat, lon) => lat >= 51 && lat <= 56 && lon >= -11 && lon <= -5;
@@ -34,7 +36,8 @@ export async function findGround(f) {
     const h = hits.find((x) => inIreland(+x.lat, +x.lon));
     if (h) return { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: 'postcode' };
   }
-  const allowed = f.counties ?? (f.county ? [f.county] : AREAS[f.area]);
+  // 'Ireland' means anywhere on the island: the name alone has to be a confident match.
+  const allowed = f.counties ?? (f.county ? [f.county] : f.area === 'Ireland' ? [...new Set(Object.values(AREAS).flat())] : AREAS[f.area]);
   const near = f.counties?.[0] ?? f.county;
   const parts = f.venue.split(',').map((p) => p.trim()).filter(Boolean);
   // With no county or area to check against, the home team's own name is the only clue to the right town
