@@ -337,7 +337,13 @@
   "longitude": -8.932729,
   "how": "place search (amenity/school: Calasanctius College)"
  },
- "|castleisland cc|": null,
+ "|castleisland cc|": {
+  "name": "Castleisland CC",
+  "county": "Kerry",
+  "latitude": 52.22813,
+  "longitude": -9.45718,
+  "how": "checked by hand (OpenStreetMap: Castleisland Community College)"
+ },
  "|castleisland community centre|": {
   "name": "Castleisland Community Centre",
   "county": "Kerry",
@@ -345,7 +351,13 @@
   "longitude": -9.457452,
   "how": "place search (amenity/community_centre: Castleisland Community Centre)"
  },
- "|castlepark school dalkey|": null,
+ "|castlepark school dalkey|": {
+  "name": "Castlepark School, Dalkey",
+  "county": "Dublin",
+  "latitude": 53.28337,
+  "longitude": -6.1089,
+  "how": "checked by hand (OpenStreetMap: Castle Park School, Dalkey)"
+ },
  "|colaiste bride|": {
   "name": "Coláiste Bríde",
   "county": "Dublin",
@@ -376,10 +388,28 @@
   "how": "place search (amenity/school: Crescent College Comprehensive)"
  },
  "|fr mathews arena|": null,
- "|hansfield etss|": null,
- "|iwa clontarf|": null,
+ "|hansfield etss|": {
+  "name": "Hansfield ETSS",
+  "county": "Dublin",
+  "latitude": 53.39032,
+  "longitude": -6.44524,
+  "how": "checked by hand (OpenStreetMap: Hansfield Educate Together Secondary School)"
+ },
+ "|iwa clontarf|": {
+  "name": "IWA Clontarf",
+  "county": "Dublin",
+  "latitude": 53.36808,
+  "longitude": -6.19988,
+  "how": "checked by hand (OpenStreetMap: Irish Wheelchair Association, Clontarf)"
+ },
  "|jordanstown sports village|": null,
- "|kerry sports academy|": null,
+ "|kerry sports academy|": {
+  "name": "Kerry Sports Academy",
+  "county": "Kerry",
+  "latitude": 52.2878,
+  "longitude": -9.67155,
+  "how": "checked by hand (OpenStreetMap: Kerry Sports Academy, Tralee)"
+ },
  "|killarney sports leisure centre|": {
   "name": "Killarney Sports & Leisure Centre",
   "county": "Kerry",
@@ -396,7 +426,13 @@
   "longitude": -6.51618,
   "how": "place search (leisure/pitch: Leixlip Amenities Sports Centre)"
  },
- "|limerick educate together|": null,
+ "|limerick educate together|": {
+  "name": "Limerick Educate Together",
+  "county": "Limerick",
+  "latitude": 52.65393,
+  "longitude": -8.57632,
+  "how": "checked by hand (OpenStreetMap: Limerick Educate Together Secondary School)"
+ },
  "|lisburn racquets club|": {
   "name": "Lisburn Racquets Club",
   "county": "Antrim",
@@ -425,9 +461,27 @@
   "longitude": -8.467304,
   "how": "place search (amenity/school: Mercy College)"
  },
- "|mercy college|": null,
- "|mercy mounthawk|": null,
- "|mtu arena|": null,
+ "|mercy college|": {
+  "name": "Mercy College",
+  "county": "Waterford",
+  "latitude": 52.26024,
+  "longitude": -7.12542,
+  "how": "checked by hand (OpenStreetMap: Our Lady of Mercy Secondary School, Ozanam Street, Waterford)"
+ },
+ "|mercy mounthawk|": {
+  "name": "Mercy Mounthawk",
+  "county": "Kerry",
+  "latitude": 52.28399,
+  "longitude": -9.72048,
+  "how": "checked by hand (OpenStreetMap: Mercy Secondary School Mounthawk, Tralee)"
+ },
+ "|mtu arena|": {
+  "name": "MTU Arena",
+  "county": "Cork",
+  "latitude": 51.88345,
+  "longitude": -8.5375,
+  "how": "checked by hand (OpenStreetMap: MTU Arena, Bishopstown)"
+ },
  "|national basketball arena|": {
   "name": "National Basketball Arena",
   "county": "Dublin",
@@ -442,7 +496,13 @@
   "longitude": -8.476996,
   "how": "place search (building/stadium: Neptune Stadium)"
  },
- "|newforge sports complex|": null,
+ "|newforge sports complex|": {
+  "name": "Newforge Sports Complex",
+  "county": "Antrim",
+  "latitude": 54.55853,
+  "longitude": -5.94236,
+  "how": "checked by hand (OpenStreetMap: Newforge Country Club, New Forge Lane, Belfast)"
+ },
  "|o loughlin gaels|": {
   "name": "O'Loughlin Gaels",
   "county": "Kilkenny",
@@ -492,10 +552,34 @@
   "longitude": -9.659711,
   "how": "place search (leisure/sports_centre: Sportlann Naomh Anna)"
  },
- "|st mary s hall|": null,
- "|st munchins college|": null,
- "|st vincent s glasnevin|": null,
- "|tolka rovers sports complex|": null,
+ "|st mary s hall|": {
+  "name": "St Mary's Hall",
+  "county": "Laois",
+  "latitude": 53.03681,
+  "longitude": -7.29171,
+  "how": "checked by hand (OpenStreetMap: St. Mary's Hall, Borris Road, Portlaoise)"
+ },
+ "|st munchins college|": {
+  "name": "St Munchins College",
+  "county": "Limerick",
+  "latitude": 52.68377,
+  "longitude": -8.61569,
+  "how": "checked by hand (OpenStreetMap: Saint Munchin's College, Corbally Road)"
+ },
+ "|st vincent s glasnevin|": {
+  "name": "St Vincent's, Glasnevin",
+  "county": "Dublin",
+  "latitude": 53.36807,
+  "longitude": -6.27486,
+  "how": "checked by hand (OpenStreetMap: Saint Vincent's Secondary School, Finglas Road)"
+ },
+ "|tolka rovers sports complex|": {
+  "name": "Tolka Rovers Sports Complex",
+  "county": "Dublin",
+  "latitude": 53.37894,
+  "longitude": -6.2732,
+  "how": "checked by hand (OpenStreetMap: Tolka Rovers FC, Griffith Avenue)"
+ },
  "|trinity sports centre|": {
   "name": "Trinity Sports Centre",
   "county": "Dublin",
@@ -503,7 +587,13 @@
   "longitude": -6.249929,
   "how": "place search (leisure/sports_centre: Trinity College Sports Centre)"
  },
- "|tud tallaght|": null,
+ "|tud tallaght|": {
+  "name": "TUD Tallaght",
+  "county": "Dublin",
+  "latitude": 53.29099,
+  "longitude": -6.36306,
+  "how": "checked by hand (OpenStreetMap: TU Dublin Tallaght)"
+ },
  "|ucd sports centre|": {
   "name": "UCD Sports Centre",
   "county": "Dublin",
@@ -511,7 +601,13 @@
   "longitude": -6.229114,
   "how": "place search (building/university: UCD Sports Centre)"
  },
- "|ul arena|": null,
+ "|ul arena|": {
+  "name": "UL Arena",
+  "county": "Limerick",
+  "latitude": 52.67344,
+  "longitude": -8.56521,
+  "how": "checked by hand (OpenStreetMap: University Arena, Castletroy)"
+ },
  "|virginia show centre|": {
   "name": "Virginia Show Centre",
   "county": "Cavan",
