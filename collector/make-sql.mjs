@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { SOURCES, collect } from './look.mjs';
 import { groundKey, loadGrounds } from './lib/grounds.mjs';
+import { countyFor } from '../data/counties.ts';
 import { getJson, irishTimeToIso, norm } from './lib/util.mjs';
 
 const [, , sqlPath, leftOutPath] = process.argv;
@@ -33,6 +34,8 @@ for (const [key, source] of Object.entries(SOURCES)) {
     if (!f.startsAt && !f.time) { leave('Start time not set yet'); continue; }
     const ground = grounds[groundKey(f)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
     if (!ground) { leave('Ground not placed on the map yet'); continue; }
+    // Every ground needs a county; if the map did not name one, the nearest county is used.
+    if (!ground.county) ground.county = countyFor([], ground.latitude, ground.longitude);
     const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}`;
     if (seen.has(game)) { leave('Already listed by another source'); continue; }
     seen.add(game);

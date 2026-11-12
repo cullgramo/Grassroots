@@ -62,5 +62,25 @@ export async function findGround(f) {
     const h = good[0];
     return { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: `place search (${h.category}/${h.type}: ${h.name ?? ''})` };
   }
+  return f.sport === 'rugby' && allowed ? findRugbyClub(f, allowed) : null;
+}
+
+/**
+ * Rugby fixture lists often give the ground as just the club or town ("Kanturk", "Loughrea RFC").
+ * This looks for a rugby club of that name on the map, inside the right province.
+ */
+async function findRugbyClub(f, allowed) {
+  const base = norm(f.venue).replace(/\b(rfc|rugby|football|club|fc|grounds?|pitch(es)?)\b/g, ' ').replace(/\s+/g, ' ').trim();
+  const wanted = base.split(' ').filter((w) => w.length > 2);
+  if (wanted.length === 0) return null;
+  for (const q of [`${base} RFC`, `${base} Rugby Club`]) {
+    const hits = await getJson(SEARCH + encodeURIComponent(`${q}, Ireland`));
+    const h = hits.find((x) => {
+      const got = norm(`${x.name ?? ''} ${(x.display_name ?? '').split(',')[0]}`);
+      const sporty = x.category === 'leisure' || x.category === 'club' || x.category === 'landuse';
+      return sporty && /\b(rfc|rugby)\b/.test(got) && wanted.every((w) => got.includes(w)) && inIreland(+x.lat, +x.lon) && allowed.includes(countyOf(x));
+    });
+    if (h) return { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: `rugby club search (${h.category}/${h.type}: ${h.name ?? ''}); the source names the club or town, not the pitch` };
+  }
   return null;
 }
