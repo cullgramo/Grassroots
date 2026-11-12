@@ -1957,7 +1957,13 @@
   "longitude": -5.85961,
   "how": "position from the source; county from the map"
  },
- "Ulster|ciyms sports ground|BT4 2GD": null,
+ "Ulster|ciyms sports ground|BT4 2GD": {
+  "name": "CIYMS Sports Ground",
+  "county": "Down",
+  "latitude": 54.604126,
+  "longitude": -5.858824,
+  "how": "checked by hand (OpenStreetMap: CIYMS, Bloomfield, Belfast)"
+ },
  "Ulster|coleraine grammar school|": {
   "name": "Coleraine Grammar School",
   "county": "Derry",
@@ -2349,7 +2355,13 @@
   "longitude": -7.16995,
   "how": "checked by hand (OpenStreetMap: Roslea GAA)"
  },
- "Ulster|shaw s bridge sports complex|BT8 7XP": null,
+ "Ulster|shaw s bridge sports complex|BT8 7XP": {
+  "name": "Shaw's Bridge Sports Complex",
+  "county": "Down",
+  "latitude": 54.551705,
+  "longitude": -5.946843,
+  "how": "checked by hand (OpenStreetMap: Shaw's Bridge Sports Association, Belfast)"
+ },
  "Ulster|shaws bridge|": {
   "name": "Shaws Bridge",
   "county": "Antrim",
