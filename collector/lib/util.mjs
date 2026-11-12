@@ -15,11 +15,29 @@ export async function getPage(url, gapMs = 2000) {
   lastVisit.set(host, Date.now());
   // Inside some sandboxes Node cannot reach the network directly but curl can; behaviour is the same.
   if (process.env.COLLECTOR_USE_CURL === '1') {
-    return execFileSync('curl', ['-sS', '-m', '40', '-L', '--fail', '-A', USER_AGENT, url], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    return decodeLoose(execFileSync('curl', ['-sS', '-m', '40', '-L', '--fail', '-A', USER_AGENT, url], { maxBuffer: 64 * 1024 * 1024 }));
   }
   const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/json' } });
   if (!res.ok) throw new Error(`${host} answered ${res.status}`);
-  return res.text();
+  return decodeLoose(Buffer.from(await res.arrayBuffer()));
+}
+
+/**
+ * Turns a page's bytes into text. Some pages say they are UTF-8 but carry the odd accented letter in the
+ * older Latin-1 form ("Coláiste" arriving as a broken character); those stray bytes are read as Latin-1.
+ */
+export function decodeLoose(buf) {
+  const text = buf.toString('utf8');
+  if (!text.includes('\uFFFD')) return text;
+  let out = '';
+  for (let i = 0; i < buf.length;) {
+    const b = buf[i];
+    const len = b < 0x80 ? 1 : b >= 0xc2 && b < 0xe0 ? 2 : b >= 0xe0 && b < 0xf0 ? 3 : b >= 0xf0 && b < 0xf5 ? 4 : 0;
+    let ok = len > 0 && i + len <= buf.length;
+    for (let k = 1; ok && k < len; k++) ok = (buf[i + k] & 0xc0) === 0x80;
+    if (ok) { out += buf.toString('utf8', i, i + len); i += len; } else { out += String.fromCharCode(b); i += 1; }
+  }
+  return out;
 }
 
 export const tidy = (s) => String(s ?? '').replace(/ /g, ' ').replace(/\s+/g, ' ').trim();

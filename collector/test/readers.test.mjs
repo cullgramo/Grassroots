@@ -162,3 +162,25 @@ test('Munster GAA: reads games from the calendar data, skipping results and non-
   assert.equal(out[1].time, null);
   assert.equal(out[1].venue, '');
 });
+
+test('Club rugby: reads all three page layouts, keeps map positions, never the referee', async () => {
+  const rugby = await import('../sources/club-rugby.mjs');
+  const head = '<div class="date-header"><label>14/11/2026</label></div><div class="compheader"> <div class="expand-item"><label>Metro League - Division 3</label></div> </div>';
+  const leinster = `${head}<ul class="column-seven table-body"><li><span class="data">19:45</span></li><li><span class="data"><a href="#">Clontarf FC 3</a></span></li><li><span class="data">V</span></li><li><span class="data"><a href="#">Malahide RFC 2</a></span></li><li><span class="data">Castle Avenue</span></li><li><span class="data">Some Referee</span></li><li data-fid="7045874"></li></ul>`;
+  const munster = `${head}<ul class="column-seven table-body" data-date="14 Nov 2026" data-time="19:30" data-hometeam="Richmond RFC" data-awayteam="Newport RFC" data-referee="Some Referee" data-venue="Canal Bank"><li><span class="data">19:30</span></li></ul><ul class="column-seven table-body" data-time="14:30" data-hometeam="Cashel RFC" data-awayteam="BYE" data-venue="Cashel"></ul>`;
+  const ulster = `${head}<ul class="column-eight table-body"><li class="smallview-hide time"><span class="data">19:00</span></li><li class="smallview-hide team1"><span class="data">Portadown RFC 2nd XV</span></li><li class="smallview-hide team2"><span class="data">Banbridge RFC 3rd XV</span></li><li class="smallview-hide tmore"><span class="data"><a href='https://www.google.com/maps/dir/54.4161,-6.4354'>Chambers Park</a></span></li><li class="smallview-hide tmore"><span class="data">Some Referee</span></li></ul>`;
+  const [l] = rugby.read(leinster, rugby.pages[0]);
+  assert.deepEqual([l.date, l.time, l.home, l.away, l.venue, l.competition], ['2026-11-14', '19:45', 'Clontarf FC 3', 'Malahide RFC 2', 'Castle Avenue', 'Leinster Metro League - Division 3']);
+  const m = rugby.read(munster, rugby.pages[1]);
+  assert.equal(m.length, 1);
+  assert.deepEqual([m[0].home, m[0].away, m[0].time, m[0].venue], ['Richmond RFC', 'Newport RFC', '19:30', 'Canal Bank']);
+  const [u] = rugby.read(ulster, rugby.pages[2]);
+  assert.deepEqual([u.home, u.venue, u.latitude, u.longitude], ['Portadown RFC 2nd XV', 'Chambers Park', 54.4161, -6.4354]);
+  assert.ok(!JSON.stringify([l, m, u]).includes('Some Referee'));
+});
+
+test('decodeLoose: repairs a stray Latin-1 letter without harming real UTF-8', async () => {
+  const { decodeLoose } = await import('../lib/util.mjs');
+  const mixed = Buffer.concat([Buffer.from('Col'), Buffer.from([0xe1]), Buffer.from('iste – Éanna')]);
+  assert.equal(decodeLoose(mixed), 'Coláiste – Éanna');
+});
