@@ -494,6 +494,13 @@
   "longitude": -5.664104,
   "how": "place search (leisure/sports_centre: Bangor Aurora Aquatic & Leisure Complex)"
  },
+ "Ulster|box it athletic grounds armagh|": {
+  "name": "BOX-IT Athletic Grounds, Armagh",
+  "county": "Armagh",
+  "latitude": 54.343705,
+  "longitude": -6.662293,
+  "how": "place search (leisure/stadium: BOX-IT Athletic Grounds)"
+ },
  "Ulster|camlin park cookstown hs|BT80 8PQ": {
   "name": "Camlin Park (Cookstown HS)",
   "county": "Derry",
@@ -523,12 +530,27 @@
   "longitude": -6.278181,
   "how": "place search (leisure/park: Havelock Park)"
  },
+ "Ulster|kingspan breffni cavan|": {
+  "name": "Kingspan Breffni, Cavan",
+  "county": "Cavan",
+  "latitude": 53.9817,
+  "longitude": -7.36043,
+  "how": "checked by hand (OpenStreetMap: Breffni Park, Cavan)"
+ },
  "Ulster|lurgan junior h s|BT66 8SU": {
   "name": "Lurgan Junior H.S.",
   "county": "Armagh",
   "latitude": 54.454648,
   "longitude": -6.326759,
   "how": "postcode"
+ },
+ "Ulster|mullaghmoyle park stewartstown|": null,
+ "Ulster|o neills healy park omagh|": {
+  "name": "O'Neills Healy Park, Omagh",
+  "county": "Tyrone",
+  "latitude": 54.61365,
+  "longitude": -7.29721,
+  "how": "checked by hand (OpenStreetMap: Healy Park, Gortin Road, Omagh)"
  },
  "Ulster|rugby avenue|BT52 1JL": {
   "name": "Rugby Avenue",
@@ -537,7 +559,22 @@
   "longitude": -6.657767,
   "how": "postcode"
  },
+ "Ulster|shamrock park roslea|": null,
  "Ulster|shaw s bridge sports complex|BT8 7XP": null,
+ "Ulster|st colm s ballinascreen|": {
+  "name": "St Colm's Ballinascreen",
+  "county": "Derry",
+  "latitude": 54.78195,
+  "longitude": -6.80517,
+  "how": "checked by hand (OpenStreetMap: Dean McGlinchey Park, Straw)"
+ },
+ "Ulster|st tiernach s park clones|": {
+  "name": "St. Tiernach's Park, Clones",
+  "county": "Monaghan",
+  "latitude": 54.185513,
+  "longitude": -7.233088,
+  "how": "place search (leisure/stadium: St. Tiernach’s Park)"
+ },
  "Ulster|strathearn school|BT4 2AU": {
   "name": "Strathearn School",
   "county": "Down",

@@ -119,3 +119,21 @@ test('Irish hockey: reads a ground written as plain text, with no province prefi
   assert.equal(out[0].category, 'men');
   assert.ok(!JSON.stringify(out).includes('Umpire'));
 });
+
+test('Ulster GAA: reads date, teams, time and ground, and never the referee', async () => {
+  const ulster = await import('../sources/ulster-gaa.mjs');
+  const html = `<div id="fixtures-list">
+    <h3 class="fix_res_date">Saturday 14th Nov 2026</h3>
+    <div class="competition">
+      <div class="competition-name"><a href="/fixtures-results/football/club/junior/x/bb70af5d-5fe0-4d99-91c1-eb3377783caa/">2026 Ulster GAA Football Junior Club Championship - Semi Final 2</a></div>
+      <div class="home_team"><a href="/fixtures-results/team/a/3fb451ca-2e89-b3a1-3095-b059d8701522/">Fionntamhnach Na Piarsaigh</a></div>
+      <div class="time football">13:30</div>
+      <div class="away_team"><a href="/fixtures-results/team/b/9fe97fff-97f0-8966-1135-d04878431698/">Lacken GAA</a></div>
+      <div class="more_info"><p><strong>Venue:</strong> <a href="/fixtures-results/venue/shamrock-park-roslea/79cf7d93/">Shamrock Park, Roslea</a> <span><strong>Referee:</strong> Some Person</span></p></div>
+    </div></div>`;
+  const out = ulster.read(html, ulster.pages[0], new Date('2026-11-12T12:00:00Z'));
+  assert.equal(out.length, 1);
+  assert.deepEqual([out[0].date, out[0].time, out[0].home, out[0].away, out[0].venue, out[0].sport, out[0].level],
+    ['2026-11-14', '13:30', 'Fionntamhnach Na Piarsaigh', 'Lacken GAA', 'Shamrock Park, Roslea', 'gaelic-football', 'local']);
+  assert.ok(!JSON.stringify(out).includes('Some Person'));
+});
