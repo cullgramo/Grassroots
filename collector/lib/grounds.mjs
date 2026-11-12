@@ -15,6 +15,17 @@ const GENERIC = new Set(['college', 'university', 'celtics', 'eagles', 'thunder'
 const inIreland = (lat, lon) => lat >= 51 && lat <= 56 && lon >= -11 && lon <= -5;
 const countyOf = (h) => countyFor([h.address?.county, h.address?.state_district, h.address?.city, h.address?.state], +h.lat, +h.lon);
 
+/** For a ground whose position the source gave us: asks the map which county that spot is in, rather than guessing. */
+export async function countyAt(f) {
+  const hit = await getJson(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&addressdetails=1&lat=${f.latitude}&lon=${f.longitude}`);
+  const a = hit?.address ?? {};
+  const names = [a.county, a.state_district, a.city, a.state];
+  const known = countyFor(names, NaN, NaN);
+  // countyFor falls back to a nearest-centre guess; only keep an answer the map actually named.
+  const named = names.some((n) => n && countyFor([n], NaN, NaN) === known && new RegExp(known, 'i').test(n));
+  return named ? { name: f.venue, county: known, latitude: f.latitude, longitude: f.longitude, how: 'position from the source; county from the map' } : null;
+}
+
 /** Looks one ground up on OpenStreetMap. Only a confident answer is accepted; anything doubtful returns null. */
 export async function findGround(f) {
   // A postcode pins the spot far better than a name.

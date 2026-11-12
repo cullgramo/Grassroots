@@ -212,11 +212,81 @@
  "Dublin|woodlands 11 a side all weather|": null,
  "Dublin|woodlands 5 a side grass|": null,
  "Leinster|athy|": null,
+ "Leinster|bunclody|": {
+  "name": "Bunclody",
+  "county": "Wexford",
+  "latitude": 52.652207,
+  "longitude": -6.658738,
+  "how": "position from the source; county from the map"
+ },
+ "Leinster|callan|": {
+  "name": "Callan",
+  "county": "Kilkenny",
+  "latitude": 52.548369,
+  "longitude": -7.386695,
+  "how": "position from the source; county from the map"
+ },
+ "Leinster|castlecomer|": {
+  "name": "Castlecomer",
+  "county": "Kilkenny",
+  "latitude": 52.804818,
+  "longitude": -7.216081,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|college park newbridge|": null,
+ "Leinster|commercials|": {
+  "name": "Commercials",
+  "county": "Dublin",
+  "latitude": 53.284529,
+  "longitude": -6.462369,
+  "how": "position from the source; county from the map"
+ },
+ "Leinster|daingean gaa|": {
+  "name": "Daingean GAA",
+  "county": "Offaly",
+  "latitude": 53.301386,
+  "longitude": -7.293206,
+  "how": "position from the source; county from the map"
+ },
+ "Leinster|donaghmore ashbourne gaa": {
+  "name": "Donaghmore Ashbourne GAA",
+  "county": "Meath",
+  "latitude": 53.509441,
+  "longitude": -6.411923,
+  "how": "place search (leisure/sports_centre: Donaghmore-Ashbourne GAA); the source's own position was 72km away, in Westmeath"
+ },
+ "Leinster|donaghmore ashbourne gaa|": {
+  "name": "Donaghmore Ashbourne GAA",
+  "county": "Westmeath",
+  "latitude": 53.4494762,
+  "longitude": -7.5029786,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|dr kelly s field|": null,
  "Leinster|dunlavin|": null,
+ "Leinster|echelon park aughrim|": {
+  "name": "Echelon Park, Aughrim",
+  "county": "Wicklow",
+  "latitude": 52.852883,
+  "longitude": -6.334953,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|edgeworthstown|": null,
+ "Leinster|ferbane gaa|": {
+  "name": "Ferbane GAA",
+  "county": "Offaly",
+  "latitude": 53.269786,
+  "longitude": -7.820528,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|freshford gaa|": null,
+ "Leinster|glenisk o connor park tullamore|": {
+  "name": "Glenisk O'Connor Park, Tullamore",
+  "county": "Offaly",
+  "latitude": 53.279994,
+  "longitude": -7.490889,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|glenisk o connor park|": null,
  "Leinster|kilbeggan|": null,
  "Leinster|loetb centre of excellence|": null,
@@ -237,9 +307,37 @@
   "longitude": -7.304146,
   "how": "place search (leisure/sports_centre: Mountmellick GAA)"
  },
+ "Leinster|netwatch cullen park carlow|": {
+  "name": "Netwatch Cullen Park, Carlow",
+  "county": "Carlow",
+  "latitude": 52.847007,
+  "longitude": -6.916258,
+  "how": "position from the source; county from the map"
+ },
+ "Leinster|parnell park dublin|": {
+  "name": "Parnell Park, Dublin",
+  "county": "Dublin",
+  "latitude": 53.373079,
+  "longitude": -6.216355,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|rathdowney|": null,
  "Leinster|ros glas|": null,
+ "Leinster|sallins|": {
+  "name": "Sallins",
+  "county": "Kildare",
+  "latitude": 53.250191,
+  "longitude": -6.662907,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|skerries cc|": null,
+ "Leinster|skryne|": {
+  "name": "Skryne",
+  "county": "Meath",
+  "latitude": 53.58423074490332,
+  "longitude": -6.5477071719708375,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|st annes|": null,
  "Leinster|st brendan s|": null,
  "Leinster|st kieran s college|": {
@@ -249,6 +347,20 @@
   "longitude": -7.254957,
   "how": "place search (building/school: Saint Kieran's College)"
  },
+ "Leinster|st loman s park trim|": {
+  "name": "St Loman's Park, Trim",
+  "county": "Meath",
+  "latitude": 53.55324646495871,
+  "longitude": -6.8030131130815885,
+  "how": "position from the source; county from the map"
+ },
+ "Leinster|teg cusack park westmeath|": {
+  "name": "TEG Cusack Park, Westmeath",
+  "county": "Westmeath",
+  "latitude": 53.52754,
+  "longitude": -7.337773,
+  "how": "position from the source; county from the map"
+ },
  "Leinster|trinity gaels|": {
   "name": "Trinity Gaels",
   "county": "Dublin",
@@ -257,6 +369,13 @@
   "how": "place search (leisure/sports_centre: Trinity Gaels GAA Club)"
  },
  "Leinster|tullow cs|": null,
+ "Leinster|upmc nowlan park|": {
+  "name": "UPMC Nowlan Park",
+  "county": "Kilkenny",
+  "latitude": 52.656397,
+  "longitude": -7.239681,
+  "how": "position from the source; county from the map"
+ },
  "Ulster|bangor aurora|BT20 4UT": {
   "name": "Bangor Aurora",
   "county": "Down",

@@ -29,7 +29,7 @@ for (const [key, source] of Object.entries(SOURCES)) {
     const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, venue: f.venue, reason });
     if (!f.venue) { leave('No ground given'); continue; }
     if (!f.startsAt && !f.time) { leave('Start time not set yet'); continue; }
-    const ground = f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : grounds[groundKey(f)];
+    const ground = grounds[groundKey(f)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
     if (!ground) { leave('Ground not placed on the map yet'); continue; }
     const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time);
     const ref = `${key}-${f.ref}`;
