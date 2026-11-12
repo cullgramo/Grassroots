@@ -728,7 +728,13 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|west offaly lions ferbane gaa club|": null,
- "Munster|abbeyfeale|": null,
+ "Munster|abbeyfeale|": {
+  "name": "Abbeyfeale",
+  "county": "Limerick",
+  "latitude": 52.382921,
+  "longitude": -9.297709,
+  "how": "rugby club search (leisure/sports_centre: Abbeyfeale Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|an baile loiscthe|": null,
  "Munster|austin stack park tralee|": {
   "name": "Austin Stack Park Tralee",
@@ -753,8 +759,20 @@
   "longitude": -8.74811,
   "how": "checked by hand (OpenStreetMap: Bandon Grammar School)"
  },
- "Munster|bandon|": null,
- "Munster|bantry|": null,
+ "Munster|bandon|": {
+  "name": "Bandon",
+  "county": "Cork",
+  "latitude": 51.733642,
+  "longitude": -8.76691,
+  "how": "rugby club search (leisure/sports_centre: Bandon Rugby Football Club); the source names the club or town, not the pitch"
+ },
+ "Munster|bantry|": {
+  "name": "Bantry",
+  "county": "Cork",
+  "latitude": 51.634221,
+  "longitude": -9.477789,
+  "how": "rugby club search (leisure/sports_centre: Bantry Bay Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|caherconlish|": {
   "name": "Caherconlish",
   "county": "Limerick",
@@ -778,7 +796,13 @@
   "how": "checked by hand (OpenStreetMap: Fraher Field, Dungarvan)"
  },
  "Munster|carrigaline|": null,
- "Munster|cashel|": null,
+ "Munster|cashel|": {
+  "name": "Cashel",
+  "county": "Tipperary",
+  "latitude": 52.506252,
+  "longitude": -7.887711,
+  "how": "rugby club search (leisure/sports_centre: Cashel Rugby Club); the source names the club or town, not the pitch"
+ },
  "Munster|castleisland|": null,
  "Munster|castletroy college|": {
   "name": "Castletroy College",
@@ -790,16 +814,40 @@
  "Munster|charleville|": null,
  "Munster|clanwilliam park|": null,
  "Munster|clongowes|": null,
- "Munster|clonmel|": null,
- "Munster|cobh|": null,
+ "Munster|clonmel|": {
+  "name": "Clonmel",
+  "county": "Tipperary",
+  "latitude": 52.369319,
+  "longitude": -7.71937,
+  "how": "rugby club search (leisure/sports_centre: Clonmel RFC); the source names the club or town, not the pitch"
+ },
+ "Munster|cobh|": {
+  "name": "Cobh",
+  "county": "Cork",
+  "latitude": 51.855055,
+  "longitude": -8.314934,
+  "how": "rugby club search (club/sport: Cobh Pirates RFC); the source names the club or town, not the pitch"
+ },
  "Munster|college lands|": null,
  "Munster|coonagh|": null,
  "Munster|corbally|": null,
  "Munster|crosshaven|": null,
  "Munster|derryknockane|": null,
  "Munster|dooradoyle|": null,
- "Munster|dungarvan|": null,
- "Munster|ennis|": null,
+ "Munster|dungarvan|": {
+  "name": "Dungarvan",
+  "county": "Waterford",
+  "latitude": 52.102114,
+  "longitude": -7.571446,
+  "how": "rugby club search (leisure/sports_centre: Dungarvan Rugby Club); the source names the club or town, not the pitch"
+ },
+ "Munster|ennis|": {
+  "name": "Ennis",
+  "county": "Clare",
+  "latitude": 52.836982,
+  "longitude": -8.993973,
+  "how": "rugby club search (leisure/sports_centre: Ennis Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|farmers cross|": null,
  "Munster|fbd semple stadium thurles|": {
   "name": "FBD Semple Stadium Thurles",
@@ -808,7 +856,13 @@
   "longitude": -7.826016,
   "how": "place search (leisure/stadium: FBD Semple Stadium)"
  },
- "Munster|fermoy|": null,
+ "Munster|fermoy|": {
+  "name": "Fermoy",
+  "county": "Cork",
+  "latitude": 52.144175,
+  "longitude": -8.280602,
+  "how": "rugby club search (club/sport: Fermoy Rugby Club); the source names the club or town, not the pitch"
+ },
  "Munster|fethard gaa|": {
   "name": "Fethard GAA",
   "county": "Tipperary",
@@ -816,18 +870,42 @@
   "longitude": -7.695532,
   "how": "place search (leisure/sports_centre: Fethard GAA Club)"
  },
- "Munster|galbally|": null,
+ "Munster|galbally|": {
+  "name": "Galbally",
+  "county": "Limerick",
+  "latitude": 52.398252,
+  "longitude": -8.297383,
+  "how": "rugby club search (leisure/pitch: Galbally RFC); the source names the club or town, not the pitch"
+ },
  "Munster|garyowen|": null,
  "Munster|glenstal|": null,
  "Munster|grove island|": null,
  "Munster|iffley road|": null,
  "Munster|jimmy slattery park|": null,
- "Munster|kanturk|": null,
+ "Munster|kanturk|": {
+  "name": "Kanturk",
+  "county": "Cork",
+  "latitude": 52.191764,
+  "longitude": -8.883847,
+  "how": "rugby club search (leisure/sports_centre: Kanturk Rugby Club); the source names the club or town, not the pitch"
+ },
  "Munster|kilballyowen park|": null,
- "Munster|kilfeacle|": null,
+ "Munster|kilfeacle|": {
+  "name": "Kilfeacle",
+  "county": "Tipperary",
+  "latitude": 52.485104,
+  "longitude": -8.061777,
+  "how": "rugby club search (leisure/sports_centre: Kilfeacle and District Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|kilkenny college|": null,
  "Munster|kilkenny rfc|": null,
- "Munster|killarney|": null,
+ "Munster|killarney|": {
+  "name": "Killarney",
+  "county": "Kerry",
+  "latitude": 52.079192,
+  "longitude": -9.539756,
+  "how": "rugby club search (leisure/pitch: Killarney RFC Main Pitch); the source names the club or town, not the pitch"
+ },
  "Munster|killorglin|": null,
  "Munster|kilmallock|": {
   "name": "Kilmallock",
@@ -837,7 +915,13 @@
   "how": "checked by hand (OpenStreetMap: Kilmallock GAA); the source gives only the town, and this is the town's GAA ground"
  },
  "Munster|kilrush|": null,
- "Munster|kinsale|": null,
+ "Munster|kinsale|": {
+  "name": "Kinsale",
+  "county": "Cork",
+  "latitude": 51.707968,
+  "longitude": -8.491578,
+  "how": "rugby club search (leisure/sports_centre: Kinsale Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|lansdowne|": null,
  "Munster|liam fitzgerald park|": null,
  "Munster|mallow|": null,
@@ -881,7 +965,13 @@
   "how": "checked by hand (OpenStreetMap: Catholic Institute Athletics Club, Limerick)"
  },
  "Munster|roscrea|": null,
- "Munster|skibbereen|": null,
+ "Munster|skibbereen|": {
+  "name": "Skibbereen",
+  "county": "Cork",
+  "latitude": 51.556941,
+  "longitude": -9.26157,
+  "how": "rugby club search (leisure/sports_centre: Skibbereen Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|st marys college|": null,
  "Munster|sundays well|": null,
  "Munster|takumi park|": null,
@@ -894,7 +984,13 @@
  },
  "Munster|temple hill|": null,
  "Munster|the vale|": null,
- "Munster|thurles|": null,
+ "Munster|thurles|": {
+  "name": "Thurles",
+  "county": "Tipperary",
+  "latitude": 52.686576,
+  "longitude": -7.790125,
+  "how": "rugby club search (leisure/sports_centre: Thurles Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|tom clifford park|": {
   "name": "Tom Clifford Park",
   "county": "Limerick",
@@ -903,7 +999,13 @@
   "how": "place search (leisure/sports_centre: Tom Clifford Park)"
  },
  "Munster|towns park|": null,
- "Munster|tralee|": null,
+ "Munster|tralee|": {
+  "name": "Tralee",
+  "county": "Kerry",
+  "latitude": 52.25139,
+  "longitude": -9.702637,
+  "how": "rugby club search (landuse/recreation_ground: Tralee RFC); the source names the club or town, not the pitch"
+ },
  "Munster|tramore valley park|": {
   "name": "Tramore Valley Park",
   "county": "Cork",
@@ -924,7 +1026,13 @@
  },
  "Munster|wilton|": null,
  "Munster|woodleigh park|": null,
- "Munster|youghal|": null,
+ "Munster|youghal|": {
+  "name": "Youghal",
+  "county": "Cork",
+  "latitude": 51.952416,
+  "longitude": -7.871633,
+  "how": "rugby club search (leisure/sports_centre: Youghal Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Munster|zimmer biomet pairc chiosog|": {
   "name": "Zimmer Biomet Páirc Chíosóg",
   "county": "Clare",
