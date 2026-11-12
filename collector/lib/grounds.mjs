@@ -73,6 +73,8 @@ async function findRugbyClub(f, allowed) {
   const base = norm(f.venue).replace(/\b(rfc|rugby|football|club|fc|grounds?|pitch(es)?)\b/g, ' ').replace(/\s+/g, ' ').trim();
   const wanted = base.split(' ').filter((w) => w.length > 2);
   if (wanted.length === 0) return null;
+  // A bare town with more than one rugby ground cannot be pinned to one of them.
+  if (/^(galway|waterford|roscrea|cork|limerick|dublin|belfast|derry|sligo)$/.test(base)) return null;
   for (const q of [`${base} RFC`, `${base} Rugby Club`]) {
     const hits = await getJson(SEARCH + encodeURIComponent(`${q}, Ireland`));
     const h = hits.find((x) => {
