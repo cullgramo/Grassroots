@@ -40,7 +40,7 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
   const sport = getSport(fixture.sport);
   const color = sport.color;
   const off = fixture.status === 'cancelled' ? 'Cancelled' : fixture.status === 'postponed' ? 'Postponed' : null;
-  const urgency = off ?? urgencyLabel(fixture.startsAt);
+  const urgency = off ?? urgencyLabel(fixture.startsAt, undefined, fixture.timeTbc);
 
   return (
     <Pressable
@@ -50,7 +50,9 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
       style={[styles.card, { backgroundColor: t.card, borderColor: t.border }, elevated && styles.elevated]}>
       <View style={[styles.time, { backgroundColor: color }]}>
         <Text style={styles.timeDay}>{shortDay(fixture.startsAt)}</Text>
-        <Text style={styles.timeClock}>{timeLabel(fixture.startsAt)}</Text>
+        <Text style={[styles.timeClock, fixture.timeTbc && styles.timeTbc]}>
+          {fixture.timeTbc ? 'Time TBC' : timeLabel(fixture.startsAt)}
+        </Text>
       </View>
       <View style={styles.body}>
         <View style={styles.topRow}>
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
   time: { width: 74, alignItems: 'center', justifyContent: 'center', paddingVertical: 14 },
   timeDay: { color: '#fff', fontSize: 11, fontWeight: '800', letterSpacing: 0.5 },
   timeClock: { color: '#fff', fontSize: 20, fontWeight: '800', marginTop: 2 },
+  timeTbc: { fontSize: 12, textAlign: 'center' },
   body: { flex: 1, paddingVertical: 12, paddingLeft: 12, gap: 3 },
   topRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   sport: { fontSize: 11, fontWeight: '800', letterSpacing: 0.6 },

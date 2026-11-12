@@ -19,6 +19,8 @@ export interface FixtureRow {
   ticketed: boolean;
   ticket_url: string | null;
   status: string;
+  /** Missing on databases that have not had the column added yet; treated as known. */
+  time_known?: boolean | null;
   venue: { name: string; county: string; latitude: number; longitude: number } | null;
 }
 
@@ -43,22 +45,33 @@ export function mapFixture(row: FixtureRow): Fixture | null {
     startsAt: new Date(row.starts_at).toISOString(),
     ticketed: row.ticketed,
     ticketUrl: row.ticket_url ?? undefined,
+    timeTbc: row.time_known === false ? true : undefined,
     status: STATUSES.includes(row.status as FixtureStatus) ? (row.status as FixtureStatus) : 'scheduled',
   };
 }
 
 const SELECT =
-  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,venue:venues(name,county,latitude,longitude)';
+  // Every fixture column, so a column added later never breaks an older copy of the app.
+  '*,venue:venues(name,county,latitude,longitude)';
+
+const PAGE = 1000;
+const MAX_ROWS = 20000;
 
 /** Loads approved fixtures from today onwards. The database's own rules hide anything not approved. */
 export async function fetchFixtures(now: Date = new Date()): Promise<Fixture[]> {
   const from = new Date(now);
   from.setHours(0, 0, 0, 0);
-  const query = `select=${SELECT}&starts_at=gte.${encodeURIComponent(from.toISOString())}&order=starts_at.asc&limit=1000`;
-  const res = await fetch(`${URL_BASE}/rest/v1/fixtures?${query}`, {
-    headers: { apikey: KEY!, Authorization: `Bearer ${KEY}` },
-  });
-  if (!res.ok) throw new Error(`Fixtures request failed (${res.status})`);
-  const rows = (await res.json()) as FixtureRow[];
+  // The database hands back at most 1,000 rows at a time, so the list is read a page at a time.
+  const rows: FixtureRow[] = [];
+  for (let offset = 0; offset < MAX_ROWS; offset += PAGE) {
+    const query = `select=${SELECT}&starts_at=gte.${encodeURIComponent(from.toISOString())}&order=starts_at.asc,id.asc&limit=${PAGE}&offset=${offset}`;
+    const res = await fetch(`${URL_BASE}/rest/v1/fixtures?${query}`, {
+      headers: { apikey: KEY!, Authorization: `Bearer ${KEY}` },
+    });
+    if (!res.ok) throw new Error(`Fixtures request failed (${res.status})`);
+    const page = (await res.json()) as FixtureRow[];
+    rows.push(...page);
+    if (page.length < PAGE) break;
+  }
   return rows.map(mapFixture).filter((f): f is Fixture => f !== null);
 }

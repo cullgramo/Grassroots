@@ -20,6 +20,8 @@ export interface Fixture {
   startsAt: string;
   ticketed: boolean;
   ticketUrl?: string;
+  /** True when the source gives the day but not the start time; the clock part of startsAt is then a placeholder. */
+  timeTbc?: boolean;
   /** Missing means scheduled. */
   status?: FixtureStatus;
 }

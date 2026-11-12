@@ -153,7 +153,7 @@ export function FixtureMap({
             onPress={() => onSelect?.(f.id)}>
             <View style={[styles.pill, isSelected && styles.pillSelected]}>
               <View style={[styles.dot, { backgroundColor: getSport(f.sport).color }]} />
-              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabel(f.startsAt)}</Text>
+              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabel(f.startsAt, undefined, f.timeTbc)}</Text>
             </View>
           </Marker>
         );

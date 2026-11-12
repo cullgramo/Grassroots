@@ -51,18 +51,21 @@ export function shortDay(startsAt: string, now: Date = new Date()): string {
 }
 
 /** Short label for a map pin: "Today 19:30", "Sat 14:00", "19 Nov". */
-export function pinLabel(startsAt: string, now: Date = new Date()): string {
+export function pinLabel(startsAt: string, now: Date = new Date(), timeTbc = false): string {
   const d = new Date(startsAt);
   const days = getDaysUntil(startsAt, now);
+  if (timeTbc) return days === 0 ? 'Today' : days > 0 && days < 7 ? WEEKDAYS[d.getDay()] : `${d.getDate()} ${MONTHS[d.getMonth()]}`;
   if (days === 0) return `Today ${timeLabel(startsAt)}`;
   if (days > 0 && days < 7) return `${WEEKDAYS[d.getDay()]} ${timeLabel(startsAt)}`;
   return `${d.getDate()} ${MONTHS[d.getMonth()]}`;
 }
 
 /** Card badge that stresses how soon a game is, or null when it is more than a day away. */
-export function urgencyLabel(startsAt: string, now: Date = new Date()): string | null {
+export function urgencyLabel(startsAt: string, now: Date = new Date(), timeTbc = false): string | null {
   const mins = Math.round((new Date(startsAt).getTime() - now.getTime()) / 60_000);
   const days = getDaysUntil(startsAt, now);
+  // With no start time there is nothing to count down to; only the day is known.
+  if (timeTbc) return days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : null;
   if (days < 0) return null;
   if (mins < 0) return days === 0 ? 'Started' : null;
   if (mins < 60) return `In ${Math.max(mins, 1)} min`;

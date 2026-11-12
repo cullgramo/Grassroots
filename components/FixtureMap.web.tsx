@@ -118,7 +118,7 @@ export function FixtureMap({
       const f = item.fixture;
       const isSelected = f.id === selectedId;
       L.marker([f.latitude, f.longitude], {
-        icon: pillIcon(pinLabel(f.startsAt), getSport(f.sport).color, isSelected),
+        icon: pillIcon(pinLabel(f.startsAt, undefined, f.timeTbc), getSport(f.sport).color, isSelected),
         zIndexOffset: isSelected ? 1000 : 0,
         title: fixtureTitle(f),
         interactive: interactive,

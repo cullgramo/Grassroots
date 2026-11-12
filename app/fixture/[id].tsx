@@ -82,7 +82,7 @@ export default function FixtureScreen() {
 
         <View style={[styles.card, { backgroundColor: t.card, borderColor: t.border }]}>
           <Row label="Date" value={date} />
-          <Row label={sport.startWord} value={timeLabel(fixture.startsAt)} />
+          <Row label={sport.startWord} value={fixture.timeTbc ? 'To be confirmed' : timeLabel(fixture.startsAt)} />
           <Row label="Venue" value={`${fixture.venue}, ${fixture.county}`} />
           {km != null ? <Row label="Distance" value={`${formatDistance(km)} away`} /> : null}
           <Row label="Entry" value={tickets ? 'Ticket required' : 'Not ticketed'} />

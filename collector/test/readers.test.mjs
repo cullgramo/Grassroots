@@ -184,3 +184,13 @@ test('decodeLoose: repairs a stray Latin-1 letter without harming real UTF-8', a
   const mixed = Buffer.concat([Buffer.from('Col'), Buffer.from([0xe1]), Buffer.from('iste – Éanna')]);
   assert.equal(decodeLoose(mixed), 'Coláiste – Éanna');
 });
+
+test('Horse racing: reads meetings from the calendar file, with no invented time', async () => {
+  const racing = await import('../sources/horse-racing.mjs');
+  const ics = 'BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:1\r\nDTSTART;VALUE=DATE:20270609\r\nSUMMARY:Limerick (e)\r\nDESCRIPTION:https://www.hri.ie/Limerick-racecourse/\\n\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20270101\r\nSUMMARY:Tramore\r\nEND:VEVENT\r\nEND:VCALENDAR';
+  const out = racing.read(ics, racing.pages[0]);
+  assert.equal(out.length, 2);
+  assert.deepEqual([out[0].date, out[0].time, out[0].title, out[0].venue, out[0].competition, out[0].url],
+    ['2027-06-09', null, 'Limerick Races', 'Limerick Racecourse', 'Evening meeting', 'https://www.hri.ie/Limerick-racecourse/']);
+  assert.equal(out[1].competition, 'Race meeting');
+});

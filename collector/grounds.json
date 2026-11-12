@@ -437,6 +437,27 @@
   "longitude": -6.25006,
   "how": "place search (amenity/school: Alexandra College)"
  },
+ "Ireland|ballinrobe racecourse|": {
+  "name": "Ballinrobe Racecourse",
+  "county": "Mayo",
+  "latitude": 53.638304,
+  "longitude": -9.247746,
+  "how": "place search (leisure/sports_centre: Ballinrobe Racecourse)"
+ },
+ "Ireland|bellewstown racecourse|": {
+  "name": "Bellewstown Racecourse",
+  "county": "Meath",
+  "latitude": 53.644734,
+  "longitude": -6.357113,
+  "how": "place search (leisure/track: Bellewstown Racecourse)"
+ },
+ "Ireland|clonmel racecourse|": {
+  "name": "Clonmel Racecourse",
+  "county": "Tipperary",
+  "latitude": 52.366254,
+  "longitude": -7.680162,
+  "how": "place search (leisure/sports_centre: Clonmel Racecourse)"
+ },
  "Ireland|comber road lisnagarvey hc|BT26 6LN": {
   "name": "Comber Road (Lisnagarvey HC)",
   "county": "Down",
@@ -444,13 +465,105 @@
   "longitude": -6.064025,
   "how": "postcode"
  },
+ "Ireland|cork racecourse|": {
+  "name": "Cork Racecourse",
+  "county": "Cork",
+  "latitude": 52.129606,
+  "longitude": -8.690352,
+  "how": "place search (leisure/sports_centre: Cork Racecourse Mallow)"
+ },
+ "Ireland|curragh racecourse|": {
+  "name": "Curragh Racecourse",
+  "county": "Kildare",
+  "latitude": 53.16719,
+  "longitude": -6.83981,
+  "how": "checked by hand (OpenStreetMap: Curragh Racecourse Entrance)"
+ },
+ "Ireland|down royal racecourse|": {
+  "name": "Down Royal Racecourse",
+  "county": "Down",
+  "latitude": 54.49131,
+  "longitude": -6.119829,
+  "how": "place search (leisure/track: Down Royal Racecourse)"
+ },
+ "Ireland|downpatrick racecourse|": {
+  "name": "Downpatrick Racecourse",
+  "county": "Down",
+  "latitude": 54.312674,
+  "longitude": -5.723818,
+  "how": "place search (leisure/track: Downpatrick Racecourse)"
+ },
+ "Ireland|dundalk racecourse|": {
+  "name": "Dundalk Racecourse",
+  "county": "Louth",
+  "latitude": 54.02007,
+  "longitude": -6.38299,
+  "how": "checked by hand (OpenStreetMap: Dundalk Stadium)"
+ },
+ "Ireland|fairyhouse racecourse|": {
+  "name": "Fairyhouse Racecourse",
+  "county": "Meath",
+  "latitude": 53.48454,
+  "longitude": -6.47363,
+  "how": "checked by hand (OpenStreetMap: Fairyhouse Racecourse bus stop, Racecourse Service Road)"
+ },
  "Ireland|farmers cross|": null,
+ "Ireland|galway racecourse|": null,
+ "Ireland|gowran park racecourse|": {
+  "name": "Gowran Park Racecourse",
+  "county": "Kilkenny",
+  "latitude": 52.61532,
+  "longitude": -7.07157,
+  "how": "checked by hand (OpenStreetMap: Gowran Park)"
+ },
  "Ireland|havelock park|BT32 4LU": {
   "name": "Havelock Park",
   "county": "Down",
   "latitude": 54.360111,
   "longitude": -6.278181,
   "how": "place search (leisure/park: Havelock Park)"
+ },
+ "Ireland|kilbeggan racecourse|": {
+  "name": "Kilbeggan Racecourse",
+  "county": "Westmeath",
+  "latitude": 53.38595,
+  "longitude": -7.49588,
+  "how": "checked by hand (OpenStreetMap: Kilbeggan Races)"
+ },
+ "Ireland|killarney racecourse|": {
+  "name": "Killarney Racecourse",
+  "county": "Kerry",
+  "latitude": 52.046933,
+  "longitude": -9.515444,
+  "how": "place search (leisure/track: Killarney Racecourse)"
+ },
+ "Ireland|laytown racecourse|": {
+  "name": "Laytown Racecourse",
+  "county": "Meath",
+  "latitude": 53.68526,
+  "longitude": -6.23991,
+  "how": "checked by hand (OpenStreetMap: Laytown Races, Strand Road)"
+ },
+ "Ireland|leopardstown racecourse|": {
+  "name": "Leopardstown Racecourse",
+  "county": "Dublin",
+  "latitude": 53.263857,
+  "longitude": -6.189041,
+  "how": "place search (leisure/sports_centre: Leopardstown Racecourse)"
+ },
+ "Ireland|limerick racecourse|": {
+  "name": "Limerick Racecourse",
+  "county": "Limerick",
+  "latitude": 52.590827,
+  "longitude": -8.690965,
+  "how": "place search (leisure/sports_centre: Limerick Racecourse)"
+ },
+ "Ireland|listowel racecourse|": {
+  "name": "Listowel Racecourse",
+  "county": "Kerry",
+  "latitude": 52.442779,
+  "longitude": -9.495495,
+  "how": "place search (leisure/sports_centre: Listowel Racecourse)"
  },
  "Ireland|londonderry park|BT23 8SG": {
   "name": "Londonderry Park",
@@ -466,6 +579,27 @@
   "longitude": -6.2844,
   "how": "place search (amenity/school: Loreto High School Beaufort)"
  },
+ "Ireland|naas racecourse|": {
+  "name": "Naas Racecourse",
+  "county": "Kildare",
+  "latitude": 53.224069,
+  "longitude": -6.640879,
+  "how": "place search (leisure/sports_centre: Naas Racecourse)"
+ },
+ "Ireland|navan racecourse|": {
+  "name": "Navan Racecourse",
+  "county": "Meath",
+  "latitude": 53.684388,
+  "longitude": -6.674888,
+  "how": "place search (leisure/track: Navan Racecourse)"
+ },
+ "Ireland|punchestown racecourse|": {
+  "name": "Punchestown Racecourse",
+  "county": "Kildare",
+  "latitude": 53.184488,
+  "longitude": -6.621748,
+  "how": "place search (leisure/track: Punchestown Racecourse)"
+ },
  "Ireland|rathdown sch|": {
   "name": "Rathdown Sch.",
   "county": "Dublin",
@@ -480,6 +614,20 @@
   "longitude": -8.63368,
   "how": "checked by hand (OpenStreetMap: Catholic Institute Athletics Club, Limerick)"
  },
+ "Ireland|roscommon racecourse|": {
+  "name": "Roscommon Racecourse",
+  "county": "Roscommon",
+  "latitude": 53.64363,
+  "longitude": -8.222915,
+  "how": "place search (leisure/sports_centre: Roscommon Racecourse)"
+ },
+ "Ireland|sligo racecourse|": {
+  "name": "Sligo Racecourse",
+  "county": "Sligo",
+  "latitude": 54.262974,
+  "longitude": -8.4621,
+  "how": "place search (leisure/track: Sligo Racecourse)"
+ },
  "Ireland|the dub malone playing fields|BT9 5NA": null,
  "Ireland|the glade|BT36 5NN": {
   "name": "The Glade",
@@ -487,6 +635,34 @@
   "latitude": 54.69608,
   "longitude": -5.95294,
   "how": "checked by hand (OpenStreetMap: Mossley Hockey Club, The Glade)"
+ },
+ "Ireland|thurles racecourse|": {
+  "name": "Thurles Racecourse",
+  "county": "Tipperary",
+  "latitude": 52.689524,
+  "longitude": -7.836068,
+  "how": "place search (leisure/sports_centre: Thurles Racecourse)"
+ },
+ "Ireland|tipperary racecourse|": {
+  "name": "Tipperary Racecourse",
+  "county": "Tipperary",
+  "latitude": 52.502068,
+  "longitude": -8.206771,
+  "how": "place search (leisure/sports_centre: Tipperary Racecourse)"
+ },
+ "Ireland|tramore racecourse|": {
+  "name": "Tramore Racecourse",
+  "county": "Waterford",
+  "latitude": 52.172464,
+  "longitude": -7.148459,
+  "how": "place search (leisure/sports_centre: Waterford & Tramore Racecourse)"
+ },
+ "Ireland|wexford racecourse|": {
+  "name": "Wexford Racecourse",
+  "county": "Wexford",
+  "latitude": 52.339166,
+  "longitude": -6.492165,
+  "how": "place search (leisure/sports_centre: Wexford Racecourse)"
  },
  "Ireland|whitechurch park|": null,
  "Leinster|alsaa sports complex|": null,
