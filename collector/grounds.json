@@ -1,7 +1,13 @@
 {
  "Connacht|an ghaeltacht rugbai|": null,
  "Connacht|athlone|": null,
- "Connacht|ballinasloe rfc|": null,
+ "Connacht|ballinasloe rfc|": {
+  "name": "Ballinasloe RFC",
+  "county": "Galway",
+  "latitude": 53.301972,
+  "longitude": -8.245005,
+  "how": "rugby club search (leisure/sports_centre: Ballinasloe Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Connacht|ballinrobe rfc|": {
   "name": "Ballinrobe RFC",
   "county": "Mayo",
@@ -9,7 +15,13 @@
   "longitude": -9.227572,
   "how": "place search (leisure/pitch: Ballinrobe RFC)"
  },
- "Connacht|ballyhaunis rfc|": null,
+ "Connacht|ballyhaunis rfc|": {
+  "name": "Ballyhaunis RFC",
+  "county": "Mayo",
+  "latitude": 53.768714,
+  "longitude": -8.775319,
+  "how": "rugby club search (leisure/pitch: Ballyhaunis Rugby Club); the source names the club or town, not the pitch"
+ },
  "Connacht|carnmore gaa club|": {
   "name": "Carnmore GAA Club",
   "county": "Galway",
@@ -18,7 +30,13 @@
   "how": "checked by hand (OpenStreetMap: Carnmore GAA Ground)"
  },
  "Connacht|carrick rfc|": null,
- "Connacht|castlebar rfc|": null,
+ "Connacht|castlebar rfc|": {
+  "name": "Castlebar RFC",
+  "county": "Mayo",
+  "latitude": 53.825816,
+  "longitude": -9.318375,
+  "how": "rugby club search (leisure/sports_centre: Castlebar Rugby Football Club); the source names the club or town, not the pitch"
+ },
  "Connacht|castlepark galway|": null,
  "Connacht|castlerea st kevins|": null,
  "Connacht|clifden|": null,
@@ -113,7 +131,13 @@
   "longitude": -8.20885,
   "how": "checked by hand (OpenStreetMap: Roscommon Gaels GAA, Lisnamult); the source gives only the place name, and this is its GAA ground"
  },
- "Connacht|loughrea rfc|": null,
+ "Connacht|loughrea rfc|": {
+  "name": "Loughrea RFC",
+  "county": "Galway",
+  "latitude": 53.213677,
+  "longitude": -8.565893,
+  "how": "rugby club search (landuse/recreation_ground: Loughrea Rugby Club); the source names the club or town, not the pitch"
+ },
  "Connacht|louisburgh|": null,
  "Connacht|markievicz park sligo|": {
   "name": "Markievicz Park, Sligo",
@@ -142,7 +166,13 @@
  },
  "Connacht|portumna rfc|": null,
  "Connacht|sligo grammar|": null,
- "Connacht|sligo rfc|": null,
+ "Connacht|sligo rfc|": {
+  "name": "Sligo RFC",
+  "county": "Sligo",
+  "latitude": 54.271347,
+  "longitude": -8.586739,
+  "how": "rugby club search (leisure/sports_centre: Sligo Rugby Club); the source names the club or town, not the pitch"
+ },
  "Connacht|st colmans park|": {
   "name": "St Colmans Park",
   "county": "Galway",
@@ -165,7 +195,13 @@
   "how": "place search (amenity/school: Summerhill College)"
  },
  "Connacht|tallagh|": null,
- "Connacht|tuam rfc|": null,
+ "Connacht|tuam rfc|": {
+  "name": "Tuam RFC",
+  "county": "Galway",
+  "latitude": 53.509272,
+  "longitude": -8.833366,
+  "how": "rugby club search (leisure/sports_centre: Tuam Rugby Club); the source names the club or town, not the pitch"
+ },
  "Connacht|tuam stadium|": null,
  "Connacht|westport gaa|": {
   "name": "Westport GAA",
@@ -174,7 +210,13 @@
   "longitude": -9.521522,
   "how": "place search (landuse/recreation_ground: Westport GAA)"
  },
- "Connacht|westport rfc|": null,
+ "Connacht|westport rfc|": {
+  "name": "Westport RFC",
+  "county": "Mayo",
+  "latitude": 53.813772,
+  "longitude": -9.583738,
+  "how": "rugby club search (leisure/pitch: Westport Rugby Club); the source names the club or town, not the pitch"
+ },
  "Dublin|5 acres perrystown|": null,
  "Dublin|archerstown|": null,
  "Dublin|aul complex|": {
