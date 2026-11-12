@@ -71,6 +71,45 @@ export function findGaaPitch(f, allowed) {
   return null;
 }
 
+// Clubs across all sports with their positions, from Sport Ireland's Get Ireland Active list (collector/get-clubs.mjs).
+const CLUBS = JSON.parse(readFileSync(new URL('../clubs.json', import.meta.url), 'utf8')).clubs;
+const CLUB_FILLER = new Set([...FILLER, 'rfc', 'rugby', 'football', 'afc', 'fc', 'association', 'lgfa', 'camogie', 'hurling', 'hockey', 'basketball', 'cricket', 'soccer', 'ladies', 'amateur', 'athletic', 'celtic', 'united', 'rovers', 'road', 'co', 'county']);
+const clubWords = (t) => norm(t).split(' ').filter((w) => w.length > 2 && !CLUB_FILLER.has(w));
+
+/**
+ * Finds a ground in the clubs list. The ground the source names must itself be a club of that sport
+ * ("Corrib RFC"), or appear in a club's own address ("Pat Bowdren Park"). The home team is never used.
+ * Only one spot may match, inside the allowed counties.
+ */
+export function findClub(f, allowed) {
+  if (!allowed) return null;
+  const v = clubWords(f.venue);
+  if (v.length === 0 || (v.length === 1 && v[0].length < 5)) return null;
+  const has = (need, have) => need.every((w) => have.includes(w));
+  const byName = [];
+  const byAddress = [];
+  for (const c of CLUBS) {
+    if (!c.sports.includes(f.sport) || !allowed.includes(c.county)) continue;
+    // Some entries carry a wrong position (Monkstown RFC, Dublin, sits in Offaly); skip any that land outside their county.
+    if (countyFor([], c.latitude, c.longitude) !== c.county) continue;
+    const name = clubWords(c.name);
+    if (name.length > 0 && has(v, name) && has(name, v)) byName.push(c);
+    else if (v.length >= 2 && has(v, clubWords(c.address))) byAddress.push(c);
+  }
+  for (const [list, label] of [[byName, 'club name'], [byAddress, 'club address']]) {
+    const spots = [...new Map(list.map((c) => [`${c.latitude.toFixed(2)},${c.longitude.toFixed(2)}`, c])).values()];
+    if (spots.length === 1) {
+      const c = spots[0];
+      return { name: f.venue, county: c.county, latitude: c.latitude, longitude: c.longitude, how: `Get Ireland Active club list, matched on ${label} (${c.name})` };
+    }
+    if (spots.length > 1) return null;
+  }
+  return null;
+}
+
+/** The counties a fixture's ground may be in, from what the source tells us. */
+export const allowedFor = (f) => f.counties ?? (f.county ? [f.county] : f.area === 'Ireland' ? [...new Set(Object.values(AREAS).flat())] : AREAS[f.area]);
+
 /** Looks one ground up on OpenStreetMap. Only a confident answer is accepted; anything doubtful returns null. */
 export async function findGround(f) {
   // A postcode pins the spot far better than a name.
@@ -79,13 +118,14 @@ export async function findGround(f) {
     const h = hits.find((x) => inIreland(+x.lat, +x.lon));
     if (h) return { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: 'postcode' };
   }
-  // 'Ireland' means anywhere on the island: the name alone has to be a confident match.
-  const allowed = f.counties ?? (f.county ? [f.county] : f.area === 'Ireland' ? [...new Set(Object.values(AREAS).flat())] : AREAS[f.area]);
+  const allowed = allowedFor(f);
   // GAA grounds are looked up in the pitch list first; it knows club grounds the map search does not.
   if (GAA.has(f.sport) && allowed) {
     const pitch = findGaaPitch(f, allowed);
     if (pitch) return pitch;
   }
+  const club = findClub(f, allowed);
+  if (club) return club;
   const near = f.counties?.[0] ?? f.county;
   const parts = f.venue.split(',').map((p) => p.trim()).filter(Boolean);
   // With no county or area to check against, the home team's own name is the only clue to the right town

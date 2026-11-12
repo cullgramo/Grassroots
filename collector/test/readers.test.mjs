@@ -207,3 +207,15 @@ test('GAA pitch list: strong matches anywhere allowed, weak ones only in the boa
   assert.equal(findGaaPitch({ venue: 'Eire Og Ennis' }, munster)?.county ?? 'Clare', 'Clare');
   assert.equal(findGaaPitch({ venue: "St Anne's" }, ['Dublin', 'Wexford', 'Kildare']), null);
 });
+
+test('the clubs list places a ground only when the ground names one club of that sport', async () => {
+  const { findClub, allowedFor } = await import('../lib/grounds.mjs');
+  const connacht = allowedFor({ area: 'Connacht' });
+  assert.equal(findClub({ venue: 'Corrib RFC', sport: 'rugby' }, connacht)?.county, 'Galway');
+  // Same name, wrong sport: no match.
+  assert.equal(findClub({ venue: 'Corrib RFC', sport: 'hockey' }, connacht), null);
+  // Monkstown RFC's listed position is in Offaly, not Dublin, so it is not trusted.
+  assert.equal(findClub({ venue: 'Monkstown', sport: 'rugby' }, allowedFor({ area: 'Leinster' })), null);
+  // Without a county list nothing is placed.
+  assert.equal(findClub({ venue: 'Corrib RFC', sport: 'rugby' }, undefined), null);
+});
