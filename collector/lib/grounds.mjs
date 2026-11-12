@@ -28,6 +28,49 @@ export async function countyAt(f) {
   return named ? { name: f.venue, county: known, latitude: f.latitude, longitude: f.longitude, how: 'position from the source; county from the map' } : null;
 }
 
+// GAA pitches across Ireland: club, pitch name, county and position. From the GAA Pitch Finder list.
+const PITCHES = JSON.parse(readFileSync(new URL('../gaa-pitches.json', import.meta.url), 'utf8'));
+const GAA = new Set(['hurling', 'gaelic-football', 'camogie', 'ladies-football']);
+const FILLER = new Set(['gaa', 'clg', 'gac', 'gfc', 'club', 'the', 'and', 'park', 'pairc', 'grounds', 'ground', 'field', 'pitch', 'memorial', 'cumann', 'naomh', 'saint', 'gaelic', 'town', 'grass', 'main', 'astro']);
+const keyWords = (t) => norm(t).split(' ').filter((w) => w.length > 2 && !FILLER.has(w));
+
+/**
+ * Finds a GAA ground in the pitch list. A match must be the only one of its strength in the allowed counties:
+ * the pitch's own name, then the club's name, then (weakest) a town that has exactly one club.
+ */
+export function findGaaPitch(f, allowed) {
+  const v = keyWords(f.venue);
+  if (v.length === 0) return null;
+  // "St Anne's" or "St Brendan's" alone could be many places.
+  if (v.length === 1 && /^(st|saint|naomh)\b/.test(norm(f.venue))) return null;
+  const inAll = (need, have) => need.length > 0 && need.every((w) => have.includes(w));
+  const same = (a, b) => a.length === b.length && inAll(a, b);
+  const tiers = [[], [], []];
+  for (const p of PITCHES) {
+    if (allowed && !allowed.includes(p.county)) continue;
+    const pitch = keyWords(p.pitch);
+    const club = keyWords(p.club.split(',')[0]);
+    const all = keyWords(`${p.club} ${p.pitch}`);
+    // Strong: the pitch's name. A one-word pitch name must be the whole of what the source says.
+    if (same(pitch, v) || (pitch.length >= 2 && inAll(pitch, v)) || (v.length >= 2 && inAll(v, pitch))) tiers[0].push(p);
+    // Strong: the club's full name.
+    else if (same(club, v) || inAll(club, v)) tiers[1].push(p);
+    // Weak: part of a club's name, or its town. Only trusted inside the county whose board published the fixture.
+    else if (f.countyHint && p.county === f.countyHint && inAll(v, all)) tiers[2].push(p);
+  }
+  const labels = ['pitch name', 'club name', 'club or town, within the county board\'s own county'];
+  for (let i = 0; i < tiers.length; i++) {
+    // Several pitches of one club at one spot count as one answer.
+    const spots = [...new Map(tiers[i].map((p) => [`${p.latitude.toFixed(2)},${p.longitude.toFixed(2)}`, p])).values()];
+    if (spots.length === 1) {
+      const p = spots[0];
+      return { name: f.venue, county: p.county, latitude: p.latitude, longitude: p.longitude, how: `GAA pitch list, matched on ${labels[i]} (${p.club}${p.pitch ? ': ' + p.pitch : ''})` };
+    }
+    if (spots.length > 1) return null;
+  }
+  return null;
+}
+
 /** Looks one ground up on OpenStreetMap. Only a confident answer is accepted; anything doubtful returns null. */
 export async function findGround(f) {
   // A postcode pins the spot far better than a name.
@@ -38,6 +81,11 @@ export async function findGround(f) {
   }
   // 'Ireland' means anywhere on the island: the name alone has to be a confident match.
   const allowed = f.counties ?? (f.county ? [f.county] : f.area === 'Ireland' ? [...new Set(Object.values(AREAS).flat())] : AREAS[f.area]);
+  // GAA grounds are looked up in the pitch list first; it knows club grounds the map search does not.
+  if (GAA.has(f.sport) && allowed) {
+    const pitch = findGaaPitch(f, allowed);
+    if (pitch) return pitch;
+  }
   const near = f.counties?.[0] ?? f.county;
   const parts = f.venue.split(',').map((p) => p.trim()).filter(Boolean);
   // With no county or area to check against, the home team's own name is the only clue to the right town

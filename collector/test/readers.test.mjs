@@ -194,3 +194,16 @@ test('Horse racing: reads meetings from the calendar file, with no invented time
     ['2027-06-09', null, 'Limerick Races', 'Limerick Racecourse', 'Evening meeting', 'https://www.hri.ie/Limerick-racecourse/']);
   assert.equal(out[1].competition, 'Race meeting');
 });
+
+test('GAA pitch list: strong matches anywhere allowed, weak ones only in the board\'s own county', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  const munster = ['Clare', 'Cork', 'Kerry', 'Limerick', 'Tipperary', 'Waterford'];
+  assert.equal(findGaaPitch({ venue: 'Cratloe' }, munster)?.county, 'Clare');
+  assert.equal(findGaaPitch({ venue: 'Sean Treacy Park' }, munster)?.county, 'Tipperary');
+  // A bare town is only trusted with the county board's own county to go on.
+  assert.equal(findGaaPitch({ venue: 'Milltown' }, munster), null);
+  assert.equal(findGaaPitch({ venue: 'Milltown', countyHint: 'Clare' }, munster)?.county, 'Clare');
+  // A club in another county that merely shares a word is not a match.
+  assert.equal(findGaaPitch({ venue: 'Eire Og Ennis' }, munster)?.county ?? 'Clare', 'Clare');
+  assert.equal(findGaaPitch({ venue: "St Anne's" }, ['Dublin', 'Wexford', 'Kildare']), null);
+});

@@ -5,9 +5,9 @@ export { read } from './ulster-gaa.mjs';
 
 export const name = 'County GAA';
 export const pages = [
-  { url: 'https://clare.gaa.ie/fixtures-results/', prefix: 'Clare', area: 'Munster' },
-  { url: 'https://tipperary.gaa.ie/fixtures-results/', prefix: 'Tipperary', area: 'Munster' },
-  { url: 'https://offaly.gaa.ie/fixtures-results/', prefix: 'Offaly', area: 'Leinster' },
-  { url: 'https://cavangaa.ie/fixtures-results/', prefix: 'Cavan', area: 'Ulster' },
-  { url: 'https://fermanagh.gaa.ie/fixtures-results/', prefix: 'Fermanagh', area: 'Ulster' },
+  { url: 'https://clare.gaa.ie/fixtures-results/', prefix: 'Clare', countyHint: 'Clare', area: 'Munster' },
+  { url: 'https://tipperary.gaa.ie/fixtures-results/', prefix: 'Tipperary', countyHint: 'Tipperary', area: 'Munster' },
+  { url: 'https://offaly.gaa.ie/fixtures-results/', prefix: 'Offaly', countyHint: 'Offaly', area: 'Leinster' },
+  { url: 'https://cavangaa.ie/fixtures-results/', prefix: 'Cavan', countyHint: 'Cavan', area: 'Ulster' },
+  { url: 'https://fermanagh.gaa.ie/fixtures-results/', prefix: 'Fermanagh', countyHint: 'Fermanagh', area: 'Ulster' },
 ];

@@ -35,7 +35,7 @@ export function read(html, page, now = new Date()) {
         level: /club|school|college|pps/i.test(competition) ? 'local' : 'top', category: null,
         competition: page.prefix && !new RegExp(page.prefix, 'i').test(competition) ? `${page.prefix} ${competition}` : competition,
         home, away, title: null, date, time: readTime(row.querySelector('.time')?.text ?? ''),
-        venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null, area: page.area ?? 'Ulster', url: page.url,
+        venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null, area: page.area ?? 'Ulster', countyHint: page.countyHint ?? null, url: page.url,
       });
     }
   }
