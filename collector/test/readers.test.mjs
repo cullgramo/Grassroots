@@ -137,3 +137,21 @@ test('Ulster GAA: reads date, teams, time and ground, and never the referee', as
     ['2026-11-14', '13:30', 'Fionntamhnach Na Piarsaigh', 'Lacken GAA', 'Shamrock Park, Roslea', 'gaelic-football', 'local']);
   assert.ok(!JSON.stringify(out).includes('Some Person'));
 });
+
+test('Munster GAA: reads games from the calendar data, skipping results and non-games', async () => {
+  const munster = await import('../sources/munster-gaa.mjs');
+  const ev = (name, startDate, place) => ({ '@type': 'Event', name, startDate, url: `https://munster.gaa.ie/event/${name.length}/`, location: place ? { '@type': 'Place', name: place } : undefined });
+  const html = `<script type="application/ld+json">${JSON.stringify([
+    ev('2026 AIB Munster Club Junior Hurling Championship Semi-Final – Caherline (Limerick) v Dr. Crokes (Kerry)', '2026-11-14T13:15:00+00:00', 'Caherconlish'),
+    ev('2026 Limerick Senior Football Championship Final &#8211; Fr. Caseys 0-16 Kildimo Pallaskenry 0-10', '2026-11-01T15:30:00+00:00', 'Rathkeale'),
+    ev('2026 Munster GAA Football Coaching Conference', '2026-11-21T09:30:00+00:00', 'Cork'),
+    ev('2026 AIB Munster Club Junior Football Championship Semi-Final &#8211; Keel (Kerry) v Shamrocks (Waterford)', '2026-11-21T00:00:00+00:00'),
+  ])}</script>`;
+  const out = munster.read(html, munster.pages[0]);
+  assert.equal(out.length, 2);
+  assert.deepEqual([out[0].home, out[0].away, out[0].date, out[0].time, out[0].venue, out[0].sport],
+    ['Caherline (Limerick)', 'Dr. Crokes (Kerry)', '2026-11-14', '13:15', 'Caherconlish', 'hurling']);
+  assert.equal(out[0].competition, 'AIB Munster Club Junior Hurling Championship Semi-Final');
+  assert.equal(out[1].time, null);
+  assert.equal(out[1].venue, '');
+});

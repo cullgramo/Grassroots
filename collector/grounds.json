@@ -457,6 +457,20 @@
   "longitude": -7.239681,
   "how": "position from the source; county from the map"
  },
+ "Munster|austin stack park tralee|": {
+  "name": "Austin Stack Park Tralee",
+  "county": "Kerry",
+  "latitude": 52.269985,
+  "longitude": -9.693463,
+  "how": "place search (leisure/pitch: Austin Stack Park)"
+ },
+ "Munster|azzurri walsh park|": {
+  "name": "Azzurri Walsh Park",
+  "county": "Waterford",
+  "latitude": 52.25476,
+  "longitude": -7.12865,
+  "how": "checked by hand (OpenStreetMap: Walsh Park, Waterford)"
+ },
  "Munster|bandon grammar sch|": {
   "name": "Bandon Grammar Sch.",
   "county": "Cork",
@@ -464,7 +478,49 @@
   "longitude": -8.74811,
   "how": "checked by hand (OpenStreetMap: Bandon Grammar School)"
  },
+ "Munster|caherconlish|": {
+  "name": "Caherconlish",
+  "county": "Limerick",
+  "latitude": 52.58773,
+  "longitude": -8.4657,
+  "how": "checked by hand (OpenStreetMap: Caherline GAA, Caherconlish); the source gives only the town, and this is the town's GAA ground"
+ },
+ "Munster|cahir|": {
+  "name": "Cahir",
+  "county": "Tipperary",
+  "latitude": 52.37226,
+  "longitude": -7.92456,
+  "how": "checked by hand (OpenStreetMap: Cahir GAA Club); the source gives only the town, and this is the town's GAA ground"
+ },
+ "Munster|cappoquin logistics fraher field dungarvan|": {
+  "name": "Cappoquin Logistics Fraher Field, Dungarvan",
+  "county": "Waterford",
+  "latitude": 52.09623,
+  "longitude": -7.62432,
+  "how": "checked by hand (OpenStreetMap: Fraher Field, Dungarvan)"
+ },
  "Munster|farmers cross|": null,
+ "Munster|fbd semple stadium thurles|": {
+  "name": "FBD Semple Stadium Thurles",
+  "county": "Tipperary",
+  "latitude": 52.682102,
+  "longitude": -7.826016,
+  "how": "place search (leisure/stadium: FBD Semple Stadium)"
+ },
+ "Munster|fethard gaa|": {
+  "name": "Fethard GAA",
+  "county": "Tipperary",
+  "latitude": 52.468133,
+  "longitude": -7.695532,
+  "how": "place search (leisure/sports_centre: Fethard GAA Club)"
+ },
+ "Munster|kilmallock|": {
+  "name": "Kilmallock",
+  "county": "Limerick",
+  "latitude": 52.39805,
+  "longitude": -8.57367,
+  "how": "checked by hand (OpenStreetMap: Kilmallock GAA); the source gives only the town, and this is the town's GAA ground"
+ },
  "Munster|mardyke|": null,
  "Munster|midleton college|": {
   "name": "Midleton College",
@@ -480,12 +536,26 @@
   "longitude": -7.10107,
   "how": "checked by hand (OpenStreetMap: Newtown School, Waterford)"
  },
+ "Munster|pairc ui rinn|": {
+  "name": "Páirc Uí Rinn",
+  "county": "Cork",
+  "latitude": 51.891314,
+  "longitude": -8.436834,
+  "how": "place search (leisure/stadium: Páirc Uí Rinn)"
+ },
  "Munster|rosbrien|": {
   "name": "Rosbrien",
   "county": "Limerick",
   "latitude": 52.64525,
   "longitude": -8.63368,
   "how": "checked by hand (OpenStreetMap: Catholic Institute Athletics Club, Limerick)"
+ },
+ "Munster|zimmer biomet pairc chiosog|": {
+  "name": "Zimmer Biomet Páirc Chíosóg",
+  "county": "Clare",
+  "latitude": 52.8469,
+  "longitude": -8.97826,
+  "how": "checked by hand (OpenStreetMap: Cusack Park, Ennis)"
  },
  "Ulster|bangor aurora|BT20 4UT": {
   "name": "Bangor Aurora",
