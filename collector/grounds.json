@@ -1738,7 +1738,9 @@
   "longitude": -9.297709,
   "how": "rugby club search (leisure/sports_centre: Abbeyfeale Rugby Football Club); the source names the club or town, not the pitch"
  },
+ "Munster|abbottstown gaa centre of excellence|": null,
  "Munster|an baile loiscthe|": null,
+ "Munster|anner park cloneen|": null,
  "Munster|austin stack park tralee|": {
   "name": "Austin Stack Park Tralee",
   "county": "Kerry",
@@ -1810,6 +1812,13 @@
   "latitude": 53.30463,
   "longitude": -6.19278,
   "how": "coordinates from Gemini research, checked against the map: Blackrock College school grounds, Rock Road"
+ },
+ "Munster|bodyke|": {
+  "name": "Bodyke",
+  "county": "Clare",
+  "latitude": 52.895106,
+  "longitude": -8.550983,
+  "how": "GAA pitch list, matched on club name (Bodyke)"
  },
  "Munster|boherlahan|": {
   "name": "Boherlahan",
@@ -1926,6 +1935,13 @@
   "latitude": 52.369319,
   "longitude": -7.71937,
   "how": "rugby club search (leisure/sports_centre: Clonmel RFC); the source names the club or town, not the pitch"
+ },
+ "Munster|clooney|": {
+  "name": "Clooney",
+  "county": "Clare",
+  "latitude": 52.836566,
+  "longitude": -8.856063,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Clooney Quin)"
  },
  "Munster|cobh|": {
   "name": "Cobh",
@@ -2084,6 +2100,13 @@
   "longitude": -9.540538,
   "how": "GAA pitch list, matched on club name (Fossa)"
  },
+ "Munster|fossa|": {
+  "name": "Fossa",
+  "county": "Kerry",
+  "latitude": 52.069074,
+  "longitude": -9.540538,
+  "how": "GAA pitch list, matched on club name (Fossa)"
+ },
  "Munster|fr mcnamara park|": null,
  "Munster|galbally|": {
   "name": "Galbally",
@@ -2115,6 +2138,7 @@
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Golden/Kilfeacle)"
  },
  "Munster|gort gaa grounds|": null,
+ "Munster|grangegorman|": null,
  "Munster|grove island|": {
   "name": "Grove Island",
   "county": "Limerick",
@@ -2176,6 +2200,7 @@
  },
  "Munster|kilkenny college|": null,
  "Munster|kilkenny rfc|": null,
+ "Munster|kilkishen|": null,
  "Munster|killaloe|": null,
  "Munster|killarney|": {
   "name": "Killarney",
@@ -2183,6 +2208,13 @@
   "latitude": 52.079192,
   "longitude": -9.539756,
   "how": "rugby club search (leisure/pitch: Killarney RFC Main Pitch); the source names the club or town, not the pitch"
+ },
+ "Munster|killenaule gaa|": {
+  "name": "Killenaule GAA",
+  "county": "Tipperary",
+  "latitude": 52.563753,
+  "longitude": -7.669372,
+  "how": "GAA pitch list, matched on club name (Killenaule: James Simpson Memorial Stadium)"
  },
  "Munster|killorglin|": {
   "name": "Killorglin",
@@ -2275,6 +2307,20 @@
   "latitude": 51.8951,
   "longitude": -8.5008,
   "how": "coordinates from Gemini research, checked against the map: UCC Mardyke grounds; pitch list has UCC The Mardyke 130 m away"
+ },
+ "Munster|mary immaculate college thurles|": {
+  "name": "Mary Immaculate College, Thurles",
+  "county": "Tipperary",
+  "latitude": 52.677129,
+  "longitude": -7.806095,
+  "how": "place search (building/university: Mary Immaculate College, St Patrick's Campus)"
+ },
+ "Munster|meelick|": {
+  "name": "Meelick",
+  "county": "Clare",
+  "latitude": 52.699415,
+  "longitude": -8.65135,
+  "how": "GAA pitch list, matched on club name (Meelick)"
  },
  "Munster|midleton college|": {
   "name": "Midleton College",
@@ -2413,6 +2459,13 @@
   "longitude": -7.830511,
   "how": "GAA pitch list, matched on club name (Rosegreen)"
  },
+ "Munster|ruan|": {
+  "name": "Ruan",
+  "county": "Clare",
+  "latitude": 52.93292,
+  "longitude": -8.987153,
+  "how": "GAA pitch list, matched on club name (Ruan)"
+ },
  "Munster|sean treacy park|": {
   "name": "Sean Treacy Park",
   "county": "Tipperary",
@@ -2421,6 +2474,13 @@
   "how": "GAA pitch list, matched on pitch name (Arravale Rovers: Sean Treacy Park)"
  },
  "Munster|setu carlow campus|": null,
+ "Munster|sixmilebridge|": {
+  "name": "Sixmilebridge",
+  "county": "Clare",
+  "latitude": 52.741729,
+  "longitude": -8.781041,
+  "how": "GAA pitch list, matched on club name (Sixmilebridge: Second Pitch)"
+ },
  "Munster|skibbereen|": {
   "name": "Skibbereen",
   "county": "Cork",
@@ -2521,6 +2581,13 @@
   "latitude": 53.01481,
   "longitude": -8.910104,
   "how": "GAA pitch list, matched on club name (Tubber)"
+ },
+ "Munster|tulla|": {
+  "name": "Tulla",
+  "county": "Clare",
+  "latitude": 52.861478,
+  "longitude": -8.744131,
+  "how": "GAA pitch list, matched on club name (Tulla: Páirc an Dalaigh)"
  },
  "Munster|tullow|": null,
  "Munster|ucd 3g pitch|": null,

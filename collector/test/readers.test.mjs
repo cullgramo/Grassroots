@@ -317,3 +317,15 @@ test('GAA pitch list: a venue with an extra word the pitch and club do not expla
   assert.equal(findGaaPitch({ venue: 'Pairc Mhic Fhinn' }, ['Cavan'])?.county, 'Cavan');
   assert.equal(findGaaPitch({ venue: 'Patrick McManus Park Kinawley' }, ['Fermanagh'])?.county, 'Fermanagh');
 });
+
+test('County boards: a Load more page (JSON with a byte-order mark) is read like the main page', async () => {
+  const { read } = await import('../sources/county-gaa.mjs');
+  const fragment = '<h3 class="fix_res_date py-2 text-center mb-0">Saturday 21st Nov 2026</h3><div class="competition"><div class="competition-name"><a href="/fixtures-results/football/club/senior/sfc/b9178c91-3f5a-40f6-90c4-782990c23499/">Senior Football Championship</a></div>'
+    + '<div class="comp_details"><div class="home_team"><a href="/x/11111111-1111-1111-1111-111111111111/">Cratloe</a></div><div class="time">14:00</div><div class="away_team"><a href="/x/22222222-2222-2222-2222-222222222222/">Kilmurry</a></div></div>'
+    + '<div class="more_info"><a href="/venue/1/">Cratloe GAA</a></div></div>';
+  const json = '﻿\n\n' + JSON.stringify({ ok: true, hasMore: false, html: fragment });
+  const got = read(json, { url: 'https://clare.gaa.ie/fixtures-results/?ajax=1&page=1', prefix: 'Clare', countyHint: 'Clare', area: 'Munster' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['Cratloe', 'Kilmurry', '2026-11-21', '14:00', 'Cratloe GAA']);
+  assert.equal(read('﻿{"ok":true,"hasMore":false,"html":""}', { url: 'x' }).length, 0);
+});
