@@ -427,3 +427,13 @@ test('Foireann: real response shapes (from Longford GAA\'s page): byes, postpone
   // The referee's name is in the response but nowhere in what we keep.
   assert.ok(!JSON.stringify(got).includes('Reynolds') && !JSON.stringify(got).includes('Candon'));
 });
+
+test('Longford snapshot: 16 fixtures from the saved response, byes dropped, no referee names kept', async () => {
+  const { read, pages } = await import('../sources/longford-snapshot.mjs');
+  const got = read(pages[0].text);
+  assert.equal(got.length, 16);
+  assert.ok(got.every((f) => f.countyHint === 'Longford' && f.startsAt));
+  assert.equal(got.filter((f) => f.latitude != null).length, 5);
+  assert.ok(!/referee/i.test(pages[0].text));
+  assert.ok(!got.some((f) => /^bye$/i.test(f.away)));
+});

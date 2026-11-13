@@ -1,0 +1,412 @@
+{
+ "_note": "A one-off snapshot of fixtures shown on longfordgaa.ie on 13 November 2026, copied by the owner from the page's own response. No referee names are kept.",
+ "data": [
+  {
+   "id": "b6c57654-af90-4687-8349-4318e772328f",
+   "homeTeam": {
+    "name": "Limerick"
+   },
+   "startDate": "2027-03-07T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "Lidl National Football League",
+    "sponsor": "Lidl",
+    "additionalType": "inter_county",
+    "activity": "ladies_football",
+    "gender": "female",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "National Football League Division 4"
+   },
+   "awayTeam": {
+    "name": "Longford"
+   }
+  },
+  {
+   "id": "c4bcec1b-fb69-43c5-a745-d668d0746593",
+   "homeTeam": {
+    "name": "Longford"
+   },
+   "startDate": "2027-02-28T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "Lidl National Football League",
+    "sponsor": "Lidl",
+    "additionalType": "inter_county",
+    "activity": "ladies_football",
+    "gender": "female",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "National Football League Division 4"
+   },
+   "awayTeam": {
+    "name": "Derry"
+   }
+  },
+  {
+   "id": "f0c90986-47a6-492d-ac23-b87de27341ea",
+   "homeTeam": {
+    "name": "Longford"
+   },
+   "startDate": "2027-02-21T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "Lidl National Football League",
+    "sponsor": "Lidl",
+    "additionalType": "inter_county",
+    "activity": "ladies_football",
+    "gender": "female",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "National Football League Division 4"
+   },
+   "awayTeam": {
+    "name": "Laois"
+   }
+  },
+  {
+   "id": "9a6726da-d5ac-44e7-8e97-4064909e92fa",
+   "homeTeam": {
+    "name": "Sligo"
+   },
+   "startDate": "2027-02-14T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "Lidl National Football League",
+    "sponsor": "Lidl",
+    "additionalType": "inter_county",
+    "activity": "ladies_football",
+    "gender": "female",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "National Football League Division 4"
+   },
+   "awayTeam": {
+    "name": "Longford"
+   }
+  },
+  {
+   "id": "fd66cc41-9907-4277-b7d8-17edda95b75b",
+   "homeTeam": {
+    "name": "Longford"
+   },
+   "startDate": "2027-01-31T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "Lidl National Football League",
+    "sponsor": "Lidl",
+    "additionalType": "inter_county",
+    "activity": "ladies_football",
+    "gender": "female",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "National Football League Division 4"
+   },
+   "awayTeam": {
+    "name": "Offaly"
+   }
+  },
+  {
+   "id": "362c523f-b5c8-448c-917e-af898869e658",
+   "homeTeam": {
+    "name": "Wicklow"
+   },
+   "startDate": "2027-01-17T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "Lidl National Football League",
+    "sponsor": "Lidl",
+    "additionalType": "inter_county",
+    "activity": "ladies_football",
+    "gender": "female",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "National Football League Division 4"
+   },
+   "awayTeam": {
+    "name": "Longford"
+   }
+  },
+  {
+   "id": "1ee1c1ee-af43-4e3c-930c-eca9e43c34f6",
+   "homeTeam": {
+    "name": "Rathmolyon"
+   },
+   "startDate": "2026-11-21T13:30:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "AIB Leinster Club Special Hurling Championship 2026",
+    "sponsor": "AIB",
+    "additionalType": "inter_county",
+    "activity": "hurling",
+    "gender": "male",
+    "ageLevel": "Senior"
+   },
+   "division": {
+    "name": "Leinster Club Special Hurling Championship 2026 "
+   },
+   "awayTeam": {
+    "name": "Longford Slashers"
+   },
+   "place": {
+    "name": "St Loman's Park, Trim",
+    "latitude": 53.55324646495871,
+    "longitude": -6.8030131130815885
+   }
+  },
+  {
+   "id": "7e32a6b3-f0b6-4460-a306-394bbddda17d",
+   "homeTeam": {
+    "name": "Kenagh G.A.A"
+   },
+   "startDate": "2026-11-15T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "2026 Under 21 B Football Championship",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U21"
+   },
+   "division": {
+    "name": "2026 Under 21 B Championship - Cup "
+   },
+   "awayTeam": {
+    "name": "St. Colmcille Ballymore"
+   },
+   "place": {
+    "name": "Jim McGann park",
+    "latitude": 53.623197,
+    "longitude": -7.818421
+   }
+  },
+  {
+   "id": "388a965c-b5c8-4234-a66e-958ea1902632",
+   "homeTeam": {
+    "name": "Carrick Sarsfields"
+   },
+   "startDate": "2026-11-15T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "2026 Under 21 B Football Championship",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U21"
+   },
+   "division": {
+    "name": "2026 Under 21 B Championship - Cup "
+   },
+   "awayTeam": {
+    "name": "Ardagh Moydow GAA"
+   },
+   "place": {
+    "name": "Michael Moran Park"
+   }
+  },
+  {
+   "id": "f558d9cc-f3c7-4d16-bc38-d967debc17f1",
+   "homeTeam": {
+    "name": "Seán Connollys"
+   },
+   "startDate": "2026-11-15T14:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "2026 Under 21 B Football Championship",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U21"
+   },
+   "division": {
+    "name": "2026 Under 21 B Football Championship - Shield"
+   },
+   "awayTeam": {
+    "name": "Southern Gaels"
+   },
+   "place": {
+    "name": "Maguire Park"
+   }
+  },
+  {
+   "id": "adbc187c-cc57-4fa9-b45e-cf5cbaf1c7d3",
+   "homeTeam": {
+    "name": "Northern Gaels"
+   },
+   "startDate": "2026-11-15T12:30:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "John West Demographics Feile 2026",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U15"
+   },
+   "division": {
+    "name": "John West Demographics Feile 2026 - League Group B"
+   },
+   "awayTeam": {
+    "name": "Culmore Cu Chulainns"
+   },
+   "place": {
+    "name": "Connacht GAA Centre of Excellence, Bekan",
+    "latitude": 53.762776,
+    "longitude": -8.851117
+   }
+  },
+  {
+   "id": "3e123ca2-62b9-4600-8d3f-bb4f09cb2b11",
+   "homeTeam": {
+    "name": "Clonguish"
+   },
+   "startDate": "2026-11-15T12:00:00Z",
+   "isPostponed": true,
+   "competition": {
+    "name": "2026 Under 21 A Football Championship",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U21"
+   },
+   "division": {
+    "name": "2026 Under 21 A Football Championship - League "
+   },
+   "awayTeam": {
+    "name": "St. Mary's Granard"
+   },
+   "place": {
+    "name": "Allen Park"
+   }
+  },
+  {
+   "id": "6b0cd315-61ff-424d-8b09-3b42b5d6fa89",
+   "homeTeam": {
+    "name": "Western Gaels"
+   },
+   "startDate": "2026-11-15T12:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "2026 Under 21 A Football Championship",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U21"
+   },
+   "division": {
+    "name": "2026 Under 21 A Football Championship - League "
+   },
+   "awayTeam": {
+    "name": "Dromard"
+   },
+   "place": {
+    "name": "Dunbeggan"
+   }
+  },
+  {
+   "id": "a725c002-1d19-4ec2-bfeb-499f31df2c7a",
+   "homeTeam": {
+    "name": "Clonbroney"
+   },
+   "startDate": "2026-11-15T11:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "John West Demographics Feile 2026",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U15"
+   },
+   "division": {
+    "name": "John West Demographics Feile 2026 - League Group A"
+   },
+   "awayTeam": {
+    "name": "Erne Gaels Belleek"
+   },
+   "place": {
+    "name": "Connacht GAA Centre of Excellence, Bekan",
+    "latitude": 53.762776,
+    "longitude": -8.851117
+   }
+  },
+  {
+   "id": "aa44f31b-c1ae-48a5-93d6-6a94da9bbbdb",
+   "homeTeam": {
+    "name": "Northern Gaels"
+   },
+   "startDate": "2026-11-15T10:30:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "John West Demographics Feile 2026",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U15"
+   },
+   "division": {
+    "name": "John West Demographics Feile 2026 - League Group B"
+   },
+   "awayTeam": {
+    "name": "Castleconnor CLG"
+   },
+   "place": {
+    "name": "Connacht GAA Centre of Excellence, Bekan",
+    "latitude": 53.762776,
+    "longitude": -8.851117
+   }
+  },
+  {
+   "id": "00f03849-9ee4-42d9-910e-bbd59396b4a6",
+   "homeTeam": {
+    "name": "Clonbroney"
+   },
+   "startDate": "2026-11-15T10:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "John West Demographics Feile 2026",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U15"
+   },
+   "division": {
+    "name": "John West Demographics Feile 2026 - League Group A"
+   },
+   "awayTeam": {
+    "name": "Bonniconlon"
+   },
+   "place": {
+    "name": "Connacht GAA Centre of Excellence, Bekan",
+    "latitude": 53.762776,
+    "longitude": -8.851117
+   }
+  },
+  {
+   "id": "6ea097f6-de82-4220-889b-f293e461c1f0",
+   "homeTeam": {
+    "name": "Killoe Young Emmets"
+   },
+   "startDate": "2026-11-13T20:00:00Z",
+   "isPostponed": false,
+   "competition": {
+    "name": "2026 Under 21 A Football Championship",
+    "additionalType": "club",
+    "activity": "football",
+    "gender": "male",
+    "ageLevel": "U21"
+   },
+   "division": {
+    "name": "2026 Under 21 A Football Championship - League "
+   },
+   "awayTeamFallbackName": "BYE",
+   "place": {
+    "name": "Emmet Park"
+   }
+  }
+ ]
+}

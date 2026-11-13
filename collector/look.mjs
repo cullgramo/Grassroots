@@ -21,8 +21,9 @@ import * as sligoGaa from './sources/sligo-gaa.mjs';
 import * as leitrimGaa from './sources/leitrim-gaa.mjs';
 import * as mayoGaa from './sources/mayo-gaa.mjs';
 import * as carlowGaa from './sources/carlow-gaa.mjs';
+import * as longfordSnapshot from './sources/longford-snapshot.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'leitrim-gaa': leitrimGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa,
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'leitrim-gaa': leitrimGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'longford-snapshot': longfordSnapshot,
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
   ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };
 
@@ -31,7 +32,7 @@ export async function collect(source, now = new Date()) {
   const problems = [];
   for (const page of source.pages) {
     try {
-      all.push(...source.read(await getPage(page.url, page.gapMs, page.headers), page, now));
+      all.push(...source.read(page.text ?? await getPage(page.url, page.gapMs, page.headers), page, now));
     } catch (e) {
       problems.push(`${page.url}: ${e.message}`);
     }
