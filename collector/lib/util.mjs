@@ -7,6 +7,7 @@ export const USER_AGENT =
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const lastVisit = new Map();
 
+
 /** Fetches one public page, never faster than `gapMs` per site, and always saying who we are. */
 export async function getPage(url, gapMs = 2000) {
   const host = new URL(url).host;
@@ -17,10 +18,25 @@ export async function getPage(url, gapMs = 2000) {
   if (process.env.COLLECTOR_USE_CURL === '1') {
     return decodeLoose(execFileSync('curl', ['-sS', '-m', '40', '-L', '--fail', '-A', USER_AGENT, url], { maxBuffer: 64 * 1024 * 1024 }));
   }
-  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/json' } });
-  if (!res.ok) throw new Error(`${host} answered ${res.status}`);
-  return decodeLoose(Buffer.from(await res.arrayBuffer()));
+  // A dropped connection (no answer at all) is tried again after a pause, twice at most. A site that
+  // answers with an error, such as 403 or 429, is never retried: that is a "no", and it stands.
+  const pauses = [...retryPauses.list];
+  for (;;) {
+    try {
+      const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/json' } });
+      if (!res.ok) throw Object.assign(new Error(`${host} answered ${res.status}`), { answered: true });
+      return decodeLoose(Buffer.from(await res.arrayBuffer()));
+    } catch (e) {
+      if (e.answered) throw e;
+      const why = [e.cause?.code, e.cause?.message ?? e.message].filter(Boolean).join(': ');
+      if (pauses.length === 0) throw new Error(`${host} did not answer (${why})`);
+      await sleep(pauses.shift());
+    }
+  }
 }
+
+/** Pauses before trying a page again after a dropped connection. Exported so tests can shorten them. */
+export const retryPauses = { list: [5000, 20000] };
 
 /**
  * Turns a page's bytes into text. Some pages say they are UTF-8 but carry the odd accented letter in the
