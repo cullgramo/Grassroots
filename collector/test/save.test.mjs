@@ -80,3 +80,34 @@ test('a database error stops the save and says which call failed', async () => {
   const failing = async () => ({ ok: false, status: 401, text: async () => 'bad key' });
   await assert.rejects(saveFixtures(makeDb('https://db.test', 'x', failing), fixtures), /401 for POST venues/);
 });
+
+test('a dropped connection is retried, but a site that says no is not', async () => {
+  const { getPage, retryPauses } = await import('../lib/util.mjs');
+  const real = globalThis.fetch;
+  const saved = process.env.COLLECTOR_USE_CURL;
+  delete process.env.COLLECTOR_USE_CURL;
+  retryPauses.list = [1, 1];
+  try {
+    let calls = 0;
+    globalThis.fetch = async () => {
+      calls++;
+      if (calls < 3) throw Object.assign(new TypeError('fetch failed'), { cause: { code: 'ECONNRESET', message: 'socket hang up' } });
+      return { ok: true, status: 200, arrayBuffer: async () => Buffer.from('hello') };
+    };
+    assert.equal(await getPage('https://retry-one.test/a', 0), 'hello');
+    assert.equal(calls, 3);
+
+    calls = 0;
+    globalThis.fetch = async () => { calls++; throw Object.assign(new TypeError('fetch failed'), { cause: { code: 'ECONNRESET' } }); };
+    await assert.rejects(getPage('https://retry-two.test/a', 0), /did not answer \(ECONNRESET/);
+    assert.equal(calls, 3);
+
+    calls = 0;
+    globalThis.fetch = async () => { calls++; return { ok: false, status: 403 }; };
+    await assert.rejects(getPage('https://retry-three.test/a', 0), /answered 403/);
+    assert.equal(calls, 1);
+  } finally {
+    globalThis.fetch = real;
+    if (saved !== undefined) process.env.COLLECTOR_USE_CURL = saved;
+  }
+});
