@@ -110,6 +110,27 @@ export function findClub(f, allowed) {
 /** The counties a fixture's ground may be in, from what the source tells us. */
 export const allowedFor = (f) => f.counties ?? (f.county ? [f.county] : f.area === 'Ireland' ? [...new Set(Object.values(AREAS).flat())] : AREAS[f.area]);
 
+/**
+ * Places a race at the town, park or building its listing names. A race has no "ground", so any kind of
+ * place counts, but it must be in the county the listing gives and its name must match.
+ */
+async function findStart(f) {
+  const wanted = norm(f.venue).split(' ').filter((w) => w.length > 2);
+  if (wanted.length === 0 || !f.county) return null;
+  for (const q of [...new Set([f.venue, f.venue.split(',')[0].trim()])]) {
+    const hits = await getJson(SEARCH + encodeURIComponent(`${q}, ${f.county}, Ireland`));
+    const words = norm(q).split(' ').filter((w) => w.length > 2);
+    const good = hits.filter((x) => {
+      const got = norm(`${x.name ?? ''} ${(x.display_name ?? '').split(',').slice(0, 2).join(' ')}`);
+      return words.length > 0 && words.every((w) => got.includes(w)) && inIreland(+x.lat, +x.lon) && countyOf(x) === f.county;
+    });
+    // Two places of the same name in one county ("Newtown", Kildare) cannot be told apart.
+    const h = good.some((x) => Math.abs(x.lat - good[0].lat) > 0.05 || Math.abs(x.lon - good[0].lon) > 0.08) ? null : good[0];
+    if (h) return { name: f.venue, county: f.county, latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: `race start, place search (${h.category}/${h.type}: ${h.name ?? ''})` };
+  }
+  return null;
+}
+
 /** Looks one ground up on OpenStreetMap. Only a confident answer is accepted; anything doubtful returns null. */
 export async function findGround(f) {
   // A postcode pins the spot far better than a name.
@@ -118,6 +139,7 @@ export async function findGround(f) {
     const h = hits.find((x) => inIreland(+x.lat, +x.lon));
     if (h) return { name: f.venue, county: countyOf(h), latitude: +(+h.lat).toFixed(6), longitude: +(+h.lon).toFixed(6), how: 'postcode' };
   }
+  if (f.sport === 'athletics') return findStart(f);
   const allowed = allowedFor(f);
   // GAA grounds are looked up in the pitch list first; it knows club grounds the map search does not.
   if (GAA.has(f.sport) && allowed) {

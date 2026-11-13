@@ -219,3 +219,21 @@ test('the clubs list places a ground only when the ground names one club of that
   // Without a county list nothing is placed.
   assert.equal(findClub({ venue: 'Corrib RFC', sport: 'rugby' }, undefined), null);
 });
+
+test('MyRunResults: reads running races from the calendar page and skips the rest', async () => {
+  const { read } = await import('../sources/myrunresults.mjs');
+  const race = (o) => ({ raceId: 1, raceName: 'Test 5K', raceCountry: 'Ireland', raceCounty: 'Clare', raceLocation: 'Clarecastle, Clare V95 T275', raceScheduledStartDate: '2026-11-15T11:00:00+00:00', raceDistance: '5 Km', raceType: 'Road Race', raceCancelled: false, raceVirtual: false, ...o });
+  const items = [race({}), race({ raceId: 2, raceType: 'Cycle' }), race({ raceId: 3, raceCancelled: true }), race({ raceId: 4, raceVirtual: true }), race({ raceId: 5, raceName: 'Stook 10 Mile & 5k', raceType: 'Road Race, Walk', raceDistance: 'Other', raceLocation: 'dungarvan', raceCounty: 'Kilkenny' })];
+  const html = `<html><script id="ng-state" type="application/json">${JSON.stringify({ 1: { b: { items: [{ id: 1, type: 'Road Race' }] } }, 2: { b: { totalCount: 5, items } } })}</script></html>`;
+  const out = read(html);
+  assert.deepEqual(out.map((f) => f.ref), ['1', '5']);
+  assert.deepEqual({ ...out[0] }, {
+    ref: '1', sport: 'athletics', level: 'local', category: null, competition: 'Road Race · 5 Km',
+    home: null, away: null, title: 'Test 5K', date: '2026-11-15', time: '11:00',
+    venue: 'Clarecastle', county: 'Clare', postcode: 'V95 T275', area: 'Clare',
+    url: 'https://www.myrunresults.com/events/test_5k/1/details',
+  });
+  assert.equal(out[1].competition, 'Road Race, Walk');
+  assert.equal(out[1].url, 'https://www.myrunresults.com/events/stook_10_mile___5k/5/details');
+  assert.throws(() => read('<html></html>'), /layout/);
+});

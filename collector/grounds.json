@@ -1,4 +1,26 @@
 {
+ "Antrim|belfast city hall|": {
+  "name": "belfast city hall",
+  "county": "Antrim",
+  "latitude": 54.596436,
+  "longitude": -5.929507,
+  "how": "race start, place search (amenity/townhall: Belfast City Hall)"
+ },
+ "Antrim|ormeau embankment belfast|": null,
+ "Carlow|duckett s grove|": {
+  "name": "Duckett's Grove",
+  "county": "Carlow",
+  "latitude": 52.857411,
+  "longitude": -6.813624,
+  "how": "race start, place search (building/ruins: Duckett's Grove)"
+ },
+ "Clare|clarecastle|V95 T275": {
+  "name": "Clarecastle",
+  "county": "Clare",
+  "latitude": 52.815565,
+  "longitude": -8.966484,
+  "how": "race start, place search (place/village: Clarecastle)"
+ },
  "Connacht|an ghaeltacht rugbai|": null,
  "Connacht|athlone|": null,
  "Connacht|ballinasloe rfc|": {
@@ -301,7 +323,32 @@
   "longitude": -9.583738,
   "how": "rugby club search (leisure/pitch: Westport Rugby Club); the source names the club or town, not the pitch"
  },
+ "Cork|churchtown|": {
+  "name": "Churchtown",
+  "county": "Cork",
+  "latitude": 52.271193,
+  "longitude": -8.730955,
+  "how": "race start, place search (place/village: Churchtown)"
+ },
+ "Cork|clearstream deutsche borse group offices at nsq1 navigation square albert quay east|": null,
+ "Cork|cloynes|": null,
+ "Cork|watergrasshill ac|": {
+  "name": "watergrasshill AC",
+  "county": "Cork",
+  "latitude": 52.027378,
+  "longitude": -8.349475,
+  "how": "race start, place search (boundary/administrative: Watergrasshill)"
+ },
+ "Derry|dublin|": null,
  "Dublin|5 acres perrystown|": null,
+ "Dublin|abbottstown|": null,
+ "Dublin|acres road pheonix park|": {
+  "name": "Acres Road, Pheonix Park",
+  "county": "Dublin",
+  "latitude": 53.352208,
+  "longitude": -6.328327,
+  "how": "race start, place search (highway/unclassified: Acres Road)"
+ },
  "Dublin|archerstown|": null,
  "Dublin|aul complex|": {
   "name": "AUL Complex",
@@ -332,6 +379,13 @@
   "longitude": -6.373022,
   "how": "Get Ireland Active club list, matched on club name (Cherry Orchard Football Club)"
  },
+ "Dublin|clontarf|": {
+  "name": "Clontarf",
+  "county": "Dublin",
+  "latitude": 53.360814,
+  "longitude": -6.196854,
+  "how": "race start, place search (place/suburb: Clontarf)"
+ },
  "Dublin|clonturk park|": {
   "name": "Clonturk Park",
   "county": "Dublin",
@@ -345,6 +399,20 @@
   "latitude": 53.397476,
   "longitude": -6.379025,
   "how": "place search (leisure/park: Corduff Park)"
+ },
+ "Dublin|corkagh park clondalkin|": {
+  "name": "Corkagh Park, Clondalkin",
+  "county": "Dublin",
+  "latitude": 53.312093,
+  "longitude": -6.415998,
+  "how": "race start, place search (leisure/park: Corkagh Park)"
+ },
+ "Dublin|corkagh park|": {
+  "name": "Corkagh Park",
+  "county": "Dublin",
+  "latitude": 53.312093,
+  "longitude": -6.415998,
+  "how": "race start, place search (leisure/park: Corkagh Park)"
  },
  "Dublin|cross chapel|": null,
  "Dublin|crumlin united|": null,
@@ -374,6 +442,13 @@
   "how": "place search (leisure/sports_centre: Frank Kelly Park)"
  },
  "Dublin|gerry keaneally park|": null,
+ "Dublin|glencullen adventure park|": {
+  "name": "glencullen adventure park",
+  "county": "Dublin",
+  "latitude": 53.225489,
+  "longitude": -6.225676,
+  "how": "race start, place search (landuse/grass: Glencullen Adventure Park)"
+ },
  "Dublin|glin road coolock|": null,
  "Dublin|gormanstown park|": null,
  "Dublin|greenogue|": {
@@ -592,6 +667,7 @@
   "longitude": -6.177102,
   "how": "place search (leisure/park: St Anne's Park)"
  },
+ "Dublin|st annes park|": null,
  "Dublin|st catherines park co kildare|": null,
  "Dublin|st kevins boys|": {
   "name": "St Kevins Boys",
@@ -625,6 +701,20 @@
  },
  "Dublin|woodlands 11 a side all weather|": null,
  "Dublin|woodlands 5 a side grass|": null,
+ "Galway|ballinderreen community centre|": {
+  "name": "ballinderreen community centre",
+  "county": "Galway",
+  "latitude": 53.183955,
+  "longitude": -8.906856,
+  "how": "race start, place search (amenity/community_centre: Ballinderreen Community Centre)"
+ },
+ "Galway|leenane|": {
+  "name": "Leenane",
+  "county": "Galway",
+  "latitude": 53.596623,
+  "longitude": -9.694056,
+  "how": "race start, place search (highway/bus_stop: Leenane)"
+ },
  "Ireland|alexandra college|": {
   "name": "Alexandra College",
   "county": "Dublin",
@@ -871,6 +961,35 @@
   "latitude": 53.267379,
   "longitude": -6.272374,
   "how": "checked by hand (OpenStreetMap: Corinthian Hockey Club, Ballyboden)"
+ },
+ "Kildare|clane gaa|": {
+  "name": "clane GAA",
+  "county": "Kildare",
+  "latitude": 53.289804,
+  "longitude": -6.69268,
+  "how": "race start, place search (leisure/sports_centre: Clane GAA Club)"
+ },
+ "Kildare|kildare town|": {
+  "name": "Kildare Town",
+  "county": "Kildare",
+  "latitude": 53.156895,
+  "longitude": -6.910627,
+  "how": "race start, place search (highway/bus_stop: Kildare Town)"
+ },
+ "Kildare|newtown|": null,
+ "Kilkenny|dungarvan|": {
+  "name": "dungarvan",
+  "county": "Kilkenny",
+  "latitude": 52.58261,
+  "longitude": -7.102454,
+  "how": "race start, place search (boundary/administrative: Dungarvan)"
+ },
+ "Laois|stradbally|": {
+  "name": "Stradbally",
+  "county": "Laois",
+  "latitude": 53.016055,
+  "longitude": -7.149966,
+  "how": "race start, place search (place/town: Stradbally)"
  },
  "Leinster|alsaa sports complex|": null,
  "Leinster|ashbrook|": {
@@ -1373,6 +1492,14 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|west offaly lions ferbane gaa club|": null,
+ "Louth|ddac training field newtownstalaban|": null,
+ "Mayo|hollymount|": {
+  "name": "hollymount",
+  "county": "Mayo",
+  "latitude": 53.660692,
+  "longitude": -9.1173,
+  "how": "race start, place search (place/village: Hollymount)"
+ },
  "Munster|abbeyfeale|": {
   "name": "Abbeyfeale",
   "county": "Limerick",
@@ -2854,6 +2981,22 @@
   "longitude": -5.91915,
   "how": "position from the source; county from the map"
  },
+ "Waterford|brickey rangers g a a club|": null,
+ "Waterford|dungarvan|X35 AH76": {
+  "name": "Dungarvan",
+  "county": "Waterford",
+  "latitude": 52.089749,
+  "longitude": -7.621031,
+  "how": "race start, place search (place/town: Dungarvan)"
+ },
+ "Waterford|setu|": {
+  "name": "SETU",
+  "county": "Waterford",
+  "latitude": 52.246502,
+  "longitude": -7.142379,
+  "how": "race start, place search (building/industrial: SETU)"
+ },
+ "Wexford|gorey civic centre|": null,
  "|alsaa|": {
   "name": "ALSAA",
   "county": "Dublin",

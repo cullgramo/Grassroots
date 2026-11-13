@@ -1,11 +1,13 @@
 // Finds map positions for grounds the readers have seen but the directory does not know yet.
-// Usage: node collector/place.mjs      (run now and then; the daily run only reads grounds.json)
+// Usage: node collector/place.mjs [source-name ...]   (run now and then; the daily run only reads grounds.json)
 import { SOURCES, collect } from './look.mjs';
 import { allowedFor, countyAt, findClub, findGround, groundKey, loadGrounds, saveGrounds } from './lib/grounds.mjs';
 
 const grounds = loadGrounds();
 let asked = 0;
+const wanted = process.argv.slice(2);
 for (const [key, source] of Object.entries(SOURCES)) {
+  if (wanted.length && !wanted.includes(key)) continue;
   const { upcoming } = await collect(source);
   const fresh = new Map();
   // A fixture that arrives with its own map position needs no lookup.

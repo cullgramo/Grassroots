@@ -13,8 +13,9 @@ import * as connachtGaa from './sources/connacht-gaa.mjs';
 import * as clubRugby from './sources/club-rugby.mjs';
 import * as horseRacing from './sources/horse-racing.mjs';
 import * as countyGaa from './sources/county-gaa.mjs';
+import * as myrunresults from './sources/myrunresults.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults };
 
 export async function collect(source, now = new Date()) {
   const all = [];
@@ -45,7 +46,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     for (const p of problems) console.log(`    PROBLEM ${p}`);
     const step = Math.max(1, Math.floor(upcoming.length / 10));
     for (const f of upcoming.filter((_, i) => i % step === 0).slice(0, 10)) {
-      console.log(`    ${f.date} ${f.time ?? '--:--'} | ${f.home} v ${f.away} | ${f.competition} | ${f.venue || '(no ground)'}${f.postcode ? ' ' + f.postcode : ''}`);
+      console.log(`    ${f.date} ${f.time ?? '--:--'} | ${f.title ?? `${f.home} v ${f.away}`} | ${f.competition} | ${f.venue || '(no ground)'}${f.postcode ? ' ' + f.postcode : ''}`);
     }
   }
 }
