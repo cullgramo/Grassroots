@@ -75,6 +75,13 @@
   "how": "Get Ireland Active club list, matched on club name (Claremorris RFC)"
  },
  "Connacht|clifden|": null,
+ "Connacht|cloonacool community park|": {
+  "name": "Cloonacool Community Park",
+  "county": "Sligo",
+  "latitude": 54.115352,
+  "longitude": -8.757838,
+  "how": "GAA pitch list, matched on pitch name (Cloonacool GAA: Cloonacool GAA Community Field)"
+ },
  "Connacht|colaiste bhaile chlair|": {
   "name": "Colaiste Bhaile Chlair",
   "county": "Galway",
@@ -103,6 +110,7 @@
   "longitude": -8.852861,
   "how": "place search (leisure/sports_centre: Connacht GAA Centre Of Excellence)"
  },
+ "Connacht|connolly park|": null,
  "Connacht|corinthian park|": {
   "name": "Corinthian Park",
   "county": "Galway",
@@ -350,13 +358,7 @@
   "how": "place search (amenity/school: Summerhill College)"
  },
  "Connacht|tallagh|": null,
- "Connacht|tarmonbarry|": {
-  "name": "Tarmonbarry",
-  "county": "Roscommon",
-  "latitude": 53.739193,
-  "longitude": -7.922275,
-  "how": "place search (leisure/marina: Tarmonbarry)"
- },
+ "Connacht|tarmonbarry|": null,
  "Connacht|the neale|": {
   "name": "The Neale",
   "county": "Mayo",

@@ -2,7 +2,7 @@
 // Games still to be played carry a time; results carry scores and no time, so only rows with a time are read.
 // The referee's name sits beside the venue on every row and is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaSport, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
 
 export const name = 'Roscommon GAA';
 export const pages = [{ url: 'https://www.gaaroscommon.ie/matches/', area: 'Connacht', countyHint: 'Roscommon', prefix: 'Roscommon' }];
@@ -28,7 +28,7 @@ export function read(html, page, now = new Date()) {
         ref: `${compId}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
         sport: gaaSport(competition) ?? 'gaelic-football',
         level: /club|school|college|pps|u\d|minor|reserve|junior|intermediate|senior|league|div/i.test(competition) ? 'local' : 'top', category: null,
-        competition: page.prefix && !new RegExp(page.prefix, 'i').test(competition) ? `${page.prefix} ${competition}` : competition,
+        competition: withBoard(page.prefix, competition),
         home, away, title: null, date, time,
         venue: /^(tbc|tba|venue|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,
         area: page.area, countyHint: page.countyHint, url: page.url,

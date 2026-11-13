@@ -121,3 +121,9 @@ export async function getJson(url, gapMs = 1100) {
 }
 
 export const norm = (s) => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+
+/** Puts a board's name in front of a competition ("Clare U16 Hurling"), unless it already names its owner: "Connacht GAA Club ..." is not Sligo's. */
+export function withBoard(prefix, competition) {
+  if (!prefix || new RegExp(prefix, 'i').test(competition) || /^(a\.?i\.?b\.?\s+)?(connacht|munster|leinster|ulster|all.ireland)\b/i.test(competition)) return competition;
+  return `${prefix} ${competition}`;
+}

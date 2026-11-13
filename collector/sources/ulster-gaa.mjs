@@ -1,7 +1,7 @@
 // Ulster GAA: provincial club, schools and county fixtures, from the council's public fixtures page.
 // The page also names each referee; those are people's names and are deliberately not read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaSport, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
 
 export const name = 'Ulster GAA';
 /** The page shows 50 fixtures; the rest come from its own "Load more Fixtures" button, 50 at a time. Asked for the same way. */
@@ -44,7 +44,7 @@ export function read(html, page, now = new Date()) {
         ref: `${id(compLink?.getAttribute('href')) ?? competition}-${ids[0]}-${ids[1]}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
         sport: gaaSport(competition) ?? 'gaelic-football',
         level: /club|school|college|pps/i.test(competition) ? 'local' : 'top', category: null,
-        competition: page.prefix && !new RegExp(page.prefix, 'i').test(competition) ? `${page.prefix} ${competition}` : competition,
+        competition: withBoard(page.prefix, competition),
         home, away, title: null, date, time: readTime(row.querySelector('.time')?.text ?? ''),
         venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null, area: page.area ?? 'Ulster', countyHint: page.countyHint ?? null, url: page.url,
       });

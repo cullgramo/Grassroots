@@ -306,7 +306,7 @@ test('Antrim GAA: reads each fixture row under its competition, never the refere
   assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['gaelic-football', "Con Magee's Glenravel", 'Naomh Bríd', '2026-11-14', '12:00', 'Páirc an Athar Mhic Fhinn', 'Antrim U21A FC']);
   assert.equal(got[1].sport, 'hurling');
   assert.equal(got[1].venue, '');
-  assert.equal(got[1].competition, 'Antrim Ulster GAA Hurling Senior Club Championship');
+  assert.equal(got[1].competition, 'Ulster GAA Hurling Senior Club Championship');
   assert.ok(!JSON.stringify(got).includes('Burns'));
 });
 
@@ -349,4 +349,13 @@ test('Roscommon GAA: reads games with a time, skips results, never the referee',
   assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['hurling', 'Athleague-Tremane-Oran', 'Ballyhaunis', '2026-11-14', '12:00', 'Connacht GAA Centre']);
   assert.deepEqual([got[1].time, got[1].venue, got[1].sport], ['14:30', '', 'gaelic-football']);
   assert.ok(!JSON.stringify(got).includes('Connole'));
+});
+
+test('A board name is put before its own competitions only, not before provincial ones', async () => {
+  const { withBoard } = await import('../lib/util.mjs');
+  assert.equal(withBoard('Clare', 'U16 Hurling Championship'), 'Clare U16 Hurling Championship');
+  assert.equal(withBoard('Clare', 'Clare U16 Hurling Championship'), 'Clare U16 Hurling Championship');
+  assert.equal(withBoard('Sligo', 'Connacht GAA Club Junior Football Championship'), 'Connacht GAA Club Junior Football Championship');
+  assert.equal(withBoard('Clare', 'A.I.B. Munster SF Club Championship'), 'A.I.B. Munster SF Club Championship');
+  assert.equal(withBoard('', 'Anything'), 'Anything');
 });
