@@ -12,27 +12,26 @@ const NEXT_AGE: Record<AgeFilter, AgeFilter> = { all: 'adult', adult: 'underage'
 
 /**
  * One line under the search bar saying what the map is showing ("Within 25 km of you · This weekend · Adult"),
- * so nobody is left wondering why a fixture is missing. Tap place or date to change them, age to cycle it.
+ * so nobody is left wondering why a fixture is missing. Tap it to change the place or date. The age chip appears
+ * only when an age is chosen, and tapping it cycles Adult, Underage, All ages.
  */
 export function ViewSummary() {
   const t = useTheme();
   const { filters, location, setMyAge, showAllIreland, viewNote, dismissViewNote } = useApp();
-  const parts = describeView(filters, location != null);
-  const limited = isLimited(filters, location != null);
-  const placeLimited = filters.county != null || (filters.distanceKm != null && location != null);
+  const hasLocation = location != null;
+  const [place, when, age] = describeView(filters, hasLocation);
+  const placeLimited = filters.county != null || (filters.distanceKm != null && hasLocation);
+  // Place and date read as one phrase. Age only shows when it narrows things, so the usual view is one chip.
+  const ageOn = (filters.age ?? 'all') !== 'all';
 
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
-        {parts.map((p) => (
-          <Chip
-            key={p.id}
-            label={p.label}
-            elevated
-            onPress={() => (p.id === 'age' ? setMyAge(NEXT_AGE[filters.age ?? 'all']) : router.push('/filters'))}
-          />
-        ))}
-        {limited ? <Chip label={placeLimited ? 'All Ireland' : 'Any date'} elevated onPress={showAllIreland} /> : null}
+        <Chip compact elevated label={`${place.label} · ${when.label}`} onPress={() => router.push('/filters')} />
+        {ageOn ? <Chip compact elevated selected label={age.label} onPress={() => setMyAge(NEXT_AGE[filters.age ?? 'all'])} /> : null}
+        {isLimited(filters, hasLocation) ? (
+          <Chip compact elevated label={placeLimited ? 'All Ireland' : 'Any date'} onPress={showAllIreland} />
+        ) : null}
       </ScrollView>
       {viewNote ? (
         <View style={[styles.note, { backgroundColor: t.card, borderColor: t.border }]}>
@@ -47,7 +46,7 @@ export function ViewSummary() {
 }
 
 const styles = StyleSheet.create({
-  row: { gap: 8, paddingHorizontal: 16, paddingBottom: 2 },
+  row: { gap: 8, paddingHorizontal: 16, paddingBottom: 0 },
   note: {
     flexDirection: 'row',
     alignItems: 'center',

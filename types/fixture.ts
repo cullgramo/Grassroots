@@ -65,5 +65,5 @@ export const DEFAULT_FILTERS: Filters = {
   age: 'all',
 };
 
-/** The view the app opens on: near the user and this weekend. The age comes from the user's own choice. */
-export const openingFilters = (age: AgeFilter = 'all'): Filters => ({ ...DEFAULT_FILTERS, when: 'weekend', distanceKm: 25, age });
+/** The view the app opens on: within 10 km of the user and this weekend. The age comes from the user's own choice. */
+export const openingFilters = (age: AgeFilter = 'all'): Filters => ({ ...DEFAULT_FILTERS, when: 'weekend', distanceKm: 10, age });

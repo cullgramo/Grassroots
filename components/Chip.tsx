@@ -8,9 +8,11 @@ interface ChipProps {
   dotColor?: string;
   onPress: () => void;
   elevated?: boolean;
+  /** A shorter chip for the rows floating over the map. */
+  compact?: boolean;
 }
 
-export function Chip({ label, selected, dotColor, onPress, elevated }: ChipProps) {
+export function Chip({ label, selected, dotColor, onPress, elevated, compact }: ChipProps) {
   const t = useTheme();
   return (
     <Pressable
@@ -21,6 +23,7 @@ export function Chip({ label, selected, dotColor, onPress, elevated }: ChipProps
         styles.chip,
         { backgroundColor: selected ? t.tint : t.card, borderColor: selected ? t.tint : t.border },
         elevated && styles.elevated,
+        compact && styles.compact,
       ]}>
       {dotColor && !selected ? <View style={[styles.dot, { backgroundColor: dotColor }]} /> : null}
       <Text style={[styles.label, { color: selected ? t.onTint : t.text }]}>{label}</Text>
@@ -37,6 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
   },
+  compact: { minHeight: 34, paddingHorizontal: 12, borderRadius: 17 },
   elevated: {
     shadowColor: '#000',
     shadowOpacity: 0.15,

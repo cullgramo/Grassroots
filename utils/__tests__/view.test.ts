@@ -5,6 +5,7 @@ import { describeView, isLimited, widenView } from '../view';
 const now = new Date(2026, 5, 10, 12, 0);
 const day = (d: number) => new Date(2026, 5, d, 15, 0).toISOString();
 const dublin = { latitude: 53.35, longitude: -6.26 };
+const kildare = { latitude: 53.3, longitude: -6.45 }; // about 14 km from Dublin
 const wicklow = { latitude: 53.0, longitude: -6.5 }; // about 40 km from Dublin
 const carlow = { latitude: 52.84, longitude: -6.93 }; // about 70 km
 const cork = { latitude: 51.9, longitude: -8.47 }; // over 200 km
@@ -23,11 +24,13 @@ describe('widenView', () => {
   it('widens a quiet weekend to the next 7 days first', () => {
     const all = [...many(3, 13), ...many(20, 11)];
     const r = widenView(all, openingFilters(), dublin, [], now)!;
-    expect([r.filters.when, r.filters.distanceKm]).toEqual(['week', 25]);
+    expect([r.filters.when, r.filters.distanceKm]).toEqual(['week', 10]);
     expect(r.note).toMatch(/Quiet weekend near you, so showing the next 7 days/);
   });
 
   it('then widens the distance, and stops at the widest step when nothing is busy', () => {
+    const at25 = widenView([...many(2, 13), ...many(20, 11, kildare)], openingFilters(), dublin, [], now)!;
+    expect([at25.filters.when, at25.filters.distanceKm]).toEqual(['week', 25]);
     const at50 = widenView([...many(2, 13), ...many(20, 11, wicklow)], openingFilters(), dublin, [], now)!;
     expect([at50.filters.when, at50.filters.distanceKm]).toEqual(['week', 50]);
     expect(at50.note).toMatch(/within 50 km/);
@@ -56,7 +59,7 @@ describe('widenView', () => {
 
 describe('describeView and isLimited', () => {
   it('describes the opening view in plain words', () => {
-    expect(describeView(openingFilters('underage'), true).map((p) => p.label)).toEqual(['Within 25 km of you', 'This weekend', 'Underage']);
+    expect(describeView(openingFilters('underage'), true).map((p) => p.label)).toEqual(['Within 10 km of you', 'This weekend', 'Underage']);
   });
   it('says All Ireland with no place, and the county when one is chosen', () => {
     expect(describeView(DEFAULT_FILTERS, false)[0].label).toBe('All Ireland');

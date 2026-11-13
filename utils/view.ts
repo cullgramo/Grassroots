@@ -34,7 +34,7 @@ export function isLimited(filters: Filters, hasLocation: boolean): boolean {
 /** The widest-first ladder of steps tried when the opening view is quiet. Without a location, distance is skipped. */
 function ladder(hasLocation: boolean): { when: When; km: number | null }[] {
   return hasLocation
-    ? [{ when: 'weekend', km: 25 }, { when: 'week', km: 25 }, { when: 'week', km: 50 }, { when: 'week', km: 100 }, { when: 'any', km: 100 }]
+    ? [{ when: 'weekend', km: 10 }, { when: 'week', km: 10 }, { when: 'week', km: 25 }, { when: 'week', km: 50 }, { when: 'week', km: 100 }, { when: 'any', km: 100 }]
     : [{ when: 'weekend', km: null }, { when: 'week', km: null }, { when: 'any', km: null }];
 }
 
