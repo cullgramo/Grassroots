@@ -25,7 +25,7 @@ export function read(html, page, now = new Date()) {
           sport: gaaSport(competition) ?? 'gaelic-football', level: 'local', category: null, competition,
           home: tidy(teams[0].text), away: tidy(teams[1].text), title: null,
           date, time: readTime(row.querySelector('td.time')?.text ?? ''),
-          venue: '', county: 'Dublin', postcode: null, area: 'Dublin', url: page.url,
+          venue: '', county: 'Dublin', countyHint: 'Dublin', postcode: null, area: 'Dublin', url: page.url,
         };
         out.push(current);
       } else if (cls.includes('footer-tr') && current) {

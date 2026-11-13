@@ -1,7 +1,7 @@
 // Finds map positions for grounds the readers have seen but the directory does not know yet.
 // Usage: node collector/place.mjs [source-name ...]   (run now and then; the daily run only reads grounds.json)
 import { SOURCES, collect } from './look.mjs';
-import { allowedFor, countyAt, findClub, findGround, groundKey, loadGrounds, saveGrounds } from './lib/grounds.mjs';
+import { allowedFor, countyAt, findClub, findGaaPitch, findGround, groundKey, loadGrounds, saveGrounds } from './lib/grounds.mjs';
 
 const grounds = loadGrounds();
 let asked = 0;
@@ -17,7 +17,10 @@ for (const [key, source] of Object.entries(SOURCES)) {
   // Grounds the map search could not find get one more try in the clubs list (no network needed).
   for (const f of upcoming) {
     const k = groundKey(f);
-    if (f.venue && f.latitude == null && grounds[k] === null) grounds[k] = findClub(f, allowedFor(f));
+    if (f.venue && f.latitude == null && grounds[k] === null) {
+      const allowed = allowedFor(f);
+      grounds[k] = (allowed && ['hurling', 'gaelic-football', 'camogie', 'ladies-football'].includes(f.sport) ? findGaaPitch(f, allowed) : null) ?? findClub(f, allowed);
+    }
   }
   for (const [k, f] of fresh) {
     grounds[k] = await findGround(f).catch(() => null);

@@ -237,3 +237,13 @@ test('MyRunResults: reads running races from the calendar page and skips the res
   assert.equal(out[1].url, 'https://www.myrunresults.com/events/stook_10_mile___5k/5/details');
   assert.throws(() => read('<html></html>'), /layout/);
 });
+
+test('GAA pitch list: a ground written with or without a space, and a Dublin town with one club', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  const dublin = ['Dublin'];
+  assert.equal(findGaaPitch({ venue: 'Silver Park' }, dublin)?.county, 'Dublin');
+  assert.equal(findGaaPitch({ venue: 'Somerton Park' }, dublin)?.latitude, 53.364357);
+  assert.equal(findGaaPitch({ venue: 'Donabate', countyHint: 'Dublin' }, dublin)?.county, 'Dublin');
+  // Without the board's own county, a bare town is not enough.
+  assert.equal(findGaaPitch({ venue: 'Donabate' }, dublin), null);
+});
