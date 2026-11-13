@@ -1403,7 +1403,13 @@
   "longitude": -7.490889,
   "how": "position from the source; county from the map"
  },
- "Leinster|glenisk o connor park|": null,
+ "Leinster|glenisk o connor park|": {
+  "name": "Glenisk O’Connor Park, Tullamore",
+  "county": "Offaly",
+  "latitude": 53.2801259,
+  "longitude": -7.4893854,
+  "how": "pin supplied by the owner from Google Maps; the map shows a pitch there, in Tullamore, County Offaly, and it agrees with the existing Tullamore entry within 100 m"
+ },
  "Leinster|grant heating st brendan s park birr|": {
   "name": "Grant Heating St Brendan's Park, Birr",
   "county": "Offaly",
