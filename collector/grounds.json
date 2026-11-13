@@ -2658,6 +2658,34 @@
   "longitude": -7.36345,
   "how": "place search (leisure/pitch: 3G Pitch)"
  },
+ "Ulster|aghaderg|": {
+  "name": "Aghaderg",
+  "county": "Down",
+  "latitude": 54.34497,
+  "longitude": -6.326956,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Aghaderg-Ballyvarley GAA: Pearse Park)"
+ },
+ "Ulster|aghaloo|": {
+  "name": "Aghaloo",
+  "county": "Tyrone",
+  "latitude": 54.407448,
+  "longitude": -6.978524,
+  "how": "GAA pitch list, matched on pitch name (O'Neill's GAA, Aghaloo: Aghaloo GAA Grounds)"
+ },
+ "Ulster|aghyaran st davog s gac|": {
+  "name": "Aghyaran St Davog's GAC",
+  "county": "Tyrone",
+  "latitude": 54.677623,
+  "longitude": -7.704023,
+  "how": "GAA pitch list, matched on club name (St. Davog's, Aghyaran: Michael Dolan Park)"
+ },
+ "Ulster|an riocht|": {
+  "name": "An Riocht",
+  "county": "Down",
+  "latitude": 54.049279,
+  "longitude": -6.035741,
+  "how": "GAA pitch list, matched on club name (An Ríocht GAA, Greencastle: Páirc na Rochta, Dunavil)"
+ },
  "Ulster|antrim grammar school|": {
   "name": "Antrim Grammar School",
   "county": "Antrim",
@@ -2665,12 +2693,47 @@
   "longitude": -6.21292,
   "how": "position from the source; county from the map"
  },
+ "Ulster|ardboe|": {
+  "name": "Ardboe",
+  "county": "Tyrone",
+  "latitude": 54.614172,
+  "longitude": -6.551919,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (O'Donovan Rossa's GAA, Ardboe: Michael Coney Park)"
+ },
+ "Ulster|atticall|": {
+  "name": "Atticall",
+  "county": "Down",
+  "latitude": 54.10535,
+  "longitude": -6.062063,
+  "how": "GAA pitch list, matched on club name (Atticall GAA: Holy Cross Park)"
+ },
+ "Ulster|augher|": {
+  "name": "Augher",
+  "county": "Tyrone",
+  "latitude": 54.436332,
+  "longitude": -7.120059,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Macartan's GAA, Augher: Fr. Patrick Hackett Park)"
+ },
+ "Ulster|ballintra|": {
+  "name": "Ballintra",
+  "county": "Donegal",
+  "latitude": 54.599663,
+  "longitude": -8.101298,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Naomh Brd GAA, Ballintra/Laghey: Páirc Naomh Bríd)"
+ },
  "Ulster|ballyclare high school|": {
   "name": "Ballyclare High School",
   "county": "Antrim",
   "latitude": 54.7545,
   "longitude": -6.00316,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|ballyholland|": {
+  "name": "Ballyholland",
+  "county": "Down",
+  "latitude": 54.166128,
+  "longitude": -6.311919,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Ballyholland Harps: Fr. Lynch Park)"
  },
  "Ulster|ballymacarn park|": null,
  "Ulster|ballymena academy|": {
@@ -2729,6 +2792,13 @@
   "longitude": -6.02041,
   "how": "position from the source; county from the map"
  },
+ "Ulster|beragh|": {
+  "name": "Beragh",
+  "county": "Tyrone",
+  "latitude": 54.549666,
+  "longitude": -7.152417,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Beragh Red Knights: St. Mary's Park)"
+ },
  "Ulster|box it athletic grounds armagh|": {
   "name": "BOX-IT Athletic Grounds, Armagh",
   "county": "Armagh",
@@ -2756,6 +2826,13 @@
   "latitude": 54.138393,
   "longitude": -6.262917,
   "how": "Get Ireland Active club list, matched on club name (Burren GAA & LGFA Club)"
+ },
+ "Ulster|burt|": {
+  "name": "Burt",
+  "county": "Donegal",
+  "latitude": 55.031659,
+  "longitude": -7.460402,
+  "how": "GAA pitch list, matched on club name (Burt GAA: Hibernian Park)"
  },
  "Ulster|cambridge house gs|": {
   "name": "Cambridge House GS",
@@ -2813,6 +2890,13 @@
   "longitude": -7.59758,
   "how": "position from the source; county from the map"
  },
+ "Ulster|castlederg|": {
+  "name": "Castlederg",
+  "county": "Tyrone",
+  "latitude": 54.707328,
+  "longitude": -7.599265,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Eugene's GAA, Castlederg: Marius McHugh Park)"
+ },
  "Ulster|chambers park|": {
   "name": "Chambers Park",
   "county": "Armagh",
@@ -2820,6 +2904,7 @@
   "longitude": -6.43202,
   "how": "position from the source; county from the map"
  },
+ "Ulster|cherryvale|": null,
  "Ulster|circular road|": {
   "name": "Circular Road",
   "county": "Antrim",
@@ -2834,6 +2919,28 @@
   "longitude": -5.858824,
   "how": "checked by hand (OpenStreetMap: CIYMS, Bloomfield, Belfast)"
  },
+ "Ulster|clann na banna|": {
+  "name": "Clann na Banna",
+  "county": "Down",
+  "latitude": 54.349371,
+  "longitude": -6.282023,
+  "how": "GAA pitch list, matched on club name (Clann na Banna GAA: Cottage Park)"
+ },
+ "Ulster|clogher|": {
+  "name": "Clogher",
+  "county": "Tyrone",
+  "latitude": 54.412092,
+  "longitude": -7.165559,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Éire Óg GAA, Clogher: St. Patrick's Park)"
+ },
+ "Ulster|cloich cheann fhaola|": null,
+ "Ulster|colaiste ailigh|": {
+  "name": "Colaiste Ailigh",
+  "county": "Donegal",
+  "latitude": 54.963563,
+  "longitude": -7.724615,
+  "how": "place search (amenity/school: Coláiste Ailigh)"
+ },
  "Ulster|coleraine grammar school|": {
   "name": "Coleraine Grammar School",
   "county": "Derry",
@@ -2841,6 +2948,7 @@
   "longitude": -6.68648,
   "how": "position from the source; county from the map"
  },
+ "Ulster|coleraine|": null,
  "Ulster|comber road lisnagarvey hc|BT26 6LN": {
   "name": "Comber Road (Lisnagarvey HC)",
   "county": "Down",
@@ -2849,6 +2957,14 @@
   "how": "postcode"
  },
  "Ulster|connacht gaa centre of excellence bekan|": null,
+ "Ulster|connolly park|": null,
+ "Ulster|cookstown|": {
+  "name": "Cookstown",
+  "county": "Tyrone",
+  "latitude": 54.642676,
+  "longitude": -6.75079,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Fr. Rock's GAA, Cookstown: Paddy Cullen Park)"
+ },
  "Ulster|dalriada school|": {
   "name": "Dalriada School",
   "county": "Derry",
@@ -2877,6 +2993,20 @@
   "longitude": -5.94234,
   "how": "position from the source; county from the map"
  },
+ "Ulster|derrylaughan|": {
+  "name": "Derrylaughan",
+  "county": "Tyrone",
+  "latitude": 54.53633,
+  "longitude": -6.61058,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Derrylaughan Kevin Barry's GAC: Páirc Dhoire Locháin)"
+ },
+ "Ulster|donaghmore gaa|": {
+  "name": "Donaghmore GAA",
+  "county": "Tyrone",
+  "latitude": 54.534032,
+  "longitude": -6.812071,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patrick's GAA, Donaghmore: Fr. Éamonn Devlin Park)"
+ },
  "Ulster|donaldson park|": {
   "name": "Donaldson Park",
   "county": "Down",
@@ -2891,6 +3021,27 @@
   "latitude": 54.409,
   "longitude": -6.157,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|drumgath|": {
+  "name": "Drumgath",
+  "county": "Down",
+  "latitude": 54.22961,
+  "longitude": -6.214452,
+  "how": "GAA pitch list, matched on pitch name (St. Patrick's GAA, Drumgath: Drumgath GAA Grounds)"
+ },
+ "Ulster|drumquin|": {
+  "name": "Drumquin",
+  "county": "Tyrone",
+  "latitude": 54.612331,
+  "longitude": -7.491606,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Wolfe Tone's GAA, Drumquin: McGirr Park)"
+ },
+ "Ulster|dunfanaghy|": {
+  "name": "Dunfanaghy",
+  "county": "Donegal",
+  "latitude": 55.182515,
+  "longitude": -7.988381,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Michael's GAA, Creeslough/Dunfanaghy: Páirc Naomh Micheál)"
  },
  "Ulster|eaton park|": {
   "name": "Eaton Park",
@@ -2907,6 +3058,20 @@
   "how": "position from the source; county from the map"
  },
  "Ulster|emmett park|": null,
+ "Ulster|errigal ciaran|": {
+  "name": "Errigal Ciaran",
+  "county": "Tyrone",
+  "latitude": 54.524743,
+  "longitude": -7.06973,
+  "how": "GAA pitch list, matched on club name (Errigal Ciaran GAA: Cardinal MacRory Park)"
+ },
+ "Ulster|eskra|": {
+  "name": "Eskra",
+  "county": "Tyrone",
+  "latitude": 54.484967,
+  "longitude": -7.202589,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Emmett's GAA, Eskra: Emmet Park)"
+ },
  "Ulster|fay park|": {
   "name": "Fay Park",
   "county": "Cavan",
@@ -2921,6 +3086,13 @@
   "longitude": -7.2949,
   "how": "position from the source; county from the map"
  },
+ "Ulster|fr peter campbell park|": {
+  "name": "Fr Peter Campbell Park",
+  "county": "Tyrone",
+  "latitude": 54.543273,
+  "longitude": -6.690517,
+  "how": "GAA pitch list, matched on pitch name (Na Fianna GAA, Coalisland: Fr. Peter Campbell Park)"
+ },
  "Ulster|friends school|": {
   "name": "Friends School",
   "county": "Antrim",
@@ -2928,12 +3100,33 @@
   "longitude": -6.045,
   "how": "position from the source; county from the map"
  },
+ "Ulster|galbally pearses gac|": {
+  "name": "Galbally Pearses GAC",
+  "county": "Tyrone",
+  "latitude": 54.543262,
+  "longitude": -6.903335,
+  "how": "Get Ireland Active club list, matched on club name (Galbally Pearses GAA & LGFA Club)"
+ },
  "Ulster|gibson park|": {
   "name": "Gibson Park",
   "county": "Antrim",
   "latitude": 54.5829,
   "longitude": -5.89581,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|glenelly|": {
+  "name": "Glenelly",
+  "county": "Tyrone",
+  "latitude": 54.766177,
+  "longitude": -7.250513,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Joseph's GAA, Glenelly: Glenelly GAA Grounds, Plumbridge)"
+ },
+ "Ulster|glenn|": {
+  "name": "Glenn",
+  "county": "Down",
+  "latitude": 54.2411,
+  "longitude": -6.3355,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (John Martin's GAA, Glenn: John Martin Park)"
  },
  "Ulster|glenswilly|": {
   "name": "Glenswilly",
@@ -2949,12 +3142,33 @@
   "longitude": -5.8117,
   "how": "position from the source; county from the map"
  },
+ "Ulster|gortin main pitch|": {
+  "name": "Gortin Main Pitch",
+  "county": "Tyrone",
+  "latitude": 54.718342,
+  "longitude": -7.228704,
+  "how": "GAA pitch list, matched on pitch name (St. Patrick's GAA, Gortin: Gortin GAA Grounds)"
+ },
+ "Ulster|gortin|": {
+  "name": "Gortin",
+  "county": "Tyrone",
+  "latitude": 54.718342,
+  "longitude": -7.228704,
+  "how": "GAA pitch list, matched on pitch name (St. Patrick's GAA, Gortin: Gortin GAA Grounds)"
+ },
  "Ulster|gowna gaa grounds|": {
   "name": "Gowna GAA Grounds",
   "county": "Cavan",
   "latitude": 53.86601,
   "longitude": -7.550067,
   "how": "GAA pitch list, matched on club name (Gowna GAA: Páirc Loch Gamhna)"
+ },
+ "Ulster|greencastle|": {
+  "name": "Greencastle",
+  "county": "Tyrone",
+  "latitude": 54.698255,
+  "longitude": -7.067184,
+  "how": "GAA pitch list, matched on pitch name (St. Patrick's GAA, Greencastle: Greencastle GAA Grounds)"
  },
  "Ulster|greenisland war memorial|": {
   "name": "Greenisland War Memorial",
@@ -2998,6 +3212,7 @@
   "longitude": -7.01217,
   "how": "position from the source; county from the map"
  },
+ "Ulster|jack mackin park|": null,
  "Ulster|jim smith park killinkere|": {
   "name": "Jim Smith Park, Killinkere",
   "county": "Cavan",
@@ -3026,6 +3241,28 @@
   "longitude": -6.360507,
   "how": "Get Ireland Active club list, matched on club name (Kickhams GAC Creggan GAA & LGFA Club)"
  },
+ "Ulster|kildress|": {
+  "name": "Kildress",
+  "county": "Tyrone",
+  "latitude": 54.64009,
+  "longitude": -6.924508,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Wolfe Tone's GAA, Kildress: Peter Tierney Park)"
+ },
+ "Ulster|killeeshil|": {
+  "name": "Killeeshil",
+  "county": "Tyrone",
+  "latitude": 54.49185,
+  "longitude": -6.943026,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Mary's GAA, Killeeshil: St. Mary's Park)"
+ },
+ "Ulster|killyclogher|": {
+  "name": "Killyclogher",
+  "county": "Tyrone",
+  "latitude": 54.60123,
+  "longitude": -7.25474,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Mary's GAA, Killyclogher: Ballinamullan)"
+ },
+ "Ulster|killygordon|": null,
  "Ulster|kilraughts road|": {
   "name": "Kilraughts Road",
   "county": "Derry",
@@ -3061,12 +3298,26 @@
   "longitude": -7.174505,
   "how": "place search (leisure/pitch: Lavey GAA Grounds)"
  },
+ "Ulster|liatroim|": {
+  "name": "Liatroim",
+  "county": "Down",
+  "latitude": 54.285659,
+  "longitude": -5.994104,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Fontenoy's GAA. Liatroim: Fontenoy Park)"
+ },
  "Ulster|limavady gs|": {
   "name": "Limavady GS",
   "county": "Derry",
   "latitude": 55.0419,
   "longitude": -6.94558,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|longstone|": {
+  "name": "Longstone",
+  "county": "Down",
+  "latitude": 54.110249,
+  "longitude": -5.933245,
+  "how": "GAA pitch list, matched on pitch name (Longstone GAA: Longstone Park)"
  },
  "Ulster|lurgan college|": {
   "name": "Lurgan College",
@@ -3082,12 +3333,26 @@
   "longitude": -6.326759,
   "how": "postcode"
  },
+ "Ulster|mac cumhaill park|": {
+  "name": "Mac Cumhaill Park",
+  "county": "Donegal",
+  "latitude": 54.801349,
+  "longitude": -7.777731,
+  "how": "GAA pitch list, matched on pitch name (Seán Mac Cunmaill's GAA: Mac Cumhaill Park)"
+ },
  "Ulster|macnean park belcoo|": {
   "name": "MacNean Park, Belcoo",
   "county": "Fermanagh",
   "latitude": 54.298865,
   "longitude": -7.883084,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (O'Rahilly's GAA, Belcoo: MacNean Park)"
+ },
+ "Ulster|malin|": {
+  "name": "Malin",
+  "county": "Donegal",
+  "latitude": 55.297694,
+  "longitude": -7.262075,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Naomh Pádraig GAA, Malin: Connolly Park)"
  },
  "Ulster|maynard sinclair pavillion|": {
   "name": "Maynard Sinclair Pavillion",
@@ -3096,6 +3361,14 @@
   "longitude": -5.83079,
   "how": "position from the source; county from the map"
  },
+ "Ulster|mayobridge|": {
+  "name": "Mayobridge",
+  "county": "Down",
+  "latitude": 54.18296,
+  "longitude": -6.224988,
+  "how": "GAA pitch list, matched on club name (Mayobridge GAA: St. Patrick's Park)"
+ },
+ "Ulster|mcgovern park ruislip|": null,
  "Ulster|methodist college|": {
   "name": "Methodist College",
   "county": "Antrim",
@@ -3110,6 +3383,14 @@
   "longitude": -7.76551,
   "how": "position from the source; county from the map"
  },
+ "Ulster|moy gac|": {
+  "name": "Moy GAC",
+  "county": "Tyrone",
+  "latitude": 54.443301,
+  "longitude": -6.697002,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Tír na nÓg GAA, The Moy: Páirc Thír na nÓg)"
+ },
+ "Ulster|moyle park|": null,
  "Ulster|mullaghmeen|": null,
  "Ulster|mullaghmoyle park stewartstown|": {
   "name": "Mullaghmoyle Park, Stewartstown",
@@ -3118,6 +3399,7 @@
   "longitude": -6.689505,
   "how": "GAA pitch list, matched on pitch name (Stewartstown Harps: Mullaghmoyle)"
  },
+ "Ulster|naomh padraig leifear|": null,
  "Ulster|neilsbrook park|": {
   "name": "Neilsbrook Park",
   "county": "Antrim",
@@ -3131,6 +3413,13 @@
   "latitude": 54.5583,
   "longitude": -5.94431,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|newtownstewart|": {
+  "name": "Newtownstewart",
+  "county": "Tyrone",
+  "latitude": 54.718492,
+  "longitude": -7.371679,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Eugene's GAA, Newtownstewart: Páirc Naomh Eoghan)"
  },
  "Ulster|o connell park drumlane|": {
   "name": "O'Connell Park Drumlane",
@@ -3155,12 +3444,39 @@
  },
  "Ulster|omagh academy|": null,
  "Ulster|pairc an athar mhic fhinn|": null,
+ "Ulster|pairc an ghleanna|": {
+  "name": "Pairc an Ghleanna",
+  "county": "Tyrone",
+  "latitude": 54.842718,
+  "longitude": -7.357853,
+  "how": "GAA pitch list, matched on pitch name (Owen Roe's GAA, Leckpatrick: Páirc an Ghleanna)"
+ },
+ "Ulster|pairc an locha|": {
+  "name": "Páirc an Locha",
+  "county": "Tyrone",
+  "latitude": 54.627368,
+  "longitude": -7.105762,
+  "how": "GAA pitch list, matched on pitch name (St. Teresa's GAA, Loughmacrory: Páirc an Locha)"
+ },
+ "Ulster|pairc an tathair ui conghalaigh|": null,
+ "Ulster|pairc arthur mallon edendork|": null,
+ "Ulster|pairc colmcille carrickmore|": null,
  "Ulster|pairc esler newry|": {
   "name": "Páirc Esler, Newry",
   "county": "Armagh",
   "latitude": 54.163075,
   "longitude": -6.334875,
   "how": "place search (leisure/stadium: Páirc Esler (Down GAA & Newry Shamrocks GAC))"
+ },
+ "Ulster|pairc gearoid o gallachoir|": null,
+ "Ulster|pairc ghearrdhroma|": null,
+ "Ulster|pairc mhic sioghair|": null,
+ "Ulster|pairc naomh columba|": {
+  "name": "Pairc Naomh Columba",
+  "county": "Donegal",
+  "latitude": 54.941201,
+  "longitude": -7.839139,
+  "how": "GAA pitch list, matched on pitch name (Glenswilly GAA: Páirc Naomh Columba)"
  },
  "Ulster|pairc naomh fionnan cornafean|": {
   "name": "Pairc Naomh Fionnan Cornafean",
@@ -3170,6 +3486,14 @@
   "how": "place search (leisure/pitch: Páirc Naomh Fionnán)"
  },
  "Ulster|pairc rosa|": null,
+ "Ulster|pairc sean o caoilte dundrum|": {
+  "name": "Páirc Sean O'Caoilte - Dundrum",
+  "county": "Down",
+  "latitude": 54.262534,
+  "longitude": -5.838307,
+  "how": "GAA pitch list, matched on club name (Dundrum GAA: John Kielty Memorial Park)"
+ },
+ "Ulster|pairc ui rathaille|": null,
  "Ulster|palace grounds|": {
   "name": "Palace Grounds",
   "county": "Armagh",
@@ -3191,6 +3515,13 @@
   "longitude": -6.3303,
   "how": "position from the source; county from the map"
  },
+ "Ulster|pomeroy|": {
+  "name": "Pomeroy",
+  "county": "Tyrone",
+  "latitude": 54.593823,
+  "longitude": -6.936975,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Plunkett's GAA, Pomeroy: Plunkett Park)"
+ },
  "Ulster|portadown college|": {
   "name": "Portadown College",
   "county": "Armagh",
@@ -3211,6 +3542,13 @@
   "latitude": 54.3411,
   "longitude": -6.26963,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|rock pairc naomh padraig|": {
+  "name": "Rock, Páirc Naomh Padraig",
+  "county": "Tyrone",
+  "latitude": 54.599205,
+  "longitude": -6.831476,
+  "how": "GAA pitch list, matched on pitch name (St. Patrick's GAA, Rock: Páirc Naomh Pádraig)"
  },
  "Ulster|rory o moore park belturbet|": {
   "name": "Rory O'Moore Park Belturbet",
@@ -3254,6 +3592,20 @@
   "latitude": 55.121504,
   "longitude": -6.657767,
   "how": "postcode"
+ },
+ "Ulster|saul|": {
+  "name": "Saul",
+  "county": "Down",
+  "latitude": 54.348653,
+  "longitude": -5.653568,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patrick's GAA, Saul: St. Patrick's Park)"
+ },
+ "Ulster|sean o leary s gac newbridge|": {
+  "name": "Seán O'Leary's GAC Newbridge",
+  "county": "Derry",
+  "latitude": 54.761608,
+  "longitude": -6.506944,
+  "how": "GAA pitch list, matched on pitch name (Seán O'Leary's GAA, Newbridge: Seán O'Leary Park)"
  },
  "Ulster|shamrock park roslea|": {
   "name": "Shamrock Park, Roslea",
@@ -3311,6 +3663,7 @@
   "longitude": -7.704567,
   "how": "GAA pitch list, matched on pitch name (St. Mary's GAA, Swanlinbar: St. Mary's Park)"
  },
+ "Ulster|st patrick s park omagh|": null,
  "Ulster|st tiernach s park clones|": {
   "name": "St. Tiernach's Park, Clones",
   "county": "Monaghan",
@@ -3347,6 +3700,13 @@
   "longitude": -7.37588,
   "how": "position from the source; county from the map"
  },
+ "Ulster|tattyreagh|": {
+  "name": "Tattyreagh",
+  "county": "Tyrone",
+  "latitude": 54.534817,
+  "longitude": -7.281799,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patrick's GAA, Tattyreagh: Darcy Park)"
+ },
  "Ulster|telford park|": {
   "name": "Telford Park",
   "county": "Down",
@@ -3361,6 +3721,7 @@
   "longitude": -7.363307,
   "how": "place search (leisure/pitch: Terry Coyle Park)"
  },
+ "Ulster|the burn road|": null,
  "Ulster|the cloughan|": {
   "name": "The Cloughan",
   "county": "Antrim",
@@ -3384,12 +3745,41 @@
   "how": "position from the source; county from the map"
  },
  "Ulster|thomas mellon playing fields|": null,
+ "Ulster|tria locha|": null,
+ "Ulster|truagh|": {
+  "name": "Truagh",
+  "county": "Monaghan",
+  "latitude": 54.363855,
+  "longitude": -6.96471,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Truagh Gaels: St Mellans Park)"
+ },
+ "Ulster|tullylish|": {
+  "name": "Tullylish",
+  "county": "Down",
+  "latitude": 54.381373,
+  "longitude": -6.311648,
+  "how": "GAA pitch list, matched on club name (Tullylish GAA: Páirc na nÓg)"
+ },
+ "Ulster|tyholland|": {
+  "name": "Tyholland",
+  "county": "Monaghan",
+  "latitude": 54.26807,
+  "longitude": -6.91867,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Tyholland St. Patricks: Páirc Naomh Pádraig)"
+ },
  "Ulster|upritchard park|": {
   "name": "Upritchard Park",
   "county": "Down",
   "latitude": 54.6432,
   "longitude": -5.65528,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|urney|": {
+  "name": "Urney",
+  "county": "Tyrone",
+  "latitude": 54.794333,
+  "longitude": -7.53218,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Columba's GAA, Urney: Cutt Park)"
  },
  "Ulster|uuj|": {
   "name": "UUJ",
