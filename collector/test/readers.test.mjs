@@ -337,3 +337,16 @@ test('County boards: a game with an impossible year (a typo on the page) is drop
   const got = read(html, { url: 'x', prefix: 'Derry' }, new Date('2026-11-13T12:00:00Z'));
   assert.deepEqual(got.map((f) => f.date), ['2026-11-21']);
 });
+
+test('Roscommon GAA: reads games with a time, skips results, never the referee', async () => {
+  const { read } = await import('../sources/roscommon-gaa.mjs');
+  const game = (time, h, a, venue) => `<div class="match-row gaa-match-row"><div class="gaa-match-time">${time ? `<div class="time">${time}</div>` : '<div class="score">1-10</div>'}</div><div class="gaa-team gaa-team-home"><strong>${h}</strong></div><div class="gaa-team gaa-team-away"><strong>${a}</strong></div><div class="gaa-match-meta"><div><strong>Venue:</strong><br> ${venue} </div><div><strong>Referee:</strong><br> Cyril Connole </div></div></div>`;
+  const html = `<h3 class="results-date">Saturday 14th Nov 2026</h3><div class="competition-block"><div class="competition-title"><a href="https://x/league/?comp-id=db7b227d-b33b-4ffe-9751-9eadf5d73c0a">Connacht GAA Club U16 Hurling Championship 2026 - Semi Final</a></div>
+    <div class="competition-wrap">${game('12:00 PM', 'Athleague-Tremane-Oran', 'Ballyhaunis', 'Connacht GAA Centre')}${game('', 'Old', 'Result', 'Somewhere')}</div></div>
+    <h3 class="results-date">Sunday 15th Nov 2026</h3><div class="competition-block"><div class="competition-title"><a href="https://x/league/?comp-id=11111111-1111-1111-1111-111111111111">Senior Football League</a></div><div class="competition-wrap">${game('2:30 PM', 'Strokestown', 'Pádraig Pearses', 'TBC')}</div></div>`;
+  const got = read(html, { url: 'https://www.gaaroscommon.ie/matches/', area: 'Connacht', countyHint: 'Roscommon', prefix: 'Roscommon' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['hurling', 'Athleague-Tremane-Oran', 'Ballyhaunis', '2026-11-14', '12:00', 'Connacht GAA Centre']);
+  assert.deepEqual([got[1].time, got[1].venue, got[1].sport], ['14:30', '', 'gaelic-football']);
+  assert.ok(!JSON.stringify(got).includes('Connole'));
+});

@@ -89,6 +89,13 @@
   "longitude": -9.003339,
   "how": "checked by hand (OpenStreetMap: Claremorris Rugby Football Club)"
  },
+ "Connacht|connacht gaa centre of excellence bekan|": {
+  "name": "Connacht GAA Centre of Excellence, Bekan",
+  "county": "Mayo",
+  "latitude": 53.773491,
+  "longitude": -8.852861,
+  "how": "place search (leisure/sports_centre: Connacht GAA Centre Of Excellence)"
+ },
  "Connacht|connacht gaa centre|": {
   "name": "Connacht GAA Centre",
   "county": "Mayo",
@@ -219,6 +226,13 @@
   "longitude": -9.40427,
   "how": "checked by hand (OpenStreetMap: Islandeady GAA); the source gives only the place name, and this is its GAA ground"
  },
+ "Connacht|kilbride|": {
+  "name": "Kilbride",
+  "county": "Roscommon",
+  "latitude": 53.700679,
+  "longitude": -8.209884,
+  "how": "GAA pitch list, matched on club name (Kilbride GAA)"
+ },
  "Connacht|kiltimagh gaa club|": {
   "name": "Kiltimagh GAA Club",
   "county": "Mayo",
@@ -272,6 +286,13 @@
   "how": "rugby club search (leisure/sports_centre: Monivea Rugby Club); the source names the club or town, not the pitch"
  },
  "Connacht|newcastle galway|": null,
+ "Connacht|orchard park|": {
+  "name": "Orchard Park",
+  "county": "Roscommon",
+  "latitude": 53.847947,
+  "longitude": -8.192168,
+  "how": "GAA pitch list, matched on pitch name (Elphin GAA: Orchard Park)"
+ },
  "Connacht|pearse stadium salthill|": {
   "name": "Pearse Stadium, Salthill",
   "county": "Galway",
@@ -285,6 +306,13 @@
   "latitude": 53.09229,
   "longitude": -8.1849,
   "how": "Get Ireland Active club list, matched on club name (Portumna RFC)"
+ },
+ "Connacht|rockfield|": {
+  "name": "Rockfield",
+  "county": "Roscommon",
+  "latitude": 53.659391,
+  "longitude": -8.276803,
+  "how": "GAA pitch list, matched on pitch name (Oran GAA: Rockfield)"
  },
  "Connacht|sligo grammar|": {
   "name": "Sligo Grammar",
@@ -322,6 +350,13 @@
   "how": "place search (amenity/school: Summerhill College)"
  },
  "Connacht|tallagh|": null,
+ "Connacht|tarmonbarry|": {
+  "name": "Tarmonbarry",
+  "county": "Roscommon",
+  "latitude": 53.739193,
+  "longitude": -7.922275,
+  "how": "place search (leisure/marina: Tarmonbarry)"
+ },
  "Connacht|the neale|": {
   "name": "The Neale",
   "county": "Mayo",
@@ -329,6 +364,7 @@
   "longitude": -9.273471,
   "how": "GAA pitch list, matched on club name (The Neale GAA: Páirc Naomh Feichin, Cunga)"
  },
+ "Connacht|tom collins park croghan|": null,
  "Connacht|tuam rfc|": {
   "name": "Tuam RFC",
   "county": "Galway",
