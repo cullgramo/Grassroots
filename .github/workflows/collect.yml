@@ -39,6 +39,9 @@ jobs:
         env:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
+          # The GAA's Foireann API. Empty (so the reader stays off) until Foireann issues us a key.
+          FOIREANN_API_KEY: ${{ secrets.FOIREANN_API_KEY }}
+          FOIREANN_OWNER_ID: ${{ vars.FOIREANN_OWNER_ID }}
           DRY: ${{ inputs.dry && '1' || '0' }}
         run: node collector/run.mjs
 

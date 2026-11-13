@@ -255,3 +255,40 @@ test('GAA pitch list: a pitch written with its club\'s town matches; an unrelate
   // "Ruislip" is not part of the club or pitch, so McGovern Park in London is not Burrishoole's McGovern Park.
   assert.equal(findGaaPitch({ venue: 'McGovern Park, Ruislip' }, ['Mayo']), null);
 });
+
+test('Foireann: reads fixtures with the ground position, never the referee, and skips what cannot be attended', async () => {
+  const { read } = await import('../sources/foireann.mjs');
+  const fx = (o) => ({
+    id: 'f1', startDate: '2026-11-22T14:00:00Z', isResult: false, homeTeam: { name: 'Round Towers' }, awayTeam: { name: 'Clanna Gael' },
+    refereeName: 'SHOULD NEVER APPEAR', place: { id: 'p1', name: 'Pairc Uí Chuinn', latitude: 53.35, longitude: -6.26 },
+    competition: { name: 'Senior Football Championship', activity: 'football', ageLevel: 'Adult', gender: 'Male', sponsor: 'AIB' },
+    division: { name: 'Group A' }, status: 'LIVE', ticketUrl: 'https://tickets.example/1', ...o,
+  });
+  const text = JSON.stringify({ data: [
+    fx({}),
+    fx({ id: 'f2', competition: { name: 'Minor Hurling', activity: 'hurling', ageLevel: 'U16', gender: 'Female' }, isPostponed: true, place: null }),
+    fx({ id: 'f3', isAbandoned: true }),
+    fx({ id: 'f4', awayTeam: { name: 'Bye', isBye: true } }),
+    fx({ id: 'f5', competition: { name: 'Handball', activity: 'handball' } }),
+    fx({ id: 'f6', startDate: 'not a date' }),
+  ] });
+  const got = read(text);
+  assert.deepEqual(got.map((f) => f.ref), ['f1', 'f2']);
+  assert.equal(got[0].sport, 'gaelic-football');
+  assert.equal(got[0].latitude, 53.35);
+  assert.equal(got[0].startsAt, '2026-11-22T14:00:00.000Z');
+  assert.equal(got[0].competition, 'AIB Senior Football Championship Group A');
+  assert.equal(got[1].status, 'postponed');
+  assert.equal(got[1].category, 'women');
+  assert.equal(got[1].latitude, null);
+  assert.match(got[1].competition, /U16/);
+  // The referee's name is not in anything we keep.
+  assert.ok(!JSON.stringify(got).includes('SHOULD NEVER APPEAR'));
+  assert.ok(!JSON.stringify(got).toLowerCase().includes('referee'));
+});
+
+test('Foireann is switched off without a key', async () => {
+  const { pages } = await import('../sources/foireann.mjs');
+  assert.equal(process.env.FOIREANN_API_KEY ? 'set' : 'unset', 'unset');
+  assert.deepEqual(pages, []);
+});

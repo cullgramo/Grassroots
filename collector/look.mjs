@@ -14,15 +14,18 @@ import * as clubRugby from './sources/club-rugby.mjs';
 import * as horseRacing from './sources/horse-racing.mjs';
 import * as countyGaa from './sources/county-gaa.mjs';
 import * as myrunresults from './sources/myrunresults.mjs';
+import * as foireann from './sources/foireann.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults,
+  // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
+  ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };
 
 export async function collect(source, now = new Date()) {
   const all = [];
   const problems = [];
   for (const page of source.pages) {
     try {
-      all.push(...source.read(await getPage(page.url, page.gapMs), page, now));
+      all.push(...source.read(await getPage(page.url, page.gapMs, page.headers), page, now));
     } catch (e) {
       problems.push(`${page.url}: ${e.message}`);
     }
