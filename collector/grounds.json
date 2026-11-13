@@ -619,7 +619,13 @@
   "longitude": -6.139592,
   "how": "place search (leisure/park: Kilbogget Park)"
  },
- "Dublin|kildonan road|": null,
+ "Dublin|kildonan road|": {
+  "name": "Kildonan Road, Finglas (Mellows Park pitch)",
+  "county": "Dublin",
+  "latitude": 53.394077,
+  "longitude": -6.317305,
+  "how": "coordinates from Gemini research, checked against the map: the map has a pitch (Mellows Park) here, in Finglas, where Gemini places Finglas United; medium confidence, the road name is not on the map pitch"
+ },
  "Dublin|knocklyon united|": {
   "name": "Knocklyon United",
   "county": "Dublin",
@@ -2215,7 +2221,13 @@
   "longitude": -7.877735,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Cashel King Cormacs: Leahy Park)"
  },
- "Munster|liam fitzgerald park|": null,
+ "Munster|liam fitzgerald park|": {
+  "name": "Liam Fitzgerald Park (Thomond RFC)",
+  "county": "Limerick",
+  "latitude": 52.679722,
+  "longitude": -8.652222,
+  "how": "coordinates from Gemini research, checked against the map: the map has a pitch named Thomond RFC at this spot and the club list puts Thomond RFC 110 m away; the park name itself comes from Gemini (medium confidence)"
+ },
  "Munster|lissycasey|": {
   "name": "Lissycasey",
   "county": "Clare",
