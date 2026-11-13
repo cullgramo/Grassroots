@@ -1,4 +1,4 @@
--- Part 2 of 9. Run the parts in order.
+-- Part 2 of 10. Run the parts in order.
 insert into public.fixtures
   (sport_id, level, category, competition, home_team, away_team, title, time_known, venue_id, starts_at, ticketed, ticket_url, status, approval, source, source_ref, source_url)
 select s.sport_id, s.level, s.category, s.competition, s.home_team, s.away_team, s.title, s.time_known, v.id, s.starts_at::timestamptz, s.ticket_url is not null, s.ticket_url, s.status, 'approved', s.source, s.source_ref, s.source_url
@@ -312,9 +312,9 @@ from (values
   ('basketball', 'basketball-6a7c640b6b040c57f7ba7b5e', 'basketball', 'local', 'men', 'Men''s Division One', 'Flexachem KCYMS', 'Moy Tolka Rovers', null, true, 'Killorglin Sports Complex', 'Kerry', '2027-03-13T19:15:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
   ('basketball', 'basketball-6a7c640b6b040c57f7ba7b5f', 'basketball', 'local', 'men', 'Men''s Division One', 'SPK Utility Trust Lakers', 'Carrick Cruisers', null, true, 'Killarney Sports & Leisure Centre', 'Kerry', '2027-03-13T19:30:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
   ('basketball', 'basketball-6a7c640b6b040c57f7ba7b60', 'basketball', 'local', 'men', 'Men''s Division One', 'Drogheda Wolves', 'Maree', null, true, 'Ballymakenny College', 'Louth', '2027-03-13T19:30:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
-  ('basketball', 'basketball-6a7c5f8e6b040c57f7ba79e9', 'basketball', 'local', 'women', 'Women''s Division One', 'Templeogue', 'Dublin Raiders', null, true, 'National Basketball Arena', 'Dublin', '2026-11-12T20:30:00.000Z', 'https://ireland.basketball/WomensDivisionOneFixtures', null, 'scheduled'),
   ('basketball', 'basketball-6a7c5f8e6b040c57f7ba79ea', 'basketball', 'local', 'women', 'Women''s Division One', 'Swords Thunder', 'University of Galway Mystics', null, true, 'ALSAA', 'Dublin', '2026-11-21T15:45:00.000Z', 'https://ireland.basketball/WomensDivisionOneFixtures', null, 'scheduled'),
-  ('basketball', 'basketball-6a7c5f8e6b040c57f7ba79eb', 'basketball', 'local', 'women', 'Women''s Division One', 'Templeogue', 'Cleveland Rockets', null, true, 'TUD Tallaght', 'Dublin', '2026-11-21T16:00:00.000Z', 'https://ireland.basketball/WomensDivisionOneFixtures', null, 'scheduled')
+  ('basketball', 'basketball-6a7c5f8e6b040c57f7ba79eb', 'basketball', 'local', 'women', 'Women''s Division One', 'Templeogue', 'Cleveland Rockets', null, true, 'TUD Tallaght', 'Dublin', '2026-11-21T16:00:00.000Z', 'https://ireland.basketball/WomensDivisionOneFixtures', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c5f8e6b040c57f7ba79ec', 'basketball', 'local', 'women', 'Women''s Division One', 'Catalyst Fr Mathews', 'Uniquely Tralee Warriors', null, true, 'Fr Mathews Arena', 'Cork', '2026-11-21T17:00:00.000Z', 'https://ireland.basketball/WomensDivisionOneFixtures', null, 'scheduled')
 ) as s (source, source_ref, sport_id, level, category, competition, home_team, away_team, title, time_known, venue_name, venue_county, starts_at, source_url, ticket_url, status)
 join public.venues v on v.name = s.venue_name and v.county = s.venue_county
 on conflict (source, source_ref) do update set starts_at = excluded.starts_at, competition = excluded.competition, venue_id = excluded.venue_id,

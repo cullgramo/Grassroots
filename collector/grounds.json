@@ -67,6 +67,13 @@
  },
  "Connacht|castlepark galway|": null,
  "Connacht|castlerea st kevins|": null,
+ "Connacht|claremorris rfc|": {
+  "name": "Claremorris RFC",
+  "county": "Mayo",
+  "latitude": 53.740047,
+  "longitude": -9.00462,
+  "how": "Get Ireland Active club list, matched on club name (Claremorris RFC)"
+ },
  "Connacht|clifden|": null,
  "Connacht|colaiste bhaile chlair|": {
   "name": "Colaiste Bhaile Chlair",
@@ -169,6 +176,7 @@
   "longitude": -8.834138,
   "how": "place search (leisure/sports_centre: Gort GAA Grounds)"
  },
+ "Connacht|gort rfc|": null,
  "Connacht|hamilton park|": {
   "name": "Hamilton Park",
   "county": "Sligo",
@@ -1029,6 +1037,7 @@
   "longitude": -6.228121,
   "how": "checked by hand (OpenStreetMap: UCD Bowl, Belfield)"
  },
+ "Leinster|black gates|": null,
  "Leinster|bowhill balrothery|": {
   "name": "Bowhill Balrothery",
   "county": "Dublin",
@@ -1176,6 +1185,13 @@
   "how": "place search (leisure/stadium: Energia Park)"
  },
  "Leinster|enfield|": null,
+ "Leinster|estuary rd|": {
+  "name": "Estuary Rd",
+  "county": "Dublin",
+  "latitude": 53.458427,
+  "longitude": -6.187782,
+  "how": "home club search, address matches the ground name (leisure/sports_centre: Malahide Rugby Club, Estuary Road)"
+ },
  "Leinster|fbd park|": {
   "name": "FBD Park",
   "county": "Wexford",
@@ -1221,8 +1237,11 @@
   "longitude": -7.908861,
   "how": "GAA pitch list, matched on club name (Birr: St. Brendan's Park)"
  },
+ "Leinster|heavey technology park rathfarnham|": null,
  "Leinster|high school|": null,
+ "Leinster|holmpatrick|": null,
  "Leinster|iveagh grounds|": null,
+ "Leinster|john j mcdowell memorial grounds|": null,
  "Leinster|kilbeggan|": null,
  "Leinster|kilbogget park killiney|": {
   "name": "Kilbogget Park Killiney",
@@ -1327,6 +1346,7 @@
   "longitude": -6.17247,
   "how": "checked by hand (OpenStreetMap: Newpark Comprehensive Secondary School, Blackrock)"
  },
+ "Leinster|oak park|": null,
  "Leinster|ollie campbell park|": null,
  "Leinster|park avenue|": {
   "name": "Park Avenue",
@@ -1363,6 +1383,7 @@
   "longitude": -6.08236,
   "how": "GAA pitch list, matched on club name (Rathnew GAA)"
  },
+ "Leinster|riverside|": null,
  "Leinster|rochfortbridge|": null,
  "Leinster|ros glas|": null,
  "Leinster|rosetown|": {
@@ -1379,6 +1400,7 @@
   "longitude": -6.662907,
   "how": "position from the source; county from the map"
  },
+ "Leinster|santry|": null,
  "Leinster|shamrock lodge|": {
   "name": "Shamrock Lodge",
   "county": "Louth",
@@ -1386,6 +1408,7 @@
   "longitude": -6.347908,
   "how": "checked by hand (OpenStreetMap: Boyne Rugby Football Club, Drogheda)"
  },
+ "Leinster|shay murtagh park|": null,
  "Leinster|silken thomas park|": null,
  "Leinster|skerries cc|": null,
  "Leinster|skryne|": {
@@ -1426,6 +1449,7 @@
   "longitude": -6.160362,
   "how": "home club search, address matches the ground name (leisure/sports_centre: Blackrock College RFC, Wynberg Park)"
  },
+ "Leinster|sydney parade|": null,
  "Leinster|teg cusack park westmeath|": {
   "name": "TEG Cusack Park, Westmeath",
   "county": "Westmeath",
@@ -1440,6 +1464,8 @@
   "longitude": -6.312258,
   "how": "checked by hand (OpenStreetMap: Saint Mary's College RFC, Templeville Road)"
  },
+ "Leinster|terenure rd north|": null,
+ "Leinster|the grange kells|": null,
  "Leinster|the oval|": {
   "name": "The Oval",
   "county": "Dublin",
@@ -1461,6 +1487,13 @@
   "latitude": 53.010909,
   "longitude": -7.313378,
   "how": "checked by hand (OpenStreetMap: Portlaoise Rugby Club)"
+ },
+ "Leinster|townspark ardee rfc|": {
+  "name": "Townspark Ardee RFC",
+  "county": "Louth",
+  "latitude": 53.86288,
+  "longitude": -6.54905,
+  "how": "Get Ireland Active club list, matched on club address (Ardee RFC)"
  },
  "Leinster|townspark athboy|": {
   "name": "Townspark Athboy",
@@ -1767,6 +1800,13 @@
   "longitude": -8.645972,
   "how": "checked by hand (OpenStreetMap: Garryowen FC, Dooradoyle)"
  },
+ "Munster|drombane|": {
+  "name": "Drombane",
+  "county": "Tipperary",
+  "latitude": 52.661245,
+  "longitude": -7.950968,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Upperchurch Drombane)"
+ },
  "Munster|dungarvan|": {
   "name": "Dungarvan",
   "county": "Waterford",
@@ -1823,6 +1863,13 @@
   "latitude": 52.468162,
   "longitude": -7.695611,
   "how": "GAA pitch list, matched on club name (Fethard: Barracks Field)"
+ },
+ "Munster|fethard|": {
+  "name": "Fethard",
+  "county": "Tipperary",
+  "latitude": 52.475538,
+  "longitude": -7.69408,
+  "how": "rugby club search (leisure/sports_centre: Fethard Rugby Football Club); the source names the club or town, not the pitch"
  },
  "Munster|fr mcnamara park|": null,
  "Munster|galbally|": {
@@ -2166,6 +2213,7 @@
   "how": "place search (leisure/pitch: Tanner Park)"
  },
  "Munster|temple hill|": null,
+ "Munster|templemore|": null,
  "Munster|the ragg|": {
   "name": "The Ragg",
   "county": "Tipperary",
@@ -2787,6 +2835,13 @@
   "longitude": -6.42569,
   "how": "position from the source; county from the map"
  },
+ "Ulster|rainey endowed school|": {
+  "name": "Rainey Endowed School",
+  "county": "Derry",
+  "latitude": 54.7569,
+  "longitude": -6.61286,
+  "how": "position from the source; county from the map"
+ },
  "Ulster|rifle park|": {
   "name": "Rifle Park",
   "county": "Armagh",
@@ -2958,6 +3013,13 @@
   "county": "Down",
   "latitude": 54.6432,
   "longitude": -5.65528,
+  "how": "position from the source; county from the map"
+ },
+ "Ulster|uuj|": {
+  "name": "UUJ",
+  "county": "Antrim",
+  "latitude": 54.6884,
+  "longitude": -5.88281,
   "how": "position from the source; county from the map"
  },
  "Ulster|uu|": {
