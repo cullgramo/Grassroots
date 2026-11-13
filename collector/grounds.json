@@ -160,7 +160,13 @@
   "how": "place search (leisure/pitch: Dunmore RFC)"
  },
  "Connacht|enfield|": null,
- "Connacht|fr o hara park charlestown|": null,
+ "Connacht|fr o hara park charlestown|": {
+  "name": "Fr. O'Hara Park, Charlestown",
+  "county": "Mayo",
+  "latitude": 53.95883,
+  "longitude": -8.8054,
+  "how": "GAA pitch list, matched on pitch name (Charlestown Sarsfields: Fr. O'Hara Park)"
+ },
  "Connacht|galway|": null,
  "Connacht|galwegians rfc|": {
   "name": "Galwegians RFC",
@@ -2065,6 +2071,13 @@
   "longitude": -7.69408,
   "how": "rugby club search (leisure/sports_centre: Fethard Rugby Football Club); the source names the club or town, not the pitch"
  },
+ "Munster|fossa gaa|": {
+  "name": "Fossa GAA",
+  "county": "Kerry",
+  "latitude": 52.069074,
+  "longitude": -9.540538,
+  "how": "GAA pitch list, matched on club name (Fossa)"
+ },
  "Munster|fr mcnamara park|": null,
  "Munster|galbally|": {
   "name": "Galbally",
@@ -3004,7 +3017,13 @@
   "how": "position from the source; county from the map"
  },
  "Ulster|mullaghmeen|": null,
- "Ulster|mullaghmoyle park stewartstown|": null,
+ "Ulster|mullaghmoyle park stewartstown|": {
+  "name": "Mullaghmoyle Park, Stewartstown",
+  "county": "Tyrone",
+  "latitude": 54.566203,
+  "longitude": -6.689505,
+  "how": "GAA pitch list, matched on pitch name (Stewartstown Harps: Mullaghmoyle)"
+ },
  "Ulster|neilsbrook park|": {
   "name": "Neilsbrook Park",
   "county": "Antrim",
