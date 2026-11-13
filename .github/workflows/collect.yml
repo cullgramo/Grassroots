@@ -20,7 +20,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       SUPABASE_URL: https://dxkurwkmbnireaptcsbd.supabase.co
     steps:
@@ -30,16 +30,10 @@ jobs:
         with:
           node-version: 24
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
 
       - name: Check the readers
-        run: node --test collector/test/readers.test.mjs
-
-      - name: Apply database changes
-        if: ${{ !inputs.dry }}
-        env:
-          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
-        run: ./collector/migrate.sh
+        run: node --test collector/test/*.test.mjs
 
       - name: Collect fixtures
         env:
@@ -47,3 +41,12 @@ jobs:
           TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
           DRY: ${{ inputs.dry && '1' || '0' }}
         run: node collector/run.mjs
+
+      - name: Keep the list of fixtures left out
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: left-out
+          path: collector-report/left-out.csv
+          if-no-files-found: ignore
+          retention-days: 14

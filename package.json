@@ -45,7 +45,7 @@
     "web": "expo start --web",
     "test": "jest",
     "lint": "expo lint",
-    "test:collector": "node --experimental-strip-types --test collector/test/readers.test.mjs"
+    "test:collector": "node --experimental-strip-types --test collector/test/*.test.mjs"
   },
   "private": true,
   "jest": {

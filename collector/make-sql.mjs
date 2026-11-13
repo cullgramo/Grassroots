@@ -2,15 +2,14 @@
 // Usage: node collector/make-sql.mjs <out.sql> <left-out.csv>
 // Used while the daily run is not switched on. Reads the database only to avoid showing a game twice.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { SOURCES, collect } from './look.mjs';
-import { groundKey, loadGrounds } from './lib/grounds.mjs';
-import { countyFor } from '../data/counties.ts';
-import { getJson, irishTimeToIso, norm } from './lib/util.mjs';
+import { SOURCES } from './look.mjs';
+import { gather } from './lib/build.mjs';
+import { loadGrounds } from './lib/grounds.mjs';
+import { getJson } from './lib/util.mjs';
 
 const [, , sqlPath, leftOutPath] = process.argv;
 const q = (v) => (v == null ? 'null' : `'${String(v).replace(/'/g, "''")}'`);
 const grounds = loadGrounds();
-const words = (t) => norm(t).split(' ').filter((w) => w.length >= 5);
 
 // Fixtures already in the app from hand-loaded files; the reader's copy replaces them.
 let existing = [];
@@ -18,39 +17,7 @@ try {
   existing = await getJson('https://dxkurwkmbnireaptcsbd.supabase.co/rest/v1/fixtures?select=sport_id,home_team,away_team,starts_at,source,source_ref&limit=5000&apikey=' + process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY, 0);
 } catch { /* without it, nothing is replaced */ }
 
-const fixtures = [];
-const leftOut = [];
-const replaced = new Set();
-const live = {};
-// The same game can be listed by two sources (a national list and a provincial one); the first copy is kept.
-const seen = new Set();
-for (const [key, source] of Object.entries(SOURCES)) {
-  const { upcoming, problems } = await collect(source);
-  // Only tidy away a source's old fixtures when every one of its pages was read.
-  if (problems.length === 0 && upcoming.length > 0) live[key] = [];
-  for (const f of upcoming) {
-    const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, venue: f.venue, reason });
-    if (!f.venue) { leave('No ground given'); continue; }
-    // A fixture with a day but no time is still shown, marked "Time TBC" and stored at midday.
-    const timeKnown = Boolean(f.startsAt || f.time);
-    const ground = grounds[groundKey(f)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
-    if (!ground) { leave('Ground not placed on the map yet'); continue; }
-    // Every ground needs a county; if the map did not name one, the nearest county is used.
-    if (!ground.county) ground.county = countyFor([], ground.latitude, ground.longitude);
-    const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}`;
-    if (seen.has(game)) { leave('Already listed by another source'); continue; }
-    seen.add(game);
-    const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time ?? '12:00');
-    const ref = `${key}-${f.ref}`;
-    live[key]?.push(ref);
-    for (const e of existing) {
-      if (e.source !== 'admin' || e.sport_id !== f.sport || e.starts_at.slice(0, 10) !== startsAt.slice(0, 10)) continue;
-      const theirs = [...words(e.home_team ?? ''), ...words(e.away_team ?? '')];
-      if (words(f.home ?? f.title ?? '').some((w) => theirs.includes(w)) && words(f.away ?? f.title ?? '').some((w) => theirs.includes(w))) replaced.add(e.source_ref);
-    }
-    fixtures.push({ ...f, source: key, ref, startsAt, ground, timeKnown });
-  }
-}
+const { fixtures, leftOut, live, replaced } = await gather({ existing, grounds });
 
 const venues = [...new Map(fixtures.map((f) => [`${f.ground.name}|${f.ground.county}`, f.ground])).values()];
 const sql = [
