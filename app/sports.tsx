@@ -7,12 +7,14 @@ import { Chip } from '@/components/Chip';
 import { useTheme } from '@/components/useTheme';
 import { ALL_SPORT_IDS, SPORTS, type SportId } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
+import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
 
 export default function SportsScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { mySports, setMySports } = useApp();
+  const { mySports, setMySports, myAge, setMyAge } = useApp();
   const [picked, setPicked] = useState<SportId[]>(mySports);
+  const [pickedAge, setPickedAge] = useState<AgeFilter>(myAge);
 
   const toggle = (id: SportId) =>
     setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
@@ -20,6 +22,7 @@ export default function SportsScreen() {
 
   const done = () => {
     setMySports(everything ? [] : picked);
+    setMyAge(pickedAge);
     if (router.canGoBack()) router.back();
     else router.replace('/');
   };
@@ -42,6 +45,13 @@ export default function SportsScreen() {
             />
           ))}
         </View>
+        <Text style={[styles.title, styles.ageTitle, { color: t.text }]}>Which games?</Text>
+        <Text style={[styles.text, { color: t.muted }]}>Adult games, underage and schools games, or both.</Text>
+        <View style={styles.chips}>
+          {(['all', 'adult', 'underage'] as AgeFilter[]).map((a) => (
+            <Chip key={a} label={a === 'all' ? 'Both' : AGE_LABEL[a]} selected={pickedAge === a} onPress={() => setPickedAge(a)} />
+          ))}
+        </View>
       </ScrollView>
       <View style={[styles.footer, { backgroundColor: t.card, borderColor: t.border, paddingBottom: insets.bottom + 12 }]}>
         <Pressable onPress={done} accessibilityRole="button" style={[styles.apply, { backgroundColor: t.tint }]}>
@@ -60,6 +70,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 26, fontWeight: '800' },
   text: { fontSize: 15, marginTop: 8, marginBottom: 22 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
+  ageTitle: { fontSize: 22, marginTop: 28 },
   footer: { padding: 12, borderTopWidth: 1 },
   apply: { minHeight: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center' },
   applyText: { fontSize: 17, fontWeight: '800' },

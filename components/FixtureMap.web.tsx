@@ -158,7 +158,7 @@ export function FixtureMap({
   useEffect(() => {
     if (!fitRadius) return;
     if (!userLocation || !radiusKm) {
-      if (hadRadius.current) map.current?.setView([IRELAND.latitude, IRELAND.longitude], 7);
+      if (hadRadius.current) map.current?.fitBounds([[51.3, -10.7], [55.4, -5.4]], { paddingTopLeft: [10, 180], paddingBottomRight: [10, 110] });
       hadRadius.current = false;
       return;
     }

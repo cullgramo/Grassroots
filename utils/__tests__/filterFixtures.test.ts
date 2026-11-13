@@ -164,7 +164,12 @@ describe('mapFixture', () => {
       id: 'abc', sport: 'rugby', level: 'Top level', competition: 'URC', homeTeam: 'Munster', awayTeam: 'Ulster', title: undefined,
       venue: 'Thomond Park', county: 'Limerick', latitude: 52.6742, longitude: -8.6425,
       startsAt: '2026-06-13T18:35:00.000Z', ticketed: true, ticketUrl: 'https://example.com/t', status: 'scheduled',
+      ageGroup: 'adult', ageLabel: undefined, timeTbc: undefined,
     });
+  });
+  it('reads the age group from the competition name, and DDSL as youth', () => {
+    expect(mapFixture({ ...row, competition: 'Ulster Schools U14 A Friendlies' })).toMatchObject({ ageGroup: 'schools', ageLabel: 'U14' });
+    expect(mapFixture({ ...row, competition: 'DDSL 8.1 Boys Sat', source: 'ddsl' })).toMatchObject({ ageGroup: 'underage' });
   });
   it('converts an event row and a cancelled one', () => {
     const event = mapFixture({ ...row, home_team: null, away_team: null, title: 'Galway Races', level: 'local', status: 'cancelled', competition: null, ticket_url: null });
@@ -177,6 +182,28 @@ describe('mapFixture', () => {
   });
   it('treats an unknown status as scheduled', () => {
     expect(mapFixture({ ...row, status: 'abandoned' }).status).toBe('scheduled');
+  });
+});
+
+describe('age filter', () => {
+  const ages = [
+    { ...base, id: 'a1', startsAt: iso(13), ageGroup: 'adult' as const },
+    { ...base, id: 'a2', startsAt: iso(13), ageGroup: 'underage' as const },
+    { ...base, id: 'a3', startsAt: iso(13), ageGroup: 'schools' as const },
+    { ...base, id: 'a4', startsAt: iso(13), ageGroup: 'masters' as const },
+    { ...base, id: 'a5', startsAt: iso(13) },
+  ];
+  it('shows everything, adult games (masters and unlabelled included), or underage and schools', () => {
+    const ids = (age: 'all' | 'adult' | 'underage') => filterFixtures(ages, { ...DEFAULT_FILTERS, age }, null, now).map((f) => f.id).sort();
+    expect(ids('all')).toEqual(['a1', 'a2', 'a3', 'a4', 'a5']);
+    expect(ids('adult')).toEqual(['a1', 'a4', 'a5']);
+    expect(ids('underage')).toEqual(['a2', 'a3']);
+  });
+  it('counts only what differs from the opening view', () => {
+    const open = { ...DEFAULT_FILTERS, when: 'weekend' as const, distanceKm: 25 };
+    expect(activeFilterCount(open, open)).toBe(0);
+    expect(activeFilterCount({ ...open, age: 'underage' }, open)).toBe(1);
+    expect(activeFilterCount({ ...open, distanceKm: null, when: 'any' }, open)).toBe(2);
   });
 });
 

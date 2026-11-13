@@ -10,6 +10,7 @@ import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { COUNTIES } from '@/data/counties';
 import type { Level, When } from '@/types/fixture';
+import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
 
 const WHEN: { value: When; label: string }[] = [
   { value: 'any', label: 'Any time' },
@@ -18,6 +19,7 @@ const WHEN: { value: When; label: string }[] = [
   { value: 'week', label: 'Next 7 days' },
 ];
 const LEVELS: Level[] = ['Local', 'Top level'];
+const AGES: AgeFilter[] = ['all', 'adult', 'underage'];
 const DISTANCES = [5, 10, 25, 50, 100];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -33,7 +35,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 export default function FiltersScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { filters, setFilters, resetFilters, fixtures, location, requestLocation, mySports } = useApp();
+  const { filters, setFilters, resetFilters, fixtures, location, requestLocation, mySports, setMyAge } = useApp();
 
   return (
     <View style={[styles.screen, { backgroundColor: t.background }]}>
@@ -71,6 +73,13 @@ export default function FiltersScreen() {
           {WHEN.map((w) => (
             <Chip key={w.value} label={w.label} selected={filters.when === w.value} onPress={() => setFilters({ when: w.value })} />
           ))}
+        </Section>
+
+        <Section title="Age">
+          {AGES.map((a) => (
+            <Chip key={a} label={AGE_LABEL[a]} selected={filters.age === a} onPress={() => setMyAge(a)} />
+          ))}
+          <Text style={[styles.note, { color: t.muted }]}>Underage includes schools games. Remembered for next time.</Text>
         </Section>
 
         <Text style={[styles.more, { color: t.muted }]}>MORE FILTERS</Text>

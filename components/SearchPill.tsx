@@ -14,8 +14,8 @@ interface Props {
 /** The search bar at the top of Explore: type to search, with the filters button beside it. */
 export function SearchPill({ query, onChangeQuery }: Props) {
   const t = useTheme();
-  const { filters } = useApp();
-  const count = activeFilterCount(filters);
+  const { filters, baseline } = useApp();
+  const count = activeFilterCount(filters, baseline);
   return (
     <View style={[styles.pill, { backgroundColor: t.card }]}>
       <SymbolView name={{ ios: 'magnifyingglass', android: 'search', web: 'search' }} tintColor={t.muted} size={20} />
