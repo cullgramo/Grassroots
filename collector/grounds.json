@@ -619,13 +619,7 @@
   "longitude": -6.139592,
   "how": "place search (leisure/park: Kilbogget Park)"
  },
- "Dublin|kildonan road|": {
-  "name": "Kildonan Road, Finglas (Mellows Park pitch)",
-  "county": "Dublin",
-  "latitude": 53.394077,
-  "longitude": -6.317305,
-  "how": "coordinates from Gemini research, checked against the map: the map has a pitch (Mellows Park) here, in Finglas, where Gemini places Finglas United; medium confidence, the road name is not on the map pitch"
- },
+ "Dublin|kildonan road|": null,
  "Dublin|knocklyon united|": {
   "name": "Knocklyon United",
   "county": "Dublin",
