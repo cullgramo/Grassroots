@@ -26,7 +26,7 @@ export function ViewSummary() {
 
   return (
     <View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll} contentContainerStyle={styles.row}>
         <Chip compact elevated label={`${place.label} · ${when.label}`} onPress={() => router.push('/filters')} />
         {ageOn ? <Chip compact elevated selected label={age.label} onPress={() => setMyAge(NEXT_AGE[filters.age ?? 'all'])} /> : null}
         {isLimited(filters, hasLocation) ? (
@@ -46,7 +46,9 @@ export function ViewSummary() {
 }
 
 const styles = StyleSheet.create({
-  row: { gap: 8, paddingHorizontal: 16, paddingBottom: 0 },
+  // flexGrow 0 stops the row stretching into the chips beneath it; the wrapper keeps a clear gap.
+  scroll: { flexGrow: 0 },
+  row: { gap: 8, paddingHorizontal: 16, paddingVertical: 4 },
   note: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -11,7 +11,7 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
 
   return (
     <View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll} contentContainerStyle={styles.row}>
         <Chip
           compact
           label={mySports.length > 0 && !filters.allSports ? 'My sports' : 'All sports'}
@@ -33,7 +33,7 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
         ))}
       </ScrollView>
       {inGroup.length > 1 ? (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={[styles.row, styles.sub]}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll} contentContainerStyle={[styles.row, styles.sub]}>
           {inGroup.map((s) => (
             <Chip
               compact
@@ -52,6 +52,7 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
 }
 
 const styles = StyleSheet.create({
-  row: { gap: 8, paddingHorizontal: 16, paddingVertical: 8 },
+  scroll: { flexGrow: 0 },
+  row: { gap: 8, paddingHorizontal: 16, paddingVertical: 6 },
   sub: { paddingTop: 0 },
 });
