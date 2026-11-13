@@ -7,7 +7,7 @@
 // been run against live data yet: the first real run must be a look-only run, checked by eye against foireann.ie.
 //
 // A referee's name is on every fixture and is NEVER read, kept, or passed on.
-import { tidy } from '../lib/util.mjs';
+import { norm, tidy } from '../lib/util.mjs';
 
 export const name = 'GAA Foireann';
 
@@ -33,6 +33,21 @@ const ageLabel = (level) => {
   return m ? `U${m[1]}` : /minor/i.test(level ?? '') ? 'Minor' : '';
 };
 
+/**
+ * One readable name from the competition and its division, without repeating words:
+ * "Lidl National Football League" + "National Football League Division 4" gives "Lidl National Football League Division 4".
+ */
+export function competitionLabel(competition = {}, division = {}) {
+  const year = /^\d{4}\s+/;
+  const name = tidy(competition.name).replace(year, '');
+  const sponsor = tidy(competition.sponsor);
+  const head = sponsor && !norm(name).includes(norm(sponsor)) ? `${sponsor} ${name}` : name;
+  const seen = new Set(norm(`${head} ${competition.name ?? ''}`).split(' '));
+  const extra = tidy(division.name).replace(year, '').split(/\s+/).filter((w) => !seen.has(norm(w)) && norm(w)).join(' ').replace(/^[-\s]+|[-\s]+$/g, '');
+  const age = ageLabel(competition.ageLevel);
+  return tidy([head, extra, age && !/\b(?:u|under)\s?\d/i.test(`${head} ${extra}`) ? age : ''].filter(Boolean).join(' - ').replace(/\s+-\s+-\s+/g, ' - '));
+}
+
 export function read(text) {
   const body = JSON.parse(text);
   const out = [];
@@ -41,16 +56,17 @@ export function read(text) {
     const home = tidy(f.homeTeam?.name ?? f.homeTeamFallbackName);
     const away = tidy(f.awayTeam?.name ?? f.awayTeamFallbackName);
     const start = f.startDate ? new Date(f.startDate) : null;
-    if (!sport || !start || Number.isNaN(start.getTime()) || !home || !away || f.homeTeam?.isBye || f.awayTeam?.isBye) continue;
+    // A bye is a team with no opponent: it is given as a fallback name "BYE", not always as a flagged team.
+    if (!sport || !start || Number.isNaN(start.getTime()) || !home || !away || f.homeTeam?.isBye || f.awayTeam?.isBye || /^(bye|tbc|tba|to be confirmed)$/i.test(home) || /^(bye|tbc|tba|to be confirmed)$/i.test(away)) continue;
     // Called off, or never to be played: not a fixture people can attend.
     if (f.isAbandoned || f.isNeverPlayed) continue;
     const p = f.place;
     const hasPosition = Number.isFinite(p?.latitude) && Number.isFinite(p?.longitude);
-    const age = ageLabel(f.competition?.ageLevel);
-    const competition = tidy([f.competition?.sponsor, f.competition?.name, age && !/\bu\d/i.test(f.competition?.name ?? '') ? age : '', f.division?.name].filter(Boolean).join(' '));
+    const competition = competitionLabel(f.competition, f.division);
     out.push({
       ref: String(f.id),
-      sport, level: 'local', category: /^(female|women|ladies)/i.test(f.competition?.gender ?? '') ? 'women' : /^(male|men)/i.test(f.competition?.gender ?? '') ? 'men' : null,
+      // Foireann files provincial club championships under "inter county" too, so only a competition not about clubs is top level.
+      sport, level: f.competition?.additionalType === 'inter_county' && !/\bclub\b/i.test(f.competition?.name ?? '') ? 'top' : 'local', category: /^(female|women|ladies)/i.test(f.competition?.gender ?? '') ? 'women' : /^(male|men)/i.test(f.competition?.gender ?? '') ? 'men' : null,
       competition, home, away, title: null,
       date: start.toISOString().slice(0, 10), time: null, startsAt: start.toISOString(),
       venue: tidy(p?.name), county: null, postcode: null, area: 'Ireland',

@@ -277,7 +277,7 @@ test('Foireann: reads fixtures with the ground position, never the referee, and 
   assert.equal(got[0].sport, 'gaelic-football');
   assert.equal(got[0].latitude, 53.35);
   assert.equal(got[0].startsAt, '2026-11-22T14:00:00.000Z');
-  assert.equal(got[0].competition, 'AIB Senior Football Championship Group A');
+  assert.equal(got[0].competition, 'AIB Senior Football Championship - Group A');
   assert.equal(got[1].status, 'postponed');
   assert.equal(got[1].category, 'women');
   assert.equal(got[1].latitude, null);
@@ -398,4 +398,32 @@ test('GAA pitch list: a venue that merely contains a club\'s word is not that cl
   // "Paddy Martin Memorial Park" must not become St. Martin's GAA in Wexford.
   assert.equal(findGaaPitch({ venue: 'Paddy Martin Memorial Park' }, ['Wexford', 'Kildare']), null);
   assert.equal(findGaaPitch({ venue: 'Maynooth University', countyHint: 'Kildare' }, ['Kildare'])?.how.includes('club name') ?? false, false);
+});
+
+test('Foireann: real response shapes (from Longford GAA\'s page): byes, postponed games, places with and without a position, labels', async () => {
+  const { read, competitionLabel } = await import('../sources/foireann.mjs');
+  const team = (name, extra = {}) => ({ id: name, name, designation: '', isBye: false, isConceded: false, ...extra });
+  const base = { isResult: false, isPostponed: false, isAbandoned: false, isNeverPlayed: false, ticketUrl: '', status: 'active' };
+  const nfl = { name: 'Lidl National Football League', sponsor: 'Lidl', additionalType: 'inter_county', activity: 'ladies_football', gender: 'female', ageLevel: 'Senior' };
+  const u21 = { name: '2026 Under 21 B Football Championship', additionalType: 'club', activity: 'football', gender: 'male', ageLevel: 'U21' };
+  const feile = { name: 'John West Demographics Feile 2026', additionalType: 'club', activity: 'football', gender: 'male', ageLevel: 'U15' };
+  const data = [
+    { ...base, id: 'nfl', homeTeam: team('Limerick'), awayTeam: team('Longford'), startDate: '2027-03-07T14:00:00Z', competition: nfl, division: { name: 'National Football League Division 4' } },
+    { ...base, id: 'u21', homeTeam: team('Kenagh G.A.A'), awayTeam: team('St. Colmcille Ballymore'), startDate: '2026-11-15T14:00:00Z', refereeName: 'David Reynolds', place: { name: 'Jim McGann park', latitude: 53.623197, longitude: -7.818421 }, competition: u21, division: { name: '2026 Under 21 B Championship - Cup ' } },
+    { ...base, id: 'noposition', homeTeam: team('Carrick Sarsfields'), awayTeam: team('Ardagh Moydow GAA'), startDate: '2026-11-15T14:00:00Z', place: { id: 'x', name: 'Michael Moran Park' }, competition: u21, division: { name: '2026 Under 21 B Championship - Cup ' } },
+    { ...base, id: 'bye', homeTeam: team('Killoe Young Emmets'), awayTeamFallbackName: 'BYE', startDate: '2026-11-13T20:00:00Z', competition: u21 },
+    { ...base, id: 'postponed', isPostponed: true, homeTeam: team('Clonguish'), awayTeam: team("St. Mary's Granard"), startDate: '2026-11-15T12:00:00Z', place: { name: 'Allen Park' }, competition: u21 },
+    { ...base, id: 'feile', homeTeam: team('Northern Gaels'), awayTeam: team('Castleconnor CLG'), startDate: '2026-11-15T10:30:00Z', refereeName: 'Charlie Candon', place: { name: 'Connacht GAA Centre of Excellence, Bekan', latitude: 53.762776, longitude: -8.851117 }, competition: feile, division: { name: 'John West Demographics Feile 2026 - League Group B' } },
+  ];
+  const got = read(JSON.stringify({ data }));
+  assert.deepEqual(got.map((f) => f.ref), ['nfl', 'u21', 'noposition', 'postponed', 'feile']);
+  assert.deepEqual([got[0].level, got[0].category, got[0].sport, got[0].competition], ['top', 'women', 'ladies-football', 'Lidl National Football League - Division 4']);
+  assert.deepEqual([got[1].level, got[1].latitude, got[1].competition], ['local', 53.623197, 'Under 21 B Football Championship - Cup']);
+  assert.equal(got[2].latitude, null);
+  assert.equal(got[2].venue, 'Michael Moran Park');
+  assert.equal(got[3].status, 'postponed');
+  assert.equal(got[4].competition, 'John West Demographics Feile 2026 - League Group B - U15');
+  assert.equal(competitionLabel({ name: 'Feile', ageLevel: 'U15' }, {}), 'Feile - U15');
+  // The referee's name is in the response but nowhere in what we keep.
+  assert.ok(!JSON.stringify(got).includes('Reynolds') && !JSON.stringify(got).includes('Candon'));
 });
