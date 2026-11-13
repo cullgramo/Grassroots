@@ -1228,6 +1228,7 @@
   "longitude": -7.149966,
   "how": "race start, place search (place/town: Stradbally)"
  },
+ "Leinster|ait gaa pitch|": null,
  "Leinster|alsaa sports complex|": {
   "name": "ALSAA Sports Complex",
   "county": "Dublin",
@@ -1372,6 +1373,13 @@
   "longitude": -6.686851,
   "how": "checked by hand (OpenStreetMap: Clongowes Wood College)"
  },
+ "Leinster|clonkill|": {
+  "name": "Clonkill",
+  "county": "Westmeath",
+  "latitude": 53.572446,
+  "longitude": -7.273672,
+  "how": "GAA pitch list, matched on club name (Clonkill)"
+ },
  "Leinster|clough|": {
   "name": "Clough",
   "county": "Laois",
@@ -1387,6 +1395,7 @@
   "longitude": -6.25428,
   "how": "place search (landuse/recreation_ground: College Park)"
  },
+ "Leinster|collinstown|": null,
  "Leinster|commercials|": {
   "name": "Commercials",
   "county": "Dublin",
@@ -1416,6 +1425,7 @@
   "longitude": -7.293206,
   "how": "position from the source; county from the map"
  },
+ "Leinster|decotek park|": null,
  "Leinster|devenish park pitch 4|": null,
  "Leinster|devenish park pitch 5|": null,
  "Leinster|devenish park pitch 6|": null,
@@ -1574,7 +1584,13 @@
  "Leinster|holmpatrick|": null,
  "Leinster|iveagh grounds|": null,
  "Leinster|john j mcdowell memorial grounds|": null,
- "Leinster|kilbeggan|": null,
+ "Leinster|kilbeggan|": {
+  "name": "Kilbeggan",
+  "county": "Westmeath",
+  "latitude": 53.369014,
+  "longitude": -7.507892,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Kilbeggan Shamrocks)"
+ },
  "Leinster|kilbogget park killiney|": {
   "name": "Kilbogget Park Killiney",
   "county": "Dublin",
@@ -1691,6 +1707,13 @@
   "longitude": -6.664575,
   "how": "GAA pitch list, matched on club name (Moynalvey)"
  },
+ "Leinster|multyfarnham gaa park|": {
+  "name": "Multyfarnham GAA Park",
+  "county": "Westmeath",
+  "latitude": 53.623845,
+  "longitude": -7.386133,
+  "how": "GAA pitch list, matched on club name (Multyfarnham)"
+ },
  "Leinster|myshall|": {
   "name": "Myshall",
   "county": "Carlow",
@@ -1779,6 +1802,13 @@
   "longitude": -6.08236,
   "how": "GAA pitch list, matched on club name (Rathnew GAA)"
  },
+ "Leinster|ringtown|": {
+  "name": "Ringtown",
+  "county": "Westmeath",
+  "latitude": 53.643862,
+  "longitude": -7.301316,
+  "how": "GAA pitch list, matched on club name (Ringtown)"
+ },
  "Leinster|riverside|": null,
  "Leinster|rochfortbridge|": {
   "name": "Fr. Eamon O'Brien Park, Rochfortbridge",
@@ -1817,6 +1847,7 @@
   "longitude": -6.588064,
   "how": "GAA pitch list, matched on club name (Seneschalstown GAA: Fr. Tully Park)"
  },
+ "Leinster|setu carlow campus|": null,
  "Leinster|shamrock lodge|": {
   "name": "Shamrock Lodge",
   "county": "Louth",
@@ -1848,6 +1879,7 @@
   "longitude": -7.49859,
   "how": "coordinates from Gemini research, checked against the map: Spollanstown Road, Tullamore; Tullamore RFC listed 110 m away"
  },
+ "Leinster|springfield|": null,
  "Leinster|st annes|": null,
  "Leinster|st brendan s|": null,
  "Leinster|st columba s college kilmashogue lane rathfarnham dublin|": {
@@ -1894,6 +1926,13 @@
   "how": "checked by hand (OpenStreetMap: Saint Mary's College RFC, Templeville Road)"
  },
  "Leinster|terenure rd north|": null,
+ "Leinster|the downs|": {
+  "name": "The Downs",
+  "county": "Westmeath",
+  "latitude": 53.507116,
+  "longitude": -7.241625,
+  "how": "GAA pitch list, matched on club name (The Downs)"
+ },
  "Leinster|the grange kells|": null,
  "Leinster|the harps gaa|": {
   "name": "The Harps GAA",
@@ -3621,6 +3660,13 @@
   "latitude": 54.8019,
   "longitude": -7.76551,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|moortown|": {
+  "name": "Moortown",
+  "county": "Tyrone",
+  "latitude": 54.637103,
+  "longitude": -6.516028,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Malachy's GAA, Moortown: P.T. Tobin Memorial Park)"
  },
  "Ulster|moy gac|": {
   "name": "Moy GAC",
