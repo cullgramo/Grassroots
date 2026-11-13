@@ -172,9 +172,13 @@ const NOT_ONE_FIXTURE =
 const tidy = (text: unknown) => String(text ?? '').replace(/\s+/g, ' ').trim();
 
 /** Converts one Ticketmaster event, or says why it was skipped. */
+// Sports figures also tour theatres; those shows are tagged as sport but are not fixtures.
+const TALK_SHOW = /\b(an? (audience|evening|night|afternoon) with|in conversation|q\s?(&|and)\s?a|live on stage|book tour|podcast live)\b/i;
+
 export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture: ImportedFixture } | { skipped: string } {
   const name = tidy(event.name);
   if (NOT_ONE_FIXTURE.test(name)) return { skipped: 'a pass, pack or gift card, not a fixture' };
+  if (TALK_SHOW.test(name)) return { skipped: 'a talk or stage show, not a fixture' };
   const sport = sportFor(event, level === 'local');
   if (!sport) {
     const c = (event.classifications ?? [])[0] ?? {};

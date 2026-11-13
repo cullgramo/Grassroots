@@ -237,3 +237,17 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
     expect(calls.some((c) => c.method === 'DELETE')).toBe(false);
   });
 });
+
+describe('talk shows', () => {
+  it('skips a stage show by a sports figure even when it is tagged as sport', () => {
+    const event = {
+      id: 'x', name: 'An Audience with Harry Redknapp', url: 'https://www.ticketmaster.ie/x',
+      classifications: [{ segment: { name: 'Sports' }, genre: { name: 'Football' } }],
+      dates: { start: { dateTime: '2027-02-01T19:30:00Z' } },
+      _embedded: { venues: [{ name: 'Olympia Theatre', location: { latitude: '53.344', longitude: '-6.266' }, city: { name: 'Dublin' } }] },
+    };
+    expect(mapEvent(event)).toEqual({ skipped: 'a talk or stage show, not a fixture' });
+    // The same listing under a fixture's name is not caught by this rule.
+    expect(mapEvent({ ...event, name: 'Ireland v Fiji' })).not.toEqual({ skipped: 'a talk or stage show, not a fixture' });
+  });
+});
