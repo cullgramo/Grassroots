@@ -131,7 +131,13 @@
   "longitude": -9.015224,
   "how": "checked by hand (OpenStreetMap: Galwegians RFC, Dublin Road, Galway)"
  },
- "Connacht|dangan|": null,
+ "Connacht|dangan|": {
+  "name": "Dangan (University of Galway Sports Campus)",
+  "county": "Galway",
+  "latitude": 53.29365,
+  "longitude": -9.07594,
+  "how": "coordinates from Gemini research, checked against the map: University of Galway Sports Campus, Dangan; University of Galway RFC listed 250 m away"
+ },
  "Connacht|dexcom stadium|": {
   "name": "Dexcom Stadium",
   "county": "Galway",
@@ -214,7 +220,13 @@
   "longitude": -9.01087,
   "how": "checked by hand (OpenStreetMap: Kiltimagh GAA)"
  },
- "Connacht|king moffatt dr hyde park|": null,
+ "Connacht|king moffatt dr hyde park|": {
+  "name": "Dr. Hyde Park",
+  "county": "Roscommon",
+  "latitude": 53.625,
+  "longitude": -8.180833,
+  "how": "coordinates from Gemini research, checked against the map: pitch list has Roscommon Gaels at Dr. Hyde Park 20 m away"
+ },
  "Connacht|lisnamult|": {
   "name": "Lisnamult",
   "county": "Roscommon",
@@ -396,7 +408,13 @@
   "how": "GAA pitch list, matched on pitch name (St. Enda's GAA, Ballyboden: Ballycullen)"
  },
  "Dublin|ballywaltrim bray|": null,
- "Dublin|belvedere clontarf astro|": null,
+ "Dublin|belvedere clontarf astro|": {
+  "name": "Mount Temple Comprehensive School (Clontarf astro)",
+  "county": "Dublin",
+  "latitude": 53.36844,
+  "longitude": -6.22077,
+  "how": "coordinates from Gemini research, checked against the map: Mount Temple Comprehensive School, Clontarf; Clontarf Hockey Club listed 70 m away"
+ },
  "Dublin|blackrock rugby club|": null,
  "Dublin|bluebell comm centre|": null,
  "Dublin|bohernabreena|": {
@@ -467,7 +485,13 @@
  },
  "Dublin|cross chapel|": null,
  "Dublin|crumlin united|": null,
- "Dublin|damastown park|": null,
+ "Dublin|damastown park|": {
+  "name": "Damastown Park",
+  "county": "Dublin",
+  "latitude": 53.40916,
+  "longitude": -6.40724,
+  "how": "coordinates from Gemini research, checked against the map: Damastown Way; Clonee United listed 110 m away (medium confidence)"
+ },
  "Dublin|donabate|": {
   "name": "Donabate",
   "county": "Dublin",
@@ -1137,7 +1161,13 @@
   "longitude": -7.149966,
   "how": "race start, place search (place/town: Stradbally)"
  },
- "Leinster|alsaa sports complex|": null,
+ "Leinster|alsaa sports complex|": {
+  "name": "ALSAA Sports Complex",
+  "county": "Dublin",
+  "latitude": 53.42175,
+  "longitude": -6.22752,
+  "how": "coordinates from Gemini research, checked against the map: named on the map; Swords Thunder listed 140 m away"
+ },
  "Leinster|ashbrook|": {
   "name": "Ashbrook",
   "county": "Dublin",
@@ -1423,7 +1453,13 @@
   "longitude": -6.22632,
   "how": "Get Ireland Active club list, matched on club name (Lansdowne Rugby Football Club)"
  },
- "Leinster|lea rd|": null,
+ "Leinster|lea rd|": {
+  "name": "Portarlington RFC, Lea Road",
+  "county": "Laois",
+  "latitude": 53.151479,
+  "longitude": -7.140054,
+  "how": "coordinates from Gemini research, checked against the map: the map names Portarlington RFC on Lea Road (county Laois, from the map)"
+ },
  "Leinster|loetb centre of excellence|": null,
  "Leinster|longwood|": {
   "name": "Longwood",
@@ -1522,7 +1558,13 @@
   "how": "GAA pitch list, matched on club name (Rathnew GAA)"
  },
  "Leinster|riverside|": null,
- "Leinster|rochfortbridge|": null,
+ "Leinster|rochfortbridge|": {
+  "name": "Fr. Eamon O'Brien Park, Rochfortbridge",
+  "county": "Westmeath",
+  "latitude": 53.41695,
+  "longitude": -7.302444,
+  "how": "coordinates from Gemini research, checked against the map: same position as the GAA pitch list entry for St Mary's GAA, Rochfortbridge"
+ },
  "Leinster|ros glas|": null,
  "Leinster|rosetown|": {
   "name": "Rosetown",
@@ -1556,7 +1598,13 @@
   "longitude": -6.5477071719708375,
   "how": "position from the source; county from the map"
  },
- "Leinster|spollenstown|": null,
+ "Leinster|spollenstown|": {
+  "name": "Spollenstown (Tullamore RFC)",
+  "county": "Offaly",
+  "latitude": 53.26577,
+  "longitude": -7.49859,
+  "how": "coordinates from Gemini research, checked against the map: Spollanstown Road, Tullamore; Tullamore RFC listed 110 m away"
+ },
  "Leinster|st annes|": null,
  "Leinster|st brendan s|": null,
  "Leinster|st columba s college kilmashogue lane rathfarnham dublin|": {
@@ -1743,6 +1791,13 @@
   "latitude": 51.634221,
   "longitude": -9.477789,
   "how": "rugby club search (leisure/sports_centre: Bantry Bay Rugby Football Club); the source names the club or town, not the pitch"
+ },
+ "Munster|blackrock college|": {
+  "name": "Blackrock College",
+  "county": "Dublin",
+  "latitude": 53.30463,
+  "longitude": -6.19278,
+  "how": "coordinates from Gemini research, checked against the map: Blackrock College school grounds, Rock Road"
  },
  "Munster|boherlahan|": {
   "name": "Boherlahan",
@@ -2182,7 +2237,13 @@
   "longitude": -8.641987,
   "how": "Get Ireland Active club list, matched on club name (Mallow RFC)"
  },
- "Munster|mardyke|": null,
+ "Munster|mardyke|": {
+  "name": "Mardyke (UCC)",
+  "county": "Cork",
+  "latitude": 51.8951,
+  "longitude": -8.5008,
+  "how": "coordinates from Gemini research, checked against the map: UCC Mardyke grounds; pitch list has UCC The Mardyke 130 m away"
+ },
  "Munster|midleton college|": {
   "name": "Midleton College",
   "county": "Cork",
@@ -2350,7 +2411,13 @@
   "longitude": -8.470863,
   "how": "Get Ireland Active club list, matched on club name (Sundays Well RFC)"
  },
- "Munster|takumi park|": null,
+ "Munster|takumi park|": {
+  "name": "Takumi Park",
+  "county": "Limerick",
+  "latitude": 52.632585,
+  "longitude": -8.634402,
+  "how": "coordinates from Gemini research, checked against the map: a pitch on Rosbrien Road, Raheen; Old Crescent RFC listed 10 m away"
+ },
  "Munster|tanner park|": {
   "name": "Tanner Park",
   "county": "Cork",
