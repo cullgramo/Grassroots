@@ -21,7 +21,15 @@
   "longitude": -8.966484,
   "how": "race start, place search (place/village: Clarecastle)"
  },
+ "Connacht|alan feeley memorial park|": null,
  "Connacht|an ghaeltacht rugbai|": null,
+ "Connacht|ardnaree|": {
+  "name": "Ardnaree",
+  "county": "Mayo",
+  "latitude": 54.111776,
+  "longitude": -9.142244,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Ardnaree Sarsfields: Sean Duffy Park)"
+ },
  "Connacht|athlone|": null,
  "Connacht|ballinasloe rfc|": {
   "name": "Ballinasloe RFC",
@@ -96,6 +104,7 @@
   "longitude": -9.003339,
   "how": "checked by hand (OpenStreetMap: Claremorris Rugby Football Club)"
  },
+ "Connacht|cong|": null,
  "Connacht|connacht gaa centre of excellence bekan|": {
   "name": "Connacht GAA Centre of Excellence, Bekan",
   "county": "Mayo",
@@ -159,6 +168,13 @@
   "latitude": 53.279353,
   "longitude": -9.039562,
   "how": "place search (leisure/stadium: Dexcom Stadium)"
+ },
+ "Connacht|drumkeerin|": {
+  "name": "Drumkeerin",
+  "county": "Leitrim",
+  "latitude": 54.166444,
+  "longitude": -8.135,
+  "how": "GAA pitch list, matched on club name (Drumkeerin GAA)"
  },
  "Connacht|dubarry park|": {
   "name": "Dubarry Park",
@@ -240,6 +256,13 @@
   "latitude": 53.700679,
   "longitude": -8.209884,
   "how": "GAA pitch list, matched on club name (Kilbride GAA)"
+ },
+ "Connacht|kilmeena|": {
+  "name": "Kilmeena",
+  "county": "Mayo",
+  "latitude": 53.841134,
+  "longitude": -9.581397,
+  "how": "GAA pitch list, matched on club name (Kilmeena GAA: St. Brendan's Sports Park)"
  },
  "Connacht|kiltimagh gaa club|": {
   "name": "Kiltimagh GAA Club",

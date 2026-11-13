@@ -359,3 +359,25 @@ test('A board name is put before its own competitions only, not before provincia
   assert.equal(withBoard('Clare', 'A.I.B. Munster SF Club Championship'), 'A.I.B. Munster SF Club Championship');
   assert.equal(withBoard('', 'Anything'), 'Anything');
 });
+
+test('Leitrim GAA: reads each fixture row, takes the sport and gender from it, and never the referee', async () => {
+  const { read } = await import('../sources/leitrim-gaa.mjs');
+  const ical = { d: '2026-11-14', t: '1 30 PM', h: 'Naomh Eoin', a: 'Carrick Hurling', v: 'Markievicz Park, Sligo', r: 'Semi-Final 1', c: 'Connacht GAA Club Junior Hurling Championship - Cup Division 1', rf: 'Francis Kelly', sp: 'hurling', gn: 'M' };
+  const row = (o, time) => `<div class="fixtures__row fixtures__row--even" data-ical="${JSON.stringify({ ...ical, ...o }).replace(/"/g, '&quot;')}"><div class="fixtures__middle"><span class="fixtures__time">${time}</span></div></div>`;
+  const html = `<div class="fixtures__header fixtures__header--date comp-header">Saturday, 14th Nov 2026</div>${row({}, '1:30pm')}${row({ h: 'Winner of QF1' }, '3pm')}`
+    + `<div class="fixtures__header fixtures__header--date comp-header">Sunday, 22nd Nov 2026</div>${row({ h: 'Drumkeerin', a: 'St Marys Kilt', sp: 'football', gn: 'F', c: '2026 Leitrim Junior C Championship', r: '', v: 'Drumkeerin' }, '1:00pm')}`;
+  const got = read(html, { url: 'https://www.leitrimgaa.ie/fixtures-next-10-days/', area: 'Connacht', countyHint: 'Leitrim', prefix: 'Leitrim' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].date, got[0].time, got[0].venue, got[0].competition], ['hurling', '2026-11-14', '13:30', 'Markievicz Park, Sligo', 'Connacht GAA Club Junior Hurling Championship - Cup Division 1 - Semi-Final 1']);
+  assert.deepEqual([got[1].sport, got[1].category, got[1].date, got[1].time], ['ladies-football', 'women', '2026-11-22', '13:00']);
+  assert.ok(!JSON.stringify(got).includes('Kelly'));
+});
+
+test('Mayo GAA: reads each game under its date and competition', async () => {
+  const { read } = await import('../sources/mayo-gaa.mjs');
+  const game = (a, b, when, venue) => `<ul class="column-six table-body"><li class="largeview-hide ftime"><span class="data">${when}</span></li><li class="fteam1"><span class="data team1"><span>${a}</span></span></li><li class="fteam2"><span class="data team2"><span>${b}</span></span></li><li><div class="venue-icon"><span class="data"><a href="https://maps">${venue} <i></i></a></span></div></li></ul>`;
+  const html = `<div class="compdate"><div class="date-header"><label>15/11/2026</label></div></div><div class="compheader"><label><a href="https://mayogaa.com/league/220978">McHale Under 21 Football B - Knockout</a></label></div>${game('Ardnaree Sarsfields', 'Hollymount-Carramore', '15 Nov 2026<br>12:00', 'Ardnaree')}${game('Winner of A', 'Winner of B', '15 Nov 2026<br>14:00', 'Cong')}`;
+  const got = read(html, { url: 'https://mayogaa.com/fixtures/', area: 'Connacht', countyHint: 'Mayo', prefix: 'Mayo' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['Ardnaree Sarsfields', 'Hollymount-Carramore', '2026-11-15', '12:00', 'Ardnaree', 'Mayo McHale Under 21 Football B - Knockout']);
+});
