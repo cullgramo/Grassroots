@@ -247,3 +247,11 @@ test('GAA pitch list: a ground written with or without a space, and a Dublin tow
   // Without the board's own county, a bare town is not enough.
   assert.equal(findGaaPitch({ venue: 'Donabate' }, dublin), null);
 });
+
+test('GAA pitch list: a pitch written with its club\'s town matches; an unrelated extra word does not', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  assert.equal(findGaaPitch({ venue: "Fr. O'Hara Park, Charlestown" }, ['Mayo'])?.county, 'Mayo');
+  assert.equal(findGaaPitch({ venue: 'Mullaghmoyle Park, Stewartstown' }, ['Tyrone'])?.county, 'Tyrone');
+  // "Ruislip" is not part of the club or pitch, so McGovern Park in London is not Burrishoole's McGovern Park.
+  assert.equal(findGaaPitch({ venue: 'McGovern Park, Ruislip' }, ['Mayo']), null);
+});

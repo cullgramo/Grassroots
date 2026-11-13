@@ -160,7 +160,13 @@
   "how": "place search (leisure/pitch: Dunmore RFC)"
  },
  "Connacht|enfield|": null,
- "Connacht|fr o hara park charlestown|": null,
+ "Connacht|fr o hara park charlestown|": {
+  "name": "Fr. O'Hara Park, Charlestown",
+  "county": "Mayo",
+  "latitude": 53.95883,
+  "longitude": -8.8054,
+  "how": "GAA pitch list, matched on pitch name (Charlestown Sarsfields: Fr. O'Hara Park)"
+ },
  "Connacht|galway|": null,
  "Connacht|galwegians rfc|": {
   "name": "Galwegians RFC",
@@ -1397,7 +1403,13 @@
   "longitude": -7.490889,
   "how": "position from the source; county from the map"
  },
- "Leinster|glenisk o connor park|": null,
+ "Leinster|glenisk o connor park|": {
+  "name": "Glenisk O’Connor Park, Tullamore",
+  "county": "Offaly",
+  "latitude": 53.2801259,
+  "longitude": -7.4893854,
+  "how": "pin supplied by the owner from Google Maps; the map shows a pitch there, in Tullamore, County Offaly, and it agrees with the existing Tullamore entry within 100 m"
+ },
  "Leinster|grant heating st brendan s park birr|": {
   "name": "Grant Heating St Brendan's Park, Birr",
   "county": "Offaly",
@@ -2065,6 +2077,13 @@
   "longitude": -7.69408,
   "how": "rugby club search (leisure/sports_centre: Fethard Rugby Football Club); the source names the club or town, not the pitch"
  },
+ "Munster|fossa gaa|": {
+  "name": "Fossa GAA",
+  "county": "Kerry",
+  "latitude": 52.069074,
+  "longitude": -9.540538,
+  "how": "GAA pitch list, matched on club name (Fossa)"
+ },
  "Munster|fr mcnamara park|": null,
  "Munster|galbally|": {
   "name": "Galbally",
@@ -2215,7 +2234,13 @@
   "longitude": -7.877735,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Cashel King Cormacs: Leahy Park)"
  },
- "Munster|liam fitzgerald park|": null,
+ "Munster|liam fitzgerald park|": {
+  "name": "Liam Fitzgerald Park (Thomond RFC)",
+  "county": "Limerick",
+  "latitude": 52.679722,
+  "longitude": -8.652222,
+  "how": "coordinates from Gemini research, checked against the map: the map has a pitch named Thomond RFC at this spot and the club list puts Thomond RFC 110 m away; the park name itself comes from Gemini (medium confidence)"
+ },
  "Munster|lissycasey|": {
   "name": "Lissycasey",
   "county": "Clare",
@@ -2998,7 +3023,13 @@
   "how": "position from the source; county from the map"
  },
  "Ulster|mullaghmeen|": null,
- "Ulster|mullaghmoyle park stewartstown|": null,
+ "Ulster|mullaghmoyle park stewartstown|": {
+  "name": "Mullaghmoyle Park, Stewartstown",
+  "county": "Tyrone",
+  "latitude": 54.566203,
+  "longitude": -6.689505,
+  "how": "GAA pitch list, matched on pitch name (Stewartstown Harps: Mullaghmoyle)"
+ },
  "Ulster|neilsbrook park|": {
   "name": "Neilsbrook Park",
   "county": "Antrim",
