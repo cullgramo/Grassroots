@@ -1,0 +1,31 @@
+-- Three more grounds (Ballinfoile, Rathcoffey pitch 2, Wilton) and their fixtures. Safe to run twice.
+insert into public.venues (name, county, latitude, longitude) values
+  ('Rathcoffey Pitch 2 - Maynooth Town FC', 'Kildare', 53.370782, -6.615297),
+  ('Ballinfoile Castlegar Neighbourhood Centre', 'Galway', 53.293881, -9.035749),
+  ('Wilton - Pat Bowdren Park', 'Cork', 51.887725, -8.503995)
+on conflict (name, county) do nothing;
+
+insert into public.fixtures
+  (sport_id, level, category, competition, home_team, away_team, title, time_known, venue_id, starts_at, ticketed, ticket_url, status, approval, source, source_ref, source_url)
+select s.sport_id, s.level, s.category, s.competition, s.home_team, s.away_team, s.title, s.time_known, v.id, s.starts_at::timestamptz, s.ticket_url is not null, s.ticket_url, s.status, 'approved', s.source, s.source_ref, s.source_url
+from (values
+  ('ddsl', 'ddsl-218549-379674-373182-2026-11-14', 'soccer', 'local', null, 'DDSL 10.3 Boys Sat', 'Maynooth Town FC', 'Ballyoulster United FC', null, true, 'Rathcoffey Pitch 2 - Maynooth Town FC', 'Kildare', '2026-11-14T10:00:00.000Z', 'https://ddsl.ie/fixtures/', null, 'scheduled'),
+  ('ddsl', 'ddsl-218559-427521-373690-2026-11-14', 'soccer', 'local', null, 'DDSL 10.12 Boys Sat', 'Maynooth Town FC', 'Ballyowen Celtic FC', null, true, 'Rathcoffey Pitch 2 - Maynooth Town FC', 'Kildare', '2026-11-14T10:00:00.000Z', 'https://ddsl.ie/fixtures/', null, 'scheduled'),
+  ('ddsl', 'ddsl-218409-408088-426691-2026-11-14', 'soccer', 'local', null, 'DDSL 8.3 Boys Sat', 'Maynooth Town FC', 'Finglas United FC', null, true, 'Rathcoffey Pitch 2 - Maynooth Town FC', 'Kildare', '2026-11-14T10:00:00.000Z', 'https://ddsl.ie/fixtures/', null, 'scheduled'),
+  ('ddsl', 'ddsl-218406-408090-427239-2026-11-14', 'soccer', 'local', null, 'DDSL 8.6 Boys Sat', 'Maynooth Town FC', 'Hartstown / Huntstown FC', null, true, 'Rathcoffey Pitch 2 - Maynooth Town FC', 'Kildare', '2026-11-14T10:00:00.000Z', 'https://ddsl.ie/fixtures/', null, 'scheduled'),
+  ('ddsl', 'ddsl-218403-408089-427480-2026-11-14', 'soccer', 'local', null, 'DDSL 8.9 Boys Sat', 'Maynooth Town FC', 'Leixlip United AFC', null, true, 'Rathcoffey Pitch 2 - Maynooth Town FC', 'Kildare', '2026-11-14T10:00:00.000Z', 'https://ddsl.ie/fixtures/', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c640b6b040c57f7ba7b05', 'basketball', 'local', 'men', 'Men''s Division One', 'Titans', 'Malahide', null, true, 'Ballinfoile Castlegar Neighbourhood Centre', 'Galway', '2026-11-14T19:00:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c640b6b040c57f7ba7b17', 'basketball', 'local', 'men', 'Men''s Division One', 'Titans', 'Maigh Cuilinn', null, true, 'Ballinfoile Castlegar Neighbourhood Centre', 'Galway', '2026-12-12T19:00:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c640b6b040c57f7ba7b23', 'basketball', 'local', 'men', 'Men''s Division One', 'Titans', 'Drogheda Wolves', null, true, 'Ballinfoile Castlegar Neighbourhood Centre', 'Galway', '2027-01-02T19:00:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c640b6b040c57f7ba7b34', 'basketball', 'local', 'men', 'Men''s Division One', 'Titans', 'Flexachem KCYMS', null, true, 'Ballinfoile Castlegar Neighbourhood Centre', 'Galway', '2027-01-30T19:00:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c640b6b040c57f7ba7b49', 'basketball', 'local', 'men', 'Men''s Division One', 'Titans', 'SPK Utility Trust Lakers', null, true, 'Ballinfoile Castlegar Neighbourhood Centre', 'Galway', '2027-02-20T19:00:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
+  ('basketball', 'basketball-6a7c640b6b040c57f7ba7b56', 'basketball', 'local', 'men', 'Men''s Division One', 'Titans', 'Tipp Talons', null, true, 'Ballinfoile Castlegar Neighbourhood Centre', 'Galway', '2027-03-06T19:00:00.000Z', 'https://ireland.basketball/MensDivisionOneFixtures', null, 'scheduled'),
+  ('club-rugby', 'club-rugby-munster-6878281', 'rugby', 'local', null, 'Munster Boys Schools U15 McCarthy Cup A', 'Presentation Brothers Cork', 'Ardscoil Ris', null, true, 'Wilton - Pat Bowdren Park', 'Cork', '2026-11-13T13:30:00.000Z', 'https://munsterrugby.sportlomo.com/fixtures/', null, 'scheduled'),
+  ('club-rugby', 'club-rugby-munster-6875586', 'rugby', 'local', null, 'Boys Schools U16 Munster Junior Cup Group Stage', 'Presentation Brothers Cork', 'Christian Brothers Cork', null, true, 'Wilton - Pat Bowdren Park', 'Cork', '2026-11-25T14:30:00.000Z', 'https://munsterrugby.sportlomo.com/fixtures/', null, 'scheduled'),
+  ('club-rugby', 'club-rugby-munster-7017685', 'rugby', 'local', null, 'Munster Boys Schools U16 Kidney Cup', 'Presentation Brothers Cork B', 'Christian Brothers Cork B', null, true, 'Wilton - Pat Bowdren Park', 'Cork', '2026-11-25T14:30:00.000Z', 'https://munsterrugby.sportlomo.com/fixtures/', null, 'scheduled'),
+  ('club-rugby', 'club-rugby-munster-7037209', 'rugby', 'local', null, 'Munster Boys Schools U14 Friendly', 'Presentation Brothers Cork', 'Crescent College Comprehensive', null, true, 'Wilton - Pat Bowdren Park', 'Cork', '2026-11-25T14:30:00.000Z', 'https://munsterrugby.sportlomo.com/fixtures/', null, 'scheduled'),
+  ('club-rugby', 'club-rugby-munster-7037210', 'rugby', 'local', null, 'Munster Boys Schools U14 Friendly', 'Presentation Brothers Cork B', 'Crescent College Comprehensive B', null, true, 'Wilton - Pat Bowdren Park', 'Cork', '2026-11-25T14:30:00.000Z', 'https://munsterrugby.sportlomo.com/fixtures/', null, 'scheduled')
+) as s (source, source_ref, sport_id, level, category, competition, home_team, away_team, title, time_known, venue_name, venue_county, starts_at, source_url, ticket_url, status)
+join public.venues v on v.name = s.venue_name and v.county = s.venue_county
+on conflict (source, source_ref) do update set starts_at = excluded.starts_at, competition = excluded.competition, venue_id = excluded.venue_id,
+  home_team = excluded.home_team, away_team = excluded.away_team, title = excluded.title, time_known = excluded.time_known, ticketed = excluded.ticketed, ticket_url = excluded.ticket_url, status = excluded.status;
