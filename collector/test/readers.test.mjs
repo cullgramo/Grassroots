@@ -433,7 +433,7 @@ test('Longford snapshot: 16 fixtures from the saved response, byes dropped, no r
   const got = read(pages[0].text);
   assert.equal(got.length, 16);
   assert.ok(got.every((f) => f.countyHint === 'Longford' && f.startsAt));
-  assert.equal(got.filter((f) => f.latitude != null).length, 5);
+  assert.equal(got.filter((f) => f.latitude != null).length, 6);
   assert.ok(!/referee/i.test(pages[0].text));
   assert.ok(!got.some((f) => /^bye$/i.test(f.away)));
 });
