@@ -32,7 +32,8 @@ export async function countyAt(f) {
 const PITCHES = JSON.parse(readFileSync(new URL('../gaa-pitches.json', import.meta.url), 'utf8'));
 const GAA = new Set(['hurling', 'gaelic-football', 'camogie', 'ladies-football']);
 const FILLER = new Set(['gaa', 'clg', 'gac', 'gfc', 'club', 'the', 'and', 'park', 'pairc', 'grounds', 'ground', 'field', 'pitch', 'memorial', 'cumann', 'naomh', 'saint', 'gaelic', 'town', 'grass', 'main', 'astro']);
-const keyWords = (t) => norm(t).split(' ').filter((w) => w.length > 2 && !FILLER.has(w));
+// "Silverpark" and "Silver Park" are the same ground, so a long word ending in park or pairc is cut back to its stem.
+const keyWords = (t) => norm(t).split(' ').map((w) => (w.length > 7 ? w.replace(/(park|pairc)$/, '') : w)).filter((w) => w.length > 2 && !FILLER.has(w));
 
 /**
  * Finds a GAA ground in the pitch list. A match must be the only one of its strength in the allowed counties:

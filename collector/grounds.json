@@ -153,6 +153,7 @@
   "longitude": -8.740397,
   "how": "place search (leisure/pitch: Dunmore RFC)"
  },
+ "Connacht|enfield|": null,
  "Connacht|fr o hara park charlestown|": null,
  "Connacht|galway|": null,
  "Connacht|galwegians rfc|": {
@@ -303,6 +304,13 @@
   "how": "place search (amenity/school: Summerhill College)"
  },
  "Connacht|tallagh|": null,
+ "Connacht|the neale|": {
+  "name": "The Neale",
+  "county": "Mayo",
+  "latitude": 53.537486,
+  "longitude": -9.273471,
+  "how": "GAA pitch list, matched on club name (The Neale GAA: Páirc Naomh Feichin, Cunga)"
+ },
  "Connacht|tuam rfc|": {
   "name": "Tuam RFC",
   "county": "Galway",
@@ -348,6 +356,13 @@
   "how": "race start, place search (boundary/administrative: Watergrasshill)"
  },
  "Derry|dublin|": null,
+ "Dublin|12th lock|": {
+  "name": "12th Lock",
+  "county": "Dublin",
+  "latitude": 53.332,
+  "longitude": -6.458,
+  "how": "coordinates supplied by the owner: Lucan Sarsfields clubhouse grounds, 12th Lock"
+ },
  "Dublin|5 acres perrystown|": null,
  "Dublin|abbottstown|": null,
  "Dublin|acres road pheonix park|": {
@@ -358,6 +373,13 @@
   "how": "race start, place search (highway/unclassified: Acres Road)"
  },
  "Dublin|archerstown|": null,
+ "Dublin|arthur griffith park|": {
+  "name": "Arthur Griffith Park",
+  "county": "Dublin",
+  "latitude": 53.3472,
+  "longitude": -6.4361,
+  "how": "coordinates supplied by the owner: Lucan Sarsfields satellite pitches off the Newcastle Road"
+ },
  "Dublin|aul complex|": {
   "name": "AUL Complex",
   "county": "Dublin",
@@ -366,10 +388,24 @@
   "how": "place search (leisure/sports_centre: AUL Complex)"
  },
  "Dublin|balheary res|": null,
+ "Dublin|ballycullen|": {
+  "name": "Ballycullen",
+  "county": "Dublin",
+  "latitude": 53.276863,
+  "longitude": -6.325145,
+  "how": "GAA pitch list, matched on pitch name (St. Enda's GAA, Ballyboden: Ballycullen)"
+ },
  "Dublin|ballywaltrim bray|": null,
  "Dublin|belvedere clontarf astro|": null,
  "Dublin|blackrock rugby club|": null,
  "Dublin|bluebell comm centre|": null,
+ "Dublin|bohernabreena|": {
+  "name": "Bohernabreena",
+  "county": "Dublin",
+  "latitude": 53.2687,
+  "longitude": -6.3529,
+  "how": "coordinates supplied by the owner: St Annes GAA club grounds"
+ },
  "Dublin|bushy park|": {
   "name": "Bushy Park",
   "county": "Dublin",
@@ -401,6 +437,13 @@
   "longitude": -6.25035,
   "how": "place search (leisure/sports_centre: Clonturk Park)"
  },
+ "Dublin|collinstown lane|": {
+  "name": "Collinstown Lane",
+  "county": "Dublin",
+  "latitude": 53.4244,
+  "longitude": -6.2478,
+  "how": "coordinates supplied by the owner: Na Fianna northern pitches near Dublin Airport"
+ },
  "Dublin|corduff park|": {
   "name": "Corduff Park",
   "county": "Dublin",
@@ -425,8 +468,21 @@
  "Dublin|cross chapel|": null,
  "Dublin|crumlin united|": null,
  "Dublin|damastown park|": null,
+ "Dublin|donabate|": {
+  "name": "Donabate",
+  "county": "Dublin",
+  "latitude": 53.485272,
+  "longitude": -6.131696,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patricks GAA, Donabate)"
+ },
  "Dublin|dr ryan park|": null,
- "Dublin|edenmore|": null,
+ "Dublin|edenmore|": {
+  "name": "Edenmore",
+  "county": "Dublin",
+  "latitude": 53.3887,
+  "longitude": -6.1834,
+  "how": "coordinates supplied by the owner: Millwood Park / Edenmore Park (St Monicas)"
+ },
  "Dublin|firhouse cc|": null,
  "Dublin|fr collins park|": {
   "name": "FR Collins Park",
@@ -459,6 +515,13 @@
  },
  "Dublin|glin road coolock|": null,
  "Dublin|gormanstown park|": null,
+ "Dublin|grangegorman|": {
+  "name": "Grangegorman / Longmeadows",
+  "county": "Dublin",
+  "latitude": 53.3458,
+  "longitude": -6.3219,
+  "how": "coordinates supplied by the owner: St Brendans, pitch at Longmeadows, Islandbridge"
+ },
  "Dublin|greenogue|": {
   "name": "Greenogue",
   "county": "Dublin",
@@ -493,6 +556,20 @@
   "latitude": 53.279994,
   "longitude": -6.110145,
   "how": "checked by hand (OpenStreetMap: Dalkey United Football Club, Hyde Park)"
+ },
+ "Dublin|islandbridge|": {
+  "name": "Islandbridge",
+  "county": "Dublin",
+  "latitude": 53.3421,
+  "longitude": -6.3197,
+  "how": "coordinates supplied by the owner: Memorial Park pitches, National War Memorial Gardens (Civil Service)"
+ },
+ "Dublin|iveagh grounds|": {
+  "name": "Iveagh Grounds",
+  "county": "Dublin",
+  "latitude": 53.329547,
+  "longitude": -6.306541,
+  "how": "GAA pitch list, matched on pitch name (St. James Gaels: Iveagh Grounds)"
  },
  "Dublin|jackson park|": {
   "name": "Jackson Park",
@@ -581,7 +658,20 @@
   "how": "place search (leisure/sports_centre: The Paddy Brennan Rosary Park)"
  },
  "Dublin|paddy s hill|": null,
- "Dublin|pairc ui ruairc|": null,
+ "Dublin|pairc ui bhriain|": {
+  "name": "Páirc Uí Bhriain",
+  "county": "Dublin",
+  "latitude": 53.2808,
+  "longitude": -6.2233,
+  "how": "coordinates supplied by the owner: Naomh Olaf, Holly Avenue, Sandyford"
+ },
+ "Dublin|pairc ui ruairc|": {
+  "name": "Páirc Uí Ruairc",
+  "county": "Dublin",
+  "latitude": 53.3831,
+  "longitude": -6.0617,
+  "how": "coordinates supplied by the owner: Beann Eadair, Balkill Road, Howth"
+ },
  "Dublin|pearse park sallynoggin|": {
   "name": "Pearse Park, Sallynoggin",
   "county": "Dublin",
@@ -660,12 +750,40 @@
   "longitude": -6.248244,
   "how": "checked by hand (OpenStreetMap: Royal Hospital Donnybrook)"
  },
+ "Dublin|rush|": {
+  "name": "Rush",
+  "county": "Dublin",
+  "latitude": 53.5325,
+  "longitude": -6.108,
+  "how": "coordinates supplied by the owner: St Maurs main grounds on Park Road"
+ },
  "Dublin|shanganagh park|": {
   "name": "Shanganagh Park",
   "county": "Dublin",
   "latitude": 53.22595,
   "longitude": -6.114636,
   "how": "place search (leisure/park: Shanganagh Park)"
+ },
+ "Dublin|silver park|": {
+  "name": "Silver Park",
+  "county": "Dublin",
+  "latitude": 53.273298,
+  "longitude": -6.19338,
+  "how": "GAA pitch list, matched on pitch name (Kilmacud Crokes: Silverpark)"
+ },
+ "Dublin|skerries|": {
+  "name": "Skerries",
+  "county": "Dublin",
+  "latitude": 53.577952,
+  "longitude": -6.113389,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Skerries Harps)"
+ },
+ "Dublin|somerton park|": {
+  "name": "Somerton Park",
+  "county": "Dublin",
+  "latitude": 53.364357,
+  "longitude": -6.387301,
+  "how": "GAA pitch list, matched on pitch name (Castleknock GAA: Somerton Park)"
  },
  "Dublin|sportslink santry|": {
   "name": "Sportslink, Santry",
@@ -689,6 +807,20 @@
   "latitude": 53.38813,
   "longitude": -6.25025,
   "how": "Get Ireland Active club list, matched on club name (ST KEVINS BOYS FOOTBALL CLUB)"
+ },
+ "Dublin|st margarets|": {
+  "name": "St Margarets",
+  "county": "Dublin",
+  "latitude": 53.44313,
+  "longitude": -6.300045,
+  "how": "Get Ireland Active club list, matched on club name (St Margarets GAA & LGFA Club)"
+ },
+ "Dublin|st mobhi road|": {
+  "name": "St Mobhi Road",
+  "county": "Dublin",
+  "latitude": 53.3747,
+  "longitude": -6.2642,
+  "how": "coordinates supplied by the owner: Na Fianna main grounds, Glasnevin"
  },
  "Dublin|templeogue united|": {
   "name": "Templeogue United",
@@ -1712,6 +1844,7 @@
   "longitude": -8.972481,
   "how": "GAA pitch list, matched on club name (Clarecastle)"
  },
+ "Munster|cloneen|": null,
  "Munster|clongowes|": null,
  "Munster|clonlara|": {
   "name": "Clonlara",
@@ -1924,6 +2057,13 @@
   "latitude": 52.191764,
   "longitude": -8.883847,
   "how": "rugby club search (leisure/sports_centre: Kanturk Rugby Club); the source names the club or town, not the pitch"
+ },
+ "Munster|keel gaa|": {
+  "name": "Keel GAA",
+  "county": "Kerry",
+  "latitude": 52.172486,
+  "longitude": -9.773946,
+  "how": "GAA pitch list, matched on club name (Keel)"
  },
  "Munster|kilballyowen park|": {
   "name": "Kilballyowen Park",
@@ -2277,6 +2417,7 @@
   "how": "GAA pitch list, matched on club name (Tubber)"
  },
  "Munster|tullow|": null,
+ "Munster|ucd 3g pitch|": null,
  "Munster|ul bohemian|": {
   "name": "UL Bohemian",
   "county": "Clare",
@@ -2300,6 +2441,13 @@
   "latitude": 52.84269,
   "longitude": -8.98965,
   "how": "place search (leisure/common: Waterpark)"
+ },
+ "Munster|whitegate|": {
+  "name": "Whitegate",
+  "county": "Clare",
+  "latitude": 52.951474,
+  "longitude": -8.375297,
+  "how": "GAA pitch list, matched on club name (Whitegate)"
  },
  "Munster|wilton|": {
   "name": "Wilton - Pat Bowdren Park",
@@ -2527,6 +2675,7 @@
   "longitude": -6.064025,
   "how": "postcode"
  },
+ "Ulster|connacht gaa centre of excellence bekan|": null,
  "Ulster|dalriada school|": {
   "name": "Dalriada School",
   "county": "Derry",
@@ -2753,6 +2902,13 @@
   "longitude": -6.326759,
   "how": "postcode"
  },
+ "Ulster|macnean park belcoo|": {
+  "name": "MacNean Park, Belcoo",
+  "county": "Fermanagh",
+  "latitude": 54.298865,
+  "longitude": -7.883084,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (O'Rahilly's GAA, Belcoo: MacNean Park)"
+ },
  "Ulster|maynard sinclair pavillion|": {
   "name": "Maynard Sinclair Pavillion",
   "county": "Antrim",
@@ -2832,6 +2988,13 @@
   "latitude": 54.3436,
   "longitude": -6.65063,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|patrick mcmanus park kinawley|": {
+  "name": "Patrick McManus Park, Kinawley",
+  "county": "Fermanagh",
+  "latitude": 54.217359,
+  "longitude": -7.676336,
+  "how": "GAA pitch list, matched on pitch name (Brian Boru GAA, Kinawley: Patrick McManus Park)"
  },
  "Ulster|pollock park|": {
   "name": "Pollock Park",
