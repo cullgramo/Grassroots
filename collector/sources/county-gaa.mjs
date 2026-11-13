@@ -10,6 +10,8 @@ const boards = [
   { url: 'https://offaly.gaa.ie/fixtures-results/', prefix: 'Offaly', countyHint: 'Offaly', area: 'Leinster' },
   { url: 'https://cavangaa.ie/fixtures-results/', prefix: 'Cavan', countyHint: 'Cavan', area: 'Ulster' },
   { url: 'https://fermanagh.gaa.ie/fixtures-results/', prefix: 'Fermanagh', countyHint: 'Fermanagh', area: 'Ulster' },
+  // Derry's own site shows this page inside a frame; the fixtures live on its Club & County address.
+  { url: 'https://derry.clubandcounty.com/fixtures-results/', prefix: 'Derry', countyHint: 'Derry', area: 'Ulster' },
 ];
 
 // A board's page shows its first 50 fixtures; the rest come from the page's own "Load more Fixtures" button,

@@ -329,3 +329,11 @@ test('County boards: a Load more page (JSON with a byte-order mark) is read like
   assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['Cratloe', 'Kilmurry', '2026-11-21', '14:00', 'Cratloe GAA']);
   assert.equal(read('﻿{"ok":true,"hasMore":false,"html":""}', { url: 'x' }).length, 0);
 });
+
+test('County boards: a game with an impossible year (a typo on the page) is dropped', async () => {
+  const { read } = await import('../sources/county-gaa.mjs');
+  const block = (d) => `<h3 class="fix_res_date">${d}</h3><div class="competition"><div class="competition-name"><a href="/fixtures-results/x/11111111-1111-1111-1111-111111111111/">Cup</a></div><div class="comp_details"><div class="home_team"><a>Alpha</a></div><div class="time">14:00</div><div class="away_team"><a>Beta</a></div></div></div>`;
+  const html = `<div id="fixtures-list">${block('Saturday 21st Nov 2026')}${block('Sunday 25th May 3202')}</div>`;
+  const got = read(html, { url: 'x', prefix: 'Derry' }, new Date('2026-11-13T12:00:00Z'));
+  assert.deepEqual(got.map((f) => f.date), ['2026-11-21']);
+});

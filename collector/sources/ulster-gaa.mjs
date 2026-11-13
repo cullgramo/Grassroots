@@ -31,6 +31,8 @@ export function read(html, page, now = new Date()) {
       const home = tidy(row.querySelector('.home_team')?.text);
       const away = tidy(row.querySelector('.away_team')?.text);
       if (!home || !away || !date) continue;
+      // A typo in the source (a game dated 3202) must not become a fixture.
+      if (+date.slice(0, 4) > now.getUTCFullYear() + 2) continue;
       // "Winner of Semi-Final 1" is a placeholder, not a team.
       if (/\b(winner|loser|runner.up)\b/i.test(home) || /\b(winner|loser|runner.up)\b/i.test(away)) continue;
       let info = row.nextElementSibling;
