@@ -292,3 +292,28 @@ test('Foireann is switched off without a key', async () => {
   assert.equal(process.env.FOIREANN_API_KEY ? 'set' : 'unset', 'unset');
   assert.deepEqual(pages, []);
 });
+
+test('Antrim GAA: reads each fixture row under its competition, never the referee, and skips the header row', async () => {
+  const { read } = await import('../sources/antrim-gaa.mjs');
+  const row = (d, t, h, a, v, extra = '') => `<div class="fixrow clearfix"><a class="fixlink" data-uniqueid="U-${h}"><div class="fixdate">${d} </div><div class="fixtime">${t}</div><div class="fixteamhome">${h}</div><div class="fixscorehome">---</div><div class="fixv">v</div><div class="fixscoreaway">---</div><div class="fixteamaway">${a}</div><div class="fixround">QF&nbsp;</div><div class="fixvenue">${v}</div><div class="fixreferee">Paul Burns&nbsp;</div><div class="fixnotes">${extra}</div></a></div>`;
+  const html = `<div class="fixcompname"><button>U21A FC</button></div>${row('Date', 'Time', 'Home', 'Away', 'Venue')}
+    ${row('Sat 14 Nov 2026', '12:00', "Con Magee's Glenravel", 'Naomh Bríd', 'Páirc an Athar Mhic Fhinn')}
+    <div class="fixcompname"><button>2026 Ulster GAA Hurling Senior Club Championship</button></div>
+    ${row('Sun 15 Nov 2026', '15:30', 'Portaferry', 'Cuchullains', 'TBC')}
+    ${row('Sun 22 Nov 2026', '14:00', 'Winner of Semi-Final 1', 'Winner of Semi-Final 2', '')}`;
+  const got = read(html, { url: 'https://antrim.gaa.ie/x', area: 'Ulster', countyHint: 'Antrim', prefix: 'Antrim' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['gaelic-football', "Con Magee's Glenravel", 'Naomh Bríd', '2026-11-14', '12:00', 'Páirc an Athar Mhic Fhinn', 'Antrim U21A FC']);
+  assert.equal(got[1].sport, 'hurling');
+  assert.equal(got[1].venue, '');
+  assert.equal(got[1].competition, 'Antrim Ulster GAA Hurling Senior Club Championship');
+  assert.ok(!JSON.stringify(got).includes('Burns'));
+});
+
+test('GAA pitch list: a venue with an extra word the pitch and club do not explain is not that pitch', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  // "Páirc an Athar Mhic Fhinn" contains "Páirc Mhic Fhinn" (Maghera MacFinn's, Cavan) but is a different pitch.
+  assert.equal(findGaaPitch({ venue: 'Pairc an Athar Mhic Fhinn' }, ['Cavan', 'Antrim']), null);
+  assert.equal(findGaaPitch({ venue: 'Pairc Mhic Fhinn' }, ['Cavan'])?.county, 'Cavan');
+  assert.equal(findGaaPitch({ venue: 'Patrick McManus Park Kinawley' }, ['Fermanagh'])?.county, 'Fermanagh');
+});

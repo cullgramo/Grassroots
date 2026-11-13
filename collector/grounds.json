@@ -2124,6 +2124,13 @@
  },
  "Munster|gurteen|": null,
  "Munster|iffley road|": null,
+ "Munster|inagh|": {
+  "name": "Inagh",
+  "county": "Clare",
+  "latitude": 52.877755,
+  "longitude": -9.181087,
+  "how": "GAA pitch list, matched on pitch name (Inagh Kilnamona: Inagh)"
+ },
  "Munster|jimmy slattery park|": null,
  "Munster|kanturk|": {
   "name": "Kanturk",
@@ -2452,6 +2459,13 @@
  },
  "Munster|temple hill|": null,
  "Munster|templemore|": null,
+ "Munster|templetuohy|": {
+  "name": "Templetuohy",
+  "county": "Tipperary",
+  "latitude": 52.783884,
+  "longitude": -7.721736,
+  "how": "GAA pitch list, matched on pitch name (Moyne-Templetuohy: Templetuohy GAA Pitch)"
+ },
  "Munster|the ragg|": {
   "name": "The Ragg",
   "county": "Tipperary",
@@ -2938,6 +2952,13 @@
   "longitude": -7.26563,
   "how": "position from the source; county from the map"
  },
+ "Ulster|kickhams gac creggan|": {
+  "name": "Kickhams GAC Creggan",
+  "county": "Antrim",
+  "latitude": 54.721649,
+  "longitude": -6.360507,
+  "how": "Get Ireland Active club list, matched on club name (Kickhams GAC Creggan GAA & LGFA Club)"
+ },
  "Ulster|kilraughts road|": {
   "name": "Kilraughts Road",
   "county": "Derry",
@@ -3066,6 +3087,7 @@
   "how": "place search (leisure/pitch: O'Raghallaigh Park)"
  },
  "Ulster|omagh academy|": null,
+ "Ulster|pairc an athar mhic fhinn|": null,
  "Ulster|pairc esler newry|": {
   "name": "Páirc Esler, Newry",
   "county": "Armagh",
@@ -3080,6 +3102,7 @@
   "longitude": -7.493099,
   "how": "place search (leisure/pitch: Páirc Naomh Fionnán)"
  },
+ "Ulster|pairc rosa|": null,
  "Ulster|palace grounds|": {
   "name": "Palace Grounds",
   "county": "Armagh",
@@ -3207,7 +3230,20 @@
   "longitude": -7.352844,
   "how": "GAA pitch list, matched on club name (Drumalee GAA: St. Phelim's Park)"
  },
- "Ulster|st mary s park swanlinbar|": null,
+ "Ulster|st joseph s gac glenavy|": {
+  "name": "St Joseph's GAC, Glenavy",
+  "county": "Antrim",
+  "latitude": 54.579567,
+  "longitude": -6.223824,
+  "how": "GAA pitch list, matched on pitch name (St. Joseph's GAA, Glenavy: St. Joseph's Park)"
+ },
+ "Ulster|st mary s park swanlinbar|": {
+  "name": "St. Mary's Park Swanlinbar",
+  "county": "Cavan",
+  "latitude": 54.192078,
+  "longitude": -7.704567,
+  "how": "GAA pitch list, matched on pitch name (St. Mary's GAA, Swanlinbar: St. Mary's Park)"
+ },
  "Ulster|st tiernach s park clones|": {
   "name": "St. Tiernach's Park, Clones",
   "county": "Monaghan",

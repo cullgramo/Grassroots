@@ -53,8 +53,11 @@ export function findGaaPitch(f, allowed) {
     const club = keyWords(p.club.split(',')[0]);
     const all = keyWords(`${p.club} ${p.pitch}`);
     // Strong: the pitch's name, alone or with its club's town ("Fr. O'Hara Park, Charlestown" for Charlestown Sarsfields' Fr. O'Hara Park).
-    const pitchAndTown = pitch.length >= 1 && inAll(pitch, v) && inAll(v, [...pitch, ...club]);
-    if (same(pitch, v) || (pitch.length >= 2 && inAll(pitch, v)) || (v.length >= 2 && inAll(v, pitch)) || pitchAndTown) tiers[0].push(p);
+    // Every word of the venue must be explained by the pitch's name or its club's full name: "Páirc an Athar Mhic Fhinn"
+    // is not "Páirc Mhic Fhinn" (a different pitch in another county) just because it contains those words.
+    const explained = inAll(v, [...pitch, ...keyWords(p.club)]);
+    const pitchAndTown = pitch.length >= 1 && inAll(pitch, v) && explained;
+    if (same(pitch, v) || (pitch.length >= 2 && inAll(pitch, v) && explained) || (v.length >= 2 && inAll(v, pitch)) || pitchAndTown) tiers[0].push(p);
     // Strong: the club's full name.
     else if (same(club, v) || inAll(club, v)) tiers[1].push(p);
     // Weak: part of a club's name, or its town. Only trusted inside the county whose board published the fixture.
