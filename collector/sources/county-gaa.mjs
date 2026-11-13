@@ -16,6 +16,7 @@ const boards = [
   { url: 'https://meath.gaa.ie/fixtures-results/', prefix: 'Meath', countyHint: 'Meath', area: 'Leinster' },
   { url: 'https://laoisgaa.ie/fixtures-results/', prefix: 'Laois', countyHint: 'Laois', area: 'Leinster' },
   { url: 'https://westmeathgaa.ie/fixtures-results/', prefix: 'Westmeath', countyHint: 'Westmeath', area: 'Leinster' },
+  { url: 'https://kildaregaa.ie/fixtures-results/', prefix: 'Kildare', countyHint: 'Kildare', area: 'Leinster' },
   { url: 'https://tyronegaa.ie/fixtures-results/', prefix: 'Tyrone', countyHint: 'Tyrone', area: 'Ulster' },
   // Derry's own site shows this page inside a frame; the fixtures live on its Club & County address.
   { url: 'https://derry.clubandcounty.com/fixtures-results/', prefix: 'Derry', countyHint: 'Derry', area: 'Ulster' },

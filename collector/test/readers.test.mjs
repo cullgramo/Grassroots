@@ -392,3 +392,10 @@ test('Carlow GAA: reads each fixture block, never the referee', async () => {
   assert.deepEqual([got[1].time, got[1].venue, got[1].competition.startsWith('AIB Leinster')], ['14:30', 'Netwatch Cullen Park, Carlow', true]);
   assert.ok(!JSON.stringify(got).includes('Clarke'));
 });
+
+test('GAA pitch list: a venue that merely contains a club\'s word is not that club', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  // "Paddy Martin Memorial Park" must not become St. Martin's GAA in Wexford.
+  assert.equal(findGaaPitch({ venue: 'Paddy Martin Memorial Park' }, ['Wexford', 'Kildare']), null);
+  assert.equal(findGaaPitch({ venue: 'Maynooth University', countyHint: 'Kildare' }, ['Kildare'])?.how.includes('club name') ?? false, false);
+});

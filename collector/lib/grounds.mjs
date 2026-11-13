@@ -14,6 +14,7 @@ const CONNACHT = ['Galway', 'Leitrim', 'Mayo', 'Roscommon', 'Sligo'];
 const AREAS = { Munster: MUNSTER, Connacht: CONNACHT, Leinster: ['Carlow', 'Dublin', 'Kildare', 'Kilkenny', 'Laois', 'Longford', 'Louth', 'Meath', 'Offaly', 'Westmeath', 'Wexford', 'Wicklow'], Dublin: ['Dublin', 'Kildare', 'Wicklow', 'Meath', 'Louth'], Ulster: ['Antrim', 'Armagh', 'Cavan', 'Derry', 'Donegal', 'Down', 'Fermanagh', 'Monaghan', 'Tyrone'] };
 const SEARCH = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&countrycodes=ie,gb&limit=5&q=';
 const GENERIC = new Set(['college', 'university', 'celtics', 'eagles', 'thunder', 'warriors', 'sports', 'trust', 'utility', 'credit', 'union', 'decisions', 'career', 'energywise', 'ireland', 'lions', 'titans', 'mystics', 'meteors', 'panthers', 'rockets', 'stars', 'united', 'rovers', 'celtic', 'school', 'saints', 'griffith', 'flexachem', 'flomax', 'abbey', 'seals', 'talons', 'wolves', 'lakers', 'demons', 'giants', 'storm', 'knights', 'killester']);
+const PLACE_GENERIC = new Set(['main', 'pitch', 'pitches', 'astro', 'sports', 'centre', 'center', 'grounds', 'ground', 'field', 'park', 'gaa', 'club', 'community', 'school', 'college']);
 const inIreland = (lat, lon) => lat >= 51 && lat <= 56 && lon >= -11 && lon <= -5;
 const countyOf = (h) => countyFor([h.address?.county, h.address?.state_district, h.address?.city, h.address?.state], +h.lat, +h.lon);
 
@@ -59,7 +60,8 @@ export function findGaaPitch(f, allowed) {
     const pitchAndTown = pitch.length >= 1 && inAll(pitch, v) && explained;
     if (same(pitch, v) || (pitch.length >= 2 && inAll(pitch, v) && explained) || (v.length >= 2 && inAll(v, pitch)) || pitchAndTown) tiers[0].push(p);
     // Strong: the club's full name.
-    else if (same(club, v) || inAll(club, v)) tiers[1].push(p);
+    // The club's name, alone or with its pitch or town: "Paddy Martin Memorial Park" contains "Martin" but is not St. Martin's GAA.
+    else if (same(club, v) || (inAll(club, v) && inAll(v, [...keyWords(p.club), ...pitch]))) tiers[1].push(p);
     // Weak: part of a club's name, or its town. Only trusted inside the county whose board published the fixture.
     // The words must come from the club's name or its town, not from the pitch's own name: "Moyle Park" is not Milford's "Moyle View Park".
     else if (f.countyHint && p.county === f.countyHint && inAll(v, keyWords(p.club))) tiers[2].push(p);
@@ -168,7 +170,9 @@ export async function findGround(f) {
       const rightKind = h.category === 'leisure' || /^(amenity\/(school|college|university|community_centre)|building\/(school|university|college|sports_hall|sports_centre|stadium)|landuse\/recreation_ground)$/.test(kind);
       const isSchool = /school|college|university/.test(kind);
       const namesSchool = /school|college|colaiste|scoil|loreto|university|ucd|tcd|\bhs\b|academy/.test(norm(q));
+      // A name made only of generic words ("Main Pitch") names no place in particular.
       const wanted = norm(allowed ? q : q.slice(0, q.lastIndexOf(','))).split(' ').filter((w) => w.length > 2);
+      if (wanted.every((w) => PLACE_GENERIC.has(w))) return false;
       const inTeamPlace = allowed || teamPlaces.some((w) => norm(h.display_name).includes(w));
       const got = norm(`${h.name ?? ''} ${(h.display_name ?? '').split(',')[0]}`);
       const nameMatches = wanted.length > 0 && wanted.filter((w) => got.includes(w)).length / wanted.length >= 0.6;
