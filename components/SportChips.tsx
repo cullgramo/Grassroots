@@ -13,11 +13,19 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
         <Chip
-          label={mySports.length > 0 ? 'My sports' : 'All'}
-          selected={!filters.group}
+          label="All"
+          selected={!filters.group && (mySports.length === 0 || Boolean(filters.allSports))}
           elevated={elevated}
-          onPress={() => setFilters({ group: null, sport: null })}
+          onPress={() => setFilters({ group: null, sport: null, allSports: true })}
         />
+        {mySports.length > 0 ? (
+          <Chip
+            label="My sports"
+            selected={!filters.group && !filters.allSports}
+            elevated={elevated}
+            onPress={() => setFilters({ group: null, sport: null, allSports: false })}
+          />
+        ) : null}
         {GROUPS.map((g) => (
           <Chip
             key={g.id}

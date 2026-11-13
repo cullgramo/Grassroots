@@ -29,7 +29,7 @@ export function filterFixtures(
         if (f.sport !== filters.sport) return false;
       } else if (filters.group) {
         if (getSport(f.sport).group !== filters.group) return false;
-      } else if (mySports.length > 0 && !mySports.includes(f.sport)) {
+      } else if (!filters.allSports && mySports.length > 0 && !mySports.includes(f.sport)) {
         return false;
       }
       if (filters.level && f.level !== filters.level) return false;

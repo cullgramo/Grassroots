@@ -45,6 +45,8 @@ export interface Filters {
   county: string | null;
   distanceKm: number | null;
   when: When;
+  /** Show every sport, not only the ones the user follows. */
+  allSports?: boolean;
 }
 
 export const DEFAULT_FILTERS: Filters = {

@@ -203,3 +203,13 @@ describe('searchFixtures', () => {
     expect(ids('killester hurling')).toEqual([]);
   });
 });
+
+describe('all sports', () => {
+  it('shows every sport when asked, even with followed sports set', () => {
+    const mine = [fixtures[0].sport];
+    const all = filterFixtures(fixtures, { ...DEFAULT_FILTERS, allSports: true }, null, new Date(0), mine);
+    const some = filterFixtures(fixtures, DEFAULT_FILTERS, null, new Date(0), mine);
+    expect(all.length).toBe(fixtures.length);
+    expect(some.length).toBeLessThan(all.length);
+  });
+});
