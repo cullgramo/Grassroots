@@ -617,7 +617,13 @@
   "longitude": -6.210997,
   "how": "place search (leisure/sports_centre: Railway Union Sports Club)"
  },
- "Dublin|rathcoffey pitch 2 mtfc|": null,
+ "Dublin|rathcoffey pitch 2 mtfc|": {
+  "name": "Rathcoffey Pitch 2 - Maynooth Town FC",
+  "county": "Kildare",
+  "latitude": 53.370782,
+  "longitude": -6.615297,
+  "how": "coordinates supplied by the owner"
+ },
  "Dublin|ridgewood pitches|": {
   "name": "Ridgewood Pitches",
   "county": "Dublin",
@@ -2295,7 +2301,13 @@
   "longitude": -8.98965,
   "how": "place search (leisure/common: Waterpark)"
  },
- "Munster|wilton|": null,
+ "Munster|wilton|": {
+  "name": "Wilton - Pat Bowdren Park",
+  "county": "Cork",
+  "latitude": 51.887725,
+  "longitude": -8.503995,
+  "how": "coordinates supplied by the owner (Pat Bowdren Park)"
+ },
  "Munster|wolfe tones na sionna|": null,
  "Munster|woodleigh park|": {
   "name": "Woodleigh Park",
@@ -3066,7 +3078,13 @@
   "longitude": -6.230548,
   "how": "place search (leisure/sports_centre: ALSAA)"
  },
- "|ballinfoile community centre|": null,
+ "|ballinfoile community centre|": {
+  "name": "Ballinfoile Castlegar Neighbourhood Centre",
+  "county": "Galway",
+  "latitude": 53.293881,
+  "longitude": -9.035749,
+  "how": "coordinates supplied by the owner"
+ },
  "|ballymakenny college|": {
   "name": "Ballymakenny College",
   "county": "Louth",
