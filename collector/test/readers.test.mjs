@@ -381,3 +381,14 @@ test('Mayo GAA: reads each game under its date and competition', async () => {
   assert.equal(got.length, 1);
   assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['Ardnaree Sarsfields', 'Hollymount-Carramore', '2026-11-15', '12:00', 'Ardnaree', 'Mayo McHale Under 21 Football B - Knockout']);
 });
+
+test('Carlow GAA: reads each fixture block, never the referee', async () => {
+  const { read } = await import('../sources/carlow-gaa.mjs');
+  const block = (h3, clubs, venue) => `<div class="fixture single"><h3>${h3}</h3><div class="clubs">${clubs}</div><div class="referee">Referee : Kyle  Clarke</div><div class="venue">${venue}</div></div>`;
+  const html = `<div class="fixtures-wrap">${block('Stryve Under 21 Hurling A Championship - 2 - 2026', 'Mt Leinster Rangers vs Carlow Town Hurling Club', '15-11-2026 / 12:00 pm / Mount Leinster Rangers')}${block('AIB Leinster Club Senior Football Championship 2026 - Quarter-Final - 2026', 'Rathvilly/Rathbhile vs Portarlington', '15-11-2026 / 2:30 pm / Netwatch Cullen Park, Carlow')}${block('Cup', 'Winner of A vs Winner of B', '16-11-2026 / 1:00 pm / TBC')}</div>`;
+  const got = read(html, { url: 'https://carlowgaa.ie/fixtures/', area: 'Leinster', countyHint: 'Carlow', prefix: 'Carlow' });
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['hurling', 'Mt Leinster Rangers', 'Carlow Town Hurling Club', '2026-11-15', '12:00', 'Mount Leinster Rangers', 'Carlow Stryve Under 21 Hurling A Championship - 2']);
+  assert.deepEqual([got[1].time, got[1].venue, got[1].competition.startsWith('AIB Leinster')], ['14:30', 'Netwatch Cullen Park, Carlow', true]);
+  assert.ok(!JSON.stringify(got).includes('Clarke'));
+});

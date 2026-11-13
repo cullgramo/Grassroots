@@ -1555,6 +1555,13 @@
   "longitude": -6.942296,
   "how": "GAA pitch list, matched on club name (Graiguecullen: Fr. Maher Park)"
  },
+ "Leinster|grange|": {
+  "name": "Grange",
+  "county": "Carlow",
+  "latitude": 52.841736,
+  "longitude": -6.786701,
+  "how": "GAA pitch list, matched on club name (Grange)"
+ },
  "Leinster|grant heating st brendan s park birr|": {
   "name": "Grant Heating St Brendan's Park, Birr",
   "county": "Offaly",
@@ -1656,6 +1663,13 @@
   "how": "checked by hand (OpenStreetMap: Ashbourne Rugby Club)"
  },
  "Leinster|monkstown|": null,
+ "Leinster|mount leinster rangers|": {
+  "name": "Mount Leinster Rangers",
+  "county": "Carlow",
+  "latitude": 52.590449,
+  "longitude": -6.91204,
+  "how": "GAA pitch list, matched on club name (Mount Leinster Rangers)"
+ },
  "Leinster|mountmellick gaa|": {
   "name": "Mountmellick GAA",
   "county": "Laois",
@@ -1677,6 +1691,20 @@
   "longitude": -6.664575,
   "how": "GAA pitch list, matched on club name (Moynalvey)"
  },
+ "Leinster|myshall|": {
+  "name": "Myshall",
+  "county": "Carlow",
+  "latitude": 52.687349,
+  "longitude": -6.7871,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Naomh Eoin, Myshall)"
+ },
+ "Leinster|naomh brid superbowl|": {
+  "name": "Naomh Bríd - Superbowl",
+  "county": "Carlow",
+  "latitude": 52.739001,
+  "longitude": -6.98256,
+  "how": "GAA pitch list, matched on pitch name (Naomh Bríd: Superbowl)"
+ },
  "Leinster|netwatch cullen park carlow|": {
   "name": "Netwatch Cullen Park, Carlow",
   "county": "Carlow",
@@ -1693,7 +1721,15 @@
  },
  "Leinster|oak park|": null,
  "Leinster|ollie campbell park|": null,
+ "Leinster|pairc ui bhriain|": null,
  "Leinster|pairc ui cheallaigh ui dhalaigh|": null,
+ "Leinster|palatine gaa club|": {
+  "name": "Palatine GAA Club",
+  "county": "Carlow",
+  "latitude": 52.828711,
+  "longitude": -6.874939,
+  "how": "GAA pitch list, matched on club name (Palatine)"
+ },
  "Leinster|park avenue|": {
   "name": "Park Avenue",
   "county": "Dublin",
@@ -1881,6 +1917,7 @@
   "longitude": -6.272811,
   "how": "Get Ireland Active club list, matched on club name (Three Rock Rovers Hockey Club)"
  },
+ "Leinster|tinyrland gfc|": null,
  "Leinster|togher|": {
   "name": "Togher",
   "county": "Laois",

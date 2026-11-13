@@ -20,8 +20,9 @@ import * as roscommonGaa from './sources/roscommon-gaa.mjs';
 import * as sligoGaa from './sources/sligo-gaa.mjs';
 import * as leitrimGaa from './sources/leitrim-gaa.mjs';
 import * as mayoGaa from './sources/mayo-gaa.mjs';
+import * as carlowGaa from './sources/carlow-gaa.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'leitrim-gaa': leitrimGaa, 'mayo-gaa': mayoGaa,
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'leitrim-gaa': leitrimGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa,
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
   ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };
 
