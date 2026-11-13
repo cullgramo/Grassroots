@@ -13,6 +13,8 @@ const boards = [
   { url: 'https://donegalgaa.ie/api-fixtures-and-results/', prefix: 'Donegal', countyHint: 'Donegal', area: 'Ulster' },
   { url: 'https://www.downgaa.net/fixtures-results/', prefix: 'Down', countyHint: 'Down', area: 'Ulster' },
   { url: 'https://www.monaghangaa.ie/fixtures-results/', prefix: 'Monaghan', countyHint: 'Monaghan', area: 'Ulster' },
+  { url: 'https://meath.gaa.ie/fixtures-results/', prefix: 'Meath', countyHint: 'Meath', area: 'Leinster' },
+  { url: 'https://laoisgaa.ie/fixtures-results/', prefix: 'Laois', countyHint: 'Laois', area: 'Leinster' },
   { url: 'https://tyronegaa.ie/fixtures-results/', prefix: 'Tyrone', countyHint: 'Tyrone', area: 'Ulster' },
   // Derry's own site shows this page inside a frame; the fixtures live on its Club & County address.
   { url: 'https://derry.clubandcounty.com/fixtures-results/', prefix: 'Derry', countyHint: 'Derry', area: 'Ulster' },

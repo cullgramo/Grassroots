@@ -1174,6 +1174,13 @@
   "longitude": -6.22752,
   "how": "coordinates from Gemini research, checked against the map: named on the map; Swords Thunder listed 140 m away"
  },
+ "Leinster|ardcath|": {
+  "name": "Ardcath",
+  "county": "Meath",
+  "latitude": 53.602144,
+  "longitude": -6.38274,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Vincent's GAA, Ardcath)"
+ },
  "Leinster|ashbrook|": {
   "name": "Ashbrook",
   "county": "Dublin",
@@ -1197,6 +1204,13 @@
   "longitude": -6.181083,
   "how": "home club search, address matches the ground name (leisure/sports_centre: Old Wesley Rugby Football Club, Ballycorus Road)"
  },
+ "Leinster|ballyfin gaa|": {
+  "name": "Ballyfin GAA",
+  "county": "Laois",
+  "latitude": 53.05717,
+  "longitude": -7.406286,
+  "how": "GAA pitch list, matched on club name (Ballyfin: Cappinrush)"
+ },
  "Leinster|balreask old|": {
   "name": "Balreask Old",
   "county": "Meath",
@@ -1212,6 +1226,20 @@
   "how": "checked by hand (OpenStreetMap: UCD Bowl, Belfield)"
  },
  "Leinster|black gates|": null,
+ "Leinster|boardsmill|": {
+  "name": "Boardsmill",
+  "county": "Meath",
+  "latitude": 53.525985,
+  "longitude": -6.872563,
+  "how": "GAA pitch list, matched on club name (Boardsmill GAA)"
+ },
+ "Leinster|borris in ossory gaa|": {
+  "name": "Borris-in-Ossory GAA",
+  "county": "Laois",
+  "latitude": 52.941232,
+  "longitude": -7.618571,
+  "how": "GAA pitch list, matched on club name (Borris in Ossory: O'Keefe Park)"
+ },
  "Leinster|bowhill balrothery|": {
   "name": "Bowhill Balrothery",
   "county": "Dublin",
@@ -1233,6 +1261,13 @@
   "longitude": -7.386695,
   "how": "position from the source; county from the map"
  },
+ "Leinster|camross gaa grounds|": {
+  "name": "Camross GAA Grounds",
+  "county": "Laois",
+  "latitude": 52.997237,
+  "longitude": -7.561707,
+  "how": "GAA pitch list, matched on club name (Camross)"
+ },
  "Leinster|castle avenue|": {
   "name": "Castle Avenue",
   "county": "Dublin",
@@ -1248,6 +1283,13 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|claremont road|": null,
+ "Leinster|clonad|": {
+  "name": "Clonad",
+  "county": "Laois",
+  "latitude": 52.99382,
+  "longitude": -7.296167,
+  "how": "GAA pitch list, matched on club name (Clonad)"
+ },
  "Leinster|clonattin|": {
   "name": "Clonattin",
   "county": "Wexford",
@@ -1268,6 +1310,13 @@
   "latitude": 53.310977,
   "longitude": -6.686851,
   "how": "checked by hand (OpenStreetMap: Clongowes Wood College)"
+ },
+ "Leinster|clough|": {
+  "name": "Clough",
+  "county": "Laois",
+  "latitude": 52.881749,
+  "longitude": -7.451694,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Clough Ballacolla: The Hawthorn)"
  },
  "Leinster|college park newbridge|": null,
  "Leinster|college park|": {
@@ -1306,6 +1355,9 @@
   "longitude": -7.293206,
   "how": "position from the source; county from the map"
  },
+ "Leinster|devenish park pitch 4|": null,
+ "Leinster|devenish park pitch 5|": null,
+ "Leinster|devenish park pitch 6|": null,
  "Leinster|donaghmore ashbourne gaa": {
   "name": "Donaghmore Ashbourne GAA",
   "county": "Meath",
@@ -1336,12 +1388,30 @@
   "longitude": -7.92287,
   "how": "place search (leisure/pitch: Dubarry Park)"
  },
+ "Leinster|duleek tony callaghan park|": null,
+ "Leinster|dunderry|": {
+  "name": "Dunderry",
+  "county": "Meath",
+  "latitude": 53.606629,
+  "longitude": -6.772329,
+  "how": "GAA pitch list, matched on club name (Dunderry GAA)"
+ },
+ "Leinster|dunganny astro pitch 500lx|": null,
+ "Leinster|dunganny floodlit pitch 2 500lx|": null,
+ "Leinster|dunganny floodlit pitch 3 500lx|": null,
  "Leinster|dunlavin|": {
   "name": "Dunlavin",
   "county": "Wicklow",
   "latitude": 53.058605,
   "longitude": -6.691434,
   "how": "GAA pitch list, matched on club name (Dunlavin GAA)"
+ },
+ "Leinster|dunshaughlin|": {
+  "name": "Dunshaughlin",
+  "county": "Meath",
+  "latitude": 53.514759,
+  "longitude": -6.552474,
+  "how": "GAA pitch list, matched on club name (Dunshaughlin)"
  },
  "Leinster|echelon park aughrim|": {
   "name": "Echelon Park, Aughrim",
@@ -1395,6 +1465,13 @@
   "how": "checked by hand (OpenStreetMap: Kilkenny Rugby Club, Waterford Road)"
  },
  "Leinster|freshford gaa|": null,
+ "Leinster|gaeil colmcille gfc grangegodden|": {
+  "name": "Gaeil Colmcille GFC (Grangegodden)",
+  "county": "Meath",
+  "latitude": 53.705484,
+  "longitude": -6.878868,
+  "how": "GAA pitch list, matched on pitch name (Gaeil Colmcille: Grangegodden)"
+ },
  "Leinster|gaelic park|": null,
  "Leinster|glenisk o connor park tullamore|": {
   "name": "Glenisk O'Connor Park, Tullamore",
@@ -1409,6 +1486,13 @@
   "latitude": 53.2801259,
   "longitude": -7.4893854,
   "how": "pin supplied by the owner from Google Maps; the map shows a pitch there, in Tullamore, County Offaly, and it agrees with the existing Tullamore entry within 100 m"
+ },
+ "Leinster|graiguecullen gaa|": {
+  "name": "Graiguecullen GAA",
+  "county": "Laois",
+  "latitude": 52.841881,
+  "longitude": -6.942296,
+  "how": "GAA pitch list, matched on club name (Graiguecullen: Fr. Maher Park)"
  },
  "Leinster|grant heating st brendan s park birr|": {
   "name": "Grant Heating St Brendan's Park, Birr",
@@ -1518,6 +1602,20 @@
   "longitude": -7.304146,
   "how": "place search (leisure/sports_centre: Mountmellick GAA)"
  },
+ "Leinster|moynalty|": {
+  "name": "Moynalty",
+  "county": "Meath",
+  "latitude": 53.7808,
+  "longitude": -6.875204,
+  "how": "GAA pitch list, matched on club name (Moynalty)"
+ },
+ "Leinster|moynalvey|": {
+  "name": "Moynalvey",
+  "county": "Meath",
+  "latitude": 53.469269,
+  "longitude": -6.664575,
+  "how": "GAA pitch list, matched on club name (Moynalvey)"
+ },
  "Leinster|netwatch cullen park carlow|": {
   "name": "Netwatch Cullen Park, Carlow",
   "county": "Carlow",
@@ -1534,6 +1632,7 @@
  },
  "Leinster|oak park|": null,
  "Leinster|ollie campbell park|": null,
+ "Leinster|pairc ui cheallaigh ui dhalaigh|": null,
  "Leinster|park avenue|": {
   "name": "Park Avenue",
   "county": "Dublin",
@@ -1562,6 +1661,20 @@
   "longitude": -7.587692,
   "how": "GAA pitch list, matched on club name (Rathdowney: Kelly Daly Park)"
  },
+ "Leinster|ratheniska|": {
+  "name": "Ratheniska",
+  "county": "Laois",
+  "latitude": 53.006669,
+  "longitude": -7.217325,
+  "how": "GAA pitch list, matched on pitch name (Park/Ratheniska GAA: Ratheniska)"
+ },
+ "Leinster|rathkenny|": {
+  "name": "Rathkenny",
+  "county": "Meath",
+  "latitude": 53.742146,
+  "longitude": -6.616245,
+  "how": "GAA pitch list, matched on club name (Rathkenny GAA)"
+ },
  "Leinster|rathnew|": {
   "name": "Rathnew",
   "county": "Wicklow",
@@ -1578,6 +1691,13 @@
   "how": "coordinates from Gemini research, checked against the map: same position as the GAA pitch list entry for St Mary's GAA, Rochfortbridge"
  },
  "Leinster|ros glas|": null,
+ "Leinster|rosenallis gaa|": {
+  "name": "Rosenallis GAA",
+  "county": "Laois",
+  "latitude": 53.139529,
+  "longitude": -7.415844,
+  "how": "GAA pitch list, matched on club name (Rosenallis)"
+ },
  "Leinster|rosetown|": {
   "name": "Rosetown",
   "county": "Kildare",
@@ -1593,6 +1713,13 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|santry|": null,
+ "Leinster|seneschalstown|": {
+  "name": "Seneschalstown",
+  "county": "Meath",
+  "latitude": 53.683986,
+  "longitude": -6.588064,
+  "how": "GAA pitch list, matched on club name (Seneschalstown GAA: Fr. Tully Park)"
+ },
  "Leinster|shamrock lodge|": {
   "name": "Shamrock Lodge",
   "county": "Louth",
@@ -1609,6 +1736,13 @@
   "latitude": 53.58423074490332,
   "longitude": -6.5477071719708375,
   "how": "position from the source; county from the map"
+ },
+ "Leinster|slane|": {
+  "name": "Slane",
+  "county": "Meath",
+  "latitude": 53.721314,
+  "longitude": -6.478902,
+  "how": "GAA pitch list, matched on club name (Slane)"
  },
  "Leinster|spollenstown|": {
   "name": "Spollenstown (Tullamore RFC)",
@@ -1664,6 +1798,13 @@
  },
  "Leinster|terenure rd north|": null,
  "Leinster|the grange kells|": null,
+ "Leinster|the harps gaa|": {
+  "name": "The Harps GAA",
+  "county": "Laois",
+  "latitude": 52.850299,
+  "longitude": -7.396194,
+  "how": "GAA pitch list, matched on club name (The Harps)"
+ },
  "Leinster|the oval|": {
   "name": "The Oval",
   "county": "Dublin",

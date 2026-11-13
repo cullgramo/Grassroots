@@ -61,7 +61,8 @@ export function findGaaPitch(f, allowed) {
     // Strong: the club's full name.
     else if (same(club, v) || inAll(club, v)) tiers[1].push(p);
     // Weak: part of a club's name, or its town. Only trusted inside the county whose board published the fixture.
-    else if (f.countyHint && p.county === f.countyHint && inAll(v, all)) tiers[2].push(p);
+    // The words must come from the club's name or its town, not from the pitch's own name: "Moyle Park" is not Milford's "Moyle View Park".
+    else if (f.countyHint && p.county === f.countyHint && inAll(v, keyWords(p.club))) tiers[2].push(p);
   }
   const labels = ['pitch name', 'club name', 'club or town, within the county board\'s own county'];
   for (let i = 0; i < tiers.length; i++) {
