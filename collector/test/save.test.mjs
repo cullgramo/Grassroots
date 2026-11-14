@@ -111,3 +111,16 @@ test('a dropped connection is retried, but a site that says no is not', async ()
     if (saved !== undefined) process.env.COLLECTOR_USE_CURL = saved;
   }
 });
+
+test("a county board's bare village name placed in another county is held, not guessed", async () => {
+  const grounds2 = {
+    'Leinster|adamstown|': { name: 'Adamstown', county: 'Dublin', latitude: 53.33, longitude: -6.46, how: 'GAA pitch list, matched on pitch name (Lucan Sarsfields: Adamstown)' },
+    'Leinster|enniscorthy park|': { name: 'Enniscorthy Park', county: 'Kildare', latitude: 53.2, longitude: -6.8, how: 'GAA pitch list, matched on pitch name (X: Enniscorthy Park)' },
+    'Leinster|castletown|': { name: 'Castletown', county: 'Wexford', latitude: 52.6, longitude: -6.3, how: 'GAA pitch list, matched on club name (Castletown)' },
+  };
+  const row = (ref, venue) => game({ ref, sport: 'hurling', venue, home: `H${ref}`, away: `A${ref}`, countyHint: 'Wexford' });
+  const { fixtures, leftOut } = await gather({ sources: { 'county-gaa': source([row('a', 'Adamstown'), row('b', 'Enniscorthy Park'), row('c', 'Castletown')]) }, grounds: grounds2 });
+  assert.deepEqual(fixtures.map((f) => f.venue).sort(), ['Castletown', 'Enniscorthy Park']);
+  assert.match(leftOut[0].reason, /outside Wexford/);
+  assert.deepEqual(unplacedGrounds(leftOut), [['Adamstown (Fake)', 1]]);
+});
