@@ -4,6 +4,7 @@ import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-na
 
 import { SaveButton } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
+import { ShareFixture, ShareHeaderButton } from '@/components/ShareFixture';
 import { useTheme } from '@/components/useTheme';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
@@ -51,7 +52,17 @@ export default function FixtureScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: t.background }} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: sport.name, headerRight: () => <SaveButton fixture={fixture} size={26} /> }} />
+      <Stack.Screen
+        options={{
+          title: sport.name,
+          headerRight: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <ShareHeaderButton fixture={fixture} />
+              <SaveButton fixture={fixture} size={26} />
+            </View>
+          ),
+        }}
+      />
 
       <View style={styles.map}>
         <FixtureMap fixtures={[fixture]} selectedId={fixture.id} userLocation={location} interactive={false} />
@@ -122,6 +133,7 @@ export default function FixtureScreen() {
             Get directions
           </Text>
         </Pressable>
+        <ShareFixture fixture={fixture} />
       </View>
     </ScrollView>
   );
