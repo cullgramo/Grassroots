@@ -4922,7 +4922,14 @@
   "longitude": -5.91915,
   "how": "position from the source; county from the map"
  },
- "Ulster|windsor park|": null,
+ "Ulster|windsor park|": {
+  "name": "Windsor Park",
+  "county": "Antrim",
+  "latitude": 54.5826255,
+  "longitude": -5.9552188,
+  "family": "soccer",
+  "how": "pin supplied by the app owner from Google Maps (place named \"Windsor Park of Northern Ireland stadium\"); the map search names a stadium, National Football Stadium, 6 m away"
+ },
  "Waterford|brickey rangers g a a club|": null,
  "Waterford|dungarvan|X35 AH76": {
   "name": "Dungarvan",
