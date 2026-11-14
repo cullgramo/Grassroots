@@ -19,16 +19,14 @@ function irishShort(startsAt: string) {
 }
 
 export interface CardContent {
-  /** "SOCCER · TOP LEVEL" */
-  kicker: string;
+  /** Just the sport: "SOCCER". */
+  sport: string;
   /** Home and away as two lines, or one line for an event. */
   heading: string[];
-  competition: string;
+  /** "TUE 1 DEC" */
   day: string;
   /** "19:45", or "TIME TBC". */
   time: string;
-  /** "Kick-off", "Throw-in", "First race": this sport's word. */
-  timeLabel: string;
   where: string;
   /** Set when the fixture is off; shown across the card. */
   alert: string | null;
@@ -36,17 +34,15 @@ export interface CardContent {
   color: string;
 }
 
-/** Everything the picture shows, worked out in one place so it can be tested. */
+/** Everything the picture shows, worked out in one place so it can be tested. The card is deliberately plain. */
 export function cardContent(f: Fixture): CardContent {
   const sport = getSport(f.sport);
   const when = irishShort(f.startsAt);
   return {
-    kicker: `${sport.name} · ${f.level}`.toUpperCase(),
+    sport: sport.name.toUpperCase(),
     heading: f.homeTeam && f.awayTeam ? [f.homeTeam, f.awayTeam] : [fixtureTitle(f)],
-    competition: f.competition,
     day: when.day,
     time: f.timeTbc ? 'TIME TBC' : when.time,
-    timeLabel: sport.startWord,
     where: `${f.venue}, ${f.county}`,
     alert: f.status === 'cancelled' ? 'CANCELLED' : f.status === 'postponed' ? 'POSTPONED' : null,
     color: sport.color,
