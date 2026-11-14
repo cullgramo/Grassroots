@@ -8,6 +8,12 @@ import { emailUrl, shareMessage, shareSubject, smsUrl, whatsAppUrl } from '@/uti
 import { useTheme } from './useTheme';
 
 /**
+ * The picture card is parked: built and working in previews, but its design needs more UX work before users see it.
+ * Set this to true to bring the "Share as a picture card" button back. See collector/COVERAGE.md, "Parked".
+ */
+const PICTURE_CARD_ENABLED = false;
+
+/**
  * Share a fixture. Four one-tap choices for the places people actually send fixtures (WhatsApp, a text,
  * email, copy), and "More" opens the phone's own share sheet for everything else installed
  * (Messenger, Facebook, Instagram, X, Telegram, Slack, AirDrop and so on).
@@ -67,7 +73,7 @@ export function ShareFixture({ fixture }: { fixture: Fixture }) {
   return (
     <View style={styles.wrap}>
       <Text style={[styles.title, { color: t.text }]}>Share this fixture</Text>
-      {Platform.OS !== 'web' ? (
+      {PICTURE_CARD_ENABLED && Platform.OS !== 'web' ? (
         <Pressable
           onPress={() => setCardOpen(true)}
           accessibilityRole="button"
@@ -91,7 +97,7 @@ export function ShareFixture({ fixture }: { fixture: Fixture }) {
         ))}
       </View>
       {note ? <Text style={[styles.note, { color: t.muted }]}>{note}</Text> : null}
-      {Platform.OS !== 'web' ? <ShareCardModal fixture={fixture} visible={cardOpen} onClose={() => setCardOpen(false)} /> : null}
+      {PICTURE_CARD_ENABLED && Platform.OS !== 'web' ? <ShareCardModal fixture={fixture} visible={cardOpen} onClose={() => setCardOpen(false)} /> : null}
     </View>
   );
 }
