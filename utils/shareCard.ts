@@ -9,10 +9,10 @@ function irishShort(startsAt: string) {
       weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Dublin',
     }).formatToParts(d);
     const get = (type: string) => (parts.find((p) => p.type === type)?.value ?? '').replace('.', '');
-    return { day: `${get('weekday')} ${get('day')} ${get('month')}`.toUpperCase(), time: `${get('hour')}:${get('minute')}` };
+    return { day: `${get('weekday')} ${get('day')} ${get('month')}`, time: `${get('hour')}:${get('minute')}` };
   } catch {
     return {
-      day: d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }).toUpperCase(),
+      day: d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }),
       time: `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`,
     };
   }
@@ -23,9 +23,9 @@ export interface CardContent {
   sport: string;
   /** Home and away as two lines, or one line for an event. */
   heading: string[];
-  /** "TUE 1 DEC" */
+  /** "Tue 1 Dec" */
   day: string;
-  /** "19:45", or "TIME TBC". */
+  /** "19:45", or "Time TBC". */
   time: string;
   where: string;
   /** Set when the fixture is off; shown across the card. */
@@ -42,7 +42,7 @@ export function cardContent(f: Fixture): CardContent {
     sport: sport.name.toUpperCase(),
     heading: f.homeTeam && f.awayTeam ? [f.homeTeam, f.awayTeam] : [fixtureTitle(f)],
     day: when.day,
-    time: f.timeTbc ? 'TIME TBC' : when.time,
+    time: f.timeTbc ? 'Time TBC' : when.time,
     where: `${f.venue}, ${f.county}`,
     alert: f.status === 'cancelled' ? 'CANCELLED' : f.status === 'postponed' ? 'POSTPONED' : null,
     color: sport.color,
