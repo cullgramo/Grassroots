@@ -1,7 +1,7 @@
 // Reads every public-page source, places each fixture on the map from the grounds directory, and works out
 // what is ready to save. Shared by make-sql.mjs (writes a SQL file) and run.mjs (saves straight to the database).
 import { SOURCES, collect } from '../look.mjs';
-import { groundKey, loadGrounds } from './grounds.mjs';
+import { loadGrounds, slotFor } from './grounds.mjs';
 import { countyFor } from '../../data/counties.ts';
 import { irishTimeToIso, norm } from './util.mjs';
 
@@ -33,7 +33,7 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
       if (!f.venue) { leave('No ground given'); continue; }
       // A fixture with a day but no time is still shown, marked "Time TBC" and stored at midday.
       const timeKnown = Boolean(f.startsAt || f.time);
-      const found_ = grounds[groundKey(f)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
+      const found_ = grounds[slotFor(f, grounds)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
       if (!found_) { leave('Ground not placed on the map yet'); continue; }
       // Every ground needs a county; if the map did not name one, the nearest county is used.
       const ground = { ...found_, county: found_.county || countyFor([], found_.latitude, found_.longitude) };

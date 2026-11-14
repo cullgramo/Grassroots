@@ -437,3 +437,46 @@ test('Longford snapshot: 16 fixtures from the saved response, byes dropped, no r
   assert.ok(!/refereeName|Reynolds|Candon|Bracken|McKenna|Forde|Kelly|McDonnell/.test(pages[0].text));
   assert.ok(!got.some((f) => /^bye$/i.test(f.away)));
 });
+
+test('Cork GAA: reads each game from its data attributes, never the referee; HC is hurling', async () => {
+  const { read } = await import('../sources/cork-gaa.mjs');
+  const game = (comp, h, a, date, time, venue) => `<ul class="column-eight table-body fixtures-" data-title="Fixture Information" data-date="${date}" data-time="${time}" data-hometeam="${h}" data-awayteam="${a}" data-referee="Some Referee" data-venue="${venue}" data-compname="${comp}"><li class="ftime">x</li></ul>`;
+  const html = `<div class="league-table">${game("Co-op Superstores Junior 'A' HC", 'Valley Rovers', 'Inniscarra', '15 Nov 2026', '14:00', 'Ballinhassig')}${game("McCarthy Insurance Group Junior 'A' FC", 'Charleville', 'Douglas', '14 Nov 2026', '14:00', 'TBC')}${game('Cup', 'Winner of A', 'Winner of B', '16 Nov 2026', '14:00', 'Cobh')}</div>`;
+  const got = read(html, { url: 'https://gaacork.ie/fixtures/', area: 'Munster', countyHint: 'Cork' }, new Date('2026-11-14T08:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['hurling', 'Valley Rovers', 'Inniscarra', '2026-11-15', '14:00', 'Ballinhassig']);
+  assert.deepEqual([got[1].sport, got[1].venue], ['gaelic-football', '']);
+  assert.ok(!JSON.stringify(got).includes('Some Referee'));
+});
+
+test('Waterford GAA: competition headings and game rows, never the referee', async () => {
+  const { read } = await import('../sources/waterford-gaa.mjs');
+  const head = (c) => `<div class="compheader"><div class="expand-item"><label><a href="x">${c}</a></label></div></div>`;
+  const game = (h, a, date, time, venue) => `<ul class="column-eight table-body"><li class="largeview-hide ftime"><span class="data">${date}</span></li><li class="fteam1"><span class="data team1"><span><a>${h}</a></span></span></li><li class="vadss fvs"><span class="data"> ${time} </span></li><li class="fteam2"><span class="data team2"><span><a>${a}</a></span></span></li><div class="expand-table"><div class="expand-item largeview-hide"><label>Venue: ${venue}</label></div><div class="expand-item largeview-hide"><label>Referee: Some Referee (Pending)</label></div></div></ul>`;
+  const html = `<div class="league-table">${head('Eastern Under 20 B Hurling Championship')}${game('Dunhill', 'Tallow', '14 Nov 2026', '14:30', 'Dunhill')}${head('Senior Football')}${game('', '', '14 Nov 2026', '12:00', 'X')}${game('Ballinacourty', 'Dungarvan', '15 Nov 2026', '15:00', 'Cappoquin Logistics Fraher Field, Dungarvan')}</div>`;
+  const got = read(html, { url: 'https://www.waterfordgaa.ie/fixtures/', area: 'Munster', countyHint: 'Waterford' }, new Date('2026-11-14T08:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].competition, got[0].time, got[0].venue], ['hurling', 'Eastern Under 20 B Hurling Championship', '14:30', 'Dunhill']);
+  assert.deepEqual([got[1].sport, got[1].venue, got[1].date], ['gaelic-football', 'Cappoquin Logistics Fraher Field, Dungarvan', '2026-11-15']);
+  assert.ok(!JSON.stringify(got).includes('Some Referee'));
+});
+
+test('A ground found for one sport is never given to another sport that writes the same name', async () => {
+  const { slotFor, entryFamily } = await import('../lib/grounds.mjs');
+  const rugbyEntry = { name: 'Cobh', latitude: 51.85, longitude: -8.3, how: 'rugby club search (club/sport: Cobh Pirates RFC); the source names the club' };
+  const gaaEntry = { name: 'Nenagh', latitude: 52.8, longitude: -8.2, how: "GAA pitch list, matched on club or town, within the county board's own county" };
+  const ownName = { name: 'Fraher Field', latitude: 52.1, longitude: -7.6, how: 'checked by hand (OpenStreetMap: Fraher Field, Dungarvan)' };
+  const grounds = { 'Munster|cobh|': rugbyEntry, 'Munster|nenagh|': gaaEntry, 'Munster|fraher|': ownName, 'Munster|ovens|': null };
+  const at = (venue, sport) => ({ area: 'Munster', venue, postcode: null, sport });
+  assert.equal(entryFamily(rugbyEntry), 'rugby');
+  assert.equal(entryFamily(gaaEntry), 'gaa');
+  assert.equal(entryFamily(ownName), null);
+  assert.equal(slotFor(at('Cobh', 'rugby'), grounds), 'Munster|cobh|');
+  assert.equal(slotFor(at('Cobh', 'hurling'), grounds), 'Munster|cobh|~gaa');
+  assert.equal(slotFor(at('Nenagh', 'rugby'), grounds), 'Munster|nenagh|~rugby');
+  assert.equal(slotFor(at('Nenagh', 'camogie'), grounds), 'Munster|nenagh|');
+  assert.equal(slotFor(at('Fraher', 'hurling'), grounds), 'Munster|fraher|');
+  assert.equal(slotFor(at('Fraher', 'rugby'), grounds), 'Munster|fraher|');
+  assert.equal(slotFor(at('Ovens', 'rugby'), grounds), 'Munster|ovens|');
+  assert.equal(slotFor(at('New Place', 'rugby'), grounds), 'Munster|new place|');
+});

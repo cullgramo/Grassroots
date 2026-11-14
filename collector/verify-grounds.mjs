@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { COUNTIES } from '../data/counties.ts';
 import { SOURCES, collect } from './look.mjs';
-import { groundKey, loadGrounds, saveGrounds } from './lib/grounds.mjs';
+import { familyOf, loadGrounds, saveGrounds, slotFor } from './lib/grounds.mjs';
 import { getJson, norm } from './lib/util.mjs';
 
 const KM_NEAR = 0.3;
@@ -132,8 +132,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const { upcoming } = await collect(SOURCES[key]);
       for (const f of upcoming) {
         const hit = passing.get(`${key}|${norm(f.venue)}`);
-        if (!hit || f.latitude != null || grounds[groundKey(f)]) continue;
-        grounds[groundKey(f)] = { name: hit.row.name || hit.row.written, county: hit.row.county, latitude: hit.row.lat, longitude: hit.row.lon, how: `proposed position, verified by collector/verify-grounds.mjs: ${hit.reasons.join('; ')}${hit.row.evidence ? ` (proposer's source: ${hit.row.evidence})` : ''}` };
+        if (!hit || f.latitude != null || grounds[slotFor(f, grounds)]) continue;
+        grounds[slotFor(f, grounds)] = { family: familyOf(f.sport), name: hit.row.name || hit.row.written, county: hit.row.county, latitude: hit.row.lat, longitude: hit.row.lon, how: `proposed position, verified by collector/verify-grounds.mjs: ${hit.reasons.join('; ')}${hit.row.evidence ? ` (proposer's source: ${hit.row.evidence})` : ''}` };
         added++;
       }
     }

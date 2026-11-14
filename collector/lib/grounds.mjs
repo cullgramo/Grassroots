@@ -6,6 +6,34 @@ import { getJson, norm } from './util.mjs';
 
 const FILE = new URL('../grounds.json', import.meta.url);
 export const groundKey = (f) => `${f.area ?? ''}|${norm(f.venue)}|${f.postcode ?? ''}`;
+
+// The directory is keyed by area and ground name, so two sports that write the same bare name ("Cobh") would share
+// one entry. A rugby club's position must never be given to a GAA game, so an entry found for one sport is only
+// used for that sport; the other sport keeps its own entry under the same key plus "~family".
+const GAA_SPORTS = ['hurling', 'gaelic-football', 'camogie', 'ladies-football'];
+export const familyOf = (sport) => (GAA_SPORTS.includes(sport) ? 'gaa' : sport);
+const FAMILY_WORDS = { rugby: /\brugby\b|\brfc\b/i, hockey: /\bhockey\b/i, basketball: /\bbasketball\b/i, gaa: /\bgaa\b|\bgaelic\b|\bhurling\b|\bcamogie\b/i, cricket: /\bcricket\b/i, soccer: /\bsoccer\b|\bafc\b/i };
+/**
+ * The sport family an entry was inferred for: recorded on new entries, read from the note on older ones.
+ * Only entries found from a club's or a town's name carry a sport; one found from the ground's own name
+ * (a place search, a race start, a pin) is the same place whatever sport is played there. null when unknown.
+ */
+export function entryFamily(entry) {
+  if (!entry) return null;
+  if (entry.family) return entry.family;
+  const how = entry.how ?? '';
+  if (!/^(rugby club search|Get Ireland Active club list|GAA pitch list)/i.test(how)) return null;
+  const hits = Object.keys(FAMILY_WORDS).filter((k) => FAMILY_WORDS[k].test(how));
+  return hits.length === 1 ? hits[0] : null;
+}
+/** The key to read or write this fixture's ground under: the shared one unless it belongs to another sport. */
+export function slotFor(f, grounds) {
+  const key = groundKey(f);
+  const family = familyOf(f.sport);
+  if (!(key in grounds) || grounds[key] === null) return key;
+  const theirs = entryFamily(grounds[key]);
+  return theirs && theirs !== family ? `${key}~${family}` : key;
+}
 export const loadGrounds = () => JSON.parse(readFileSync(FILE, 'utf8'));
 export const saveGrounds = (g) => writeFileSync(FILE, JSON.stringify(Object.fromEntries(Object.entries(g).sort()), null, 1) + '\n');
 

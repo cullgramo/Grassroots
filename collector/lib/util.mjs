@@ -110,8 +110,8 @@ export function gaaSport(text) {
   const t = text.toLowerCase();
   if (/camogie/.test(t)) return 'camogie';
   if (/ladies|lgfa/.test(t)) return 'ladies-football';
-  if (/hurling|\bp?[sijm][a-c]?hc\b/.test(t)) return 'hurling';
-  if (/football|\bp?[sijm][a-c]?fc\b/.test(t)) return 'gaelic-football';
+  if (/hurling|\bp?[sijm][a-c]?hc\b|\bhc\b/.test(t)) return 'hurling';
+  if (/football|\bp?[sijm][a-c]?fc\b|\bfc\b/.test(t)) return 'gaelic-football';
   return null;
 }
 
