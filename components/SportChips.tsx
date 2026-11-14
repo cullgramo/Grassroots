@@ -11,23 +11,18 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
 
   return (
     <View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll} contentContainerStyle={styles.row}>
         <Chip
-          label="All"
-          selected={!filters.group && (mySports.length === 0 || Boolean(filters.allSports))}
+          compact
+          label={mySports.length > 0 && !filters.allSports ? 'My sports' : 'All sports'}
+          selected={!filters.group}
           elevated={elevated}
-          onPress={() => setFilters({ group: null, sport: null, allSports: true })}
+          // One chip for both modes: tap it to flip between the sports you follow and every sport.
+          onPress={() => setFilters({ group: null, sport: null, allSports: filters.group || mySports.length === 0 ? filters.allSports : !filters.allSports })}
         />
-        {mySports.length > 0 ? (
-          <Chip
-            label="My sports"
-            selected={!filters.group && !filters.allSports}
-            elevated={elevated}
-            onPress={() => setFilters({ group: null, sport: null, allSports: false })}
-          />
-        ) : null}
         {GROUPS.map((g) => (
           <Chip
+            compact
             key={g.id}
             label={g.label}
             dotColor={g.color ?? undefined}
@@ -38,9 +33,10 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
         ))}
       </ScrollView>
       {inGroup.length > 1 ? (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={[styles.row, styles.sub]}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll} contentContainerStyle={[styles.row, styles.sub]}>
           {inGroup.map((s) => (
             <Chip
+              compact
               key={s.id}
               label={s.name}
               dotColor={s.color}
@@ -56,6 +52,7 @@ export function SportChips({ elevated }: { elevated?: boolean }) {
 }
 
 const styles = StyleSheet.create({
-  row: { gap: 8, paddingHorizontal: 16, paddingVertical: 10 },
+  scroll: { flexGrow: 0 },
+  row: { gap: 8, paddingHorizontal: 16, paddingVertical: 6 },
   sub: { paddingTop: 0 },
 });

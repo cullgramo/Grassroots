@@ -1,5 +1,6 @@
 import type { SportId } from '@/constants/sports';
 import type { Fixture, FixtureStatus } from '@/types/fixture';
+import { ageOf } from '@/utils/ageGroup';
 
 import { SUPABASE_KEY as KEY, SUPABASE_URL as URL_BASE } from './config';
 
@@ -18,6 +19,8 @@ export interface FixtureRow {
   ticketed: boolean;
   ticket_url: string | null;
   status: string;
+  /** Which reader or feed supplied it. */
+  source?: string;
   /** Missing on databases that have not had the column added yet; treated as known. */
   time_known?: boolean | null;
   venue: { name: string; county: string; latitude: number; longitude: number } | null;
@@ -29,6 +32,7 @@ const STATUSES: FixtureStatus[] = ['scheduled', 'postponed', 'cancelled', 'finis
 export function mapFixture(row: FixtureRow): Fixture | null {
   if (!row.venue || !row.starts_at || Number.isNaN(new Date(row.starts_at).getTime())) return null;
   if (!(row.home_team && row.away_team) && !row.title) return null;
+  const age = ageOf(row.competition, row.source);
   return {
     id: row.id,
     sport: row.sport_id as SportId,
@@ -45,6 +49,8 @@ export function mapFixture(row: FixtureRow): Fixture | null {
     ticketed: row.ticketed,
     ticketUrl: row.ticket_url ?? undefined,
     timeTbc: row.time_known === false ? true : undefined,
+    ageGroup: age.group,
+    ageLabel: age.label,
     status: STATUSES.includes(row.status as FixtureStatus) ? (row.status as FixtureStatus) : 'scheduled',
   };
 }

@@ -14,15 +14,25 @@ import * as clubRugby from './sources/club-rugby.mjs';
 import * as horseRacing from './sources/horse-racing.mjs';
 import * as countyGaa from './sources/county-gaa.mjs';
 import * as myrunresults from './sources/myrunresults.mjs';
+import * as foireann from './sources/foireann.mjs';
+import * as antrimGaa from './sources/antrim-gaa.mjs';
+import * as roscommonGaa from './sources/roscommon-gaa.mjs';
+import * as sligoGaa from './sources/sligo-gaa.mjs';
+import * as leitrimGaa from './sources/leitrim-gaa.mjs';
+import * as mayoGaa from './sources/mayo-gaa.mjs';
+import * as carlowGaa from './sources/carlow-gaa.mjs';
+import * as longfordSnapshot from './sources/longford-snapshot.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults };
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'leitrim-gaa': leitrimGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'longford-snapshot': longfordSnapshot,
+  // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
+  ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };
 
 export async function collect(source, now = new Date()) {
   const all = [];
   const problems = [];
   for (const page of source.pages) {
     try {
-      all.push(...source.read(await getPage(page.url, page.gapMs), page, now));
+      all.push(...source.read(page.text ?? await getPage(page.url, page.gapMs, page.headers), page, now));
     } catch (e) {
       problems.push(`${page.url}: ${e.message}`);
     }

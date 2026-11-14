@@ -255,3 +255,185 @@ test('GAA pitch list: a pitch written with its club\'s town matches; an unrelate
   // "Ruislip" is not part of the club or pitch, so McGovern Park in London is not Burrishoole's McGovern Park.
   assert.equal(findGaaPitch({ venue: 'McGovern Park, Ruislip' }, ['Mayo']), null);
 });
+
+test('Foireann: reads fixtures with the ground position, never the referee, and skips what cannot be attended', async () => {
+  const { read } = await import('../sources/foireann.mjs');
+  const fx = (o) => ({
+    id: 'f1', startDate: '2026-11-22T14:00:00Z', isResult: false, homeTeam: { name: 'Round Towers' }, awayTeam: { name: 'Clanna Gael' },
+    refereeName: 'SHOULD NEVER APPEAR', place: { id: 'p1', name: 'Pairc Uí Chuinn', latitude: 53.35, longitude: -6.26 },
+    competition: { name: 'Senior Football Championship', activity: 'football', ageLevel: 'Adult', gender: 'Male', sponsor: 'AIB' },
+    division: { name: 'Group A' }, status: 'LIVE', ticketUrl: 'https://tickets.example/1', ...o,
+  });
+  const text = JSON.stringify({ data: [
+    fx({}),
+    fx({ id: 'f2', competition: { name: 'Minor Hurling', activity: 'hurling', ageLevel: 'U16', gender: 'Female' }, isPostponed: true, place: null }),
+    fx({ id: 'f3', isAbandoned: true }),
+    fx({ id: 'f4', awayTeam: { name: 'Bye', isBye: true } }),
+    fx({ id: 'f5', competition: { name: 'Handball', activity: 'handball' } }),
+    fx({ id: 'f6', startDate: 'not a date' }),
+  ] });
+  const got = read(text);
+  assert.deepEqual(got.map((f) => f.ref), ['f1', 'f2']);
+  assert.equal(got[0].sport, 'gaelic-football');
+  assert.equal(got[0].latitude, 53.35);
+  assert.equal(got[0].startsAt, '2026-11-22T14:00:00.000Z');
+  assert.equal(got[0].competition, 'AIB Senior Football Championship - Group A');
+  assert.equal(got[1].status, 'postponed');
+  assert.equal(got[1].category, 'women');
+  assert.equal(got[1].latitude, null);
+  assert.match(got[1].competition, /U16/);
+  // The referee's name is not in anything we keep.
+  assert.ok(!JSON.stringify(got).includes('SHOULD NEVER APPEAR'));
+  assert.ok(!JSON.stringify(got).toLowerCase().includes('referee'));
+});
+
+test('Foireann is switched off without a key', async () => {
+  const { pages } = await import('../sources/foireann.mjs');
+  assert.equal(process.env.FOIREANN_API_KEY ? 'set' : 'unset', 'unset');
+  assert.deepEqual(pages, []);
+});
+
+test('Antrim GAA: reads each fixture row under its competition, never the referee, and skips the header row', async () => {
+  const { read } = await import('../sources/antrim-gaa.mjs');
+  const row = (d, t, h, a, v, extra = '') => `<div class="fixrow clearfix"><a class="fixlink" data-uniqueid="U-${h}"><div class="fixdate">${d} </div><div class="fixtime">${t}</div><div class="fixteamhome">${h}</div><div class="fixscorehome">---</div><div class="fixv">v</div><div class="fixscoreaway">---</div><div class="fixteamaway">${a}</div><div class="fixround">QF&nbsp;</div><div class="fixvenue">${v}</div><div class="fixreferee">Paul Burns&nbsp;</div><div class="fixnotes">${extra}</div></a></div>`;
+  const html = `<div class="fixcompname"><button>U21A FC</button></div>${row('Date', 'Time', 'Home', 'Away', 'Venue')}
+    ${row('Sat 14 Nov 2026', '12:00', "Con Magee's Glenravel", 'Naomh Bríd', 'Páirc an Athar Mhic Fhinn')}
+    <div class="fixcompname"><button>2026 Ulster GAA Hurling Senior Club Championship</button></div>
+    ${row('Sun 15 Nov 2026', '15:30', 'Portaferry', 'Cuchullains', 'TBC')}
+    ${row('Sun 22 Nov 2026', '14:00', 'Winner of Semi-Final 1', 'Winner of Semi-Final 2', '')}`;
+  const got = read(html, { url: 'https://antrim.gaa.ie/x', area: 'Ulster', countyHint: 'Antrim', prefix: 'Antrim' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['gaelic-football', "Con Magee's Glenravel", 'Naomh Bríd', '2026-11-14', '12:00', 'Páirc an Athar Mhic Fhinn', 'Antrim U21A FC']);
+  assert.equal(got[1].sport, 'hurling');
+  assert.equal(got[1].venue, '');
+  assert.equal(got[1].competition, 'Ulster GAA Hurling Senior Club Championship');
+  assert.ok(!JSON.stringify(got).includes('Burns'));
+});
+
+test('GAA pitch list: a venue with an extra word the pitch and club do not explain is not that pitch', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  // "Páirc an Athar Mhic Fhinn" contains "Páirc Mhic Fhinn" (Maghera MacFinn's, Cavan) but is a different pitch.
+  assert.equal(findGaaPitch({ venue: 'Pairc an Athar Mhic Fhinn' }, ['Cavan', 'Antrim']), null);
+  assert.equal(findGaaPitch({ venue: 'Pairc Mhic Fhinn' }, ['Cavan'])?.county, 'Cavan');
+  assert.equal(findGaaPitch({ venue: 'Patrick McManus Park Kinawley' }, ['Fermanagh'])?.county, 'Fermanagh');
+});
+
+test('County boards: a Load more page (JSON with a byte-order mark) is read like the main page', async () => {
+  const { read } = await import('../sources/county-gaa.mjs');
+  const fragment = '<h3 class="fix_res_date py-2 text-center mb-0">Saturday 21st Nov 2026</h3><div class="competition"><div class="competition-name"><a href="/fixtures-results/football/club/senior/sfc/b9178c91-3f5a-40f6-90c4-782990c23499/">Senior Football Championship</a></div>'
+    + '<div class="comp_details"><div class="home_team"><a href="/x/11111111-1111-1111-1111-111111111111/">Cratloe</a></div><div class="time">14:00</div><div class="away_team"><a href="/x/22222222-2222-2222-2222-222222222222/">Kilmurry</a></div></div>'
+    + '<div class="more_info"><a href="/venue/1/">Cratloe GAA</a></div></div>';
+  const json = '﻿\n\n' + JSON.stringify({ ok: true, hasMore: false, html: fragment });
+  const got = read(json, { url: 'https://clare.gaa.ie/fixtures-results/?ajax=1&page=1', prefix: 'Clare', countyHint: 'Clare', area: 'Munster' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['Cratloe', 'Kilmurry', '2026-11-21', '14:00', 'Cratloe GAA']);
+  assert.equal(read('﻿{"ok":true,"hasMore":false,"html":""}', { url: 'x' }).length, 0);
+});
+
+test('County boards: a game with an impossible year (a typo on the page) is dropped', async () => {
+  const { read } = await import('../sources/county-gaa.mjs');
+  const block = (d) => `<h3 class="fix_res_date">${d}</h3><div class="competition"><div class="competition-name"><a href="/fixtures-results/x/11111111-1111-1111-1111-111111111111/">Cup</a></div><div class="comp_details"><div class="home_team"><a>Alpha</a></div><div class="time">14:00</div><div class="away_team"><a>Beta</a></div></div></div>`;
+  const html = `<div id="fixtures-list">${block('Saturday 21st Nov 2026')}${block('Sunday 25th May 3202')}</div>`;
+  const got = read(html, { url: 'x', prefix: 'Derry' }, new Date('2026-11-13T12:00:00Z'));
+  assert.deepEqual(got.map((f) => f.date), ['2026-11-21']);
+});
+
+test('Roscommon GAA: reads games with a time, skips results, never the referee', async () => {
+  const { read } = await import('../sources/roscommon-gaa.mjs');
+  const game = (time, h, a, venue) => `<div class="match-row gaa-match-row"><div class="gaa-match-time">${time ? `<div class="time">${time}</div>` : '<div class="score">1-10</div>'}</div><div class="gaa-team gaa-team-home"><strong>${h}</strong></div><div class="gaa-team gaa-team-away"><strong>${a}</strong></div><div class="gaa-match-meta"><div><strong>Venue:</strong><br> ${venue} </div><div><strong>Referee:</strong><br> Cyril Connole </div></div></div>`;
+  const html = `<h3 class="results-date">Saturday 14th Nov 2026</h3><div class="competition-block"><div class="competition-title"><a href="https://x/league/?comp-id=db7b227d-b33b-4ffe-9751-9eadf5d73c0a">Connacht GAA Club U16 Hurling Championship 2026 - Semi Final</a></div>
+    <div class="competition-wrap">${game('12:00 PM', 'Athleague-Tremane-Oran', 'Ballyhaunis', 'Connacht GAA Centre')}${game('', 'Old', 'Result', 'Somewhere')}</div></div>
+    <h3 class="results-date">Sunday 15th Nov 2026</h3><div class="competition-block"><div class="competition-title"><a href="https://x/league/?comp-id=11111111-1111-1111-1111-111111111111">Senior Football League</a></div><div class="competition-wrap">${game('2:30 PM', 'Strokestown', 'Pádraig Pearses', 'TBC')}</div></div>`;
+  const got = read(html, { url: 'https://www.gaaroscommon.ie/matches/', area: 'Connacht', countyHint: 'Roscommon', prefix: 'Roscommon' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue], ['hurling', 'Athleague-Tremane-Oran', 'Ballyhaunis', '2026-11-14', '12:00', 'Connacht GAA Centre']);
+  assert.deepEqual([got[1].time, got[1].venue, got[1].sport], ['14:30', '', 'gaelic-football']);
+  assert.ok(!JSON.stringify(got).includes('Connole'));
+});
+
+test('A board name is put before its own competitions only, not before provincial ones', async () => {
+  const { withBoard } = await import('../lib/util.mjs');
+  assert.equal(withBoard('Clare', 'U16 Hurling Championship'), 'Clare U16 Hurling Championship');
+  assert.equal(withBoard('Clare', 'Clare U16 Hurling Championship'), 'Clare U16 Hurling Championship');
+  assert.equal(withBoard('Sligo', 'Connacht GAA Club Junior Football Championship'), 'Connacht GAA Club Junior Football Championship');
+  assert.equal(withBoard('Clare', 'A.I.B. Munster SF Club Championship'), 'A.I.B. Munster SF Club Championship');
+  assert.equal(withBoard('', 'Anything'), 'Anything');
+});
+
+test('Leitrim GAA: reads each fixture row, takes the sport and gender from it, and never the referee', async () => {
+  const { read } = await import('../sources/leitrim-gaa.mjs');
+  const ical = { d: '2026-11-14', t: '1 30 PM', h: 'Naomh Eoin', a: 'Carrick Hurling', v: 'Markievicz Park, Sligo', r: 'Semi-Final 1', c: 'Connacht GAA Club Junior Hurling Championship - Cup Division 1', rf: 'Francis Kelly', sp: 'hurling', gn: 'M' };
+  const row = (o, time) => `<div class="fixtures__row fixtures__row--even" data-ical="${JSON.stringify({ ...ical, ...o }).replace(/"/g, '&quot;')}"><div class="fixtures__middle"><span class="fixtures__time">${time}</span></div></div>`;
+  const html = `<div class="fixtures__header fixtures__header--date comp-header">Saturday, 14th Nov 2026</div>${row({}, '1:30pm')}${row({ h: 'Winner of QF1' }, '3pm')}`
+    + `<div class="fixtures__header fixtures__header--date comp-header">Sunday, 22nd Nov 2026</div>${row({ h: 'Drumkeerin', a: 'St Marys Kilt', sp: 'football', gn: 'F', c: '2026 Leitrim Junior C Championship', r: '', v: 'Drumkeerin' }, '1:00pm')}`;
+  const got = read(html, { url: 'https://www.leitrimgaa.ie/fixtures-next-10-days/', area: 'Connacht', countyHint: 'Leitrim', prefix: 'Leitrim' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].date, got[0].time, got[0].venue, got[0].competition], ['hurling', '2026-11-14', '13:30', 'Markievicz Park, Sligo', 'Connacht GAA Club Junior Hurling Championship - Cup Division 1 - Semi-Final 1']);
+  assert.deepEqual([got[1].sport, got[1].category, got[1].date, got[1].time], ['ladies-football', 'women', '2026-11-22', '13:00']);
+  assert.ok(!JSON.stringify(got).includes('Kelly'));
+});
+
+test('Mayo GAA: reads each game under its date and competition', async () => {
+  const { read } = await import('../sources/mayo-gaa.mjs');
+  const game = (a, b, when, venue) => `<ul class="column-six table-body"><li class="largeview-hide ftime"><span class="data">${when}</span></li><li class="fteam1"><span class="data team1"><span>${a}</span></span></li><li class="fteam2"><span class="data team2"><span>${b}</span></span></li><li><div class="venue-icon"><span class="data"><a href="https://maps">${venue} <i></i></a></span></div></li></ul>`;
+  const html = `<div class="compdate"><div class="date-header"><label>15/11/2026</label></div></div><div class="compheader"><label><a href="https://mayogaa.com/league/220978">McHale Under 21 Football B - Knockout</a></label></div>${game('Ardnaree Sarsfields', 'Hollymount-Carramore', '15 Nov 2026<br>12:00', 'Ardnaree')}${game('Winner of A', 'Winner of B', '15 Nov 2026<br>14:00', 'Cong')}`;
+  const got = read(html, { url: 'https://mayogaa.com/fixtures/', area: 'Connacht', countyHint: 'Mayo', prefix: 'Mayo' }, new Date('2026-11-13T12:00:00Z'));
+  assert.equal(got.length, 1);
+  assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['Ardnaree Sarsfields', 'Hollymount-Carramore', '2026-11-15', '12:00', 'Ardnaree', 'Mayo McHale Under 21 Football B - Knockout']);
+});
+
+test('Carlow GAA: reads each fixture block, never the referee', async () => {
+  const { read } = await import('../sources/carlow-gaa.mjs');
+  const block = (h3, clubs, venue) => `<div class="fixture single"><h3>${h3}</h3><div class="clubs">${clubs}</div><div class="referee">Referee : Kyle  Clarke</div><div class="venue">${venue}</div></div>`;
+  const html = `<div class="fixtures-wrap">${block('Stryve Under 21 Hurling A Championship - 2 - 2026', 'Mt Leinster Rangers vs Carlow Town Hurling Club', '15-11-2026 / 12:00 pm / Mount Leinster Rangers')}${block('AIB Leinster Club Senior Football Championship 2026 - Quarter-Final - 2026', 'Rathvilly/Rathbhile vs Portarlington', '15-11-2026 / 2:30 pm / Netwatch Cullen Park, Carlow')}${block('Cup', 'Winner of A vs Winner of B', '16-11-2026 / 1:00 pm / TBC')}</div>`;
+  const got = read(html, { url: 'https://carlowgaa.ie/fixtures/', area: 'Leinster', countyHint: 'Carlow', prefix: 'Carlow' });
+  assert.equal(got.length, 2);
+  assert.deepEqual([got[0].sport, got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].competition], ['hurling', 'Mt Leinster Rangers', 'Carlow Town Hurling Club', '2026-11-15', '12:00', 'Mount Leinster Rangers', 'Carlow Stryve Under 21 Hurling A Championship - 2']);
+  assert.deepEqual([got[1].time, got[1].venue, got[1].competition.startsWith('AIB Leinster')], ['14:30', 'Netwatch Cullen Park, Carlow', true]);
+  assert.ok(!JSON.stringify(got).includes('Clarke'));
+});
+
+test('GAA pitch list: a venue that merely contains a club\'s word is not that club', async () => {
+  const { findGaaPitch } = await import('../lib/grounds.mjs');
+  // "Paddy Martin Memorial Park" must not become St. Martin's GAA in Wexford.
+  assert.equal(findGaaPitch({ venue: 'Paddy Martin Memorial Park' }, ['Wexford', 'Kildare']), null);
+  assert.equal(findGaaPitch({ venue: 'Maynooth University', countyHint: 'Kildare' }, ['Kildare'])?.how.includes('club name') ?? false, false);
+});
+
+test('Foireann: real response shapes (from Longford GAA\'s page): byes, postponed games, places with and without a position, labels', async () => {
+  const { read, competitionLabel } = await import('../sources/foireann.mjs');
+  const team = (name, extra = {}) => ({ id: name, name, designation: '', isBye: false, isConceded: false, ...extra });
+  const base = { isResult: false, isPostponed: false, isAbandoned: false, isNeverPlayed: false, ticketUrl: '', status: 'active' };
+  const nfl = { name: 'Lidl National Football League', sponsor: 'Lidl', additionalType: 'inter_county', activity: 'ladies_football', gender: 'female', ageLevel: 'Senior' };
+  const u21 = { name: '2026 Under 21 B Football Championship', additionalType: 'club', activity: 'football', gender: 'male', ageLevel: 'U21' };
+  const feile = { name: 'John West Demographics Feile 2026', additionalType: 'club', activity: 'football', gender: 'male', ageLevel: 'U15' };
+  const data = [
+    { ...base, id: 'nfl', homeTeam: team('Limerick'), awayTeam: team('Longford'), startDate: '2027-03-07T14:00:00Z', competition: nfl, division: { name: 'National Football League Division 4' } },
+    { ...base, id: 'u21', homeTeam: team('Kenagh G.A.A'), awayTeam: team('St. Colmcille Ballymore'), startDate: '2026-11-15T14:00:00Z', refereeName: 'David Reynolds', place: { name: 'Jim McGann park', latitude: 53.623197, longitude: -7.818421 }, competition: u21, division: { name: '2026 Under 21 B Championship - Cup ' } },
+    { ...base, id: 'noposition', homeTeam: team('Carrick Sarsfields'), awayTeam: team('Ardagh Moydow GAA'), startDate: '2026-11-15T14:00:00Z', place: { id: 'x', name: 'Michael Moran Park' }, competition: u21, division: { name: '2026 Under 21 B Championship - Cup ' } },
+    { ...base, id: 'bye', homeTeam: team('Killoe Young Emmets'), awayTeamFallbackName: 'BYE', startDate: '2026-11-13T20:00:00Z', competition: u21 },
+    { ...base, id: 'postponed', isPostponed: true, homeTeam: team('Clonguish'), awayTeam: team("St. Mary's Granard"), startDate: '2026-11-15T12:00:00Z', place: { name: 'Allen Park' }, competition: u21 },
+    { ...base, id: 'feile', homeTeam: team('Northern Gaels'), awayTeam: team('Castleconnor CLG'), startDate: '2026-11-15T10:30:00Z', refereeName: 'Charlie Candon', place: { name: 'Connacht GAA Centre of Excellence, Bekan', latitude: 53.762776, longitude: -8.851117 }, competition: feile, division: { name: 'John West Demographics Feile 2026 - League Group B' } },
+  ];
+  const got = read(JSON.stringify({ data }));
+  assert.deepEqual(got.map((f) => f.ref), ['nfl', 'u21', 'noposition', 'postponed', 'feile']);
+  assert.deepEqual([got[0].level, got[0].category, got[0].sport, got[0].competition], ['top', 'women', 'ladies-football', 'Lidl National Football League - Division 4']);
+  assert.deepEqual([got[1].level, got[1].latitude, got[1].competition], ['local', 53.623197, 'Under 21 B Football Championship - Cup']);
+  assert.equal(got[2].latitude, null);
+  assert.equal(got[2].venue, 'Michael Moran Park');
+  assert.equal(got[3].status, 'postponed');
+  assert.equal(got[4].competition, 'John West Demographics Feile 2026 - League Group B - U15');
+  assert.equal(competitionLabel({ name: 'Feile', ageLevel: 'U15' }, {}), 'Feile - U15');
+  // The referee's name is in the response but nowhere in what we keep.
+  assert.ok(!JSON.stringify(got).includes('Reynolds') && !JSON.stringify(got).includes('Candon'));
+});
+
+test('Longford snapshot: 16 fixtures from the saved response, byes dropped, no referee names kept', async () => {
+  const { read, pages } = await import('../sources/longford-snapshot.mjs');
+  const got = read(pages[0].text);
+  assert.equal(got.length, 16);
+  assert.ok(got.every((f) => f.countyHint === 'Longford' && f.startsAt));
+  assert.equal(got.filter((f) => f.latitude != null).length, 6);
+  assert.ok(!/refereeName|Reynolds|Candon|Bracken|McKenna|Forde|Kelly|McDonnell/.test(pages[0].text));
+  assert.ok(!got.some((f) => /^bye$/i.test(f.away)));
+});

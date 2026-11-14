@@ -10,6 +10,7 @@ import { FixtureMap } from '@/components/FixtureMap';
 import { SearchPill } from '@/components/SearchPill';
 import { Sheet, type Snap } from '@/components/Sheet';
 import { SportChips } from '@/components/SportChips';
+import { ViewSummary } from '@/components/ViewSummary';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { searchFixtures, toSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
@@ -22,7 +23,7 @@ const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', par
 export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, filters, location, requestLocation, needsSportsChoice, loadState, isStale, refreshing, refresh } =
+  const { fixtures, filters, location, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh } =
     useApp();
   const [height, setHeight] = useState(0);
   const [topBar, setTopBar] = useState(TOP_BAR);
@@ -38,6 +39,7 @@ export default function ExploreScreen() {
   useEffect(() => {
     if (needsSportsChoice) router.push('/sports');
   }, [needsSportsChoice]);
+
 
   // While searching, the map and the list both show every match, wherever the map is pointing.
   const shown = useMemo(() => searchFixtures(fixtures, query), [fixtures, query]);
@@ -110,7 +112,8 @@ export default function ExploreScreen() {
         fitRadius
         startOnUser
         recenterKey={recenterKey}
-        fitKey={fitKey}
+        // The app changing the place (All Ireland, a chosen county, a widened view) re-fits the map too.
+        fitKey={fitKey + viewKey}
       />
 
       <View
@@ -118,8 +121,24 @@ export default function ExploreScreen() {
         pointerEvents="box-none"
         onLayout={(e) => setTopBar(e.nativeEvent.layout.height)}>
         <SearchPill query={query} onChangeQuery={onChangeQuery} />
+        <ViewSummary />
         <SportChips elevated />
       </View>
+
+      {needsCounty && snap === 'peek' ? (
+        <View style={[styles.countyCard, { backgroundColor: t.card, top: topBar + 12 }]}>
+          <Text style={[styles.countyTitle, { color: t.text }]}>Location is off</Text>
+          <Text style={[styles.countyText, { color: t.muted }]}>Pick your county to see what is on near you.</Text>
+          <View style={styles.countyButtons}>
+            <Pressable onPress={() => router.push('/county')} accessibilityRole="button" style={[styles.countyButton, { backgroundColor: t.tint }]}>
+              <Text style={[styles.countyButtonText, { color: t.onTint }]}>Choose county</Text>
+            </Pressable>
+            <Pressable onPress={() => setMyCounty(null)} accessibilityRole="button" style={styles.countyButton}>
+              <Text style={[styles.countyButtonText, { color: t.text }]}>Show all Ireland</Text>
+            </Pressable>
+          </View>
+        </View>
+      ) : null}
 
       {snap === 'peek' ? (
         <View style={[styles.floating, { bottom: PEEK + 12 }]} pointerEvents="box-none">
@@ -214,6 +233,12 @@ const styles = StyleSheet.create({
     ...shadow,
   },
   emptyCard: { borderRadius: 18, ...shadow },
+  countyCard: { position: 'absolute', left: 16, right: 16, borderRadius: 18, padding: 16, ...shadow },
+  countyTitle: { fontSize: 17, fontWeight: '800' },
+  countyText: { fontSize: 14, marginTop: 4 },
+  countyButtons: { flexDirection: 'row', gap: 10, marginTop: 12 },
+  countyButton: { minHeight: 44, paddingHorizontal: 16, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
+  countyButtonText: { fontSize: 15, fontWeight: '800' },
   sheetHeader: { alignItems: 'center', paddingTop: 10, paddingBottom: 14 },
   sheetTitle: { fontSize: 16, fontWeight: '800' },
   sheetHint: { fontSize: 12, marginTop: 2 },

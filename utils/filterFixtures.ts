@@ -1,5 +1,6 @@
 import { getSport, type SportId } from '@/constants/sports';
-import type { Filters, Fixture, UserLocation } from '@/types/fixture';
+import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
+import { matchesAge } from './ageGroup';
 import { addDays, startOfDay, weekendRange } from './date';
 import { calculateDistance } from './distance';
 
@@ -32,6 +33,7 @@ export function filterFixtures(
       } else if (!filters.allSports && mySports.length > 0 && !mySports.includes(f.sport)) {
         return false;
       }
+      if (!matchesAge(f.ageGroup, filters.age ?? 'all')) return false;
       if (filters.level && f.level !== filters.level) return false;
       if (filters.county && f.county !== filters.county) return false;
       if (filters.distanceKm != null && location) {
@@ -45,12 +47,14 @@ export function filterFixtures(
     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
 }
 
-export function activeFilterCount(filters: Filters): number {
+/** How many limits are on that differ from the view the app opened on (the baseline). */
+export function activeFilterCount(filters: Filters, baseline: Filters = DEFAULT_FILTERS): number {
   return (
-    (filters.level ? 1 : 0) +
-    (filters.county ? 1 : 0) +
-    (filters.distanceKm != null ? 1 : 0) +
-    (filters.when !== 'any' ? 1 : 0)
+    (filters.level !== baseline.level ? 1 : 0) +
+    (filters.county !== baseline.county ? 1 : 0) +
+    (filters.distanceKm !== baseline.distanceKm ? 1 : 0) +
+    (filters.when !== baseline.when ? 1 : 0) +
+    ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0)
   );
 }
 
