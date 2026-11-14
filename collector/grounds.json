@@ -4378,7 +4378,14 @@
   "longitude": -6.94558,
   "how": "position from the source; county from the map"
  },
- "Ulster|limavady showgrounds|": null,
+ "Ulster|limavady showgrounds|": {
+  "name": "Limavady Showgrounds",
+  "county": "Derry",
+  "latitude": 55.0522554,
+  "longitude": -6.9371752,
+  "family": "soccer",
+  "how": "pin supplied by the app owner from Google Maps (place named \"Limavady United Football Club\"); the map has a stop named Limavady Showgrounds on Rathmore Road 85 m away, and the point is on a pitch there"
+ },
  "Ulster|longstone|": {
   "name": "Longstone",
   "county": "Down",
