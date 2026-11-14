@@ -4270,7 +4270,14 @@
   "longitude": -7.01217,
   "how": "position from the source; county from the map"
  },
- "Ulster|inver park|": null,
+ "Ulster|inver park|": {
+  "family": "soccer",
+  "name": "Inver Park Stadium",
+  "county": "Antrim",
+  "latitude": 54.8492082,
+  "longitude": -5.8264299,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Inver Park Stadium\" (proposer's source: Google Maps pin supplied by the app owner)"
+ },
  "Ulster|jack mackin park|": null,
  "Ulster|jim smith park killinkere|": {
   "name": "Jim Smith Park, Killinkere",
@@ -4680,7 +4687,14 @@
   "longitude": -6.506944,
   "how": "GAA pitch list, matched on pitch name (Seán O'Leary's GAA, Newbridge: Seán O'Leary Park)"
  },
- "Ulster|seaview|": null,
+ "Ulster|seaview|": {
+  "family": "soccer",
+  "name": "Seaview",
+  "county": "Antrim",
+  "latitude": 54.6237298,
+  "longitude": -5.9216983,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Seaview\" (proposer's source: Google Maps pin supplied by the app owner)"
+ },
  "Ulster|shamrock park roslea|": {
   "name": "Shamrock Park, Roslea",
   "county": "Fermanagh",
