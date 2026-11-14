@@ -1,16 +1,15 @@
 import { getSport } from '@/constants/sports';
 import { fixtureTitle, type Fixture } from '@/types/fixture';
+import { SITE_URL } from '@/lib/config';
 import { ticketLink } from '@/utils/tickets';
 
-/**
- * Set this to the public address of a Grassroots fixture page (for example "https://grassroots.ie/fixture")
- * once one exists, and every shared message gains a "Details" link to it. There is no such page yet,
- * so for now a message carries the facts and a directions link, which work in every app.
- */
-export const SHARE_BASE_URL: string | null = null;
+/** The page a shared link opens: <site>/f/<id>. Null until the site is live. */
+export function fixtureLink(id: string, site: string | null = SITE_URL): string | null {
+  return site ? `${site.replace(/\/+$/, '')}/f/${encodeURIComponent(id)}` : null;
+}
 
 /** Fixture times are Irish local times, so a shared message always shows them that way, wherever the sender is. */
-function irishParts(startsAt: string) {
+export function irishParts(startsAt: string) {
   const d = new Date(startsAt);
   try {
     const parts = new Intl.DateTimeFormat('en-GB', {
@@ -30,21 +29,29 @@ export function directionsUrl(f: Pick<Fixture, 'latitude' | 'longitude'>): strin
   return `https://www.google.com/maps/dir/?api=1&destination=${f.latitude},${f.longitude}`;
 }
 
-/** The plain-text message that goes into WhatsApp, a text, an email or any other app. */
-export function shareMessage(f: Fixture): string {
+/**
+ * The plain-text message that goes into WhatsApp, a text, an email or any other app.
+ * With the site live it is short and ends with the fixture's own link, which chat apps turn into a preview
+ * and which brings the reader to Grassroots. Without it, the message carries the facts and a directions link.
+ */
+export function shareMessage(f: Fixture, site: string | null = SITE_URL): string {
   const sport = getSport(f.sport);
   const when = irishParts(f.startsAt);
+  const whenLine = f.timeTbc ? `${when.day}, time to be confirmed` : `${when.day}, ${when.time}`;
+  const off = f.status === 'cancelled' ? 'CANCELLED' : f.status === 'postponed' ? 'POSTPONED' : null;
+  const link = fixtureLink(f.id, site);
+  if (link) {
+    return [off, fixtureTitle(f), whenLine, `${f.venue}, ${f.county}`, link].filter(Boolean).join('\n');
+  }
   const lines: string[] = [];
-  if (f.status === 'cancelled') lines.push('CANCELLED');
-  if (f.status === 'postponed') lines.push('POSTPONED');
+  if (off) lines.push(off);
   lines.push(fixtureTitle(f));
   lines.push([sport.name, f.competition].filter(Boolean).join(' · '));
-  lines.push(f.timeTbc ? `${when.day}, time to be confirmed` : `${when.day}, ${when.time}`);
+  lines.push(whenLine);
   lines.push(`${f.venue}, ${f.county}`);
   lines.push(`Directions: ${directionsUrl(f)}`);
   const tickets = ticketLink(f);
   if (tickets?.kind === 'seller') lines.push(`Tickets: ${tickets.url}`);
-  if (SHARE_BASE_URL) lines.push(`Details: ${SHARE_BASE_URL}/${f.id}`);
   lines.push('Found on Grassroots');
   return lines.join('\n');
 }

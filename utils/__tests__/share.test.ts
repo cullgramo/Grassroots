@@ -1,5 +1,5 @@
 import type { Fixture } from '@/types/fixture';
-import { directionsUrl, emailUrl, shareMessage, smsUrl, whatsAppUrl } from '../share';
+import { directionsUrl, emailUrl, fixtureLink, shareMessage, smsUrl, whatsAppUrl } from '../share';
 
 const base: Fixture = {
   id: 'f1', sport: 'soccer', level: 'Top level', competition: 'NIFL Premiership',
@@ -9,7 +9,7 @@ const base: Fixture = {
 
 describe('shareMessage', () => {
   it('carries the teams, sport, competition, Irish local time, ground and directions', () => {
-    const m = shareMessage(base).split('\n');
+    const m = shareMessage(base, null).split('\n');
     expect(m[0]).toBe('Ballymena United v Larne');
     expect(m[1]).toBe('Soccer · NIFL Premiership');
     expect(m[2]).toBe('Tuesday 1 December, 19:45');
@@ -19,24 +19,24 @@ describe('shareMessage', () => {
   });
 
   it('shows Irish summer time whatever the sender’s clock', () => {
-    expect(shareMessage({ ...base, startsAt: '2026-07-04T13:00:00.000Z' })).toContain('Saturday 4 July, 14:00');
+    expect(shareMessage({ ...base, startsAt: '2026-07-04T13:00:00.000Z' }, null)).toContain('Saturday 4 July, 14:00');
   });
 
   it('adds the ticket seller link only when one is known', () => {
-    expect(shareMessage(base)).not.toContain('Tickets:');
-    expect(shareMessage({ ...base, ticketed: true, ticketUrl: 'https://club.example/tickets' })).toContain('Tickets: https://club.example/tickets');
+    expect(shareMessage(base, null)).not.toContain('Tickets:');
+    expect(shareMessage({ ...base, ticketed: true, ticketUrl: 'https://club.example/tickets' }, null)).toContain('Tickets: https://club.example/tickets');
     // a web search is not a link we vouch for
-    expect(shareMessage({ ...base, ticketed: true })).not.toContain('google.com/search');
+    expect(shareMessage({ ...base, ticketed: true }, null)).not.toContain('google.com/search');
   });
 
   it('says when the time is not confirmed, and when a fixture is off', () => {
-    expect(shareMessage({ ...base, timeTbc: true })).toContain('Tuesday 1 December, time to be confirmed');
-    expect(shareMessage({ ...base, status: 'postponed' }).split('\n')[0]).toBe('POSTPONED');
-    expect(shareMessage({ ...base, status: 'cancelled' }).split('\n')[0]).toBe('CANCELLED');
+    expect(shareMessage({ ...base, timeTbc: true }, null)).toContain('Tuesday 1 December, time to be confirmed');
+    expect(shareMessage({ ...base, status: 'postponed' }, null).split('\n')[0]).toBe('POSTPONED');
+    expect(shareMessage({ ...base, status: 'cancelled' }, null).split('\n')[0]).toBe('CANCELLED');
   });
 
   it('works for an event with a title and no competition', () => {
-    const m = shareMessage({ ...base, sport: 'horse-racing', homeTeam: undefined, awayTeam: undefined, title: 'Leopardstown, Day 1', competition: '' });
+    const m = shareMessage({ ...base, sport: 'horse-racing', homeTeam: undefined, awayTeam: undefined, title: 'Leopardstown, Day 1', competition: '' }, null);
     expect(m.split('\n')[0]).toBe('Leopardstown, Day 1');
     expect(m.split('\n')[1]).toBe('Horse Racing');
   });
@@ -52,5 +52,21 @@ describe('share links', () => {
   });
   it('builds a directions link from the ground’s position', () => {
     expect(directionsUrl({ latitude: 53.36, longitude: -6.25 })).toBe('https://www.google.com/maps/dir/?api=1&destination=53.36,-6.25');
+  });
+});
+
+describe('sharing with the site live', () => {
+  const site = 'https://grassroots.example/';
+  it('ends the message with the fixture’s own link and keeps it short', () => {
+    expect(shareMessage(base, site).split('\n')).toEqual([
+      'Ballymena United v Larne', 'Tuesday 1 December, 19:45', 'Ballymena Showgrounds, Antrim', 'https://grassroots.example/f/f1',
+    ]);
+  });
+  it('still leads with a postponement', () => {
+    expect(shareMessage({ ...base, status: 'postponed' }, site).split('\n')[0]).toBe('POSTPONED');
+  });
+  it('has no link until the site exists', () => {
+    expect(fixtureLink('f1', null)).toBeNull();
+    expect(fixtureLink('a b', 'https://x.example')).toBe('https://x.example/f/a%20b');
   });
 });
