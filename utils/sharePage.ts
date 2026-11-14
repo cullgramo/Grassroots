@@ -7,6 +7,10 @@ import { ticketLink } from '@/utils/tickets';
  * The page a shared fixture link opens. It is plain HTML built on the server, so WhatsApp, Messenger, iMessage
  * and others can read its preview tags (they do not run the app), and it loads instantly for the person tapping it.
  * From there one tap takes them into Grassroots: the fixture on the map, or more games near them.
+ *
+ * The preview "little card" in a chat is: the square picture public/og.png (600x600), the fixture's title and its
+ * day, time and ground. LOGO PLACEHOLDER: public/og.png and the "G" mark below (.mark) are stand-ins. To use the real
+ * logo, replace public/og.png with a square 600x600 PNG (keep the name) and swap the .mark span for an <img>.
  */
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -29,7 +33,7 @@ export interface Preview {
 /** What the chat app's preview shows. */
 export function previewFor(f: Fixture | null, state: PageState): Preview {
   if (!f || state === 'missing') {
-    return { title: 'Grassroots', description: 'Every game. Everywhere. On a map. Find sports fixtures near you.' };
+    return { title: 'Grassroots', description: 'Every game. Everywhere. Here. Find sports fixtures near you.' };
   }
   const when = irishParts(f.startsAt);
   const time = f.timeTbc ? 'time TBC' : when.time;
@@ -45,7 +49,8 @@ const STYLE = `
 *{box-sizing:border-box;margin:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#F6F5EF;color:#10281F;line-height:1.35}
 main{max-width:480px;margin:0 auto;padding:24px 20px 40px}
-.brand{font-weight:800;font-size:18px;color:#17704A;text-decoration:none}
+.brand{display:inline-flex;align-items:center;font-weight:800;font-size:18px;color:#17704A;text-decoration:none}
+.mark{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#E3A52B;color:#10281F;font-weight:800;font-size:19px;margin-right:9px}
 .card{background:#fff;border-radius:20px;padding:24px;margin-top:20px;box-shadow:0 1px 3px rgba(16,40,31,.12);border-top:6px solid var(--c)}
 .sport{font-size:13px;font-weight:800;letter-spacing:1.2px;color:#4A5A52;text-transform:uppercase}
 .alert{display:inline-block;background:#b91c1c;color:#fff;font-weight:800;font-size:13px;letter-spacing:1px;border-radius:6px;padding:3px 10px;margin-top:10px}
@@ -76,11 +81,11 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
 <meta property="og:description" content="${esc(preview.description)}">
 <meta property="og:url" content="${esc(pageUrl)}">
 <meta property="og:image" content="${esc(opts.origin)}/og.png">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:width" content="600"><meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
 <style>${STYLE}</style></head><body><main>
-<a class="brand" href="/?ref=share">Grassroots</a>`;
+<a class="brand" href="/?ref=share"><span class="mark" aria-hidden="true">G</span>Grassroots</a>`;
 
   if (!f || state === 'missing') {
     return `${head}

@@ -17,6 +17,9 @@ describe('shared fixture page', () => {
     expect(html).toContain('<meta property="og:description" content="Tuesday 1 December, 19:45 · Ballymena Showgrounds, Antrim · Soccer">');
     expect(html).toContain('<meta property="og:image" content="https://grassroots.example/og.png">');
     expect(html).toContain(`<meta property="og:url" content="https://grassroots.example/f/${f.id}">`);
+    expect(html).toContain('<meta property="og:image:width" content="600"><meta property="og:image:height" content="600">');
+    expect(html).toContain('<meta property="og:site_name" content="Grassroots">');
+    expect(html).toContain('<meta name="twitter:card" content="summary">');
   });
   it('leads into the app: the fixture on the map, directions, tickets and more games', () => {
     const html = fixturePageHtml(f, opts);

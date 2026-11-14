@@ -1,5 +1,5 @@
 import type { Fixture } from '@/types/fixture';
-import { directionsUrl, emailUrl, fixtureLink, shareMessage, smsUrl, whatsAppUrl } from '../share';
+import { directionsUrl, emailUrl, fixtureLink, mapLink, shareMessage, smsUrl, whatsAppUrl } from '../share';
 
 const base: Fixture = {
   id: 'f1', sport: 'soccer', level: 'Top level', competition: 'NIFL Premiership',
@@ -14,7 +14,7 @@ describe('shareMessage', () => {
     expect(m[1]).toBe('Soccer · NIFL Premiership');
     expect(m[2]).toBe('Tuesday 1 December, 19:45');
     expect(m[3]).toBe('Ballymena Showgrounds, Antrim');
-    expect(m[4]).toBe('Directions: https://www.google.com/maps/dir/?api=1&destination=54.87,-6.265');
+    expect(m[4]).toBe('Directions: https://maps.google.com/?q=54.87,-6.265');
     expect(m[m.length - 1]).toBe('Found on Grassroots');
   });
 
@@ -50,6 +50,9 @@ describe('share links', () => {
     expect(smsUrl(text, 'android')).toBe('sms:?body=A%20v%20B%0ASat%2014%3A00%20%26%20more');
     expect(emailUrl('A v B', text)).toBe('mailto:?subject=A%20v%20B&body=A%20v%20B%0ASat%2014%3A00%20%26%20more');
   });
+  it('gives a short map link for messages', () => {
+    expect(mapLink({ latitude: 53.36, longitude: -6.25 })).toBe('https://maps.google.com/?q=53.36,-6.25');
+  });
   it('builds a directions link from the ground’s position', () => {
     expect(directionsUrl({ latitude: 53.36, longitude: -6.25 })).toBe('https://www.google.com/maps/dir/?api=1&destination=53.36,-6.25');
   });
@@ -57,10 +60,16 @@ describe('share links', () => {
 
 describe('sharing with the site live', () => {
   const site = 'https://grassroots.example/';
-  it('ends the message with the fixture’s own link and keeps it short', () => {
+  it('carries the fixture page first (chat previews use the first link), then directions', () => {
     expect(shareMessage(base, site).split('\n')).toEqual([
-      'Ballymena United v Larne', 'Tuesday 1 December, 19:45', 'Ballymena Showgrounds, Antrim', 'https://grassroots.example/f/f1',
+      'Ballymena United v Larne', 'Tuesday 1 December, 19:45', 'Ballymena Showgrounds, Antrim',
+      'https://grassroots.example/f/f1', 'Directions: https://maps.google.com/?q=54.87,-6.265',
     ]);
+  });
+  it('adds the tickets link when the seller is known, and says nothing about tickets when it is not', () => {
+    const withTickets = shareMessage({ ...base, ticketed: true, ticketUrl: 'https://club.example/tickets' }, site).split('\n');
+    expect(withTickets.slice(-2)).toEqual(['Directions: https://maps.google.com/?q=54.87,-6.265', 'Tickets: https://club.example/tickets']);
+    expect(shareMessage(base, site)).not.toContain('Tickets');
   });
   it('still leads with a postponement', () => {
     expect(shareMessage({ ...base, status: 'postponed' }, site).split('\n')[0]).toBe('POSTPONED');

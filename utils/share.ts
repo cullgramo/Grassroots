@@ -29,6 +29,11 @@ export function directionsUrl(f: Pick<Fixture, 'latitude' | 'longitude'>): strin
   return `https://www.google.com/maps/dir/?api=1&destination=${f.latitude},${f.longitude}`;
 }
 
+/** A short map link for messages: it opens the map app on the ground, and is far tidier in a chat than the long one. */
+export function mapLink(f: Pick<Fixture, 'latitude' | 'longitude'>): string {
+  return `https://maps.google.com/?q=${f.latitude},${f.longitude}`;
+}
+
 /**
  * The plain-text message that goes into WhatsApp, a text, an email or any other app.
  * With the site live it is short and ends with the fixture's own link, which chat apps turn into a preview
@@ -40,19 +45,19 @@ export function shareMessage(f: Fixture, site: string | null = SITE_URL): string
   const whenLine = f.timeTbc ? `${when.day}, time to be confirmed` : `${when.day}, ${when.time}`;
   const off = f.status === 'cancelled' ? 'CANCELLED' : f.status === 'postponed' ? 'POSTPONED' : null;
   const link = fixtureLink(f.id, site);
-  if (link) {
-    return [off, fixtureTitle(f), whenLine, `${f.venue}, ${f.county}`, link].filter(Boolean).join('\n');
-  }
+  const tickets = ticketLink(f);
+  // Everything someone needs to act on it, in the message itself: where to go, how to get in, and the fixture's own page.
   const lines: string[] = [];
   if (off) lines.push(off);
   lines.push(fixtureTitle(f));
-  lines.push([sport.name, f.competition].filter(Boolean).join(' · '));
+  if (!link) lines.push([sport.name, f.competition].filter(Boolean).join(' · '));
   lines.push(whenLine);
   lines.push(`${f.venue}, ${f.county}`);
-  lines.push(`Directions: ${directionsUrl(f)}`);
-  const tickets = ticketLink(f);
+  // Chat apps build their preview card from the first link in a message, so the fixture's own page comes first.
+  if (link) lines.push(link);
+  lines.push(`Directions: ${mapLink(f)}`);
   if (tickets?.kind === 'seller') lines.push(`Tickets: ${tickets.url}`);
-  lines.push('Found on Grassroots');
+  if (!link) lines.push('Found on Grassroots');
   return lines.join('\n');
 }
 
