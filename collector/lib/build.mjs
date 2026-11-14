@@ -13,6 +13,13 @@ const words = (t) => norm(t).split(' ').filter((w) => w.length >= 5);
  * @returns fixtures ready to save, fixtures left out (with the reason), per-source lists of every ref still listed
  *   (`live`: only for sources whose pages were all read), page problems, and the ids of hand-loaded fixtures to replace.
  */
+// A county board's page is mostly its own clubs playing at home. A bare village name ("Adamstown", "Castletown")
+// is not unique across a province, so when the directory put one in another county than the board's, and nothing
+// checked it by hand, it is held for checking instead of guessed. A named park or ground is not affected.
+const HOME_COUNTY_BOARDS = new Set(['county-gaa', 'cork-gaa', 'waterford-gaa']);
+const CHECKED = /^(checked by hand|coordinates|address supplied|postcode|home club search, address matches)/i;
+const isBareName = (venue) => !venue.includes(',') && venue.trim().split(/\s+/).length <= 2 && !/park|p[aá]irc|gaa|gac|club|field|grounds|college|school|university/i.test(venue);
+
 export async function gather({ existing = [], sources = SOURCES, grounds = loadGrounds(), now = new Date() } = {}) {
   const fixtures = [];
   const leftOut = [];
@@ -37,6 +44,7 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
       if (!found_) { leave('Ground not placed on the map yet'); continue; }
       // Every ground needs a county; if the map did not name one, the nearest county is used.
       const ground = { ...found_, county: found_.county || countyFor([], found_.latitude, found_.longitude) };
+      if (HOME_COUNTY_BOARDS.has(key) && f.countyHint && ground.county !== f.countyHint && isBareName(f.venue) && !CHECKED.test(found_.how ?? '')) { leave(`Ground not placed on the map yet (the directory put it in ${ground.county}, outside ${f.countyHint}, so it needs checking)`); continue; }
       const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}`;
       if (seen.has(game)) { leave('Already listed by another source'); continue; }
       seen.add(game);
@@ -68,7 +76,7 @@ export function toRow(f) {
 export function unplacedGrounds(leftOut) {
   const counts = new Map();
   for (const r of leftOut) {
-    if (r.reason !== 'Ground not placed on the map yet') continue;
+    if (!r.reason.startsWith('Ground not placed on the map yet')) continue;
     const k = `${r.venue} (${r.source})`;
     counts.set(k, (counts.get(k) ?? 0) + 1);
   }
