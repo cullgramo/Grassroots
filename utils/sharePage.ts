@@ -33,7 +33,7 @@ export interface Preview {
 /** What the chat app's preview shows. */
 export function previewFor(f: Fixture | null, state: PageState): Preview {
   if (!f || state === 'missing') {
-    return { title: 'Grassroots', description: 'Every game. Everywhere. On a map. Find sports fixtures near you.' };
+    return { title: 'Grassroots', description: 'Every game. Everywhere. Here. Find sports fixtures near you.' };
   }
   const when = irishParts(f.startsAt);
   const time = f.timeTbc ? 'time TBC' : when.time;
