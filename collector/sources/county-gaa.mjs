@@ -20,6 +20,11 @@ const boards = [
   { url: 'https://tyronegaa.ie/fixtures-results/', prefix: 'Tyrone', countyHint: 'Tyrone', area: 'Ulster' },
   // Derry's own site shows this page inside a frame; the fixtures live on its Club & County address.
   { url: 'https://derry.clubandcounty.com/fixtures-results/', prefix: 'Derry', countyHint: 'Derry', area: 'Ulster' },
+  { url: 'https://www.kerrygaa.ie/fixtures-results/', prefix: 'Kerry', countyHint: 'Kerry', area: 'Munster' },
+  { url: 'https://kilkennygaa.ie/fixtures-results/', prefix: 'Kilkenny', countyHint: 'Kilkenny', area: 'Leinster' },
+  { url: 'https://officialwicklowgaa.ie/fixtures-results/', prefix: 'Wicklow', countyHint: 'Wicklow', area: 'Leinster' },
+  // Wexford's own site shows this page inside a frame; the fixtures live on its Club & County address.
+  { url: 'https://wexford.clubandcounty.com/fixtures-results/', prefix: 'Wexford', countyHint: 'Wexford', area: 'Leinster' },
 ];
 
 // A board's page shows its first 50 fixtures; the rest come from the page's own "Load more Fixtures" button,
