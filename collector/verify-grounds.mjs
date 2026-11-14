@@ -14,7 +14,7 @@ const KM_NEAR = 0.3;
 const PITCHES = JSON.parse(readFileSync(new URL('./gaa-pitches.json', import.meta.url), 'utf8'));
 const CLUBS = JSON.parse(readFileSync(new URL('./clubs.json', import.meta.url), 'utf8')).clubs;
 const GAA = ['hurling', 'gaelic-football', 'camogie', 'ladies-football'];
-const SPORT_OF = { 'club-rugby': ['rugby'], ddsl: ['soccer'], 'irish-hockey': ['hockey'], 'ulster-hockey': ['hockey'], basketball: ['basketball'] };
+const SPORT_OF = { 'nifl-snapshot': ['soccer'], 'club-rugby': ['rugby'], ddsl: ['soccer'], 'irish-hockey': ['hockey'], 'ulster-hockey': ['hockey'], basketball: ['basketball'] };
 const GENERIC = new Set(['park', 'road', 'rd', 'club', 'the', 'and', 'rfc', 'gaa', 'fc', 'afc', 'grounds', 'ground', 'pitch', 'field', 'st', 'sports', 'college', 'school', 'community', 'centre', 'center', 'comm', 'complex']);
 const BARE_TOWN = new RegExp(`^(${[...COUNTIES.map((c) => c.toLowerCase()), 'belfast', 'derry', 'londonderry', 'newry', 'lisburn', 'athlone', 'drogheda', 'dundalk', 'kilkenny city'].join('|')})$`);
 const words = (t) => norm(t).split(' ').filter((w) => w.length > 2 && !GENERIC.has(w));
