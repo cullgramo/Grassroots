@@ -80,13 +80,13 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="noindex">
 <style>${STYLE}</style></head><body><main>
-<a class="brand" href="/">Grassroots</a>`;
+<a class="brand" href="/?ref=share">Grassroots</a>`;
 
   if (!f || state === 'missing') {
     return `${head}
 <div class="card" style="--c:#17704A"><h1>This fixture is no longer listed</h1>
 <p class="where">It may have been played, moved or taken off its source’s list.</p></div>
-<a class="btn primary" href="/">See games near you</a>
+<a class="btn primary" href="/?ref=share">See games near you</a>
 </main></body></html>`;
   }
 
@@ -101,11 +101,11 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
     : f.status === 'cancelled' ? '<p class="alert">CANCELLED</p>'
     : f.status === 'postponed' ? '<p class="alert">POSTPONED</p>' : '';
   const actions = state === 'played'
-    ? `<a class="btn primary" href="/">See upcoming games near you</a>`
+    ? `<a class="btn primary" href="/?ref=share">See upcoming games near you</a>`
     : `<a class="btn primary" href="/fixture/${encodeURIComponent(f.id)}">See it on the map</a>
 <a class="btn secondary" href="${esc(directionsUrl(f))}">Get directions</a>
 ${tickets?.kind === 'seller' ? `<a class="btn secondary" href="${esc(tickets.url)}">Get tickets</a>` : ''}
-<a class="btn secondary" href="/">More games near you</a>`;
+<a class="btn secondary" href="/?ref=share">More games near you</a>`;
 
   return `${head}
 <div class="card" style="--c:${esc(sport.color)}">

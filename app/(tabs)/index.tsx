@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
@@ -36,9 +36,13 @@ export default function ExploreScreen() {
   const [query, setQuery] = useState('');
   const searching = query.trim().length > 0;
 
+  // Someone who arrives from a shared fixture link asked for "more games near you", so they go straight to the map
+  // with every sport showing. The sports question waits until the next time they open the app on its own.
+  const { ref } = useLocalSearchParams<{ ref?: string }>();
+  const fromShare = ref === 'share';
   useEffect(() => {
-    if (needsSportsChoice) router.push('/sports');
-  }, [needsSportsChoice]);
+    if (needsSportsChoice && !fromShare) router.push('/sports');
+  }, [needsSportsChoice, fromShare]);
 
 
   // While searching, the map and the list both show every match, wherever the map is pointing.

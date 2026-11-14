@@ -23,7 +23,7 @@ describe('shared fixture page', () => {
     expect(html).toContain(`href="/fixture/${f.id}">See it on the map`);
     expect(html).toContain('href="https://www.google.com/maps/dir/?api=1&amp;destination=54.87,-6.265">Get directions');
     expect(html).toContain('href="https://ballymenaunited.ticketco.shop/">Get tickets');
-    expect(html).toContain('href="/">More games near you');
+    expect(html).toContain('href="/?ref=share">More games near you');
   });
   it('keeps working after the game: says it was played and points to upcoming games', () => {
     expect(pageState(f, after)).toBe('played');
@@ -32,6 +32,12 @@ describe('shared fixture page', () => {
     expect(html).toContain('See upcoming games near you');
     expect(html).not.toContain('Get directions');
     expect(previewFor(f, 'played').title).toBe('Played: Ballymena United v Larne');
+  });
+  it('every way into the app tells it the visitor came from a link, so no sports question is asked first', () => {
+    for (const html of [fixturePageHtml(f, opts), fixturePageHtml(f, { ...opts, now: after }), fixturePageHtml(null, opts)]) {
+      expect(html).not.toMatch(/href="\/"/);
+      expect(html).toContain('href="/?ref=share"');
+    }
   });
   it('a link to a fixture that is gone still opens a useful page', () => {
     const html = fixturePageHtml(null, opts);
