@@ -10,7 +10,7 @@ import { useApp } from '@/context/AppContext';
 import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
 import { formatDistance } from '@/utils/distance';
-import { ticketLink } from '@/utils/tickets';
+import { entryLabel, ticketLink, ticketSearchLink } from '@/utils/tickets';
 import { distanceTo } from '@/utils/filterFixtures';
 
 function Row({ label, value }: { label: string; value: string }) {
@@ -85,7 +85,7 @@ export default function FixtureScreen() {
           <Row label={sport.startWord} value={fixture.timeTbc ? 'To be confirmed' : timeLabel(fixture.startsAt)} />
           <Row label="Venue" value={`${fixture.venue}, ${fixture.county}`} />
           {km != null ? <Row label="Distance" value={`${formatDistance(km)} away`} /> : null}
-          <Row label="Entry" value={tickets ? 'Ticket required' : 'Not ticketed'} />
+          <Row label="Entry" value={entryLabel(fixture)} />
         </View>
 
         {tickets ? (
@@ -100,11 +100,25 @@ export default function FixtureScreen() {
         {tickets?.kind === 'search' ? (
           <Text style={[styles.hint, { color: t.muted }]}>No ticket link listed yet, so this searches the web.</Text>
         ) : null}
+        {!tickets ? (
+          <Text style={[styles.hint, { color: t.muted }]}>
+            The source does not say whether tickets are needed. Check with the club or the competition.
+          </Text>
+        ) : null}
+        {!tickets && fixture.level === 'Top level' ? (
+          <Pressable
+            onPress={() => WebBrowser.openBrowserAsync(ticketSearchLink(fixture))}
+            accessibilityRole="link"
+            accessibilityHint="Searches the web for tickets"
+            style={[styles.secondary, { borderColor: t.tint }]}>
+            <Text style={[styles.secondaryText, { color: t.tint }]}>Search for tickets</Text>
+          </Pressable>
+        ) : null}
         <Pressable
           onPress={() => Linking.openURL(directions)}
           accessibilityRole="link"
-          style={tickets ? [styles.secondary, { borderColor: t.tint }] : [styles.primary, { backgroundColor: t.tint }]}>
-          <Text style={tickets ? [styles.secondaryText, { color: t.tint }] : [styles.primaryText, { color: t.onTint }]}>
+          style={[styles.primary, { backgroundColor: t.tint }]}>
+          <Text style={[styles.primaryText, { color: t.onTint }]}>
             Get directions
           </Text>
         </Pressable>

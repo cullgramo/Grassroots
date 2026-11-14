@@ -152,6 +152,21 @@ describe('ticketLink', () => {
   });
 });
 
+describe('entry wording', () => {
+  const { entryLabel, ticketSearchLink } = require('../tickets');
+  const f = fixtures[0];
+  it('never claims a fixture is not ticketed when the source says nothing', () => {
+    expect(entryLabel({ ...f, ticketed: false })).toBe('Tickets not listed');
+  });
+  it('says tickets are available when a seller link is given, and required when the source says so', () => {
+    expect(entryLabel({ ...f, ticketed: true, ticketUrl: 'https://example.com/t' })).toBe('Tickets available');
+    expect(entryLabel({ ...f, ticketed: true })).toBe('Ticket required');
+  });
+  it('can always offer a web search for tickets', () => {
+    expect(ticketSearchLink({ ...f, homeTeam: 'Cork', awayTeam: 'Kerry' })).toBe('https://www.google.com/search?q=Cork%20v%20Kerry%20Croke%20Park%20tickets');
+  });
+});
+
 describe('mapFixture', () => {
   const { mapFixture } = require('@/lib/fixtures');
   const row = {
