@@ -4826,7 +4826,14 @@
   "longitude": -7.281799,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patrick's GAA, Tattyreagh: Darcy Park)"
  },
- "Ulster|taylors avenue|": null,
+ "Ulster|taylors avenue|": {
+  "name": "Taylors Avenue",
+  "county": "Antrim",
+  "latitude": 54.7201528,
+  "longitude": -5.7995857,
+  "family": "soccer",
+  "how": "pin supplied by the app owner from Google Maps (place named \"Carrick Rangers\"); the map puts the point on a pitch (Belfast Loughshore Hotel Arena) on Taylor’s Avenue, Carrickfergus, which is the ground’s name"
+ },
  "Ulster|telford park|": {
   "name": "Telford Park",
   "county": "Down",
