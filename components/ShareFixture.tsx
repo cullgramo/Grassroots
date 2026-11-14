@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Linking, Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 
 import type { Fixture } from '@/types/fixture';
+import { ShareCardModal } from './ShareCardModal';
 import { emailUrl, shareMessage, shareSubject, smsUrl, whatsAppUrl } from '@/utils/share';
 import { useTheme } from './useTheme';
 
@@ -32,6 +33,7 @@ export function ShareHeaderButton({ fixture }: { fixture: Fixture }) {
 export function ShareFixture({ fixture }: { fixture: Fixture }) {
   const t = useTheme();
   const [note, setNote] = useState<string | null>(null);
+  const [cardOpen, setCardOpen] = useState(false);
   const text = shareMessage(fixture);
 
   const copy = async () => {
@@ -65,6 +67,16 @@ export function ShareFixture({ fixture }: { fixture: Fixture }) {
   return (
     <View style={styles.wrap}>
       <Text style={[styles.title, { color: t.text }]}>Share this fixture</Text>
+      {Platform.OS !== 'web' ? (
+        <Pressable
+          onPress={() => setCardOpen(true)}
+          accessibilityRole="button"
+          accessibilityLabel="Share as a picture card"
+          accessibilityHint="Shows a picture of this fixture you can send to any app"
+          style={[styles.card, { borderColor: t.tint }]}>
+          <Text style={[styles.cardText, { color: t.tint }]}>Share as a picture card</Text>
+        </Pressable>
+      ) : null}
       <View style={styles.row}>
         {items.map((i) => (
           <Pressable
@@ -79,6 +91,7 @@ export function ShareFixture({ fixture }: { fixture: Fixture }) {
         ))}
       </View>
       {note ? <Text style={[styles.note, { color: t.muted }]}>{note}</Text> : null}
+      {Platform.OS !== 'web' ? <ShareCardModal fixture={fixture} visible={cardOpen} onClose={() => setCardOpen(false)} /> : null}
     </View>
   );
 }
@@ -86,6 +99,8 @@ export function ShareFixture({ fixture }: { fixture: Fixture }) {
 const styles = StyleSheet.create({
   wrap: { marginTop: 24 },
   title: { fontSize: 15, fontWeight: '700', marginBottom: 10 },
+  card: { minHeight: 48, borderRadius: 24, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
+  cardText: { fontSize: 16, fontWeight: '800' },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip: { minHeight: 44, paddingHorizontal: 16, borderRadius: 22, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   chipText: { fontSize: 15, fontWeight: '700' },
