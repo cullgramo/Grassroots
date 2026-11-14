@@ -60,3 +60,9 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 - A ground found from a club or town name is only used for the sport it was found for (`slotFor` in `lib/grounds.mjs`).
 - On a county board's page, a bare village name placed in another county is held for checking (`lib/build.mjs`).
 - Positions supplied by the owner as Google Maps pins are noted as such in `grounds.json`. Use the full link, not a short one.
+
+## Parked app features
+
+| Feature | State | What it needs |
+|---|---|---|
+| Share a fixture as a picture card | Built, switched off (14 Nov 2026). `PICTURE_CARD_ENABLED` in `components/ShareFixture.tsx`. | Important, but the card's design needs more UX work first: three designs were tried (dark green, plain white, minimal) and none was settled on. Not yet tried on a phone. Text sharing (WhatsApp, text, email, copy, share sheet) stays on. |
