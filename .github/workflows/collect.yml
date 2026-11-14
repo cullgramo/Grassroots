@@ -2,6 +2,7 @@ name: Collect fixtures
 
 on:
   schedule:
+    - cron: '7 4 * * *' # backup, in case the later one is delayed or skipped: about 4am Irish time in winter
     - cron: '17 5 * * *' # every morning, about 5am Irish time
   workflow_dispatch:
     inputs:
