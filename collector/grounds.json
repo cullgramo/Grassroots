@@ -3761,6 +3761,14 @@
   "longitude": -6.29433,
   "how": "position from the source; county from the map"
  },
+ "Ulster|ballymena showgrounds|": {
+  "family": "soccer",
+  "name": "Ballymena Showgrounds",
+  "county": "Antrim",
+  "latitude": 54.870086,
+  "longitude": -6.265054,
+  "how": "place search (leisure/pitch: Ballymena Showgrounds)"
+ },
  "Ulster|banbridge academy|": {
   "name": "Banbridge Academy",
   "county": "Armagh",
@@ -3817,6 +3825,14 @@
   "longitude": -7.152417,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Beragh Red Knights: St. Mary's Park)"
  },
+ "Ulster|betmclean oval|": {
+  "family": "soccer",
+  "name": "The Oval",
+  "county": "Down",
+  "latitude": 54.602954,
+  "longitude": -5.891295,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"The Oval\" (proposer's source: OpenStreetMap place search)"
+ },
  "Ulster|box it athletic grounds armagh|": {
   "name": "BOX-IT Athletic Grounds, Armagh",
   "county": "Armagh",
@@ -3837,6 +3853,14 @@
   "latitude": 54.351034,
   "longitude": -7.634909,
   "how": "place search (leisure/pitch: Brewster Park)"
+ },
+ "Ulster|british supplements shamrock park|": {
+  "family": "soccer",
+  "name": "Shamrock Park",
+  "county": "Armagh",
+  "latitude": 54.413027,
+  "longitude": -6.457737,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Shamrock Park\" (proposer's source: OpenStreetMap place search)"
  },
  "Ulster|burren|": {
   "name": "Burren",
@@ -3937,6 +3961,14 @@
   "longitude": -5.858824,
   "how": "checked by hand (OpenStreetMap: CIYMS, Bloomfield, Belfast)"
  },
+ "Ulster|clandeboye park|": {
+  "family": "soccer",
+  "name": "Clandeboye Park",
+  "county": "Down",
+  "latitude": 54.651548,
+  "longitude": -5.684382,
+  "how": "place search (leisure/stadium: Clandeboye Park)"
+ },
  "Ulster|clann na banna|": {
   "name": "Clann na Banna",
   "county": "Down",
@@ -3965,6 +3997,14 @@
   "latitude": 55.1361,
   "longitude": -6.68648,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|coleraine showgrounds|": {
+  "family": "soccer",
+  "name": "Coleraine Football Club",
+  "county": "Derry",
+  "latitude": 55.132816,
+  "longitude": -6.659995,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Coleraine Football Club\" (proposer's source: OpenStreetMap place search)"
  },
  "Ulster|coleraine|": null,
  "Ulster|comber road lisnagarvey hc|BT26 6LN": {
@@ -4230,6 +4270,14 @@
   "longitude": -7.01217,
   "how": "position from the source; county from the map"
  },
+ "Ulster|inver park|": {
+  "family": "soccer",
+  "name": "Inver Park Stadium",
+  "county": "Antrim",
+  "latitude": 54.8492082,
+  "longitude": -5.8264299,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Inver Park Stadium\" (proposer's source: Google Maps pin supplied by the app owner)"
+ },
  "Ulster|jack mackin park|": null,
  "Ulster|jim smith park killinkere|": {
   "name": "Jim Smith Park, Killinkere",
@@ -4329,6 +4377,14 @@
   "latitude": 55.0419,
   "longitude": -6.94558,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|limavady showgrounds|": {
+  "name": "Limavady Showgrounds",
+  "county": "Derry",
+  "latitude": 55.0522554,
+  "longitude": -6.9371752,
+  "family": "soccer",
+  "how": "pin supplied by the app owner from Google Maps (place named \"Limavady United Football Club\"); the map has a stop named Limavady Showgrounds on Rathmore Road 85 m away, and the point is on a pitch there"
  },
  "Ulster|longstone|": {
   "name": "Longstone",
@@ -4638,6 +4694,14 @@
   "longitude": -6.506944,
   "how": "GAA pitch list, matched on pitch name (Seán O'Leary's GAA, Newbridge: Seán O'Leary Park)"
  },
+ "Ulster|seaview|": {
+  "family": "soccer",
+  "name": "Seaview",
+  "county": "Antrim",
+  "latitude": 54.6237298,
+  "longitude": -5.9216983,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Seaview\" (proposer's source: Google Maps pin supplied by the app owner)"
+ },
  "Ulster|shamrock park roslea|": {
   "name": "Shamrock Park, Roslea",
   "county": "Fermanagh",
@@ -4658,6 +4722,14 @@
   "latitude": 54.5519,
   "longitude": -5.94686,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|solitude|": {
+  "family": "soccer",
+  "name": "Solitude",
+  "county": "Antrim",
+  "latitude": 54.619505,
+  "longitude": -5.947285,
+  "how": "place search (leisure/pitch: Solitude - Cliftonville A&FC)"
  },
  "Ulster|st bridget s park knockbride|": {
   "name": "St. Bridget's Park Knockbride",
@@ -4702,6 +4774,14 @@
   "longitude": -7.233088,
   "how": "place search (leisure/stadium: St. Tiernach’s Park)"
  },
+ "Ulster|stangmore park|": {
+  "family": "soccer",
+  "name": "Stangmore Park",
+  "county": "Tyrone",
+  "latitude": 54.489412,
+  "longitude": -6.74611,
+  "how": "place search (leisure/stadium: Stangmore Park)"
+ },
  "Ulster|stevenson park|": {
   "name": "Stevenson Park",
   "county": "Derry",
@@ -4745,6 +4825,14 @@
   "latitude": 54.534817,
   "longitude": -7.281799,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patrick's GAA, Tattyreagh: Darcy Park)"
+ },
+ "Ulster|taylors avenue|": {
+  "name": "Taylors Avenue",
+  "county": "Antrim",
+  "latitude": 54.7201528,
+  "longitude": -5.7995857,
+  "family": "soccer",
+  "how": "pin supplied by the app owner from Google Maps (place named \"Carrick Rangers\"); the map puts the point on a pitch (Belfast Loughshore Hotel Arena) on Taylor’s Avenue, Carrickfergus, which is the ground’s name"
  },
  "Ulster|telford park|": {
   "name": "Telford Park",
@@ -4847,6 +4935,14 @@
   "latitude": 54.5713,
   "longitude": -5.91915,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|windsor park|": {
+  "name": "Windsor Park",
+  "county": "Antrim",
+  "latitude": 54.5826255,
+  "longitude": -5.9552188,
+  "family": "soccer",
+  "how": "pin supplied by the app owner from Google Maps (place named \"Windsor Park of Northern Ireland stadium\"); the map search names a stadium, National Football Stadium, 6 m away"
  },
  "Waterford|brickey rangers g a a club|": null,
  "Waterford|dungarvan|X35 AH76": {

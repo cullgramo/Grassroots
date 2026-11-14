@@ -1,0 +1,741 @@
+{
+ "_note": "A one-off snapshot of the NIFL Premiership fixtures list on nifootballleague.com/premiership/2026-2027/fixtures/ (20 November 2026 to 27 March 2027): November from the owner's screenshot, the rest pasted by the owner, both on 14 November 2026. The league's site blocks automated reading, so this is not live.",
+ "competition": "NIFL Premiership",
+ "fixtures": [
+  [
+   "2026-11-20",
+   "19:45",
+   "Cliftonville",
+   "Glentoran",
+   "Solitude"
+  ],
+  [
+   "2026-11-21",
+   "15:00",
+   "Carrick Rangers",
+   "Coleraine",
+   "Taylors Avenue"
+  ],
+  [
+   "2026-11-21",
+   "15:00",
+   "Dungannon Swifts",
+   "Crusaders",
+   "Stangmore Park"
+  ],
+  [
+   "2026-11-21",
+   "15:00",
+   "Linfield",
+   "Limavady United",
+   "Windsor Park"
+  ],
+  [
+   "2026-11-21",
+   "15:00",
+   "Portadown",
+   "Bangor",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2026-11-21",
+   "18:00",
+   "Larne",
+   "Ballymena United",
+   "Inver Park"
+  ],
+  [
+   "2026-11-27",
+   "19:45",
+   "Coleraine",
+   "Dungannon Swifts",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2026-11-27",
+   "19:45",
+   "Glentoran",
+   "Larne",
+   "BetMcLean Oval"
+  ],
+  [
+   "2026-11-28",
+   "15:00",
+   "Bangor",
+   "Carrick Rangers",
+   "Clandeboye Park"
+  ],
+  [
+   "2026-11-28",
+   "15:00",
+   "Crusaders",
+   "Linfield",
+   "Seaview"
+  ],
+  [
+   "2026-11-28",
+   "15:00",
+   "Limavady United",
+   "Portadown",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2026-11-28",
+   "18:00",
+   "Ballymena United",
+   "Cliftonville",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2026-12-01",
+   "19:45",
+   "Ballymena United",
+   "Larne",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2026-12-04",
+   "19:45",
+   "Limavady United",
+   "Coleraine",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2026-12-05",
+   "15:00",
+   "Carrick Rangers",
+   "Ballymena United",
+   "Taylors Avenue"
+  ],
+  [
+   "2026-12-05",
+   "15:00",
+   "Cliftonville",
+   "Bangor",
+   "Solitude"
+  ],
+  [
+   "2026-12-05",
+   "15:00",
+   "Dungannon Swifts",
+   "Glentoran",
+   "Stangmore Park"
+  ],
+  [
+   "2026-12-05",
+   "15:00",
+   "Portadown",
+   "Crusaders",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2026-12-05",
+   "18:00",
+   "Linfield",
+   "Larne",
+   "Windsor Park"
+  ],
+  [
+   "2026-12-08",
+   "19:45",
+   "Larne",
+   "Dungannon Swifts",
+   "Inver Park"
+  ],
+  [
+   "2026-12-11",
+   "19:45",
+   "Bangor",
+   "Linfield",
+   "Clandeboye Park"
+  ],
+  [
+   "2026-12-12",
+   "15:00",
+   "Ballymena United",
+   "Limavady United",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2026-12-12",
+   "15:00",
+   "Carrick Rangers",
+   "Dungannon Swifts",
+   "Taylors Avenue"
+  ],
+  [
+   "2026-12-12",
+   "15:00",
+   "Cliftonville",
+   "Coleraine",
+   "Solitude"
+  ],
+  [
+   "2026-12-12",
+   "15:00",
+   "Larne",
+   "Crusaders",
+   "Inver Park"
+  ],
+  [
+   "2026-12-12",
+   "18:00",
+   "Glentoran",
+   "Portadown",
+   "BetMcLean Oval"
+  ],
+  [
+   "2026-12-19",
+   "15:00",
+   "Coleraine",
+   "Bangor",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2026-12-19",
+   "15:00",
+   "Crusaders",
+   "Glentoran",
+   "Seaview"
+  ],
+  [
+   "2026-12-19",
+   "15:00",
+   "Dungannon Swifts",
+   "Ballymena United",
+   "Stangmore Park"
+  ],
+  [
+   "2026-12-19",
+   "15:00",
+   "Limavady United",
+   "Larne",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2026-12-19",
+   "15:00",
+   "Portadown",
+   "Carrick Rangers",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2026-12-19",
+   "18:00",
+   "Linfield",
+   "Cliftonville",
+   "Windsor Park"
+  ],
+  [
+   "2026-12-26",
+   "15:00",
+   "Bangor",
+   "Limavady United",
+   "Clandeboye Park"
+  ],
+  [
+   "2026-12-26",
+   "15:00",
+   "Coleraine",
+   "Ballymena United",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2026-12-26",
+   "15:00",
+   "Crusaders",
+   "Cliftonville",
+   "Seaview"
+  ],
+  [
+   "2026-12-26",
+   "15:00",
+   "Dungannon Swifts",
+   "Portadown",
+   "Stangmore Park"
+  ],
+  [
+   "2026-12-26",
+   "15:00",
+   "Glentoran",
+   "Linfield",
+   "BetMcLean Oval"
+  ],
+  [
+   "2026-12-26",
+   "15:00",
+   "Larne",
+   "Carrick Rangers",
+   "Inver Park"
+  ],
+  [
+   "2026-12-29",
+   "19:45",
+   "Ballymena United",
+   "Bangor",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2026-12-29",
+   "19:45",
+   "Cliftonville",
+   "Dungannon Swifts",
+   "Solitude"
+  ],
+  [
+   "2026-12-29",
+   "19:45",
+   "Limavady United",
+   "Crusaders",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2026-12-29",
+   "19:45",
+   "Linfield",
+   "Coleraine",
+   "Windsor Park"
+  ],
+  [
+   "2026-12-29",
+   "19:45",
+   "Portadown",
+   "Larne",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2026-12-30",
+   "19:45",
+   "Carrick Rangers",
+   "Glentoran",
+   "Taylors Avenue"
+  ],
+  [
+   "2027-01-02",
+   "15:00",
+   "Bangor",
+   "Portadown",
+   "Clandeboye Park"
+  ],
+  [
+   "2027-01-02",
+   "15:00",
+   "Coleraine",
+   "Carrick Rangers",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2027-01-02",
+   "15:00",
+   "Crusaders",
+   "Linfield",
+   "Seaview"
+  ],
+  [
+   "2027-01-02",
+   "15:00",
+   "Dungannon Swifts",
+   "Limavady United",
+   "Stangmore Park"
+  ],
+  [
+   "2027-01-02",
+   "15:00",
+   "Larne",
+   "Ballymena United",
+   "Inver Park"
+  ],
+  [
+   "2027-01-02",
+   "18:00",
+   "Glentoran",
+   "Cliftonville",
+   "BetMcLean Oval"
+  ],
+  [
+   "2027-01-05",
+   "19:45",
+   "Glentoran",
+   "Ballymena United",
+   "BetMcLean Oval"
+  ],
+  [
+   "2027-01-16",
+   "15:00",
+   "Ballymena United",
+   "Cliftonville",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2027-01-16",
+   "15:00",
+   "Carrick Rangers",
+   "Bangor",
+   "Taylors Avenue"
+  ],
+  [
+   "2027-01-16",
+   "15:00",
+   "Crusaders",
+   "Portadown",
+   "Seaview"
+  ],
+  [
+   "2027-01-16",
+   "15:00",
+   "Dungannon Swifts",
+   "Coleraine",
+   "Stangmore Park"
+  ],
+  [
+   "2027-01-16",
+   "15:00",
+   "Glentoran",
+   "Larne",
+   "BetMcLean Oval"
+  ],
+  [
+   "2027-01-16",
+   "15:00",
+   "Limavady United",
+   "Linfield",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2027-01-23",
+   "15:00",
+   "Bangor",
+   "Dungannon Swifts",
+   "Clandeboye Park"
+  ],
+  [
+   "2027-01-23",
+   "15:00",
+   "Cliftonville",
+   "Carrick Rangers",
+   "Solitude"
+  ],
+  [
+   "2027-01-23",
+   "15:00",
+   "Coleraine",
+   "Glentoran",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2027-01-23",
+   "15:00",
+   "Larne",
+   "Crusaders",
+   "Inver Park"
+  ],
+  [
+   "2027-01-23",
+   "15:00",
+   "Ballymena United",
+   "Linfield",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2027-01-23",
+   "15:00",
+   "Portadown",
+   "Limavady United",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2027-01-30",
+   "15:00",
+   "Crusaders",
+   "Ballymena United",
+   "Seaview"
+  ],
+  [
+   "2027-01-30",
+   "15:00",
+   "Dungannon Swifts",
+   "Carrick Rangers",
+   "Stangmore Park"
+  ],
+  [
+   "2027-01-30",
+   "15:00",
+   "Larne",
+   "Cliftonville",
+   "Inver Park"
+  ],
+  [
+   "2027-01-30",
+   "15:00",
+   "Limavady United",
+   "Coleraine",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2027-01-30",
+   "15:00",
+   "Linfield",
+   "Bangor",
+   "Windsor Park"
+  ],
+  [
+   "2027-01-30",
+   "15:00",
+   "Portadown",
+   "Glentoran",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2027-02-06",
+   "15:00",
+   "Ballymena United",
+   "Portadown",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2027-02-06",
+   "15:00",
+   "Bangor",
+   "Limavady United",
+   "Clandeboye Park"
+  ],
+  [
+   "2027-02-06",
+   "15:00",
+   "Carrick Rangers",
+   "Larne",
+   "Taylors Avenue"
+  ],
+  [
+   "2027-02-06",
+   "15:00",
+   "Cliftonville",
+   "Linfield",
+   "Solitude"
+  ],
+  [
+   "2027-02-06",
+   "15:00",
+   "Coleraine",
+   "Crusaders",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2027-02-06",
+   "15:00",
+   "Glentoran",
+   "Dungannon Swifts",
+   "BetMcLean Oval"
+  ],
+  [
+   "2027-02-20",
+   "15:00",
+   "Ballymena United",
+   "Coleraine",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2027-02-20",
+   "15:00",
+   "Bangor",
+   "Larne",
+   "Clandeboye Park"
+  ],
+  [
+   "2027-02-20",
+   "15:00",
+   "Crusaders",
+   "Cliftonville",
+   "Seaview"
+  ],
+  [
+   "2027-02-20",
+   "15:00",
+   "Limavady United",
+   "Glentoran",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2027-02-20",
+   "15:00",
+   "Linfield",
+   "Carrick Rangers",
+   "Windsor Park"
+  ],
+  [
+   "2027-02-20",
+   "15:00",
+   "Portadown",
+   "Dungannon Swifts",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2027-02-27",
+   "15:00",
+   "Carrick Rangers",
+   "Ballymena United",
+   "Taylors Avenue"
+  ],
+  [
+   "2027-02-27",
+   "15:00",
+   "Cliftonville",
+   "Bangor",
+   "Solitude"
+  ],
+  [
+   "2027-02-27",
+   "15:00",
+   "Coleraine",
+   "Portadown",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2027-02-27",
+   "15:00",
+   "Dungannon Swifts",
+   "Linfield",
+   "Stangmore Park"
+  ],
+  [
+   "2027-02-27",
+   "15:00",
+   "Glentoran",
+   "Crusaders",
+   "BetMcLean Oval"
+  ],
+  [
+   "2027-02-27",
+   "15:00",
+   "Larne",
+   "Limavady United",
+   "Inver Park"
+  ],
+  [
+   "2027-03-06",
+   "15:00",
+   "Ballymena United",
+   "Glentoran",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2027-03-06",
+   "15:00",
+   "Coleraine",
+   "Bangor",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2027-03-06",
+   "15:00",
+   "Crusaders",
+   "Dungannon Swifts",
+   "Seaview"
+  ],
+  [
+   "2027-03-06",
+   "15:00",
+   "Limavady United",
+   "Carrick Rangers",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2027-03-06",
+   "15:00",
+   "Linfield",
+   "Larne",
+   "Windsor Park"
+  ],
+  [
+   "2027-03-06",
+   "15:00",
+   "Portadown",
+   "Cliftonville",
+   "British Supplements Shamrock Park"
+  ],
+  [
+   "2027-03-20",
+   "15:00",
+   "Ballymena United",
+   "Dungannon Swifts",
+   "Ballymena Showgrounds"
+  ],
+  [
+   "2027-03-20",
+   "15:00",
+   "Bangor",
+   "Glentoran",
+   "Clandeboye Park"
+  ],
+  [
+   "2027-03-20",
+   "15:00",
+   "Crusaders",
+   "Carrick Rangers",
+   "Seaview"
+  ],
+  [
+   "2027-03-20",
+   "15:00",
+   "Cliftonville",
+   "Limavady United",
+   "Solitude"
+  ],
+  [
+   "2027-03-20",
+   "15:00",
+   "Larne",
+   "Coleraine",
+   "Inver Park"
+  ],
+  [
+   "2027-03-20",
+   "15:00",
+   "Linfield",
+   "Portadown",
+   "Windsor Park"
+  ],
+  [
+   "2027-03-27",
+   "15:00",
+   "Coleraine",
+   "Cliftonville",
+   "Coleraine Showgrounds"
+  ],
+  [
+   "2027-03-27",
+   "15:00",
+   "Crusaders",
+   "Bangor",
+   "Seaview"
+  ],
+  [
+   "2027-03-27",
+   "15:00",
+   "Dungannon Swifts",
+   "Larne",
+   "Stangmore Park"
+  ],
+  [
+   "2027-03-27",
+   "15:00",
+   "Glentoran",
+   "Linfield",
+   "BetMcLean Oval"
+  ],
+  [
+   "2027-03-27",
+   "15:00",
+   "Limavady United",
+   "Ballymena United",
+   "Limavady Showgrounds"
+  ],
+  [
+   "2027-03-27",
+   "15:00",
+   "Portadown",
+   "Carrick Rangers",
+   "British Supplements Shamrock Park"
+  ]
+ ]
+}
