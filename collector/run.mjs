@@ -18,6 +18,9 @@ if (missing.length && !dry) {
 const runStarted = new Date();
 const lines = [`# Fixture collection${dry ? ' (dry run, nothing saved)' : ''}`, ''];
 let failed = false;
+// A source whose page could not be read (a timeout, a refusal) is a warning, not a failed run: nothing is removed for it,
+// and every other source still saves. The run only fails when saving or the database goes wrong.
+const warnings = [];
 const note = (...l) => lines.push(...l);
 
 // 1. Ticketmaster and Universe (top-level fixtures and club listings with tickets).
@@ -49,7 +52,7 @@ try {
     const mine = fixtures.filter((f) => f.source === key);
     note(`## ${source.name}`, '', `- On the pages, still to be played: ${found[key]}`, `- Placed on the map and ready: ${mine.length}`);
     if (problems[key]) {
-      failed = true;
+      warnings.push(`${source.name}: ${problems[key].join('; ')}`);
       note('- Problems (nothing removed for this source today):', ...problems[key].map((p) => `  - ${p}`));
     }
     if (!db || dry) { note(''); continue; }
@@ -79,6 +82,10 @@ try {
   note('## Public pages', '', `- Failed: ${e.message}`, '');
 }
 
+if (warnings.length) {
+  lines.splice(2, 0, '## Needs attention', '', ...warnings.map((w) => `- ${w}`), '');
+  for (const w of warnings) console.log(`::warning title=Source not read::${w.replace(/\r?\n/g, ' ')}`);
+}
 const report = lines.join('\n');
 console.log(report);
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, report + '\n');
