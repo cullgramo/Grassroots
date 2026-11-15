@@ -1,6 +1,7 @@
 import { getSport, type SportId } from '@/constants/sports';
 import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import { matchesAge } from './ageGroup';
+import { countUnlabelled, isWomensCode, matchesGender } from './category';
 import { addDays, startOfDay, weekendRange } from './date';
 import { calculateDistance } from './distance';
 import { isPlayed } from './played';
@@ -25,6 +26,9 @@ export function filterFixtures(
   if (filters.when === 'weekend') [from, to] = weekendRange(now);
   if (filters.when === 'week') [from, to] = [today, addDays(today, 7)];
 
+  // Picking camogie or ladies football alone is already women's games, so a men's choice made elsewhere does not empty it.
+  const womensCode = isWomensCode(filters.sport);
+
   return fixtures
     .filter((f) => {
       // Games already played never show as upcoming, even from a copy of the list saved days ago.
@@ -37,6 +41,7 @@ export function filterFixtures(
         return false;
       }
       if (!matchesAge(f.ageGroup, filters.age ?? 'all')) return false;
+      if (!matchesGender(f, womensCode ? 'all' : filters.gender ?? 'all')) return false;
       if (filters.level && f.level !== filters.level) return false;
       if (filters.county && f.county !== filters.county) return false;
       if (filters.distanceKm != null && location) {
@@ -57,8 +62,23 @@ export function activeFilterCount(filters: Filters, baseline: Filters = DEFAULT_
     (filters.county !== baseline.county ? 1 : 0) +
     (filters.distanceKm !== baseline.distanceKm ? 1 : 0) +
     (filters.when !== baseline.when ? 1 : 0) +
-    ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0)
+    ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0) +
+    ((filters.gender ?? 'all') !== (baseline.gender ?? 'all') ? 1 : 0)
   );
+}
+
+/**
+ * How many fixtures the other filters let through that have no category. They show under All only,
+ * so the filter screen says how many there are rather than hiding them quietly.
+ */
+export function unlabelledCount(
+  fixtures: Fixture[],
+  filters: Filters,
+  location: UserLocation | null,
+  now: Date = new Date(),
+  mySports: readonly SportId[] = []
+): number {
+  return countUnlabelled(filterFixtures(fixtures, { ...filters, gender: 'all' }, location, now, mySports));
 }
 
 export interface Bounds {

@@ -1,4 +1,4 @@
-import { fetchFixtures } from '../fixtures';
+import { fetchFixtures, mapFixture } from '../fixtures';
 
 const row = (i: number) => ({
   id: `id${String(i).padStart(5, '0')}`, sport_id: 'rugby', level: 'local', competition: 'Cup', home_team: `H${i}`, away_team: `A${i}`, title: null,
@@ -28,6 +28,7 @@ describe('fetchFixtures', () => {
     await fetchFixtures(now, db.get);
     const select = new URL(db.urls[0]).searchParams.get('select')!;
     expect(select).toContain('starts_at');
+    expect(select.split(',')).toContain('category');
     expect(select).not.toBe('*,venue:venues(name,county,latitude,longitude)');
     expect(select).not.toMatch(/created_at|updated_at|approval|source_ref|submitted_by/);
   });
@@ -59,5 +60,14 @@ describe('fetchFixtures', () => {
   it('passes a real failure on, so the app can show its error state', async () => {
     const down = (async () => new Response('', { status: 503 })) as unknown as typeof import('../http').fetchT;
     await expect(fetchFixtures(now, down)).rejects.toThrow('Fixtures request failed (503)');
+  });
+});
+
+describe('mapFixture category', () => {
+  it('carries the database category, and leaves it unset when missing or unknown', () => {
+    expect(mapFixture({ ...row(1), category: 'women' })?.category).toBe('women');
+    expect(mapFixture({ ...row(1), category: null })?.category).toBeUndefined();
+    expect(mapFixture(row(1))?.category).toBeUndefined();
+    expect(mapFixture({ ...row(1), category: 'whatever' })?.category).toBeUndefined();
   });
 });

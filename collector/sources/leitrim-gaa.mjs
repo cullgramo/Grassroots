@@ -1,7 +1,7 @@
 // Leitrim GAA: club, county and schools fixtures for the next 10 days, from the county board's public page.
 // Each row carries its details in the page's own markup. The referee's name is in there too and is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaCategory, gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Leitrim GAA';
 export const pages = [{ url: 'https://www.leitrimgaa.ie/fixtures-next-10-days/', area: 'Connacht', countyHint: 'Leitrim', prefix: 'Leitrim' }];
@@ -22,11 +22,14 @@ export function read(html, page, now = new Date()) {
     // Only the competition, round, venue and sport are taken from the row; "rf" (the referee) is not.
     const competition = [tidy(info.c), tidy(info.r)].filter(Boolean).join(' - ');
     const venue = tidy(info.v);
-    const sport = SPORT[String(info.sp ?? '').toLowerCase()] ?? gaaSport(competition) ?? 'gaelic-football';
+    const named = SPORT[String(info.sp ?? '').toLowerCase()] ?? gaaSport(competition);
+    const sport = named ?? 'gaelic-football';
+    // The row states the gender ("gn"); the competition's name is only used when it does not.
+    const category = info.gn === 'F' ? 'women' : info.gn === 'M' ? 'men' : gaaCategory(sport, competition, { named: named != null });
     out.push({
       ref: `${tidy(info.c)}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       sport: info.gn === 'F' && sport === 'gaelic-football' ? 'ladies-football' : sport,
-      level: 'local', category: info.gn === 'F' ? 'women' : info.gn === 'M' ? 'men' : null,
+      level: 'local', category,
       competition: /leitrim|connacht|munster|leinster|ulster/i.test(competition) ? competition : `${page.prefix} ${competition}`,
       home, away, title: null, date, time: readTime(el.querySelector('.fixtures__time')?.text ?? ''),
       venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,

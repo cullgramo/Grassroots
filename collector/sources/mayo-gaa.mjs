@@ -1,7 +1,7 @@
 // Mayo GAA: club and county fixtures from the county board's public fixtures page (a SportLoMo site).
 // Each game is a row under a date and a competition. No referee is shown or read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Mayo GAA';
 export const pages = [{ url: 'https://mayogaa.com/fixtures/', area: 'Connacht', countyHint: 'Mayo', prefix: 'Mayo' }];
@@ -26,7 +26,7 @@ export function read(html, page, now = new Date()) {
     const venue = tidy(el.querySelector('.venue-icon .data')?.text);
     out.push({
       ref: `${compId}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football', level: 'local', category: null,
+      ...gaaGame(competition), level: 'local',
       competition: /mayo|connacht|munster|leinster|ulster/i.test(competition) ? competition : `${page.prefix} ${competition}`,
       home, away, title: null, date, time,
       venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,

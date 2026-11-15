@@ -1,7 +1,7 @@
 // Waterford GAA: club and county fixtures from the county board's public fixtures page (a SportLoMo widget).
 // Competition headings and game rows alternate. The referee line is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Waterford GAA';
 export const pages = [{ url: 'https://www.waterfordgaa.ie/fixtures/', area: 'Munster', countyHint: 'Waterford' }];
@@ -21,7 +21,7 @@ export function read(html, page, now = new Date()) {
     const venue = tidy((el.querySelectorAll('.expand-item label').map((l) => l.text).find((t) => /^\s*Venue:/i.test(t)) ?? '').replace(/^\s*Venue:/i, ''));
     out.push({
       ref: `${competition}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football', level: 'local', category: null,
+      ...gaaGame(competition), level: 'local',
       competition, home, away, title: null, date, time: readTime(el.querySelector('.fvs')?.text ?? ''),
       venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,
       area: page.area, countyHint: page.countyHint, url: page.url,

@@ -2,7 +2,7 @@
 // Games still to be played carry a time; results carry scores and no time, so only rows with a time are read.
 // The referee's name sits beside the venue on every row and is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
 
 export const name = 'Roscommon GAA';
 export const pages = [{ url: 'https://www.gaaroscommon.ie/matches/', area: 'Connacht', countyHint: 'Roscommon', prefix: 'Roscommon' }];
@@ -26,8 +26,8 @@ export function read(html, page, now = new Date()) {
       const venue = tidy(box?.text).replace(/^venue:?\s*/i, '');
       out.push({
         ref: `${compId}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        sport: gaaSport(competition) ?? 'gaelic-football',
-        level: /club|school|college|pps|u\d|minor|reserve|junior|intermediate|senior|league|div/i.test(competition) ? 'local' : 'top', category: null,
+        ...gaaGame(competition),
+        level: /club|school|college|pps|u\d|minor|reserve|junior|intermediate|senior|league|div/i.test(competition) ? 'local' : 'top',
         competition: withBoard(page.prefix, competition),
         home, away, title: null, date, time,
         venue: /^(tbc|tba|venue|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,

@@ -1,5 +1,6 @@
 // Shared helpers for the fixture readers.
 import { execFileSync } from 'node:child_process';
+import { ageOf } from '../../utils/ageGroup.ts';
 
 export const USER_AGENT =
   'GrassrootsFixtures/1.0 (Irish sports fixtures app; reads public fixtures pages once a day; github.com/cullgramo/Grassroots)';
@@ -126,6 +127,42 @@ export function gaaSport(text) {
   if (/hurling|\bp?[sijm][a-c]?hc\b|\bhc\b/.test(t)) return 'hurling';
   if (/football|\bp?[sijm][a-c]?fc\b|\bfc\b/.test(t)) return 'gaelic-football';
   return null;
+}
+
+const WOMEN_WORDS = /\b(women'?s?|ladies|lgfa|girls?|female|camogie)\b/i;
+const MEN_WORDS = /\b(men'?s?|boys?|male)\b/i;
+const MIXED_WORDS = /\b(mixed|co-?ed)\b/i;
+
+/**
+ * The category a competition's name states outright: "Women's Super League", "18 Premier Boys Sun", "LGFA Division 2".
+ * Returns null when the name says nothing, or says both (a "Men's and Women's" cup). Never guessed from team names.
+ */
+export function categoryFromText(text) {
+  const t = String(text ?? '');
+  const found = new Set([WOMEN_WORDS.test(t) && 'women', MEN_WORDS.test(t) && 'men', MIXED_WORDS.test(t) && 'mixed'].filter(Boolean));
+  return found.size === 1 ? [...found][0] : null;
+}
+
+/**
+ * The category of a GAA game. Camogie and ladies football are the women's codes. Hurling and Gaelic football are the
+ * men's codes, but only when the competition is adult and its name makes the code clear: juvenile and schools games are
+ * sometimes mixed, so those stay unlabelled unless the name says. A word in the name (Girls, Ladies, Mixed) wins.
+ * `named` is whether the code came from the source itself rather than a fallback guess.
+ */
+export function gaaCategory(sport, competition, { named = true } = {}) {
+  const said = categoryFromText(competition);
+  if (said) return said;
+  if (sport === 'camogie' || sport === 'ladies-football') return 'women';
+  if (!named || (sport !== 'hurling' && sport !== 'gaelic-football')) return null;
+  const { group } = ageOf(competition);
+  return group === 'adult' || group === 'masters' ? 'men' : null;
+}
+
+/** `{ sport, category }` for a GAA competition known only by its name (unnamed codes are filed as football, with no category). */
+export function gaaGame(competition) {
+  const named = gaaSport(competition);
+  const sport = named ?? 'gaelic-football';
+  return { sport, category: gaaCategory(sport, competition, { named: named != null }) };
 }
 
 /** Fetches JSON politely, the same way pages are fetched. */

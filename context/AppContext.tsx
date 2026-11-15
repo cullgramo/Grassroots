@@ -9,6 +9,7 @@ import { backendConfigured, fetchFixtures } from '@/lib/fixtures';
 import { report, reportTo } from '@/lib/report';
 import { openingFilters, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import type { AgeFilter } from '@/utils/ageGroup';
+import { isGenderFilter, type GenderFilter } from '@/utils/category';
 import { filterFixtures } from '@/utils/filterFixtures';
 import { widenView } from '@/utils/view';
 
@@ -38,6 +39,9 @@ interface AppState {
   /** Who the user follows: adult games, underage games, or both. The map opens on this. */
   myAge: AgeFilter;
   setMyAge: (age: AgeFilter) => void;
+  /** Men & Boys, Women & Girls, or both. The map opens on this. */
+  myGender: GenderFilter;
+  setMyGender: (gender: GenderFilter) => void;
   /** The view the app opens on, so the Filters button counts only what the user has changed. */
   baseline: Filters;
   /** The county the user chose when location was off. */
@@ -58,6 +62,7 @@ interface AppState {
 const SAVED_KEY = 'grassroots.saved';
 const SPORTS_KEY = 'grassroots.mySports';
 const AGE_KEY = 'grassroots.myAge';
+const GENDER_KEY = 'grassroots.myGender';
 const COUNTY_KEY = 'grassroots.myCounty';
 
 const AppContext = createContext<AppState | null>(null);
@@ -104,12 +109,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const [myAge, setAge] = useState<AgeFilter>('all');
+  const [myGender, setGender] = useState<GenderFilter>('all');
   const [myCounty, setCounty] = useState<string | null>(null);
   const [prefsLoaded, setPrefsLoaded] = useState(false);
   const [viewKey, setViewKey] = useState(0);
   // The view the app opened on: a widened one counts as the opening view, so the Filters button stays plain.
   const [openingView, setOpeningView] = useState<Filters>(openingFilters());
-  const baseline = useMemo(() => ({ ...openingView, age: myAge }), [openingView, myAge]);
+  const baseline = useMemo(() => ({ ...openingView, age: myAge, gender: myGender }), [openingView, myAge, myGender]);
 
   const setFilters = useCallback((patch: Partial<Filters>) => {
     touched.current = true;
@@ -117,9 +123,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
   const resetFilters = useCallback(() => {
     touched.current = true;
-    setAll(openingFilters(myAge));
-    setOpeningView(openingFilters(myAge));
-  }, [myAge]);
+    setAll(openingFilters(myAge, myGender));
+    setOpeningView(openingFilters(myAge, myGender));
+  }, [myAge, myGender]);
   const setMyAge = useCallback(
     (age: AgeFilter) => {
       setAge(age);
@@ -128,6 +134,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     },
     []
   );
+  const setMyGender = useCallback((gender: GenderFilter) => {
+    setGender(gender);
+    setAll((f) => ({ ...f, gender }));
+    AsyncStorage.setItem(GENDER_KEY, gender).catch(reportTo('saving the men and women choice'));
+  }, []);
   const setMyCounty = useCallback((county: string | null) => {
     touched.current = true;
     setCounty(county);
@@ -143,8 +154,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    Promise.all([AsyncStorage.getItem(AGE_KEY), AsyncStorage.getItem(COUNTY_KEY)])
-      .then(([age, county]) => {
+    Promise.all([AsyncStorage.getItem(AGE_KEY), AsyncStorage.getItem(COUNTY_KEY), AsyncStorage.getItem(GENDER_KEY)])
+      .then(([age, county, gender]) => {
+        if (isGenderFilter(gender)) {
+          setGender(gender);
+          setAll((f) => ({ ...f, gender }));
+        }
         if (age === 'adult' || age === 'underage' || age === 'all') {
           setAge(age);
           setAll((f) => ({ ...f, age }));
@@ -245,8 +260,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice, myAge, setMyAge, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice, myAge, setMyAge, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

@@ -59,7 +59,8 @@ describe('widenView', () => {
 
 describe('describeView and isLimited', () => {
   it('describes the opening view in plain words', () => {
-    expect(describeView(openingFilters('underage'), true).map((p) => p.label)).toEqual(['Within 10 km of you', 'This weekend', 'Underage']);
+    expect(describeView(openingFilters('underage'), true).map((p) => p.label)).toEqual(['Within 10 km of you', 'This weekend', 'Underage', 'All']);
+    expect(describeView(openingFilters('all', 'women'), true).map((p) => p.label)[3]).toBe('Women & Girls');
   });
   it('says All Ireland with no place, and the county when one is chosen', () => {
     expect(describeView(DEFAULT_FILTERS, false)[0].label).toBe('All Ireland');

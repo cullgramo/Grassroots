@@ -22,7 +22,7 @@ test('DDSL: reads teams, time and ground; skips the referee; 01:00 means no time
   const got = ddsl.read(html, ddsl.pages[0], now);
   assert.equal(got.length, 2);
   assert.deepEqual({ ...got[0] }, {
-    ref: '217848-359909-361641-2026-11-13', sport: 'soccer', level: 'local', category: null, competition: 'DDSL 18 Premier Boys Sun',
+    ref: '217848-359909-361641-2026-11-13', sport: 'soccer', level: 'local', category: 'men', competition: 'DDSL 18 Premier Boys Sun',
     home: "St Kevin's FC", away: 'Raheny United FC', title: null, date: '2026-11-13', time: '19:45', venue: 'St Kevins Boys',
     county: null, postcode: null, area: 'Dublin', url: 'https://ddsl.ie/fixtures/',
   });
