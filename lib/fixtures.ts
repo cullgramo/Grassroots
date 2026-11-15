@@ -3,6 +3,7 @@ import type { Fixture, FixtureStatus } from '@/types/fixture';
 import { ageOf } from '@/utils/ageGroup';
 
 import { SUPABASE_KEY as KEY, SUPABASE_URL as URL_BASE } from './config';
+import { fetchT } from './http';
 
 /** True when the app knows which database to read; otherwise it runs on its built-in sample fixtures. */
 export const backendConfigured = Boolean(URL_BASE && KEY);
@@ -55,28 +56,60 @@ export function mapFixture(row: FixtureRow): Fixture | null {
   };
 }
 
-const SELECT =
-  // Every fixture column, so a column added later never breaks an older copy of the app.
-  '*,venue:venues(name,county,latitude,longitude)';
+// Only the columns the app uses: about 40% less to download than every column. If a database is missing one of them
+// (an older copy without time_known, say) the request is retried asking for every column.
+const COLUMNS =
+  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,time_known,venue:venues(name,county,latitude,longitude)';
+const ALL_COLUMNS = '*,venue:venues(name,county,latitude,longitude)';
 
 const PAGE = 1000;
 const MAX_ROWS = 20000;
 
-/** Loads approved fixtures from today onwards. The database's own rules hide anything not approved. */
-export async function fetchFixtures(now: Date = new Date()): Promise<Fixture[]> {
+interface Page {
+  rows: FixtureRow[];
+  /** The database's own count of every matching row, from the response's content-range header. */
+  total: number | null;
+}
+
+async function fetchPage(from: Date, offset: number, select: string, get: typeof fetchT): Promise<Page> {
+  const query = `select=${select}&starts_at=gte.${encodeURIComponent(from.toISOString())}&order=starts_at.asc,id.asc&limit=${PAGE}&offset=${offset}`;
+  const res = await get(`${URL_BASE}/rest/v1/fixtures?${query}`, { headers: { apikey: KEY!, Authorization: `Bearer ${KEY}`, Prefer: 'count=exact' } });
+  if (!res.ok) throw Object.assign(new Error(`Fixtures request failed (${res.status})`), { status: res.status });
+  const total = Number(res.headers.get('content-range')?.split('/')[1]);
+  return { rows: (await res.json()) as FixtureRow[], total: Number.isFinite(total) ? total : null };
+}
+
+/**
+ * Loads approved fixtures from today onwards. The database's own rules hide anything not approved.
+ * The first page says how many there are, and the rest are fetched together instead of one after another.
+ */
+export async function fetchFixtures(now: Date = new Date(), get: typeof fetchT = fetchT): Promise<Fixture[]> {
   const from = new Date(now);
   from.setHours(0, 0, 0, 0);
-  // The database hands back at most 1,000 rows at a time, so the list is read a page at a time.
-  const rows: FixtureRow[] = [];
-  for (let offset = 0; offset < MAX_ROWS; offset += PAGE) {
-    const query = `select=${SELECT}&starts_at=gte.${encodeURIComponent(from.toISOString())}&order=starts_at.asc,id.asc&limit=${PAGE}&offset=${offset}`;
-    const res = await fetch(`${URL_BASE}/rest/v1/fixtures?${query}`, {
-      headers: { apikey: KEY!, Authorization: `Bearer ${KEY}` },
-    });
-    if (!res.ok) throw new Error(`Fixtures request failed (${res.status})`);
-    const page = (await res.json()) as FixtureRow[];
-    rows.push(...page);
-    if (page.length < PAGE) break;
+  let select = COLUMNS;
+  let first: Page;
+  try {
+    first = await fetchPage(from, 0, select, get);
+  } catch (e) {
+    if ((e as { status?: number }).status !== 400) throw e;
+    select = ALL_COLUMNS;
+    first = await fetchPage(from, 0, select, get);
   }
-  return rows.map(mapFixture).filter((f): f is Fixture => f !== null);
+  const pages: Page[] = [first];
+  if (first.rows.length === PAGE) {
+    if (first.total !== null) {
+      const more = Math.ceil(Math.min(first.total, MAX_ROWS) / PAGE) - 1;
+      pages.push(...(await Promise.all(Array.from({ length: Math.max(0, more) }, (_, i) => fetchPage(from, (i + 1) * PAGE, select, get)))));
+    } else {
+      for (let offset = PAGE; offset < MAX_ROWS; offset += PAGE) {
+        const page = await fetchPage(from, offset, select, get);
+        pages.push(page);
+        if (page.rows.length < PAGE) break;
+      }
+    }
+  }
+  // A row added while the pages are being read can shift a later page by one, so repeats are dropped.
+  const byId = new Map<string, FixtureRow>();
+  for (const page of pages) for (const row of page.rows) byId.set(row.id, row);
+  return [...byId.values()].map(mapFixture).filter((f): f is Fixture => f !== null);
 }

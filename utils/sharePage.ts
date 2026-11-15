@@ -1,6 +1,7 @@
 import { getSport } from '@/constants/sports';
 import { fixtureTitle, type Fixture } from '@/types/fixture';
 import { directionsUrl, irishParts } from '@/utils/share';
+import { isPlayed } from '@/utils/played';
 import { ticketLink } from '@/utils/tickets';
 
 /**
@@ -15,14 +16,12 @@ import { ticketLink } from '@/utils/tickets';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-/** A game counts as played three hours after it starts. */
-export const PLAYED_AFTER_MS = 3 * 60 * 60 * 1000;
 
 export type PageState = 'upcoming' | 'played' | 'missing';
 
 export function pageState(f: Fixture | null, now: Date): PageState {
   if (!f) return 'missing';
-  return new Date(f.startsAt).getTime() + PLAYED_AFTER_MS < now.getTime() ? 'played' : 'upcoming';
+  return isPlayed(f, now) ? 'played' : 'upcoming';
 }
 
 export interface Preview {

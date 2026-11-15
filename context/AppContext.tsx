@@ -4,7 +4,9 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 
 import type { SportId } from '@/constants/sports';
 import { fixtures as sampleFixtures } from '@/data/fixtures';
+import { loadFixtureCache, saveFixtureCache } from '@/lib/cache';
 import { backendConfigured, fetchFixtures } from '@/lib/fixtures';
+import { report, reportTo } from '@/lib/report';
 import { openingFilters, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import type { AgeFilter } from '@/utils/ageGroup';
 import { filterFixtures } from '@/utils/filterFixtures';
@@ -55,7 +57,6 @@ interface AppState {
 
 const SAVED_KEY = 'grassroots.saved';
 const SPORTS_KEY = 'grassroots.mySports';
-const FIXTURES_KEY = 'grassroots.fixtures';
 const AGE_KEY = 'grassroots.myAge';
 const COUNTY_KEY = 'grassroots.myCounty';
 
@@ -78,7 +79,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const pos = await Location.getCurrentPositionAsync({});
       setLocationDenied(false);
       setLocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude });
-    } catch {
+    } catch (e) {
+      report(e, 'reading the phone\'s location');
       setLocationDenied(true);
     }
   }, []);
@@ -91,12 +93,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     AsyncStorage.getItem(SAVED_KEY)
       .then((raw) => raw && setSavedIds(JSON.parse(raw)))
-      .catch(() => {});
+      .catch(reportTo('reading saved fixtures'));
   }, []);
   const toggleSaved = useCallback((id: string) => {
     setSavedIds((ids) => {
       const next = ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
-      AsyncStorage.setItem(SAVED_KEY, JSON.stringify(next)).catch(() => {});
+      AsyncStorage.setItem(SAVED_KEY, JSON.stringify(next)).catch(reportTo('saving a saved fixture'));
       return next;
     });
   }, []);
@@ -122,7 +124,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (age: AgeFilter) => {
       setAge(age);
       setAll((f) => ({ ...f, age }));
-      AsyncStorage.setItem(AGE_KEY, age).catch(() => {});
+      AsyncStorage.setItem(AGE_KEY, age).catch(reportTo('saving the age choice'));
     },
     []
   );
@@ -131,7 +133,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setCounty(county);
     // A chosen county replaces "near me"; null means the whole island.
     setAll((f) => ({ ...f, county, distanceKm: null }));
-    AsyncStorage.setItem(COUNTY_KEY, county ?? '').catch(() => {});
+    AsyncStorage.setItem(COUNTY_KEY, county ?? '').catch(reportTo('saving the county choice'));
     setViewKey((k) => k + 1);
   }, []);
   const showAllIreland = useCallback(() => {
@@ -149,7 +151,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }
         if (county) setCounty(county);
       })
-      .catch(() => {})
+      .catch(reportTo('reading saved preferences'))
       .finally(() => setPrefsLoaded(true));
   }, []);
 
@@ -158,15 +160,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [isStale, setIsStale] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
+  // Each load gets a number, and only the newest one may update the screen: a slow, older answer arriving after a
+  // newer one (a refresh pulled during start-up) must not put old data back.
+  const latestLoad = useRef(0);
   const load = useCallback(async () => {
     if (!backendConfigured) return;
+    const mine = ++latestLoad.current;
     try {
       const fresh = await fetchFixtures();
+      if (mine !== latestLoad.current) return;
       setAllFixtures(fresh);
       setIsStale(false);
       setLoadState('ready');
-      AsyncStorage.setItem(FIXTURES_KEY, JSON.stringify(fresh)).catch(() => {});
-    } catch {
+      saveFixtureCache(fresh).catch(reportTo('saving the fixture copy on the phone'));
+    } catch (e) {
+      if (mine !== latestLoad.current) return;
+      report(e, 'loading fixtures');
       // Keep whatever is already showing; only report an error when there is nothing to show.
       setLoadState((state) => (state === 'ready' ? 'ready' : 'error'));
       setIsStale(true);
@@ -175,13 +184,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!backendConfigured) return;
-    AsyncStorage.getItem(FIXTURES_KEY)
-      .then((raw) => {
-        if (!raw) return;
-        setAllFixtures((current) => (current.length > 0 ? current : JSON.parse(raw)));
+    loadFixtureCache()
+      .then((saved) => {
+        if (!saved) return;
+        setAllFixtures((current) => (current.length > 0 ? current : saved));
         setLoadState((state) => (state === 'loading' ? 'ready' : state));
       })
-      .catch(() => {})
+      .catch(reportTo('reading the fixture copy on the phone'))
       .finally(load);
   }, [load]);
 
@@ -197,12 +206,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     AsyncStorage.getItem(SPORTS_KEY)
       .then((raw) => (raw ? setMine(JSON.parse(raw)) : setNeedsSportsChoice(true)))
-      .catch(() => {});
+      .catch(reportTo('reading the sports choice'));
   }, []);
   const setMySports = useCallback((ids: SportId[]) => {
     setMine(ids);
     setNeedsSportsChoice(false);
-    AsyncStorage.setItem(SPORTS_KEY, JSON.stringify(ids)).catch(() => {});
+    AsyncStorage.setItem(SPORTS_KEY, JSON.stringify(ids)).catch(reportTo('saving the sports choice'));
   }, []);
 
   // Once the fixtures have loaded and we know whether location is on, settle the opening view once:
