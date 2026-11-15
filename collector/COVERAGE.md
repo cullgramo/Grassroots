@@ -54,7 +54,7 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Running Calendar Ireland (races) | Snapshot only | `running-calendar-snapshot.mjs`: 158 races, 15 Nov 2026 to Nov 2027, copied by the owner on 15 Nov and cleaned. Removed 30 (date TBC 13, not running 10, already in the app 6, nationwide 1) and left out 22 races to review plus 4 region-level or mismatched ones; every start place was checked against the map. The site answers 403 "Unusual Activity" to automated reading, so it is not live and not to be worked around. No times on the calendar (shown as Time TBC). Start places are town or venue level. Rights: permission from the site's operators still to be asked; a feed would replace the copy. |
 | Irish FA, League of Ireland | Not read | Terms forbid copying. Permission needed. |
 | Ticketmaster and Universe | Reading | |
-| Club rugby (four provinces), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
+| Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
 | Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
 
 ## Protecting the data (audit M5)

@@ -6012,12 +6012,26 @@
   "longitude": -6.458587,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Tinahely Community Hall\" (proposer's source: OpenStreetMap way/1196902740: Tinahely Community Hall)"
  },
+ "|affidea stadium|": {
+  "name": "Affidea Stadium",
+  "county": "Down",
+  "latitude": 54.576655,
+  "longitude": -5.904523,
+  "how": "OpenStreetMap way/428492574: Affidea Stadium; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists; checked 2026-11-15"
+ },
  "|alsaa|": {
   "name": "ALSAA",
   "county": "Dublin",
   "latitude": 53.419465,
   "longitude": -6.230548,
   "how": "place search (leisure/sports_centre: ALSAA)"
+ },
+ "|aviva stadium|": {
+  "name": "Aviva Stadium",
+  "county": "Dublin",
+  "latitude": 53.335225,
+  "longitude": -6.228185,
+  "how": "OpenStreetMap way/128521419: Aviva Stadium; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists; checked 2026-11-15"
  },
  "|ballinfoile community centre|": {
   "name": "Ballinfoile Castlegar Neighbourhood Centre",
@@ -6095,6 +6109,13 @@
   "latitude": 52.635384,
   "longitude": -8.639159,
   "how": "place search (amenity/school: Crescent College Comprehensive)"
+ },
+ "|dexcom stadium|": {
+  "name": "Dexcom Stadium",
+  "county": "Galway",
+  "latitude": 53.279353,
+  "longitude": -9.039562,
+  "how": "OpenStreetMap way/159896536: Dexcom Stadium; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists; checked 2026-11-15"
  },
  "|fr mathews arena|": {
   "name": "Fr Mathews Arena",
@@ -6305,6 +6326,13 @@
   "latitude": 53.36807,
   "longitude": -6.27486,
   "how": "checked by hand (OpenStreetMap: Saint Vincent's Secondary School, Finglas Road)"
+ },
+ "|thomond park|": {
+  "name": "Thomond Park",
+  "county": "Limerick",
+  "latitude": 52.674877,
+  "longitude": -8.642518,
+  "how": "OpenStreetMap relation/3357191: Thomond Park; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists; checked 2026-11-15"
  },
  "|tolka rovers sports complex|": {
   "name": "Tolka Rovers Sports Complex",
