@@ -1218,7 +1218,14 @@
   "longitude": -7.148459,
   "how": "place search (leisure/sports_centre: Waterford & Tramore Racecourse)"
  },
- "Ireland|ucd sports complex|": null,
+ "Ireland|ucd sports complex|": {
+  "name": "UCD Sports Complex",
+  "county": "Dublin",
+  "latitude": 53.3081049,
+  "longitude": -6.2294969,
+  "family": "handball",
+  "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on the UCD Belfield campus, 43 m from the map’s building named UCD Sports Centre (Wynnsward Drive)"
+ },
  "Ireland|wexford racecourse|": {
   "name": "Wexford Racecourse",
   "county": "Wexford",
