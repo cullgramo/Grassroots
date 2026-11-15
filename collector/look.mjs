@@ -25,9 +25,10 @@ import * as corkGaa from './sources/cork-gaa.mjs';
 import * as waterfordGaa from './sources/waterford-gaa.mjs';
 import * as niflSnapshot from './sources/nifl-snapshot.mjs';
 import * as handballSnapshot from './sources/handball-snapshot.mjs';
+import * as runningCalendarSnapshot from './sources/running-calendar-snapshot.mjs';
 import * as longfordSnapshot from './sources/longford-snapshot.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'cork-gaa': corkGaa, 'waterford-gaa': waterfordGaa, 'longford-snapshot': longfordSnapshot, 'nifl-snapshot': niflSnapshot, 'handball-snapshot': handballSnapshot,
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'cork-gaa': corkGaa, 'waterford-gaa': waterfordGaa, 'longford-snapshot': longfordSnapshot, 'nifl-snapshot': niflSnapshot, 'handball-snapshot': handballSnapshot, 'running-calendar-snapshot': runningCalendarSnapshot,
   // Leitrim GAA (sources/leitrim-gaa.mjs) is switched off: its site answered 403 to the daily run on GitHub. A refusal stands; add 'leitrim-gaa': leitrimGaa back only if Leitrim agrees.
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
   ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };

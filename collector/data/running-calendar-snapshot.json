@@ -1,0 +1,1276 @@
+{
+ "_note": "A one-off snapshot of Running Calendar Ireland's race calendar (runningcalendar.ie/calendar), 15 Nov 2026 to Nov 2027, copied by the owner on 15 Nov 2026 and cleaned and checked against the map. The site refuses automated reading, so this is not live. Start places are town or venue level, not exact start lines. Times are not on the calendar.",
+ "events": [
+  {
+   "name": "Cloyne Commons Challenge: Race 1",
+   "date": "2026-11-15",
+   "county": "Cork",
+   "place": "Cloyne, Co. Cork",
+   "latitude": 51.8597,
+   "longitude": -8.1197
+  },
+  {
+   "name": "Run Forest Run: Gosford",
+   "date": "2026-11-21",
+   "county": "Armagh",
+   "place": "Markethill, Co. Armagh, NI",
+   "latitude": 54.30944,
+   "longitude": -6.51861
+  },
+  {
+   "name": "Ballinderreen 10K",
+   "date": "2026-11-22",
+   "county": "Galway",
+   "place": "Ballinderreen, Co. Galway",
+   "latitude": 53.1975,
+   "longitude": -8.90556
+  },
+  {
+   "name": "Waterford Half Marathon",
+   "date": "2026-11-28",
+   "county": "Waterford",
+   "place": "SETU Arena, Carriganore, Co. Waterford",
+   "latitude": 52.25141,
+   "longitude": -7.17955
+  },
+  {
+   "name": "Ireland's Medieval Mile",
+   "date": "2026-12-04",
+   "county": "Kilkenny",
+   "place": "Kilkenny City, Co. Kilkenny",
+   "latitude": 52.65083,
+   "longitude": -7.24889
+  },
+  {
+   "name": "Belleek 10K",
+   "date": "2026-12-06",
+   "county": "Mayo",
+   "place": "Ballina, Co.Mayo",
+   "latitude": 54.12722,
+   "longitude": -9.15556
+  },
+  {
+   "name": "Newmarket 5K. Road Race",
+   "date": "2026-12-06",
+   "county": "Cork",
+   "place": "Newmarket, Co. Cork",
+   "latitude": 52.2155,
+   "longitude": -9.0016
+  },
+  {
+   "name": "The Border Half",
+   "date": "2026-12-06",
+   "county": "Clare",
+   "place": "Cloonlara, Co. Clare",
+   "latitude": 52.7214,
+   "longitude": -8.5492
+  },
+  {
+   "name": "TriLakes Half Marathon & 10K",
+   "date": "2026-12-12",
+   "county": "Galway",
+   "place": "Caherlistrane, Co. Galway",
+   "latitude": 53.49889,
+   "longitude": -9.03056
+  },
+  {
+   "name": "Cloyne Commons Challenge: Race 2",
+   "date": "2026-12-13",
+   "county": "Cork",
+   "place": "Cloyne, Co. Cork",
+   "latitude": 51.8597,
+   "longitude": -8.1197
+  },
+  {
+   "name": "Run Run Rudolph 5K, 10K & Half Marathon",
+   "date": "2026-12-13",
+   "county": "Kildare",
+   "place": "Knockbounce, Kilcullen, Co. Kildare",
+   "latitude": 53.1256,
+   "longitude": -6.7453
+  },
+  {
+   "name": "Fields of Athenry 10K",
+   "date": "2026-12-26",
+   "county": "Galway",
+   "place": "Athenry, Co. Galway",
+   "latitude": 53.30111,
+   "longitude": -8.74556
+  },
+  {
+   "name": "St Stephen's Day Road Race",
+   "date": "2026-12-26",
+   "county": "Kerry",
+   "place": "Farranfore, County Kerry",
+   "latitude": 52.17083,
+   "longitude": -9.55139
+  },
+  {
+   "name": "Fat Turkey Run",
+   "date": "2026-12-27",
+   "county": "Dublin",
+   "place": "Sutton, Dublin 13",
+   "latitude": 53.39083,
+   "longitude": -6.11306
+  },
+  {
+   "name": "Shandrum AC 5K Road Race",
+   "date": "2026-12-28",
+   "county": "Cork",
+   "place": "Newtownshandrum, Co. Cork",
+   "latitude": 52.3486,
+   "longitude": -8.7297
+  },
+  {
+   "name": "Tom Brennan Memorial 5K",
+   "date": "2027-01-01",
+   "county": "Dublin",
+   "place": "Phoenix Park, Dublin",
+   "latitude": 53.35556,
+   "longitude": -6.32972
+  },
+  {
+   "name": "Run Forest Run: Loughgall",
+   "date": "2027-01-09",
+   "county": "Armagh",
+   "place": "Loughgall, Co. Armagh, NI",
+   "latitude": 54.4075,
+   "longitude": -6.59889
+  },
+  {
+   "name": "World Half Marathon Festival",
+   "date": "2027-01-09",
+   "endDate": "2027-01-10",
+   "county": "Kildare",
+   "place": "Donadea Forest Park, Donadea, Co. Kildare",
+   "latitude": 53.33611,
+   "longitude": -6.74444
+  },
+  {
+   "name": "Art O’Neill Challenge",
+   "date": "2027-01-15",
+   "county": "Dublin",
+   "place": "Dublin Castle",
+   "latitude": 53.3428,
+   "longitude": -6.2675
+  },
+  {
+   "name": "Cloyne Commons Challenge: Race 3",
+   "date": "2027-01-17",
+   "county": "Cork",
+   "place": "Cloyne, Co. Cork",
+   "latitude": 51.8597,
+   "longitude": -8.1197
+  },
+  {
+   "name": "Limerick Race Series 1: 5K",
+   "date": "2027-01-17",
+   "county": "Limerick",
+   "place": "Castleconnell, Co. Limerick",
+   "latitude": 52.7139,
+   "longitude": -8.4983
+  },
+  {
+   "name": "Clonakilty 5 Mile Road Race",
+   "date": "2027-01-24",
+   "county": "Cork",
+   "place": "Clonakilty, Co. Cork",
+   "latitude": 51.61444,
+   "longitude": -8.87722
+  },
+  {
+   "name": "Run Clare Series 5K - Sixmilebridge",
+   "date": "2027-01-24",
+   "county": "Clare",
+   "place": "Sixmilebridge, Co. Clare",
+   "latitude": 52.73889,
+   "longitude": -8.77583
+  },
+  {
+   "name": "Dundalk Half Marathon & 10K",
+   "date": "2027-01-31",
+   "county": "Louth",
+   "place": "Dundalk, Co. Louth",
+   "latitude": 53.98778,
+   "longitude": -6.39889
+  },
+  {
+   "name": "Dungarvan 10 Mile",
+   "date": "2027-01-31",
+   "county": "Waterford",
+   "place": "Dungarvan, Co. Waterford",
+   "latitude": 52.09139,
+   "longitude": -7.63222
+  },
+  {
+   "name": "Raheny 5 Mile",
+   "date": "2027-01-31",
+   "county": "Dublin",
+   "place": "Raheny, Co. Dublin",
+   "latitude": 53.37639,
+   "longitude": -6.18333
+  },
+  {
+   "name": "West Clare Cancer Centre 8K Run/Walk",
+   "date": "2027-01-31",
+   "county": "Clare",
+   "place": "Kilkee, Co. Clare",
+   "latitude": 52.68222,
+   "longitude": -9.64694
+  },
+  {
+   "name": "Run Forest Run: Antrim",
+   "date": "2027-02-06",
+   "county": "Antrim",
+   "place": "Antrim Castle Gardens, Co. Antrim, NI",
+   "latitude": 54.71778,
+   "longitude": -6.22389
+  },
+  {
+   "name": "Run The Banner: Kilnaboy 6K",
+   "date": "2027-02-07",
+   "county": "Clare",
+   "place": "Killinaboy, Co. Clare",
+   "latitude": 52.96917,
+   "longitude": -9.09111
+  },
+  {
+   "name": "RunCork Half Marathon",
+   "date": "2027-02-07",
+   "county": "Cork",
+   "place": "Cork Marina, Co. Cork",
+   "latitude": 51.89889,
+   "longitude": -8.45528
+  },
+  {
+   "name": "Trail Criú 6 Hour Challenge",
+   "date": "2027-02-07",
+   "county": "Wicklow",
+   "place": "Kippure Estate, Co. Wicklow",
+   "latitude": 53.18139,
+   "longitude": -6.37694
+  },
+  {
+   "name": "Run the Night Cork",
+   "date": "2027-02-10",
+   "county": "Cork",
+   "place": "Marina Market, Cork City, Co. Cork",
+   "latitude": 51.89889,
+   "longitude": -8.45528
+  },
+  {
+   "name": "Armagh International Road Race",
+   "date": "2027-02-11",
+   "county": "Armagh",
+   "place": "The Mall, Armagh City, NI",
+   "latitude": 54.34861,
+   "longitude": -6.65083
+  },
+  {
+   "name": "Donadea 50K",
+   "date": "2027-02-13",
+   "county": "Kildare",
+   "place": "Donadea, Co. Kildare",
+   "latitude": 53.33611,
+   "longitude": -6.74444
+  },
+  {
+   "name": "Rabbit Run",
+   "date": "2027-02-13",
+   "county": "Antrim",
+   "place": "Ballypatrick Forest, Ballycastle, Co Antrim, NI",
+   "latitude": 55.15833,
+   "longitude": -6.12611
+  },
+  {
+   "name": "Tralee 10 Mile Road Race",
+   "date": "2027-02-13",
+   "county": "Kerry",
+   "place": "Tralee, Co. Kerry",
+   "latitude": 52.26167,
+   "longitude": -9.71194
+  },
+  {
+   "name": "Limerick Race Series 2: 10K",
+   "date": "2027-02-14",
+   "county": "Limerick",
+   "place": "Castleconnell, Co. Limerick",
+   "latitude": 52.7139,
+   "longitude": -8.4983
+  },
+  {
+   "name": "Tommy Ryan Memorial Carrigaline 5 Mile",
+   "date": "2027-02-14",
+   "county": "Cork",
+   "place": "Carrigaline, Co. Cork",
+   "latitude": 51.815,
+   "longitude": -8.39167
+  },
+  {
+   "name": "Tony McGowan Run",
+   "date": "2027-02-14",
+   "county": "Leitrim",
+   "place": "Drumshanbo, Co. Leitrim",
+   "latitude": 54.0475,
+   "longitude": -8.04306
+  },
+  {
+   "name": "Run the Night Dublin",
+   "date": "2027-02-17",
+   "county": "Dublin",
+   "place": "North Wall Quay, Dublin City Centre",
+   "latitude": 53.3475,
+   "longitude": -6.23694
+  },
+  {
+   "name": "Cloyne Commons Challenge: Race 4",
+   "date": "2027-02-21",
+   "county": "Cork",
+   "place": "Cloyne, Co. Cork",
+   "latitude": 51.8597,
+   "longitude": -8.1197
+  },
+  {
+   "name": "Nenagh Half Marathon & 10K",
+   "date": "2027-02-21",
+   "county": "Tipperary",
+   "place": "Nenagh, Co. Tipperary",
+   "latitude": 52.86611,
+   "longitude": -8.20472
+  },
+  {
+   "name": "Shane's Castle Marathon, Half Marathon & 10K",
+   "date": "2027-02-21",
+   "county": "Antrim",
+   "place": "Shane's Castle, Co. Antrim",
+   "latitude": 54.73306,
+   "longitude": -6.2575
+  },
+  {
+   "name": "Run Forest Run: Castlewellan",
+   "date": "2027-02-27",
+   "county": "Down",
+   "place": "Castlewellan, Co. Down, NI",
+   "latitude": 54.26389,
+   "longitude": -5.94583
+  },
+  {
+   "name": "Kinsale 10 Mile",
+   "date": "2027-02-28",
+   "county": "Cork",
+   "place": "Kinsale Community School, Kinsale, Co. Cork",
+   "latitude": 51.71306,
+   "longitude": -8.53056
+  },
+  {
+   "name": "Londis Adare 10K",
+   "date": "2027-02-28",
+   "county": "Limerick",
+   "place": "Adare, Co. Limerick",
+   "latitude": 52.56472,
+   "longitude": -8.78833
+  },
+  {
+   "name": "Naas 10 Mile & Half Marathon",
+   "date": "2027-02-28",
+   "county": "Kildare",
+   "place": "Naas, Co. Kildare",
+   "latitude": 53.22056,
+   "longitude": -6.66694
+  },
+  {
+   "name": "Run Clare Series 5 Mile - Quin",
+   "date": "2027-02-28",
+   "county": "Clare",
+   "place": "Quin, Co. Clare",
+   "latitude": 52.81833,
+   "longitude": -8.86472
+  },
+  {
+   "name": "Run The Banner: Carron 7K",
+   "date": "2027-02-28",
+   "county": "Clare",
+   "place": "Carron, Co. Clare",
+   "latitude": 53.03611,
+   "longitude": -9.07889
+  },
+  {
+   "name": "Bundoran 10",
+   "date": "2027-03-06",
+   "county": "Donegal",
+   "place": "Bundoran, Co. Donegal",
+   "latitude": 54.47528,
+   "longitude": -8.28306
+  },
+  {
+   "name": "Carlingford Half Marathon & 10K",
+   "date": "2027-03-06",
+   "county": "Louth",
+   "place": "Carlingford, Co. Louth",
+   "latitude": 54.04944,
+   "longitude": -6.18389
+  },
+  {
+   "name": "Kinvara Rock and Road",
+   "date": "2027-03-06",
+   "county": "Galway",
+   "place": "Kinvara, Co. Galway",
+   "latitude": 53.14167,
+   "longitude": -8.93278
+  },
+  {
+   "name": "Phoenix 5K",
+   "date": "2027-03-06",
+   "county": "Dublin",
+   "place": "Phoenix Park, Dublin",
+   "latitude": 53.35556,
+   "longitude": -6.32972
+  },
+  {
+   "name": "Bohermeen Half Marathon",
+   "date": "2027-03-07",
+   "county": "Meath",
+   "place": "Bohermeen, Navan, Co. Meath",
+   "latitude": 53.65583,
+   "longitude": -6.78694
+  },
+  {
+   "name": "Limerick Race Series 3: 4 Miles",
+   "date": "2027-03-07",
+   "county": "Limerick",
+   "place": "Castleconnell, Co. Limerick",
+   "latitude": 52.7139,
+   "longitude": -8.4983
+  },
+  {
+   "name": "Lusk 4 Mile",
+   "date": "2027-03-07",
+   "county": "Dublin",
+   "place": "Lusk, Co. Dublin",
+   "latitude": 53.52833,
+   "longitude": -6.16694
+  },
+  {
+   "name": "Run Crosshaven Road Race",
+   "date": "2027-03-07",
+   "county": "Cork",
+   "place": "Crosshaven, Co. Cork",
+   "latitude": 51.80278,
+   "longitude": -8.29722
+  },
+  {
+   "name": "Wine on the Line",
+   "date": "2027-03-07",
+   "county": "Kildare",
+   "place": "Kildare Town, Co. Kildare",
+   "latitude": 53.1575,
+   "longitude": -6.91
+  },
+  {
+   "name": "Sandymount Dublin Night Run: March",
+   "date": "2027-03-09",
+   "county": "Dublin",
+   "place": "Sandymount, Dublin",
+   "latitude": 53.3325,
+   "longitude": -6.20889
+  },
+  {
+   "name": "Tralee 50K Ultra Marathon",
+   "date": "2027-03-13",
+   "county": "Kerry",
+   "place": "Tralee, Co. Kerry",
+   "latitude": 52.26167,
+   "longitude": -9.71194
+  },
+  {
+   "name": "Walled City 10 Mile Road Race",
+   "date": "2027-03-13",
+   "county": "Derry",
+   "place": "St. Columb’s Park, Derry, NI",
+   "latitude": 54.99611,
+   "longitude": -7.30806
+  },
+  {
+   "name": "Blarney Stone Mad Half Marathon",
+   "date": "2027-03-14",
+   "county": "Cork",
+   "place": "Blarney, Co. Cork",
+   "latitude": 51.93139,
+   "longitude": -8.57194
+  },
+  {
+   "name": "Mullingar Half Marathon",
+   "date": "2027-03-17",
+   "county": "Westmeath",
+   "place": "Mullingar, Co. Westmeath",
+   "latitude": 53.525,
+   "longitude": -7.34222
+  },
+  {
+   "name": "SPAR Craic10k",
+   "date": "2027-03-17",
+   "county": "Antrim",
+   "place": "Belfast, NI",
+   "latitude": 54.5964,
+   "longitude": -5.93
+  },
+  {
+   "name": "St Patrick's Day Tubbercurry 10K & 5K",
+   "date": "2027-03-17",
+   "county": "Sligo",
+   "place": "Tubbercurry, Co. Sligo",
+   "latitude": 54.05389,
+   "longitude": -8.73028
+  },
+  {
+   "name": "Streets of Portlaoise 5K",
+   "date": "2027-03-17",
+   "county": "Laois",
+   "place": "Portlaoise, Co. Laois",
+   "latitude": 53.03278,
+   "longitude": -7.29972
+  },
+  {
+   "name": "Tallaght AC 5K Road Race",
+   "date": "2027-03-17",
+   "county": "Dublin",
+   "place": "Tallaght, Co. Dublin",
+   "latitude": 53.2925,
+   "longitude": -6.35333
+  },
+  {
+   "name": "Castle to Castle Run",
+   "date": "2027-03-20",
+   "county": "Antrim",
+   "place": "Carrickfergus, Co. Antrim, NI",
+   "latitude": 54.71333,
+   "longitude": -5.80639
+  },
+  {
+   "name": "Forth Mountain Trail Run",
+   "date": "2027-03-20",
+   "county": "Wexford",
+   "place": "Barntown, Co. Wexford",
+   "latitude": 52.3275,
+   "longitude": -6.52611
+  },
+  {
+   "name": "Cloyne Commons Challenge: Race 5",
+   "date": "2027-03-21",
+   "county": "Cork",
+   "place": "Cloyne, Co. Cork",
+   "latitude": 51.8597,
+   "longitude": -8.1197
+  },
+  {
+   "name": "Dunboyne 10K Road Race",
+   "date": "2027-03-21",
+   "county": "Meath",
+   "place": "Dunboyne, Co. Meath",
+   "latitude": 53.41889,
+   "longitude": -6.47444
+  },
+  {
+   "name": "Run Clare Series Eamon Moloney 10K - Ennis",
+   "date": "2027-03-21",
+   "county": "Clare",
+   "place": "Ennis, Co. Clare",
+   "latitude": 52.84667,
+   "longitude": -8.98139
+  },
+  {
+   "name": "Run The Banner: Michael Egan Memorial 8K",
+   "date": "2027-03-21",
+   "county": "Clare",
+   "place": "Quilty, Co. Clare",
+   "latitude": 52.815,
+   "longitude": -9.4475
+  },
+  {
+   "name": "Wicklow Half Marathon & 10K",
+   "date": "2027-03-21",
+   "county": "Wicklow",
+   "place": "Wicklow, Co. Wicklow",
+   "latitude": 52.97722,
+   "longitude": -6.03611
+  },
+  {
+   "name": "Streets of Killarney 5 Mile",
+   "date": "2027-03-26",
+   "county": "Kerry",
+   "place": "Killarney, Co. Kerry",
+   "latitude": 52.05944,
+   "longitude": -9.50722
+  },
+  {
+   "name": "Run Ballybunion",
+   "date": "2027-03-27",
+   "county": "Kerry",
+   "place": "Ballybunion, Co. Kerry",
+   "latitude": 52.51139,
+   "longitude": -9.67389
+  },
+  {
+   "name": "Gaelforce 10K Bray",
+   "date": "2027-04-03",
+   "county": "Wicklow",
+   "place": "Bray, Co. Wicklow",
+   "latitude": 53.20306,
+   "longitude": -6.10306
+  },
+  {
+   "name": "Omagh Half Marathon",
+   "date": "2027-04-04",
+   "county": "Tyrone",
+   "place": "Omagh Leisure Complex, Omagh, NI",
+   "latitude": 54.60694,
+   "longitude": -7.31139
+  },
+  {
+   "name": "Run The Banner: Tulla Track 10K",
+   "date": "2027-04-04",
+   "county": "Clare",
+   "place": "Tulla, Co. Clare",
+   "latitude": 52.86833,
+   "longitude": -8.75611
+  },
+  {
+   "name": "Sixmilebridge Half Marathon & 10K",
+   "date": "2027-04-04",
+   "county": "Clare",
+   "place": "Sixmilebridge, Co. Clare",
+   "latitude": 52.73889,
+   "longitude": -8.77583
+  },
+  {
+   "name": "Westport Marathon",
+   "date": "2027-04-10",
+   "county": "Mayo",
+   "place": "Westport, Co. Mayo",
+   "latitude": 53.79972,
+   "longitude": -9.52139
+  },
+  {
+   "name": "Great Ireland Run",
+   "date": "2027-04-11",
+   "county": "Dublin",
+   "place": "Phoenix Park, Dublin",
+   "latitude": 53.35556,
+   "longitude": -6.32972
+  },
+  {
+   "name": "The Great Ennis 10K & 5K",
+   "date": "2027-04-11",
+   "county": "Clare",
+   "place": "Ennis, County Clare",
+   "latitude": 52.85972,
+   "longitude": -8.995
+  },
+  {
+   "name": "The Heartlands Run Athlone",
+   "date": "2027-04-11",
+   "county": "Westmeath",
+   "place": "Athlone, Co. Westmeath",
+   "latitude": 53.41806,
+   "longitude": -7.90167
+  },
+  {
+   "name": "Inis Oírr Wild Atlantic Island Run",
+   "date": "2027-04-17",
+   "county": "Galway",
+   "place": "Páirc Peile Inis Oírr, Inisheer, Co. Galway",
+   "latitude": 53.06,
+   "longitude": -9.52194
+  },
+  {
+   "name": "Royal Canal Run Longford",
+   "date": "2027-04-17",
+   "county": "Longford",
+   "place": "Glebe, Co. Longford",
+   "latitude": 53.73167,
+   "longitude": -7.80167
+  },
+  {
+   "name": "Ultra Trail na mBan",
+   "date": "2027-04-17",
+   "county": "Wicklow",
+   "place": "Glendalough, Laragh, Co. Wicklow",
+   "latitude": 53.01167,
+   "longitude": -6.32361
+  },
+  {
+   "name": "Antrim Town Half Marathon",
+   "date": "2027-04-18",
+   "county": "Antrim",
+   "place": "Antrim Town, Co. Antrim",
+   "latitude": 54.71778,
+   "longitude": -6.22389
+  },
+  {
+   "name": "Limerick Race Series 4: 10 Miles",
+   "date": "2027-04-18",
+   "county": "Limerick",
+   "place": "Castleconnell, Co. Limerick",
+   "latitude": 52.7139,
+   "longitude": -8.4983
+  },
+  {
+   "name": "Wexford Half Marathon & 10K",
+   "date": "2027-04-18",
+   "county": "Wexford",
+   "place": "Wexford Town, Co. Wexford",
+   "latitude": 52.33139,
+   "longitude": -6.45528
+  },
+  {
+   "name": "Bridgedale Mourne Coast 2 Coast Marathon",
+   "date": "2027-04-24",
+   "county": "Down",
+   "place": "Rostrevor",
+   "latitude": 54.10306,
+   "longitude": -6.18694
+  },
+  {
+   "name": "The Great Limerick Run - Kids Fun Run",
+   "date": "2027-05-01",
+   "county": "Limerick",
+   "place": "University of Limerick, Limerick",
+   "latitude": 52.67389,
+   "longitude": -8.56778
+  },
+  {
+   "name": "Belfast City Marathon",
+   "date": "2027-05-02",
+   "county": "Down",
+   "place": "Stormont Estate",
+   "latitude": 54.60306,
+   "longitude": -5.82889
+  },
+  {
+   "name": "The Great Limerick Run",
+   "date": "2027-05-02",
+   "county": "Limerick",
+   "place": "Pery Square, Limerick",
+   "latitude": 52.66056,
+   "longitude": -8.62917
+  },
+  {
+   "name": "Dublin Mountain Backyard Ultra",
+   "date": "2027-05-08",
+   "county": "Dublin",
+   "place": "Ballinascorney, Dublin Mountains, Co. Dublin",
+   "latitude": 53.25139,
+   "longitude": -6.38611
+  },
+  {
+   "name": "Run Killarney",
+   "date": "2027-05-08",
+   "county": "Kerry",
+   "place": "Killarney, Co. Kerry",
+   "latitude": 52.045,
+   "longitude": -9.50778
+  },
+  {
+   "name": "Lough Key Legends Run",
+   "date": "2027-05-09",
+   "county": "Roscommon",
+   "place": "Boyle, Co. Roscommon",
+   "latitude": 53.98556,
+   "longitude": -8.26111
+  },
+  {
+   "name": "The Coast Half Marathon & 10K",
+   "date": "2027-05-15",
+   "county": "Down",
+   "place": "Killough, Co. Down, NI",
+   "latitude": 54.25472,
+   "longitude": -5.65139
+  },
+  {
+   "name": "Tralee 40 Mile Challenge",
+   "date": "2027-05-15",
+   "county": "Kerry",
+   "place": "Tralee, Co. Kerry",
+   "latitude": 52.26167,
+   "longitude": -9.71194
+  },
+  {
+   "name": "Wexford Festival of Running",
+   "date": "2027-05-15",
+   "county": "Wexford",
+   "place": "Johnstown Castle, Johnstown, Co. Wexford",
+   "latitude": 52.29611,
+   "longitude": -6.505
+  },
+  {
+   "name": "Glendalough Lap of the Gap Marathon",
+   "date": "2027-05-22",
+   "county": "Wicklow",
+   "place": "Glendalough",
+   "latitude": 53.01167,
+   "longitude": -6.32361
+  },
+  {
+   "name": "Wild Atlantic Ultra",
+   "date": "2027-05-22",
+   "county": "Mayo",
+   "place": "Louisburgh, Co. Mayo",
+   "latitude": 53.765,
+   "longitude": -9.80778
+  },
+  {
+   "name": "Clare Burren Marathon Challenge",
+   "date": "2027-05-29",
+   "county": "Clare",
+   "place": "Ballyvaughan, Co. Clare",
+   "latitude": 53.11472,
+   "longitude": -9.14917
+  },
+  {
+   "name": "Norn Iron 100",
+   "date": "2027-05-29",
+   "endDate": "2027-05-30",
+   "county": "Antrim",
+   "place": "Ballintoy",
+   "latitude": 55.24472,
+   "longitude": -6.36583
+  },
+  {
+   "name": "Norn Iron 100 Half Marathon",
+   "date": "2027-05-29",
+   "county": "Antrim",
+   "place": "Ballintoy",
+   "latitude": 55.24472,
+   "longitude": -6.36583
+  },
+  {
+   "name": "Sliabh Liag Trail Runs",
+   "date": "2027-05-29",
+   "county": "Donegal",
+   "place": "Teelin, Co. Donegal",
+   "latitude": 54.62972,
+   "longitude": -8.63694
+  },
+  {
+   "name": "Donegal Wild Atlantic Marathon & Half Marathon",
+   "date": "2027-05-30",
+   "county": "Donegal",
+   "place": "Glencolmcille",
+   "latitude": 54.70889,
+   "longitude": -8.71806
+  },
+  {
+   "name": "Lough Cutra Castle Marathon, Half Marathon & 10K",
+   "date": "2027-05-30",
+   "county": "Galway",
+   "place": "Lough Cutra Castle, Gort, Co. Galway",
+   "latitude": 53.0375,
+   "longitude": -8.79583
+  },
+  {
+   "name": "Newry City Half Marathon & 10K",
+   "date": "2027-05-30",
+   "county": "Down",
+   "place": "Newry, Co. Down, NI",
+   "latitude": 54.16889,
+   "longitude": -6.33611
+  },
+  {
+   "name": "Tullaroan Festival of Running",
+   "date": "2027-06-05",
+   "county": "Kilkenny",
+   "place": "Tullaroan, Co. Kilkenny",
+   "latitude": 52.68694,
+   "longitude": -7.43389
+  },
+  {
+   "name": "Cork City Marathon",
+   "date": "2027-06-06",
+   "county": "Cork",
+   "place": "Cork City, Co. Cork",
+   "latitude": 51.89861,
+   "longitude": -8.47389
+  },
+  {
+   "name": "Ennis Half Marathon & 10K",
+   "date": "2027-06-06",
+   "county": "Clare",
+   "place": "Ennis, Co. Clare",
+   "latitude": 52.84667,
+   "longitude": -8.98139
+  },
+  {
+   "name": "Vhi Women’s Mini Marathon",
+   "date": "2027-06-06",
+   "county": "Dublin",
+   "place": "Fitzwilliam Place, Dublin",
+   "latitude": 53.33917,
+   "longitude": -6.24833
+  },
+  {
+   "name": "Half on the Head Half Marathon & 10K",
+   "date": "2027-06-12",
+   "county": "Kerry",
+   "place": "Ballyheigue Village, Co. Kerry",
+   "latitude": 52.38333,
+   "longitude": -9.83333
+  },
+  {
+   "name": "Portumna Forest Marathon",
+   "date": "2027-06-12",
+   "county": "Galway",
+   "place": "Portumna Forest Park, Portumna, Co. Galway",
+   "latitude": 53.08889,
+   "longitude": -8.2325
+  },
+  {
+   "name": "The Glenmore Challenge Running Festival",
+   "date": "2027-06-12",
+   "county": "Louth",
+   "place": "Castletowncooley, Co. Louth",
+   "latitude": 54.00444,
+   "longitude": -6.17722
+  },
+  {
+   "name": "Waterford Viking Marathon",
+   "date": "2027-06-19",
+   "endDate": "2027-06-20",
+   "county": "Waterford",
+   "place": "Waterford City, Co. Waterford",
+   "latitude": 52.25972,
+   "longitude": -7.10639
+  },
+  {
+   "name": "Belfast City Women's 10K",
+   "date": "2027-06-20",
+   "county": "Down",
+   "place": "Titanic Quarter, Belfast, NI",
+   "latitude": 54.60889,
+   "longitude": -5.90806
+  },
+  {
+   "name": "Thoroughbred Run Kildare",
+   "date": "2027-06-20",
+   "county": "Kildare",
+   "place": "Kildare Town, Co. Kildare",
+   "latitude": 53.1575,
+   "longitude": -6.91
+  },
+  {
+   "name": "Tralee 100K Ultra Marathon",
+   "date": "2027-06-20",
+   "county": "Kerry",
+   "place": "Tralee, Co. Kerry",
+   "latitude": 52.26167,
+   "longitude": -9.71194
+  },
+  {
+   "name": "Dublin Mountain Trail Running Festival",
+   "date": "2027-06-25",
+   "endDate": "2027-06-26",
+   "county": "Dublin",
+   "place": "Ballinascorney, Dublin Mountains, Co. Dublin",
+   "latitude": 53.25139,
+   "longitude": -6.38611
+  },
+  {
+   "name": "Achill Half Marathon & 10K Run",
+   "date": "2027-07-03",
+   "county": "Mayo",
+   "place": "Keel, Achill Island, Co. Mayo",
+   "latitude": 53.97444,
+   "longitude": -10.08139
+  },
+  {
+   "name": "Clontarf Half Marathon - Summer",
+   "date": "2027-07-03",
+   "county": "Dublin",
+   "place": "Eastpoint Business Park, Clontarf, Co. Dublin",
+   "latitude": 53.36444,
+   "longitude": -6.195
+  },
+  {
+   "name": "Brandon Bay Half Marathon",
+   "date": "2027-07-24",
+   "county": "Kerry",
+   "place": "Fahamore, Co. Kerry",
+   "latitude": 52.3025,
+   "longitude": -10.02111
+  },
+  {
+   "name": "Run Kilkee Half Marathon & 10K",
+   "date": "2027-07-24",
+   "county": "Clare",
+   "place": "Kilkee, Co. Clare",
+   "latitude": 52.68222,
+   "longitude": -9.64694
+  },
+  {
+   "name": "Hillsborough Castle & Gardens Running Festival",
+   "date": "2027-07-25",
+   "county": "Down",
+   "place": "Hillsborough Castle & Gardens, Hillsborough, NI",
+   "latitude": 54.46167,
+   "longitude": -6.08583
+  },
+  {
+   "name": "Bluestack Way Ultra",
+   "date": "2027-07-31",
+   "county": "Donegal",
+   "place": "Donegal Town",
+   "latitude": 54.65333,
+   "longitude": -8.11306
+  },
+  {
+   "name": "Famine Way Ultra",
+   "date": "2027-07-31",
+   "endDate": "2027-08-01",
+   "county": "Roscommon",
+   "place": "Dublin",
+   "latitude": 53.77444,
+   "longitude": -8.09333
+  },
+  {
+   "name": "Limerick Half Marathon & 10K",
+   "date": "2027-08-01",
+   "county": "Limerick",
+   "place": "Limerick, Co. Limerick",
+   "latitude": 52.66056,
+   "longitude": -8.62917
+  },
+  {
+   "name": "Athy Half Marathon, 10K & 5K",
+   "date": "2027-08-08",
+   "county": "Kildare",
+   "place": "Athy, Co. Kildare",
+   "latitude": 52.99139,
+   "longitude": -6.98083
+  },
+  {
+   "name": "Quadrathon Challenge",
+   "date": "2027-08-12",
+   "endDate": "2027-08-15",
+   "county": "Donegal",
+   "place": "Moville, Co. Donegal",
+   "latitude": 55.18722,
+   "longitude": -7.03944
+  },
+  {
+   "name": "Frank Duffy 10 Mile",
+   "date": "2027-08-14",
+   "county": "Dublin",
+   "place": "Phoenix Park, Dublin",
+   "latitude": 53.35556,
+   "longitude": -6.32972
+  },
+  {
+   "name": "Ballycastle to Waterfoot Trail Marathon",
+   "date": "2027-08-21",
+   "county": "Antrim",
+   "place": "Ballycastle",
+   "latitude": 55.20472,
+   "longitude": -6.24139
+  },
+  {
+   "name": "Storming the Castle 10K",
+   "date": "2027-08-22",
+   "county": "Antrim",
+   "place": "Carrickfergus, Antrim, NI",
+   "latitude": 54.7175,
+   "longitude": -5.80167
+  },
+  {
+   "name": "Abbott Longford Marathon",
+   "date": "2027-08-29",
+   "county": "Longford",
+   "place": "Main Street, Longford, Co. Longford",
+   "latitude": 53.7275,
+   "longitude": -7.79833
+  },
+  {
+   "name": "Antrim Coast Half Marathon",
+   "date": "2027-08-29",
+   "county": "Antrim",
+   "place": "Larne, Co. Antrim, NI",
+   "latitude": 54.855,
+   "longitude": -5.80667
+  },
+  {
+   "name": "Kerry Way Ultra",
+   "date": "2027-09-03",
+   "endDate": "2027-09-04",
+   "county": "Kerry",
+   "place": "Killarney, Co. Kerry",
+   "latitude": 52.04639,
+   "longitude": -9.51611
+  },
+  {
+   "name": "Charleville International Half-Marathon",
+   "date": "2027-09-05",
+   "county": "Cork",
+   "place": "Charleville, Co. Cork",
+   "latitude": 52.355,
+   "longitude": -8.68306
+  },
+  {
+   "name": "Run The Bridges",
+   "date": "2027-09-05",
+   "county": "Tipperary",
+   "place": "Ballina, Co. Tipperary",
+   "latitude": 52.80944,
+   "longitude": -8.43722
+  },
+  {
+   "name": "Giant's Causeway Coast Marathon",
+   "date": "2027-09-11",
+   "county": "Antrim",
+   "place": "Portballintrae, Co. Antrim, NI",
+   "latitude": 55.21889,
+   "longitude": -6.54139
+  },
+  {
+   "name": "Medieval Marathon",
+   "date": "2027-09-11",
+   "county": "Kilkenny",
+   "place": "Kilkenny, Co. Kilkenny",
+   "latitude": 52.65083,
+   "longitude": -7.24889
+  },
+  {
+   "name": "Tralee 10K",
+   "date": "2027-09-11",
+   "county": "Kerry",
+   "place": "Tralee, Co. Kerry",
+   "latitude": 52.26167,
+   "longitude": -9.71194
+  },
+  {
+   "name": "Lahinch Half Marathon & 6 Mile",
+   "date": "2027-09-12",
+   "county": "Clare",
+   "place": "Lahinch, Co. Clare",
+   "latitude": 52.93278,
+   "longitude": -9.34583
+  },
+  {
+   "name": "Belfast City Half Marathon",
+   "date": "2027-09-19",
+   "county": "Down",
+   "place": "Ormeau Park, Belfast, NI",
+   "latitude": 54.58222,
+   "longitude": -5.91861
+  },
+  {
+   "name": "Dublin Half Marathon",
+   "date": "2027-09-19",
+   "county": "Dublin",
+   "place": "Phoenix Park, Dublin",
+   "latitude": 53.35556,
+   "longitude": -6.32972
+  },
+  {
+   "name": "EcoTrail Wicklow",
+   "date": "2027-09-25",
+   "county": "Wicklow",
+   "place": "Bray, Co. Wicklow",
+   "latitude": 53.20306,
+   "longitude": -6.10306
+  },
+  {
+   "name": "Rathfarnham 5K Road Race",
+   "date": "2027-09-26",
+   "county": "Dublin",
+   "place": "Rathfarnham, Dublin, Co. Dublin",
+   "latitude": 53.29889,
+   "longitude": -6.28389
+  },
+  {
+   "name": "The Village Run",
+   "date": "2027-09-26",
+   "county": "Laois",
+   "place": "Ballylinan, Co. Laois",
+   "latitude": 52.93472,
+   "longitude": -7.03972
+  },
+  {
+   "name": "Run Galway Bay",
+   "date": "2027-10-02",
+   "county": "Galway",
+   "place": "Claddagh, Co. Galway",
+   "latitude": 53.26694,
+   "longitude": -9.05583
+  },
+  {
+   "name": "Belfast Bay Run 10K",
+   "date": "2027-10-03",
+   "county": "Down",
+   "place": "Titanic Quarter, Belfast, NI",
+   "latitude": 54.60889,
+   "longitude": -5.90806
+  },
+  {
+   "name": "Irish 3/4 Marathon & Half Marathon",
+   "date": "2027-10-03",
+   "county": "Meath",
+   "place": "Longwood, Enfield, Co. Meath",
+   "latitude": 53.45333,
+   "longitude": -6.92444
+  },
+  {
+   "name": "Newcastle Way Marathon & Half Marathon",
+   "date": "2027-10-03",
+   "county": "Down",
+   "place": "Newcastle, Co. Down, NI",
+   "latitude": 54.2125,
+   "longitude": -5.89583
+  },
+  {
+   "name": "Belfast to Dublin Ultra",
+   "date": "2027-10-09",
+   "county": "Antrim",
+   "place": "Belfast",
+   "latitude": 54.59639,
+   "longitude": -5.93
+  },
+  {
+   "name": "Gaelforce 10K Howth",
+   "date": "2027-10-09",
+   "county": "Dublin",
+   "place": "Howth Castle, Howth Demesne, Co. Dublin",
+   "latitude": 53.38556,
+   "longitude": -6.07111
+  },
+  {
+   "name": "Dublin Marathon",
+   "date": "2027-10-24",
+   "county": "Dublin",
+   "place": "Leeson Street Lower, Dublin City",
+   "latitude": 53.33528,
+   "longitude": -6.25139
+  },
+  {
+   "name": "Run Ballinskelligs",
+   "date": "2027-10-24",
+   "county": "Kerry",
+   "place": "Ballinskelligs, Co. Kerry",
+   "latitude": 51.81556,
+   "longitude": -10.27639
+  },
+  {
+   "name": "Tralee Half Marathon",
+   "date": "2027-10-24",
+   "county": "Kerry",
+   "place": "Tralee, Co. Kerry",
+   "latitude": 52.26167,
+   "longitude": -9.71194
+  },
+  {
+   "name": "Gaelforce 10K Wicklow",
+   "date": "2027-11-06",
+   "county": "Wicklow",
+   "place": "Clara Vale, Co. Wicklow",
+   "latitude": 52.97333,
+   "longitude": -6.22056
+  }
+ ]
+}

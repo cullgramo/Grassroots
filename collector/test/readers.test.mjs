@@ -480,3 +480,12 @@ test('A ground found for one sport is never given to another sport that writes t
   assert.equal(slotFor(at('Ovens', 'rugby'), grounds), 'Munster|ovens|');
   assert.equal(slotFor(at('New Place', 'rugby'), grounds), 'Munster|new place|');
 });
+
+test('Running Calendar snapshot: races with their own checked start place, no time, in the right counties', async () => {
+  const { read, pages } = await import('../sources/running-calendar-snapshot.mjs');
+  const got = read(pages[0].text, pages[0]);
+  assert.ok(got.length > 100);
+  assert.ok(got.every((f) => f.sport === 'athletics' && f.title && f.date && f.time === null && Number.isFinite(f.latitude) && f.latitude > 51 && f.latitude < 56));
+  assert.ok(got.every((f) => /^[A-Z][a-z]+$/.test(f.county)));
+  assert.equal(new Set(got.map((f) => f.ref)).size, got.length);
+});
