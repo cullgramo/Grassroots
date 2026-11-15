@@ -1,7 +1,7 @@
 // Antrim GAA: club and county fixtures from the county board's public fixtures page (a Club & County site).
 // Each game is a "fixrow" under a competition heading. The referee's name is on every row and is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
 
 export const name = 'Antrim GAA';
 const year = new Date().getUTCFullYear();
@@ -26,8 +26,8 @@ export function read(html, page, now = new Date()) {
     const id = el.querySelector('a')?.getAttribute('data-uniqueid') ?? `${home}-${away}-${date}`;
     out.push({
       ref: `${id}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football',
-      level: /club|school|college|pps|u\d|minor|senior|intermediate|junior|reserve|league|div/i.test(competition) ? 'local' : 'top', category: null,
+      ...gaaGame(competition),
+      level: /club|school|college|pps|u\d|minor|senior|intermediate|junior|reserve|league|div/i.test(competition) ? 'local' : 'top',
       competition: withBoard(page.prefix, competition),
       home, away, title: null, date, time: readTime(cell('fixtime')),
       venue: /^(tbc|tba|venue|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,

@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import type { ReactNode } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,6 +12,8 @@ import { legalReady } from '@/constants/legal';
 import { COUNTIES } from '@/data/counties';
 import type { Level, When } from '@/types/fixture';
 import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
+import { GENDER_LABEL, isWomensCode, type GenderFilter } from '@/utils/category';
+import { unlabelledCount } from '@/utils/filterFixtures';
 
 const WHEN: { value: When; label: string }[] = [
   { value: 'any', label: 'Any time' },
@@ -21,6 +23,7 @@ const WHEN: { value: When; label: string }[] = [
 ];
 const LEVELS: Level[] = ['Local', 'Top level'];
 const AGES: AgeFilter[] = ['all', 'adult', 'underage'];
+const GENDERS: GenderFilter[] = ['all', 'men', 'women'];
 const DISTANCES = [5, 10, 25, 50, 100];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -36,7 +39,13 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 export default function FiltersScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { filters, setFilters, resetFilters, fixtures, location, requestLocation, mySports, setMyAge } = useApp();
+  const { filters, setFilters, resetFilters, fixtures, allFixtures, location, requestLocation, mySports, setMyAge, setMyGender } = useApp();
+  // Camogie and ladies football are women's games already, so there is nothing to split.
+  const womensOnly = isWomensCode(filters.sport);
+  const unlabelled = useMemo(
+    () => unlabelledCount(allFixtures, filters, location, new Date(), mySports),
+    [allFixtures, filters, location, mySports]
+  );
 
   return (
     <View style={[styles.screen, { backgroundColor: t.background }]}>
@@ -81,6 +90,24 @@ export default function FiltersScreen() {
             <Chip key={a} label={AGE_LABEL[a]} selected={filters.age === a} onPress={() => setMyAge(a)} />
           ))}
           <Text style={[styles.note, { color: t.muted }]}>Underage includes schools games. Remembered for next time.</Text>
+        </Section>
+
+        <Section title="Men & women">
+          {womensOnly ? (
+            <Text style={[styles.note, { color: t.muted }]}>{getSport(filters.sport!).name} is played by women and girls.</Text>
+          ) : (
+            <>
+              {GENDERS.map((g) => (
+                <Chip key={g} label={GENDER_LABEL[g]} selected={(filters.gender ?? 'all') === g} onPress={() => setMyGender(g)} />
+              ))}
+              <Text style={[styles.note, { color: t.muted }]}>
+                {unlabelled > 0
+                  ? `${unlabelled} ${unlabelled === 1 ? 'fixture' : 'fixtures'} here ${unlabelled === 1 ? 'is' : 'are'} not labelled men or women, so only show under All. `
+                  : ''}
+                Mixed games show under both. Remembered for next time.
+              </Text>
+            </>
+          )}
         </Section>
 
         <Text style={[styles.more, { color: t.muted }]}>MORE FILTERS</Text>

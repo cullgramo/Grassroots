@@ -1,6 +1,7 @@
 import type { SportId } from '@/constants/sports';
 import type { Fixture, FixtureStatus } from '@/types/fixture';
 import { ageOf } from '@/utils/ageGroup';
+import { parseCategory } from '@/utils/category';
 
 import { SUPABASE_KEY as KEY, SUPABASE_URL as URL_BASE } from './config';
 import { fetchT } from './http';
@@ -24,6 +25,8 @@ export interface FixtureRow {
   source?: string;
   /** Missing on databases that have not had the column added yet; treated as known. */
   time_known?: boolean | null;
+  /** 'men', 'women' or 'mixed' when the source says; null when it does not. */
+  category?: string | null;
   venue: { name: string; county: string; latitude: number; longitude: number } | null;
 }
 
@@ -52,6 +55,7 @@ export function mapFixture(row: FixtureRow): Fixture | null {
     timeTbc: row.time_known === false ? true : undefined,
     ageGroup: age.group,
     ageLabel: age.label,
+    category: parseCategory(row.category),
     status: STATUSES.includes(row.status as FixtureStatus) ? (row.status as FixtureStatus) : 'scheduled',
   };
 }
@@ -59,7 +63,7 @@ export function mapFixture(row: FixtureRow): Fixture | null {
 // Only the columns the app uses: about 40% less to download than every column. If a database is missing one of them
 // (an older copy without time_known, say) the request is retried asking for every column.
 const COLUMNS =
-  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,time_known,venue:venues(name,county,latitude,longitude)';
+  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,time_known,category,venue:venues(name,county,latitude,longitude)';
 const ALL_COLUMNS = '*,venue:venues(name,county,latitude,longitude)';
 
 const PAGE = 1000;

@@ -1,6 +1,7 @@
 import type { SportId } from '@/constants/sports';
 import type { Filters, Fixture, UserLocation, When } from '@/types/fixture';
 import { AGE_LABEL } from './ageGroup';
+import { GENDER_LABEL } from './category';
 import { filterFixtures } from './filterFixtures';
 
 export const WHEN_LABEL: Record<When, string> = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days' };
@@ -9,7 +10,7 @@ export const WHEN_LABEL: Record<When, string> = { any: 'Any time', today: 'Today
 export const MIN_OPENING_FIXTURES = 15;
 
 export interface ViewPart {
-  id: 'place' | 'when' | 'age';
+  id: 'place' | 'when' | 'age' | 'gender';
   label: string;
 }
 
@@ -23,6 +24,7 @@ export function describeView(filters: Filters, hasLocation: boolean): ViewPart[]
     { id: 'place', label: place },
     { id: 'when', label: WHEN_LABEL[filters.when] },
     { id: 'age', label: AGE_LABEL[filters.age ?? 'all'] },
+    { id: 'gender', label: GENDER_LABEL[filters.gender ?? 'all'] },
   ];
 }
 
