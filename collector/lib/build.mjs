@@ -36,7 +36,7 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
     // Only tidy away a source's old fixtures when every one of its pages was read.
     if (pageProblems.length === 0 && upcoming.length > 0) live[key] = [];
     for (const f of upcoming) {
-      const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, title: f.title, venue: f.venue, area: f.area, reason });
+      const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, title: f.title, venue: f.venue, area: f.area, sport: f.sport, competition: f.competition ?? '', countyHint: f.countyHint ?? '', reason });
       if (!f.venue) { leave('No ground given'); continue; }
       // A fixture with a day but no time is still shown, marked "Time TBC" and stored at midday.
       const timeKnown = Boolean(f.startsAt || f.time);
