@@ -1,7 +1,7 @@
 import { getSport } from '@/constants/sports';
 import { fixtureTitle, type Fixture } from '@/types/fixture';
 import { SITE_URL } from '@/lib/config';
-import { ticketLink } from '@/utils/tickets';
+import { outboundTicketUrl, ticketLink } from '@/utils/tickets';
 
 /** The page a shared link opens: <site>/f/<id>. Null until the site is live. */
 export function fixtureLink(id: string, site: string | null = SITE_URL): string | null {
@@ -62,7 +62,7 @@ export function shareMessage(f: Fixture, site: string | null = SITE_URL): string
   lines.push(whenLine);
   lines.push(`${f.venue}, ${f.county}`);
   lines.push(`Directions: ${mapLink(f)}`);
-  if (tickets?.kind === 'seller') lines.push(`Tickets: ${tickets.url}`);
+  if (tickets?.kind === 'seller') lines.push(`Tickets: ${outboundTicketUrl(tickets, 'web')}`);
   lines.push('Found on Grassroots');
   return lines.join('\n');
 }

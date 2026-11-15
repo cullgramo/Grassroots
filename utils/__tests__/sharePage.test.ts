@@ -25,7 +25,8 @@ describe('shared fixture page', () => {
     const html = fixturePageHtml(f, opts);
     expect(html).toContain(`href="/fixture/${f.id}">See it on the map`);
     expect(html).toContain('href="https://www.google.com/maps/dir/?api=1&amp;destination=54.87,-6.265">Get directions');
-    expect(html).toContain('href="https://ballymenaunited.ticketco.shop/">Get tickets');
+    // Ticket taps go through /go/<id>, which counts them and sends the browser on to the seller.
+    expect(html).toContain(`href="/go/${f.id}">Get tickets`);
     expect(html).toContain('href="/?ref=share">More games near you');
   });
   it('keeps working after the game: says it was played and points to upcoming games', () => {

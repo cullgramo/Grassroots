@@ -1,4 +1,5 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
+import { useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -11,7 +12,8 @@ import { useApp } from '@/context/AppContext';
 import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
 import { formatDistance } from '@/utils/distance';
-import { entryLabel, ticketLink, ticketSearchLink } from '@/utils/tickets';
+import { track } from '@/lib/track';
+import { entryLabel, outboundTicketUrl, ticketLink, ticketSearchLink } from '@/utils/tickets';
 import { distanceTo } from '@/utils/filterFixtures';
 
 function Row({ label, value }: { label: string; value: string }) {
@@ -29,6 +31,10 @@ export default function FixtureScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { location, allFixtures, loadState } = useApp();
   const fixture = allFixtures.find((f) => f.id === id);
+
+  useEffect(() => {
+    if (fixture) track(fixture.id, 'view');
+  }, [fixture?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!fixture) {
     return (
@@ -101,7 +107,10 @@ export default function FixtureScreen() {
 
         {tickets ? (
           <Pressable
-            onPress={() => WebBrowser.openBrowserAsync(tickets.url)}
+            onPress={() => {
+              track(fixture.id, 'ticket');
+              WebBrowser.openBrowserAsync(outboundTicketUrl(tickets));
+            }}
             accessibilityRole="link"
             accessibilityHint={tickets.kind === 'search' ? 'Searches the web for tickets' : 'Opens the ticket seller'}
             style={[styles.primary, { backgroundColor: t.tint }]}>
@@ -118,7 +127,10 @@ export default function FixtureScreen() {
         ) : null}
         {!tickets && fixture.level === 'Top level' ? (
           <Pressable
-            onPress={() => WebBrowser.openBrowserAsync(ticketSearchLink(fixture))}
+            onPress={() => {
+              track(fixture.id, 'ticket');
+              WebBrowser.openBrowserAsync(ticketSearchLink(fixture));
+            }}
             accessibilityRole="link"
             accessibilityHint="Searches the web for tickets"
             style={[styles.secondary, { borderColor: t.tint }]}>
@@ -126,7 +138,10 @@ export default function FixtureScreen() {
           </Pressable>
         ) : null}
         <Pressable
-          onPress={() => Linking.openURL(directions)}
+          onPress={() => {
+            track(fixture.id, 'directions');
+            Linking.openURL(directions);
+          }}
           accessibilityRole="link"
           style={[styles.primary, { backgroundColor: t.tint }]}>
           <Text style={[styles.primaryText, { color: t.onTint }]}>

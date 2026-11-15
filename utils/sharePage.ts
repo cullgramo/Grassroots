@@ -109,7 +109,7 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
     ? `<a class="btn primary" href="/?ref=share">See upcoming games near you</a>`
     : `<a class="btn primary" href="/fixture/${encodeURIComponent(f.id)}">See it on the map</a>
 <a class="btn secondary" href="${esc(directionsUrl(f))}">Get directions</a>
-${tickets?.kind === 'seller' ? `<a class="btn secondary" href="${esc(tickets.url)}">Get tickets</a>` : ''}
+${tickets?.kind === 'seller' ? `<a class="btn secondary" href="/go/${encodeURIComponent(f.id)}">Get tickets</a>` : ''}
 <a class="btn secondary" href="/?ref=share">More games near you</a>`;
 
   return `${head}

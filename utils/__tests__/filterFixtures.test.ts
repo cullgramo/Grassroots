@@ -256,3 +256,21 @@ describe('all sports', () => {
     expect(some.length).toBeLessThan(all.length);
   });
 });
+
+describe('outboundTicketUrl', () => {
+  const { outboundTicketUrl } = require('../tickets');
+  it('tags a seller link so the seller can see Grassroots sent the buyer', () => {
+    expect(outboundTicketUrl({ url: 'https://tix.example/e/1', kind: 'seller' })).toBe(
+      'https://tix.example/e/1?utm_source=grassroots&utm_medium=app&utm_campaign=fixture',
+    );
+  });
+  it('keeps an existing query string and fragment', () => {
+    expect(outboundTicketUrl({ url: 'https://tix.example/e?id=2#seats', kind: 'seller' }, 'web')).toBe(
+      'https://tix.example/e?id=2&utm_source=grassroots&utm_medium=web&utm_campaign=fixture#seats',
+    );
+  });
+  it("leaves the seller's own tags and web searches alone", () => {
+    expect(outboundTicketUrl({ url: 'https://tix.example/e?utm_source=club', kind: 'seller' })).toBe('https://tix.example/e?utm_source=club');
+    expect(outboundTicketUrl({ url: 'https://www.google.com/search?q=x', kind: 'search' })).toBe('https://www.google.com/search?q=x');
+  });
+});

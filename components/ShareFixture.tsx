@@ -2,6 +2,7 @@ import * as Clipboard from 'expo-clipboard';
 import { useState } from 'react';
 import { Linking, Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 
+import { track } from '@/lib/track';
 import type { Fixture } from '@/types/fixture';
 import { ShareCardModal } from './ShareCardModal';
 import { emailUrl, shareMessage, shareSubject, smsUrl, whatsAppUrl } from '@/utils/share';
@@ -22,6 +23,7 @@ const PICTURE_CARD_ENABLED = false;
 export function ShareHeaderButton({ fixture }: { fixture: Fixture }) {
   const t = useTheme();
   const onPress = async () => {
+    track(fixture.id, 'share');
     const text = shareMessage(fixture);
     try {
       await Share.share({ message: text, title: shareSubject(fixture) });
@@ -62,12 +64,17 @@ export function ShareFixture({ fixture }: { fixture: Fixture }) {
     }
   };
 
+  // Counted on the tap: share sheets do not reliably say whether the message was sent.
+  const tracked = (fn: () => unknown) => () => {
+    track(fixture.id, 'share');
+    void fn();
+  };
   const items: { label: string; hint: string; onPress: () => void }[] = [
-    { label: 'WhatsApp', hint: 'Shares this fixture in WhatsApp', onPress: () => open(whatsAppUrl(text)) },
-    { label: 'Text', hint: 'Shares this fixture in a text message', onPress: () => open(smsUrl(text, Platform.OS)) },
-    { label: 'Email', hint: 'Shares this fixture by email', onPress: () => open(emailUrl(shareSubject(fixture), text)) },
-    { label: 'Copy', hint: 'Copies the fixture details', onPress: copy },
-    { label: 'More…', hint: 'Opens the share sheet for other apps', onPress: more },
+    { label: 'WhatsApp', hint: 'Shares this fixture in WhatsApp', onPress: tracked(() => open(whatsAppUrl(text))) },
+    { label: 'Text', hint: 'Shares this fixture in a text message', onPress: tracked(() => open(smsUrl(text, Platform.OS))) },
+    { label: 'Email', hint: 'Shares this fixture by email', onPress: tracked(() => open(emailUrl(shareSubject(fixture), text))) },
+    { label: 'Copy', hint: 'Copies the fixture details', onPress: tracked(copy) },
+    { label: 'More…', hint: 'Opens the share sheet for other apps', onPress: tracked(more) },
   ];
 
   return (
