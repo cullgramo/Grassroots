@@ -744,7 +744,14 @@
   "how": "OpenStreetMap way/157684197: Marino AFC; corroboration: marinoafc.ie: Croydon Park, Croydon Park Avenue; GIA #185771; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "soccer"
  },
- "Dublin|crumlin united|": null,
+ "Dublin|crumlin united|": {
+  "name": "Crumlin United",
+  "county": "Dublin",
+  "latitude": 53.323141,
+  "longitude": -6.315437,
+  "how": "OpenStreetMap way/118656420: Pearse Memorial Park; corroboration: crumlin-united.ie: home ground Pearse Park, Windmill Road, Crumlin D12; Nominatim reverse puts the OSM park on Windmill Road, Crumlin; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|damastown park|": {
   "name": "Damastown Park",
   "county": "Dublin",
@@ -768,6 +775,14 @@
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patricks GAA, Donabate)"
  },
  "Dublin|dr ryan park|": null,
+ "Dublin|dublin port stadium|": {
+  "name": "Dublin Port Stadium",
+  "county": "Dublin",
+  "latitude": 53.366108,
+  "longitude": -6.247513,
+  "how": "OpenStreetMap way/152512338: Stella Maris FC; corroboration: Dublin Port Company / irishyouthfootball: Stella Maris FC home is Dublin Port Stadium, Waterfall Avenue, Drumcondra D03 A4W5; OSM element is on Waterfall Avenue (Nominatim reverse) with an OSM soccer pitch w152512348 next to it; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|dunboyne|": {
   "name": "Dunboyne",
   "county": "Meath",
@@ -981,6 +996,22 @@
   "longitude": -6.126831,
   "how": "checked by hand (OpenStreetMap: Gannon Park, Malahide)"
  },
+ "Dublin|marlay park pitch 1|": {
+  "name": "Marlay Park Pitch 1",
+  "county": "Dublin",
+  "latitude": 53.273588,
+  "longitude": -6.270429,
+  "how": "OpenStreetMap relation/11252322: Marlay Park; corroboration: lakelandsfc.net and pitchpin: Lakelands FC use Marlay Park Pitch 1, beside the Dog Park; broadfordroversfc.com lists Marlay Park pitches 4 and 6; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
+ "Dublin|marley park|": {
+  "name": "Marley Park",
+  "county": "Dublin",
+  "latitude": 53.273588,
+  "longitude": -6.270429,
+  "how": "OpenStreetMap relation/11252322: Marlay Park; corroboration: lakelandsfc.net and pitchpin: Lakelands FC use Marlay Park Pitch 1, beside the Dog Park; broadfordroversfc.com lists Marlay Park pitches 4 and 6; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|marley s lane|": {
   "name": "Marley's Lane",
   "county": "Louth",
@@ -1013,7 +1044,14 @@
   "how": "OpenStreetMap relation/4481513: Moyle Park College; corroboration: ncpfc.ie and pitchpin.ie: Newlands/Castle Park FC home is Moyle Park College, Clondalkin; GIA #186435; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "soccer"
  },
- "Dublin|ned kelly park kilnamanagh|": null,
+ "Dublin|ned kelly park kilnamanagh|": {
+  "name": "Ned Kelly Park, Kilnamanagh",
+  "county": "Dublin",
+  "latitude": 53.304999,
+  "longitude": -6.353015,
+  "how": "OpenStreetMap way/920979064: Kilnamanagh AFC; corroboration: Nominatim reverse: OSM pitch named Kilnamanagh AFC on Elmcastle Drive; GIA #186228 Kilnamanagh AFC (about 30 m away); irishyouthfootball.com / extratime: Ned Kelly Park, Elm Castle Drive, Kilnamanagh; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|nord anglia international school leopardstown|": {
   "family": "soccer",
   "name": "Nord Anglia International School",
@@ -1152,7 +1190,14 @@
   "longitude": -6.176778,
   "how": "place search (leisure/park: Rockfield Park)"
  },
- "Dublin|rosemount mulvey|": null,
+ "Dublin|rosemount mulvey|": {
+  "name": "Rosemount Mulvey",
+  "county": "Dublin",
+  "latitude": 53.296557,
+  "longitude": -6.241874,
+  "how": "OpenStreetMap way/238323348: unnamed soccer; corroboration: rmfc.ie: home ground Rosemount Park, Rosemount Estate, Dundrum D14; GIA #186018 Rosemount Mulvey (about 70 m away); Nominatim reverse: pitch on Rosemount Estate; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|royal hospital donnybrook|": {
   "name": "Royal Hospital, Donnybrook",
   "county": "Dublin",
@@ -1658,7 +1703,14 @@
   "longitude": -6.459914,
   "how": "GAA pitch list, matched on pitch name (Lucan Sarsfields: Adamstown)"
  },
- "Leinster|ait gaa pitch|": null,
+ "Leinster|ait gaa pitch|": {
+  "name": "AIT GAA Pitch",
+  "county": "Westmeath",
+  "latitude": 53.419819,
+  "longitude": -7.904644,
+  "how": "OpenStreetMap way/132860069: unnamed gaelic_games; corroboration: tus.ie campus maps: GAA pitch on the TUS Midlands Athlone campus (former AIT) near Dublin Road, beside the athletics track; OSM pitch sport=gaelic_games is about 250 m from the campus athletics track; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|alcast park|": {
   "name": "Alcast Park",
   "county": "Wexford",
@@ -2090,7 +2142,14 @@
  "Leinster|decotek park|": null,
  "Leinster|devenish park pitch 4|": null,
  "Leinster|devenish park pitch 5|": null,
- "Leinster|devenish park pitch 6|": null,
+ "Leinster|devenish park pitch 6|": {
+  "name": "Devenish Park - Pitch 6",
+  "county": "Meath",
+  "latitude": 53.577623,
+  "longitude": -6.726425,
+  "how": "OpenStreetMap way/1219646477: Meath GAA Centre of Excellence; corroboration: Meath GAA site and HoganStand: the Dunganny Meath GAA Centre of Excellence is now Devenish Park (Páirc Daimhinis) with six grass pitches; Boyne Valley games are on Pitch 6; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|donabate portrane community center|": {
   "name": "Donabate Portrane Community Center",
   "county": "Dublin",
@@ -2193,7 +2252,14 @@
   "how": "place search (leisure/stadium: Energia Park)"
  },
  "Leinster|enfield|": null,
- "Leinster|eocc donore|": null,
+ "Leinster|eocc donore|": {
+  "name": "ÉÓCC Donore",
+  "county": "Kildare",
+  "latitude": 53.254828,
+  "longitude": -6.738619,
+  "how": "GAA Pitch Finder (CC BY 4.0): Éire Óg Corra Choill / Éire Óg Corra Choill; corroboration: OSM sports_centre named Éire Óg Corra Choill; Nominatim reverse puts it in the hamlet of Donore, Co Kildare; OSM pitch w1012579320 about 40 m away; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|estuary rd|": {
   "name": "Estuary Rd",
   "county": "Dublin",
@@ -2324,7 +2390,14 @@
  },
  "Leinster|hugginstown|": null,
  "Leinster|iveagh grounds|": null,
- "Leinster|jenkinstown|": null,
+ "Leinster|jenkinstown|": {
+  "name": "Jenkinstown",
+  "county": "Kilkenny",
+  "latitude": 52.720434,
+  "longitude": -7.2918,
+  "how": "GAA Pitch Finder (CC BY 4.0): Conahy Shamrocks / Conahy Shamrocks; corroboration: OSM w203944406 Conahy Shamrocks GAA Club; GIA #187179 and #188483; kilkennygaa.ie venue page: The Polo Grounds, Jenkinstown; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|jim mcgann park|": {
   "name": "Jim McGann park",
   "county": "Longford",
@@ -2826,7 +2899,14 @@
   "longitude": -7.301316,
   "how": "GAA pitch list, matched on club name (Ringtown)"
  },
- "Leinster|riverside|": null,
+ "Leinster|riverside|": {
+  "name": "Riverside",
+  "county": "Offaly",
+  "latitude": 53.092298,
+  "longitude": -7.904664,
+  "how": "OpenStreetMap way/183499471: unnamed rugby_union; corroboration: GIA #191612 Birr RFC address 'Riverside, Birr' (53.0932,-7.9056, 117 m away); Nominatim reverse puts the pitch on road 'Scurragh', Birr; birrrugby.ie gives club grounds at Scurragh, Townparks, Birr; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|robertstown|": {
   "name": "Robertstown",
   "county": "Kildare",
@@ -2900,7 +2980,14 @@
   "longitude": -6.588064,
   "how": "GAA pitch list, matched on club name (Seneschalstown GAA: Fr. Tully Park)"
  },
- "Leinster|setu carlow campus|": null,
+ "Leinster|setu carlow campus|": {
+  "name": "SETU Carlow Campus",
+  "county": "Carlow",
+  "latitude": 52.815958,
+  "longitude": -6.943695,
+  "how": "OpenStreetMap way/1168931542: South East Technological University - South Sports Campus; corroboration: setu.ie / SETU clubs: GAA pitches are on the South Sports Campus, Kilkenny Road, Carlow (six pitches); Nominatim reverse puts the OSM South Sports Campus object on Kilkenny Road, Carlow R93 AYW9; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|shamrock lodge|": {
   "name": "Shamrock Lodge",
   "county": "Louth",
@@ -3030,7 +3117,14 @@
   "longitude": -6.312258,
   "how": "checked by hand (OpenStreetMap: Saint Mary's College RFC, Templeville Road)"
  },
- "Leinster|terenure rd north|": null,
+ "Leinster|terenure rd north|": {
+  "name": "Terenure Rd North",
+  "county": "Dublin",
+  "latitude": 53.313261,
+  "longitude": -6.28408,
+  "how": "OpenStreetMap way/117405290: Terenure Sports Club; corroboration: terenuresportsclub.ie: Terenure Sports Club, 54 Terenure Road North, was CYM Sports Club and hosts CYM Rugby Club; Wikipedia CYM RFC ground is Terenure Road North; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|the downs|": {
   "name": "The Downs",
   "county": "Westmeath",
@@ -3204,10 +3298,24 @@
   "longitude": -9.297709,
   "how": "rugby club search (leisure/sports_centre: Abbeyfeale Rugby Football Club); the source names the club or town, not the pitch"
  },
- "Munster|abbottstown gaa centre of excellence|": null,
+ "Munster|abbottstown gaa centre of excellence|": {
+  "name": "Abbottstown - GAA Centre of Excellence",
+  "county": "Dublin",
+  "latitude": 53.397967,
+  "longitude": -6.368085,
+  "how": "OpenStreetMap way/590500660: GAA National Games Development Centre; corroboration: GAA National Games Development Centre, National Sports Campus, Abbotstown, Dublin 15 (mse.ie, the42.ie); checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|an baile loiscthe|": null,
  "Munster|annacotty|": null,
- "Munster|anner park cloneen|": null,
+ "Munster|anner park cloneen|": {
+  "name": "Anner Park, Cloneen",
+  "county": "Tipperary",
+  "latitude": 52.474503,
+  "longitude": -7.595447,
+  "how": "GAA Pitch Finder (CC BY 4.0): St. Patricks / Anner Park; corroboration: GIA #193972 St Patrick's GAA Club, Tipperary (about 100 m away); OSM unnamed pitch w1238458123 at the same spot; GPF pitch is literally named Anner Park; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|ashton school|": {
   "family": "hockey",
   "name": "Ashton School",
@@ -4097,7 +4205,14 @@
   "longitude": -7.706142,
   "how": "GAA pitch list, matched on pitch name (Clonmel Óg: Ned Hall Park)"
  },
- "Munster|nenagh ormond|": null,
+ "Munster|nenagh ormond|": {
+  "name": "Nenagh Ormond",
+  "county": "Tipperary",
+  "latitude": 52.852524,
+  "longitude": -8.174586,
+  "how": "OpenStreetMap way/281774528: New Ormond Park - Rugby Grounds; corroboration: nenaghormondrfc.com/about and Munster Rugby: grounds are New Ormond Park, Tyone, Nenagh E45 C965; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|nenagh|": {
   "name": "Nenagh",
   "county": "Tipperary",
@@ -4105,7 +4220,14 @@
   "longitude": -8.215158,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Nenagh Éire Óg: MacDonagh Park)"
  },
- "Munster|nenagh|~rugby": null,
+ "Munster|nenagh|~rugby": {
+  "name": "Nenagh",
+  "county": "Tipperary",
+  "latitude": 52.852524,
+  "longitude": -8.174586,
+  "how": "OpenStreetMap way/281774528: New Ormond Park - Rugby Grounds; corroboration: nenaghormondrfc.com/about and Munster Rugby: grounds are New Ormond Park, Tyone, Nenagh E45 C965; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|newcastle gaa pitch|": {
   "name": "Newcastle GAA Pitch",
   "county": "Tipperary",
@@ -4232,7 +4354,14 @@
   "how": "OpenStreetMap way/764257065: SETU Arena; corroboration: setuarena.ie: Carriganore, Co Waterford, with GAA pitches; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "gaa"
  },
- "Munster|setu carlow campus|": null,
+ "Munster|setu carlow campus|": {
+  "name": "SETU Carlow Campus",
+  "county": "Carlow",
+  "latitude": 52.815958,
+  "longitude": -6.943695,
+  "how": "OpenStreetMap way/1168931542: South East Technological University - South Sports Campus; corroboration: setu.ie / SETU clubs: GAA pitches are on the South Sports Campus, Kilkenny Road, Carlow (six pitches); Nominatim reverse puts the OSM South Sports Campus object on Kilkenny Road, Carlow R93 AYW9; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|sixmilebridge|": {
   "name": "Sixmilebridge",
   "county": "Clare",
@@ -4364,7 +4493,14 @@
   "how": "GAA pitch list, matched on club name (Tulla: Páirc an Dalaigh)"
  },
  "Munster|tullow|": null,
- "Munster|ucd 3g pitch|": null,
+ "Munster|ucd 3g pitch|": {
+  "name": "UCD 3G Pitch",
+  "county": "Dublin",
+  "latitude": 53.306128,
+  "longitude": -6.229819,
+  "how": "OpenStreetMap way/34993853: Devlin Park; corroboration: UCD Sport and Sports Labs: Devlin Park is the bespoke full-size 3G GAA pitch at UCD Belfield; OSM sport=gaelic_games, surface=artificial_turf, name Devlin Park; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|ul bohemian|": {
   "name": "UL Bohemian",
   "county": "Clare",
@@ -4372,7 +4508,14 @@
   "longitude": -8.71359,
   "how": "Get Ireland Active club list, matched on club name (UL Bohemian RFC)"
  },
- "Munster|ul grounds maguires pitches|": null,
+ "Munster|ul grounds maguires pitches|": {
+  "name": "UL Grounds, Maguires Pitches",
+  "county": "Limerick",
+  "latitude": 52.672691,
+  "longitude": -8.558732,
+  "how": "OpenStreetMap way/265235684: Maguires Pitches; corroboration: ulsport.ie: Maguires all-weather pitches, UL South Campus, two full-size 3G GAA pitches plus a natural-turf GAA pitch; OSM names two pitches Maguires Pitches (sport gaelic_games) about 135 m apart; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|ul grounds north campus|": null,
  "Munster|university of limerick|": {
   "family": "gaa",
@@ -4389,7 +4532,14 @@
   "longitude": -8.472406,
   "how": "checked by hand (OpenStreetMap: Musgrave Park, Pearse Road, Cork)"
  },
- "Munster|waterford|": null,
+ "Munster|waterford|": {
+  "name": "Waterford",
+  "county": "Waterford",
+  "latitude": 52.235881,
+  "longitude": -7.140811,
+  "how": "OpenStreetMap way/75780923: Waterford City Rugby Club; corroboration: waterfordcityrfc.com/findus: Waterford City RFC home grounds are at Kilbarry, Waterford; OSM element is next to Kilbarry Nature Park; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|waterpark|": {
   "name": "Waterpark",
   "county": "Clare",
