@@ -1,5 +1,6 @@
 import type { GroupId, SportId } from '@/constants/sports';
 import type { AgeFilter, AgeGroup } from '@/utils/ageGroup';
+import type { Category, GenderFilter } from '@/utils/category';
 
 export type Level = 'Local' | 'Top level';
 export type FixtureStatus = 'scheduled' | 'postponed' | 'cancelled' | 'finished';
@@ -29,6 +30,8 @@ export interface Fixture {
   ageGroup?: AgeGroup;
   /** "U14", "Minor" and the like, when the name states one. */
   ageLabel?: string;
+  /** Who plays, when the source says. Missing means not stated; the app never guesses it. */
+  category?: Category;
 }
 
 export function fixtureTitle(f: Pick<Fixture, 'title' | 'homeTeam' | 'awayTeam'>): string {
@@ -53,6 +56,8 @@ export interface Filters {
   /** Show every sport, not only the ones the user follows. */
   allSports?: boolean;
   age: AgeFilter;
+  /** Men & Boys, Women & Girls, or both. Fixtures with no category show under All only. */
+  gender: GenderFilter;
 }
 
 export const DEFAULT_FILTERS: Filters = {
@@ -63,7 +68,8 @@ export const DEFAULT_FILTERS: Filters = {
   distanceKm: null,
   when: 'any',
   age: 'all',
+  gender: 'all',
 };
 
-/** The view the app opens on: within 10 km of the user and this weekend. The age comes from the user's own choice. */
-export const openingFilters = (age: AgeFilter = 'all'): Filters => ({ ...DEFAULT_FILTERS, when: 'weekend', distanceKm: 10, age });
+/** The view the app opens on: within 10 km of the user and this weekend. Age and gender come from the user's own choices. */
+export const openingFilters = (age: AgeFilter = 'all', gender: GenderFilter = 'all'): Filters => ({ ...DEFAULT_FILTERS, when: 'weekend', distanceKm: 10, age, gender });

@@ -2,7 +2,7 @@
 // The page nests its date groups inside one another, so headers and rows are walked in document order:
 // each fixture belongs to the nearest date header above it. No referee is shown or read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Dublin GAA';
 export const pages = [{ url: 'https://dublingaa.sportlomo.com/league-2/213118/?org=26&user_id=7130' }];
@@ -35,7 +35,7 @@ export function read(html, page, now = new Date()) {
       const ids = teams.map((a) => (a.getAttribute('href') ?? '').match(/clubprofile\/(\d+)/)?.[1] ?? tidy(a.text));
       current = {
         ref: `${compId}-${ids[0]}-${ids[1]}-${date}`,
-        sport: gaaSport(competition) ?? 'gaelic-football', level: 'local', category: null, competition,
+        ...gaaGame(competition), level: 'local', competition,
         home: tidy(teams[0].text), away: tidy(teams[1].text), title: null,
         date, time: readTime(timeText),
         venue: '', county: 'Dublin', countyHint: 'Dublin', postcode: null, area: 'Dublin', url: page.url,

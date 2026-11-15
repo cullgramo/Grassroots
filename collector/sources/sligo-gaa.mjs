@@ -1,7 +1,7 @@
 // Sligo GAA: club, county and schools fixtures from the county board's public fixtures page.
 // Each game is a block: competition, two teams, then "Venue - @ 12:00". The line naming the referee is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
 
 export const name = 'Sligo GAA';
 export const pages = [{ url: 'https://www.sligogaa.ie/FixturesResultsAll.aspx', area: 'Connacht', countyHint: 'Sligo', prefix: 'Sligo' }];
@@ -25,8 +25,8 @@ export function read(html, page, now = new Date()) {
     const venue = tidy(venueText).replace(/\s*-\s*$/, '');
     out.push({
       ref: `${competition}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football',
-      level: /club|school|college|pps|u\d|minor|reserve|junior|intermediate|senior|league|div/i.test(competition) ? 'local' : 'top', category: null,
+      ...gaaGame(competition),
+      level: /club|school|college|pps|u\d|minor|reserve|junior|intermediate|senior|league|div/i.test(competition) ? 'local' : 'top',
       competition: withBoard(page.prefix, competition),
       home, away, title: null, date, time: readTime(timeText),
       venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,

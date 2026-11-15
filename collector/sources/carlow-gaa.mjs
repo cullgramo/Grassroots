@@ -1,7 +1,7 @@
 // Carlow GAA: club, county and provincial fixtures from the county board's public fixtures page.
 // Each game is a block: competition, "A vs B", then "date / time / venue". The referee line is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readTime, tidy } from '../lib/util.mjs';
+import { gaaGame, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Carlow GAA';
 export const pages = [{ url: 'https://carlowgaa.ie/fixtures/', area: 'Leinster', countyHint: 'Carlow', prefix: 'Carlow' }];
@@ -19,7 +19,7 @@ export function read(html, page) {
     const venue = tidy(place.join(' / '));
     out.push({
       ref: `${competition}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football', level: 'local', category: null,
+      ...gaaGame(competition), level: 'local',
       competition: /carlow|connacht|munster|leinster|ulster/i.test(competition) ? competition : `${page.prefix} ${competition}`,
       home, away, title: null, date, time: readTime(time),
       venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,

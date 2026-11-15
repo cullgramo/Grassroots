@@ -1,6 +1,6 @@
 // Munster GAA: provincial club championships and other games, from the council's public events calendar.
 // Each event on the calendar page carries its details in a standard machine-readable block; that is what is read.
-import { gaaSport, tidy } from '../lib/util.mjs';
+import { gaaGame, tidy } from '../lib/util.mjs';
 
 export const name = 'Munster GAA';
 
@@ -32,8 +32,8 @@ export function read(html, page) {
       const time = e.startDate.slice(11, 16);
       out.push({
         ref: (e.url ?? full).replace(/\/$/, '').split('/').pop(),
-        sport: gaaSport(competition) ?? 'gaelic-football',
-        level: /club|school|college/i.test(competition) ? 'local' : 'top', category: null, competition,
+        ...gaaGame(competition),
+        level: /club|school|college/i.test(competition) ? 'local' : 'top', competition,
         home, away, title: null,
         // The calendar's times are Irish local time. Midnight means the time has not been set.
         date: e.startDate.slice(0, 10), time: time === '00:00' ? null : time,

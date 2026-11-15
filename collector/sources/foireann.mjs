@@ -7,7 +7,7 @@
 // been run against live data yet: the first real run must be a look-only run, checked by eye against foireann.ie.
 //
 // A referee's name is on every fixture and is NEVER read, kept, or passed on.
-import { norm, tidy } from '../lib/util.mjs';
+import { gaaCategory, norm, tidy } from '../lib/util.mjs';
 
 export const name = 'GAA Foireann';
 
@@ -66,7 +66,7 @@ export function read(text) {
     out.push({
       ref: String(f.id),
       // Foireann files provincial club championships under "inter county" too, so only a competition not about clubs is top level.
-      sport, level: f.competition?.additionalType === 'inter_county' && !/\bclub\b/i.test(f.competition?.name ?? '') ? 'top' : 'local', category: /^(female|women|ladies)/i.test(f.competition?.gender ?? '') ? 'women' : /^(male|men)/i.test(f.competition?.gender ?? '') ? 'men' : null,
+      sport, level: f.competition?.additionalType === 'inter_county' && !/\bclub\b/i.test(f.competition?.name ?? '') ? 'top' : 'local', category: /^(female|women|ladies)/i.test(f.competition?.gender ?? '') ? 'women' : /^(male|men)/i.test(f.competition?.gender ?? '') ? 'men' : /^mixed/i.test(f.competition?.gender ?? '') ? 'mixed' : gaaCategory(sport, competition),
       competition, home, away, title: null,
       date: start.toISOString().slice(0, 10), time: null, startsAt: start.toISOString(),
       venue: tidy(p?.name), county: null, postcode: null, area: 'Ireland',

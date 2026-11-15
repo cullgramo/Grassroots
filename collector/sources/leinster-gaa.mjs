@@ -2,7 +2,7 @@
 // The second list also carries ticket sales figures and referee names. Those are deliberately never read:
 // only what the public fixtures and tickets pages show is taken.
 import { countyFor } from '../../data/counties.ts';
-import { tidy } from '../lib/util.mjs';
+import { gaaCategory, tidy } from '../lib/util.mjs';
 
 export const name = 'Leinster GAA';
 export const pages = [
@@ -33,9 +33,12 @@ function one(fx, page, booking, address) {
   const hasSpot = lat >= 51 && lat <= 56 && lon >= -11 && lon <= -5;
   const saidCounty = tidy(address).match(/\bCo\.?\s+([A-Z][a-z]+)/)?.[1];
   const ticket = /^https:\/\/www\.universe\.com\//.test(booking ?? '') ? booking : null;
+  const competition = tidy([fx.competition?.name, fx.round && !/^\d+$/.test(fx.round) ? fx.round : ''].filter(Boolean).join(' - '));
+  // The data service states the competition's gender; the name is only used when it does not.
+  const category = fx.competition?.gender === 'female' ? 'women' : fx.competition?.gender === 'male' ? 'men' : gaaCategory(sport, competition);
   return {
-    ref: fx.id, sport, level: 'local', category: null,
-    competition: tidy([fx.competition?.name, fx.round && !/^\d+$/.test(fx.round) ? fx.round : ''].filter(Boolean).join(' - ')),
+    ref: fx.id, sport, level: 'local', category,
+    competition,
     home, away, title: null,
     // A midnight start means the time has not been set.
     startsAt: iso, date: iso.slice(0, 10), time: iso.slice(11, 16) === '00:00' ? null : iso.slice(11, 16),

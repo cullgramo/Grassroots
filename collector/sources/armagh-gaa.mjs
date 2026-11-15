@@ -3,7 +3,7 @@
 // what is read. armaghgaa.net/robots.txt allows all paths for ordinary readers (checked 15 Nov 2026).
 // Each card also names the referee; that is a person's name and is deliberately not read.
 import { parse } from 'node-html-parser';
-import { readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
+import { gaaCategory, readDate, readTime, tidy, withBoard } from '../lib/util.mjs';
 import { ACTIVITIES } from './ulster-gaa.mjs';
 
 export const name = 'Armagh GAA';
@@ -31,7 +31,7 @@ export function read(text, page, now = new Date()) {
     const competition = a('comp-name');
     out.push({
       ref: `${a('comp-id') || competition}-${a('home-id') || home}-${a('away-id') || away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport, level: a('type').toLowerCase() === 'inter_county' ? 'top' : 'local', grade: a('grade').toLowerCase() || null, category: null,
+      sport, level: a('type').toLowerCase() === 'inter_county' ? 'top' : 'local', grade: a('grade').toLowerCase() || null, category: gaaCategory(sport, competition),
       competition: withBoard(page.prefix, competition),
       home, away, title: null, date,
       time: readTime(card.querySelector('.af-badge--time')?.text ?? ''),

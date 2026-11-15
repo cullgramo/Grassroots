@@ -1,6 +1,6 @@
 // Club, schools and youth rugby in all four provinces, from each branch's public SportLoMo fixtures page.
 // Each page lists the next two weeks. The pages also name referees; those are people's names and are never read.
-import { tidy } from '../lib/util.mjs';
+import { categoryFromText, tidy } from '../lib/util.mjs';
 
 export const name = 'Club Rugby';
 export const pages = ['Leinster', 'Munster', 'Ulster', 'Connacht'].map((area) => ({
@@ -47,7 +47,7 @@ export function read(html, page) {
     const fid = body.match(/data-fid="(\d+)"/)?.[1];
     out.push({
       ref: `${page.area}-${fid ?? `${date}-${competition}-${home}-${away}`}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: 'rugby', level: 'local', category: /women|girls|ladies/i.test(competition) ? 'women' : null,
+      sport: 'rugby', level: 'local', category: categoryFromText(competition),
       competition: new RegExp(page.area, 'i').test(competition) ? competition : tidy(`${page.area} ${competition}`),
       home, away, title: null, date,
       // A midnight time means it has not been set.

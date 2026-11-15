@@ -1,7 +1,7 @@
 // Cork GAA: club and county fixtures from the county board's public fixtures page (a SportLoMo widget).
 // Each game is a list whose data-* attributes carry the teams, time, ground and competition. The referee is never read.
 import { parse } from 'node-html-parser';
-import { gaaSport, readDate, readTime, tidy } from '../lib/util.mjs';
+import { gaaGame, readDate, readTime, tidy } from '../lib/util.mjs';
 
 export const name = 'Cork GAA';
 export const pages = [{ url: 'https://gaacork.ie/fixtures/', area: 'Munster', countyHint: 'Cork' }];
@@ -18,7 +18,7 @@ export function read(html, page, now = new Date()) {
     const venue = a('data-venue');
     out.push({
       ref: `${competition}-${home}-${away}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sport: gaaSport(competition) ?? 'gaelic-football', level: 'local', category: null,
+      ...gaaGame(competition), level: 'local',
       competition, home, away, title: null, date, time: readTime(a('data-time')),
       venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null,
       area: page.area, countyHint: page.countyHint, url: page.url,
