@@ -1123,6 +1123,14 @@
   "longitude": -6.2844,
   "how": "place search (amenity/school: Loreto High School Beaufort)"
  },
+ "Ireland|mardyke arena|": {
+  "family": "handball",
+  "name": "Mardyke Arena",
+  "county": "Cork",
+  "latitude": 51.894729,
+  "longitude": -8.500151,
+  "how": "place search (leisure/sports_centre: Mardyke Arena)"
+ },
  "Ireland|naas racecourse|": {
   "name": "Naas Racecourse",
   "county": "Kildare",
@@ -1136,6 +1144,14 @@
   "latitude": 53.684388,
   "longitude": -6.674888,
   "how": "place search (leisure/track: Navan Racecourse)"
+ },
+ "Ireland|phibblestown community centre|": {
+  "name": "Phibblestown Community Centre",
+  "county": "Dublin",
+  "latitude": 53.397327,
+  "longitude": -6.436325,
+  "family": "handball",
+  "how": "pin supplied by the app owner (unlabelled link, 15 Nov 2026); the point is in Hansfield, Blanchardstown, Dublin 15, where Phibblestown is, and the map names the site Coláiste Pobail Setanta (a school with community facilities)"
  },
  "Ireland|punchestown racecourse|": {
   "name": "Punchestown Racecourse",
@@ -1172,6 +1188,14 @@
   "longitude": -8.4621,
   "how": "place search (leisure/track: Sligo Racecourse)"
  },
+ "Ireland|terenure dome|": {
+  "name": "Terenure Dome",
+  "county": "Dublin",
+  "latitude": 53.3051803,
+  "longitude": -6.2918034,
+  "family": "handball",
+  "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on Templeogue Road, Terenure, about 300 m from Terenure College; the map does not name a dome there, so the position is the owner’s alone"
+ },
  "Ireland|the dub malone playing fields|BT9 5NA": null,
  "Ireland|the glade|BT36 5NN": {
   "name": "The Glade",
@@ -1200,6 +1224,14 @@
   "latitude": 52.172464,
   "longitude": -7.148459,
   "how": "place search (leisure/sports_centre: Waterford & Tramore Racecourse)"
+ },
+ "Ireland|ucd sports complex|": {
+  "name": "UCD Sports Complex",
+  "county": "Dublin",
+  "latitude": 53.3081049,
+  "longitude": -6.2294969,
+  "family": "handball",
+  "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on the UCD Belfield campus, 43 m from the map’s building named UCD Sports Centre (Wynnsward Drive)"
  },
  "Ireland|wexford racecourse|": {
   "name": "Wexford Racecourse",

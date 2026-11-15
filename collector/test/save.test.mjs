@@ -48,12 +48,14 @@ test('saving writes grounds first, then fixtures linked to them, with the upsert
   const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds });
   const { fetchImpl, calls } = fake();
   assert.equal(await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures), 1);
-  assert.deepEqual(calls.map((c) => c.path), ['venues', 'fixtures']);
-  assert.match(calls[0].search, /on_conflict=name,county/);
-  assert.match(calls[1].search, /on_conflict=source,source_ref/);
-  assert.equal(calls[1].body[0].venue_id, 'v0');
-  assert.equal(calls[1].body[0].approval, 'approved');
-  assert.equal(calls[1].headers.apikey, 'key');
+  assert.deepEqual(calls.map((c) => c.path), ['sports', 'venues', 'fixtures']);
+  assert.match(calls[0].search, /on_conflict=id/);
+  assert.deepEqual(calls[0].body.map((r) => r.id), ['rugby']);
+  assert.match(calls[1].search, /on_conflict=name,county/);
+  assert.match(calls[2].search, /on_conflict=source,source_ref/);
+  assert.equal(calls[2].body[0].venue_id, 'v0');
+  assert.equal(calls[2].body[0].approval, 'approved');
+  assert.equal(calls[2].headers.apikey, 'key');
 });
 
 test('removal only touches the source, upcoming games, and rows this run did not write', async () => {
@@ -78,7 +80,7 @@ test('a source that shrinks to under half of what the database holds is not tidi
 test('a database error stops the save and says which call failed', async () => {
   const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds });
   const failing = async () => ({ ok: false, status: 401, text: async () => 'bad key' });
-  await assert.rejects(saveFixtures(makeDb('https://db.test', 'x', failing), fixtures), /401 for POST venues/);
+  await assert.rejects(saveFixtures(makeDb('https://db.test', 'x', failing), fixtures), /401 for POST sports/);
 });
 
 test('a dropped connection is retried, but a site that says no is not', async () => {
@@ -123,4 +125,13 @@ test("a county board's bare village name placed in another county is held, not g
   assert.deepEqual(fixtures.map((f) => f.venue).sort(), ['Castletown', 'Enniscorthy Park']);
   assert.match(leftOut[0].reason, /outside Wexford/);
   assert.deepEqual(unplacedGrounds(leftOut), [['Adamstown (Fake)', 1]]);
+});
+
+test('the same two clubs on the same day in a men’s and a women’s league are two games, not one', async () => {
+  const { fixtures, leftOut } = await gather({
+    sources: { fake: source([game({ ref: 'a', category: null }), game({ ref: 'b', category: 'women' }), game({ ref: 'c', category: 'women' })]) },
+    grounds,
+  });
+  assert.equal(fixtures.length, 2);
+  assert.deepEqual(leftOut.map((r) => r.reason), ['Already listed by another source']);
 });

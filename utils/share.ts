@@ -36,8 +36,8 @@ export function mapLink(f: Pick<Fixture, 'latitude' | 'longitude'>): string {
 
 /**
  * The plain-text message that goes into WhatsApp, a text, an email or any other app.
- * With the site live it is short and ends with the fixture's own link, which chat apps turn into a preview
- * and which brings the reader to Grassroots. Without it, the message carries the facts and a directions link.
+ * With the site live it is short and ends with the fixture's own link, which chat apps turn into a card and which
+ * brings the reader to Grassroots. Without it, the message carries the facts, a directions link and tickets.
  */
 export function shareMessage(f: Fixture, site: string | null = SITE_URL): string {
   const sport = getSport(f.sport);
@@ -46,18 +46,24 @@ export function shareMessage(f: Fixture, site: string | null = SITE_URL): string
   const off = f.status === 'cancelled' ? 'CANCELLED' : f.status === 'postponed' ? 'POSTPONED' : null;
   const link = fixtureLink(f.id, site);
   const tickets = ticketLink(f);
-  // Everything someone needs to act on it, in the message itself: where to go, how to get in, and the fixture's own page.
   const lines: string[] = [];
   if (off) lines.push(off);
   lines.push(fixtureTitle(f));
-  if (!link) lines.push([sport.name, f.competition].filter(Boolean).join(' · '));
+  if (link) {
+    // One link only, like a good property or shop share: chat apps turn it into a card (picture, title, details), and the
+    // page behind it has directions, tickets and more games. A second link in the message can stop the card appearing.
+    lines.push(`${whenLine} · ${f.venue}, ${f.county}`);
+    lines.push('Directions, tickets and more on Grassroots:');
+    lines.push(link);
+    return lines.join('\n');
+  }
+  // No site address: the message carries the facts itself.
+  lines.push([sport.name, f.competition].filter(Boolean).join(' · '));
   lines.push(whenLine);
   lines.push(`${f.venue}, ${f.county}`);
-  // Chat apps build their preview card from the first link in a message, so the fixture's own page comes first.
-  if (link) lines.push(link);
   lines.push(`Directions: ${mapLink(f)}`);
   if (tickets?.kind === 'seller') lines.push(`Tickets: ${tickets.url}`);
-  if (!link) lines.push('Found on Grassroots');
+  lines.push('Found on Grassroots');
   return lines.join('\n');
 }
 

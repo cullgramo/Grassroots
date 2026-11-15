@@ -60,16 +60,20 @@ describe('share links', () => {
 
 describe('sharing with the site live', () => {
   const site = 'https://grassroots.example/';
-  it('carries the fixture page first (chat previews use the first link), then directions', () => {
-    expect(shareMessage(base, site).split('\n')).toEqual([
-      'Ballymena United v Larne', 'Tuesday 1 December, 19:45', 'Ballymena Showgrounds, Antrim',
-      'https://grassroots.example/f/f1', 'Directions: https://maps.google.com/?q=54.87,-6.265',
+  it('is short with a single link, so chat apps can show a card', () => {
+    const m = shareMessage(base, site);
+    expect(m.split('\n')).toEqual([
+      'Ballymena United v Larne',
+      'Tuesday 1 December, 19:45 · Ballymena Showgrounds, Antrim',
+      'Directions, tickets and more on Grassroots:',
+      'https://grassroots.example/f/f1',
     ]);
+    expect((m.match(/https?:\/\//g) ?? []).length).toBe(1);
   });
-  it('adds the tickets link when the seller is known, and says nothing about tickets when it is not', () => {
-    const withTickets = shareMessage({ ...base, ticketed: true, ticketUrl: 'https://club.example/tickets' }, site).split('\n');
-    expect(withTickets.slice(-2)).toEqual(['Directions: https://maps.google.com/?q=54.87,-6.265', 'Tickets: https://club.example/tickets']);
-    expect(shareMessage(base, site)).not.toContain('Tickets');
+  it('leaves directions and tickets to the page, even when a seller is known', () => {
+    const m = shareMessage({ ...base, ticketed: true, ticketUrl: 'https://club.example/tickets' }, site);
+    expect(m).not.toContain('club.example');
+    expect((m.match(/https?:\/\//g) ?? []).length).toBe(1);
   });
   it('still leads with a postponement', () => {
     expect(shareMessage({ ...base, status: 'postponed' }, site).split('\n')[0]).toBe('POSTPONED');

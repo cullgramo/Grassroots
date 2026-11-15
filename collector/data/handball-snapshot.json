@@ -1,0 +1,297 @@
+{
+ "_note": "One-off snapshots of two handball leagues' fixtures, 21 November 2026 to 21 March 2027, copied by the owner from the competitions' MyGameDay pages on 15 November 2026. The pages refuse automated reading, so these are not live. The first league's title was not in the copied text; its times run two hours after the women's league, so it is probably the men's league (to confirm).",
+ "leagues": [
+  {
+   "competition": "OHI Senior League 2026-2027",
+   "category": null,
+   "fixtures": [
+    [
+     "2026-11-21",
+     "12:30",
+     "University College Dublin (UCD)",
+     "Dublin City Handball Club (DCH)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2026-11-22",
+     "13:30",
+     "Dublin International Handball Club (DIHC)",
+     "University College Cork (UCC)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2026-11-28",
+     "12:30",
+     "University College Dublin (UCD)",
+     "Phoenix Handball Club",
+     "UCD Sports Complex"
+    ],
+    [
+     "2026-11-28",
+     "15:00",
+     "University College Cork (UCC)",
+     "Dublin International Handball Club (DIHC)",
+     "Mardyke Arena"
+    ],
+    [
+     "2026-11-29",
+     "13:30",
+     "Astra Handball Club",
+     "Dublin City Handball Club (DCH)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2026-12-05",
+     "12:30",
+     "Dublin International Handball Club (DIHC)",
+     "University College Dublin (UCD)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2026-12-06",
+     "13:30",
+     "Dublin City Handball Club (DCH)",
+     "Phoenix Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2026-12-13",
+     "13:30",
+     "Astra Handball Club",
+     "Dublin International Handball Club (DIHC)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-01-24",
+     "13:30",
+     "Astra Handball Club",
+     "Phoenix Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-02-06",
+     "12:30",
+     "Astra Handball Club",
+     "University College Dublin (UCD)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2027-02-06",
+     "15:00",
+     "University College Cork (UCC)",
+     "Phoenix Handball Club",
+     "Mardyke Arena"
+    ],
+    [
+     "2027-02-07",
+     "13:30",
+     "Dublin City Handball Club (DCH)",
+     "Dublin International Handball Club (DIHC)",
+     "Terenure Dome"
+    ],
+    [
+     "2027-02-13",
+     "12:30",
+     "University College Dublin (UCD)",
+     "Dublin International Handball Club (DIHC)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2027-02-14",
+     "13:30",
+     "Phoenix Handball Club",
+     "Dublin City Handball Club (DCH)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-02-27",
+     "12:30",
+     "University College Dublin (UCD)",
+     "University College Cork (UCC)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2027-02-28",
+     "13:30",
+     "Dublin International Handball Club (DIHC)",
+     "Phoenix Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-03-07",
+     "13:30",
+     "Dublin City Handball Club (DCH)",
+     "Astra Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-03-07",
+     "13:30",
+     "Phoenix Handball Club",
+     "University College Dublin (UCD)",
+     "Terenure Dome"
+    ],
+    [
+     "2027-03-20",
+     "15:00",
+     "University College Cork (UCC)",
+     "Astra Handball Club",
+     "Mardyke Arena"
+    ],
+    [
+     "2027-03-21",
+     "13:30",
+     "Dublin City Handball Club (DCH)",
+     "University College Dublin (UCD)",
+     "Phibblestown Community Centre"
+    ]
+   ]
+  },
+  {
+   "competition": "OHI Senior League Women 2026-2027",
+   "category": "women",
+   "fixtures": [
+    [
+     "2026-11-21",
+     "10:30",
+     "University College Dublin (UCD)",
+     "Dublin City Handball Club (DCH)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2026-11-22",
+     "11:30",
+     "Dublin International Handball Club (DIHC)",
+     "University College Cork (UCC)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2026-11-28",
+     "10:30",
+     "University College Dublin (UCD)",
+     "Phoenix Handball Club",
+     "UCD Sports Complex"
+    ],
+    [
+     "2026-11-28",
+     "13:00",
+     "University College Cork (UCC)",
+     "Dublin International Handball Club (DIHC)",
+     "Mardyke Arena"
+    ],
+    [
+     "2026-11-29",
+     "11:30",
+     "Astra Handball Club",
+     "Dublin City Handball Club (DCH)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2026-12-05",
+     "10:30",
+     "Dublin International Handball Club (DIHC)",
+     "University College Dublin (UCD)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2026-12-06",
+     "11:30",
+     "Dublin City Handball Club (DCH)",
+     "Phoenix Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2026-12-13",
+     "11:30",
+     "Astra Handball Club",
+     "Dublin International Handball Club (DIHC)",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-01-24",
+     "11:30",
+     "Astra Handball Club",
+     "Phoenix Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-02-06",
+     "10:30",
+     "Astra Handball Club",
+     "University College Dublin (UCD)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2027-02-06",
+     "13:00",
+     "University College Cork (UCC)",
+     "Phoenix Handball Club",
+     "Mardyke Arena"
+    ],
+    [
+     "2027-02-07",
+     "11:30",
+     "Dublin City Handball Club (DCH)",
+     "Dublin International Handball Club (DIHC)",
+     "Terenure Dome"
+    ],
+    [
+     "2027-02-13",
+     "10:30",
+     "University College Dublin (UCD)",
+     "Dublin International Handball Club (DIHC)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2027-02-14",
+     "11:30",
+     "Phoenix Handball Club",
+     "Dublin City Handball Club (DCH)",
+     "Terenure Dome"
+    ],
+    [
+     "2027-02-27",
+     "10:30",
+     "University College Dublin (UCD)",
+     "University College Cork (UCC)",
+     "UCD Sports Complex"
+    ],
+    [
+     "2027-02-28",
+     "11:30",
+     "Dublin International Handball Club (DIHC)",
+     "Phoenix Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-03-07",
+     "11:30",
+     "Dublin City Handball Club (DCH)",
+     "Astra Handball Club",
+     "Phibblestown Community Centre"
+    ],
+    [
+     "2027-03-07",
+     "11:30",
+     "Phoenix Handball Club",
+     "University College Dublin (UCD)",
+     "Terenure Dome"
+    ],
+    [
+     "2027-03-20",
+     "13:00",
+     "University College Cork (UCC)",
+     "Astra Handball Club",
+     "Mardyke Arena"
+    ],
+    [
+     "2027-03-21",
+     "11:30",
+     "Dublin City Handball Club (DCH)",
+     "University College Dublin (UCD)",
+     "Phibblestown Community Centre"
+    ]
+   ]
+  }
+ ]
+}

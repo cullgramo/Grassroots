@@ -74,7 +74,7 @@ try {
 
   const unplaced = unplacedGrounds(leftOut);
   note('## Grounds to place', '', unplaced.length ? 'Biggest first. Each one placed adds its fixtures to the app.' : 'None.', '', ...unplaced.slice(0, 25).map(([k, n]) => `- ${k}: ${n}`), '');
-  const csv = ['source,date,time,home,away,title,venue,reason', ...leftOut.map((r) => [r.source, r.date, r.time, r.home, r.away, r.title, r.venue, r.reason].map((v) => (/[",\n]/.test(v ?? '') ? `"${String(v).replace(/"/g, '""')}"` : v ?? '')).join(','))].join('\n');
+  const csv = ['source,date,time,home,away,title,venue,reason,sport,competition,county_hint,area', ...leftOut.map((r) => [r.source, r.date, r.time, r.home, r.away, r.title, r.venue, r.reason, r.sport, r.competition, r.countyHint, r.area].map((v) => (/[",\n]/.test(v ?? '') ? `"${String(v).replace(/"/g, '""')}"` : v ?? '')).join(','))].join('\n');
   mkdirSync('collector-report', { recursive: true });
   writeFileSync('collector-report/left-out.csv', csv + '\n');
 } catch (e) {
