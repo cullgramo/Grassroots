@@ -1424,7 +1424,14 @@
   "longitude": -7.180986,
   "how": "GAA pitch list, matched on club name (Bennettsbridge)"
  },
- "Leinster|black gates|": null,
+ "Leinster|black gates|": {
+  "family": "rugby",
+  "name": "The Black Gates",
+  "county": "Carlow",
+  "latitude": 52.79241,
+  "longitude": -6.78015,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Tullow Rugby Football Club is 136 m away (proposer's source: Knowledge Base / Maps)"
+ },
  "Leinster|blessington|": {
   "family": "gaa",
   "name": "Blessington",
@@ -1869,7 +1876,14 @@
   "longitude": -6.611487,
   "how": "GAA pitch list, matched on club name (Hollywood GAA)"
  },
- "Leinster|holmpatrick|": null,
+ "Leinster|holmpatrick|": {
+  "family": "rugby",
+  "name": "Holmpatrick",
+  "county": "Dublin",
+  "latitude": 53.57389,
+  "longitude": -6.10306,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Holmpatrick\"; the club list has Skerries Rugby Football Club is 162 m away (proposer's source: Knowledge Base / Maps)"
+ },
  "Leinster|horeswood|": {
   "family": "gaa",
   "name": "Horeswood",
@@ -2377,7 +2391,14 @@
   "longitude": -6.271912,
   "how": "place search (amenity/school: Saint Columba's College)"
  },
- "Leinster|st john s park|": null,
+ "Leinster|st john s park|": {
+  "family": "gaa",
+  "name": "St. John's Park",
+  "county": "Kilkenny",
+  "latitude": 52.6575,
+  "longitude": -7.23556,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the GAA pitch list has O'Loughlin Gaels is 120 m away; the club list has Kilkenny City LGFA Club is 174 m away; the club list has O'Loughlin Gaels GAA Club is 216 m away (proposer's source: Knowledge Base / Maps)"
+ },
  "Leinster|st kieran s college|": {
   "name": "St. Kieran's College",
   "county": "Kilkenny",
@@ -4046,7 +4067,14 @@
   "longitude": -6.064025,
   "how": "postcode"
  },
- "Ulster|connacht gaa centre of excellence bekan|": null,
+ "Ulster|connacht gaa centre of excellence bekan|": {
+  "family": "gaa",
+  "name": "Connacht GAA Centre of Excellence",
+  "county": "Mayo",
+  "latitude": 53.77407,
+  "longitude": -8.85289,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the GAA pitch list has Connacht GAA: Connacht GAA Air Dome is 62 m away; the GAA pitch list has Connacht GAA: Connacht GAA Centre of Excellence is 188 m away (proposer's source: way/180184106)"
+ },
  "Ulster|connolly park|": null,
  "Ulster|cookstown|": {
   "name": "Cookstown",
