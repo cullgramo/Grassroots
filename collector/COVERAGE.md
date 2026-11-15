@@ -68,3 +68,4 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Feature | State | What it needs |
 |---|---|---|
 | Share a fixture as a picture card | Built, switched off (14 Nov 2026). `PICTURE_CARD_ENABLED` in `components/ShareFixture.tsx`. | Important, but the card's design needs more UX work first: three designs were tried (dark green, plain white, minimal) and none was settled on. Not yet tried on a phone. Text sharing (WhatsApp, text, email, copy, share sheet) stays on. |
+| Delete the old `import-ticketmaster` function in Supabase | Left in place by the owner (15 Nov 2026) | The daily GitHub run replaced it. Until it is deleted it is an extra public endpoint protected only by `IMPORT_SECRET` (set that to a random string of 24+ characters), and it will fail if called after migration 0005 (the deployed copy uses the old venue key). The Ticketmaster key in GitHub is separate and stays. |
