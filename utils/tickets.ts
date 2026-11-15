@@ -15,6 +15,19 @@ export function ticketLink(f: Fixture): TicketLink | null {
   return { url: `https://www.google.com/search?q=${encodeURIComponent(query)}`, kind: 'search' };
 }
 
+/**
+ * The seller's address as it is opened, with Grassroots named as the source (UTM tags), so a ticket seller can see in
+ * its own figures how many buyers we sent. Tags the seller already set are kept. Web searches are not tagged.
+ */
+export function outboundTicketUrl(link: TicketLink, medium: 'app' | 'web' = 'app'): string {
+  if (link.kind !== 'seller' || /[?&]utm_source=/i.test(link.url)) return link.url;
+  const hashAt = link.url.indexOf('#');
+  const base = hashAt === -1 ? link.url : link.url.slice(0, hashAt);
+  const hash = hashAt === -1 ? '' : link.url.slice(hashAt);
+  const sep = base.includes('?') ? (/[?&]$/.test(base) ? '' : '&') : '?';
+  return `${base}${sep}utm_source=grassroots&utm_medium=${medium}&utm_campaign=fixture${hash}`;
+}
+
 /** A web search for tickets, offered when the source does not say whether tickets are needed. */
 export function ticketSearchLink(f: Fixture): string {
   return `https://www.google.com/search?q=${encodeURIComponent(`${fixtureTitle(f)} ${f.venue} tickets`)}`;
