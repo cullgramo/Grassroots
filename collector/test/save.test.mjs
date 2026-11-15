@@ -48,12 +48,14 @@ test('saving writes grounds first, then fixtures linked to them, with the upsert
   const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds });
   const { fetchImpl, calls } = fake();
   assert.equal(await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures), 1);
-  assert.deepEqual(calls.map((c) => c.path), ['venues', 'fixtures']);
-  assert.match(calls[0].search, /on_conflict=name,county/);
-  assert.match(calls[1].search, /on_conflict=source,source_ref/);
-  assert.equal(calls[1].body[0].venue_id, 'v0');
-  assert.equal(calls[1].body[0].approval, 'approved');
-  assert.equal(calls[1].headers.apikey, 'key');
+  assert.deepEqual(calls.map((c) => c.path), ['sports', 'venues', 'fixtures']);
+  assert.match(calls[0].search, /on_conflict=id/);
+  assert.deepEqual(calls[0].body.map((r) => r.id), ['rugby']);
+  assert.match(calls[1].search, /on_conflict=name,county/);
+  assert.match(calls[2].search, /on_conflict=source,source_ref/);
+  assert.equal(calls[2].body[0].venue_id, 'v0');
+  assert.equal(calls[2].body[0].approval, 'approved');
+  assert.equal(calls[2].headers.apikey, 'key');
 });
 
 test('removal only touches the source, upcoming games, and rows this run did not write', async () => {
@@ -78,7 +80,7 @@ test('a source that shrinks to under half of what the database holds is not tidi
 test('a database error stops the save and says which call failed', async () => {
   const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds });
   const failing = async () => ({ ok: false, status: 401, text: async () => 'bad key' });
-  await assert.rejects(saveFixtures(makeDb('https://db.test', 'x', failing), fixtures), /401 for POST venues/);
+  await assert.rejects(saveFixtures(makeDb('https://db.test', 'x', failing), fixtures), /401 for POST sports/);
 });
 
 test('a dropped connection is retried, but a site that says no is not', async () => {

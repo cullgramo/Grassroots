@@ -1123,6 +1123,14 @@
   "longitude": -6.2844,
   "how": "place search (amenity/school: Loreto High School Beaufort)"
  },
+ "Ireland|mardyke arena|": {
+  "family": "handball",
+  "name": "Mardyke Arena",
+  "county": "Cork",
+  "latitude": 51.894729,
+  "longitude": -8.500151,
+  "how": "place search (leisure/sports_centre: Mardyke Arena)"
+ },
  "Ireland|naas racecourse|": {
   "name": "Naas Racecourse",
   "county": "Kildare",
@@ -1137,6 +1145,7 @@
   "longitude": -6.674888,
   "how": "place search (leisure/track: Navan Racecourse)"
  },
+ "Ireland|phibblestown community centre|": null,
  "Ireland|punchestown racecourse|": {
   "name": "Punchestown Racecourse",
   "county": "Kildare",
@@ -1172,6 +1181,7 @@
   "longitude": -8.4621,
   "how": "place search (leisure/track: Sligo Racecourse)"
  },
+ "Ireland|terenure dome|": null,
  "Ireland|the dub malone playing fields|BT9 5NA": null,
  "Ireland|the glade|BT36 5NN": {
   "name": "The Glade",
@@ -1201,6 +1211,7 @@
   "longitude": -7.148459,
   "how": "place search (leisure/sports_centre: Waterford & Tramore Racecourse)"
  },
+ "Ireland|ucd sports complex|": null,
  "Ireland|wexford racecourse|": {
   "name": "Wexford Racecourse",
   "county": "Wexford",

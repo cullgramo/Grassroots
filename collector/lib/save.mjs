@@ -1,5 +1,6 @@
 // Saves what `gather` found to the database through its REST interface, and removes fixtures a source no longer lists.
 // The same upserts the Ticketmaster import uses (on_conflict=source,source_ref), so repeat runs never duplicate.
+import { SPORTS } from '../../constants/sports.ts';
 import { toRow } from './build.mjs';
 
 /** A small database client. `fetchImpl` can be swapped for a fake server in tests. */
@@ -22,6 +23,11 @@ const chunks = (list, size) => Array.from({ length: Math.ceil(list.length / size
 /** Upserts the grounds, then the fixtures. Returns how many fixtures were written. */
 export async function saveFixtures(db, fixtures) {
   if (fixtures.length === 0) return 0;
+  // A sport added to the app (constants/sports.ts) is added to the database's sports table the first time a fixture uses it,
+  // so no one has to run SQL by hand.
+  const used = new Set(fixtures.map((f) => f.sport));
+  const sportRows = SPORTS.map((sp, i) => ({ id: sp.id, name: sp.name, sport_group: sp.group, shape: sp.shape, color: sp.color, start_word: sp.startWord, sort_order: i + 1 })).filter((r) => used.has(r.id));
+  if (sportRows.length) await db('POST', 'sports?on_conflict=id', { body: sportRows, prefer: 'resolution=merge-duplicates' });
   const venues = new Map(fixtures.map((f) => [`${f.ground.name}|${f.ground.county}`, { name: f.ground.name, county: f.ground.county, latitude: f.ground.latitude, longitude: f.ground.longitude }]));
   const ids = new Map();
   for (const part of chunks([...venues.values()], 400)) {
