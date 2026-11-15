@@ -1,6 +1,7 @@
 import { getSport } from '@/constants/sports';
 import { fixtureTitle, type Fixture } from '@/types/fixture';
 import { directionsUrl, irishParts } from '@/utils/share';
+import { legalReady } from '@/constants/legal';
 import { isPlayed } from '@/utils/played';
 import { ticketLink } from '@/utils/tickets';
 
@@ -120,6 +121,6 @@ ${f.competition ? `<p class="comp">${esc(f.competition)}</p>` : ''}
 <p class="where">${esc(f.venue)}, ${esc(f.county)}</p>
 </div>
 ${actions}
-<p class="note">Check with the club or the competition before you travel. Fixtures can change.</p>
+<p class="note">Check with the club or the competition before you travel. Fixtures can change.${legalReady() ? ' · <a href="/terms" style="color:inherit">Terms</a>' : ''}</p>
 </main></body></html>`;
 }

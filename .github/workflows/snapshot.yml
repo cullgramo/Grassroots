@@ -1,0 +1,31 @@
+name: Data snapshot
+
+# A dated copy of the public fixture data on the 1st of every month, kept as a GitHub release (permanent). If the data is
+# ever copied, a snapshot with our own record ids shows what was ours and when. See docs/legal/solicitor-brief.md.
+on:
+  schedule:
+    - cron: '23 3 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node collector/snapshot.mjs snapshot
+      - name: Keep it as a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          day=$(date -u +%F)
+          gh release create "data-snapshot-$day" snapshot/* \
+            --title "Data snapshot $day" \
+            --notes "Dated copy of the public fixture data (see the manifest for counts and the SHA-256 fingerprint). Evidence only; not a code release." \
+            --prerelease

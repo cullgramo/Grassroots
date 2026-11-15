@@ -8,6 +8,7 @@ import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
+import { legalReady } from '@/constants/legal';
 import { COUNTIES } from '@/data/counties';
 import type { Level, When } from '@/types/fixture';
 import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
@@ -104,6 +105,11 @@ export default function FiltersScreen() {
             <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c })} />
           ))}
         </Section>
+        {legalReady() ? (
+          <Pressable onPress={() => router.push('/terms')} accessibilityRole="link" style={styles.adminLink}>
+            <Text style={[styles.note, { color: t.muted }]}>Terms of use</Text>
+          </Pressable>
+        ) : null}
         {__DEV__ ? (
           <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>
             <Text style={[styles.note, { color: t.muted }]}>Add fixtures (admin)</Text>

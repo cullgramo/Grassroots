@@ -57,6 +57,12 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Club rugby (four provinces), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
 | Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
 
+## Protecting the data (audit M5)
+
+- **Terms of use** with a no-bulk-copying clause: `constants/legal.ts` (draft). The Terms link and page stay hidden until `LEGAL.owner` and `LEGAL.email` are filled in. A solicitor should confirm the wording first: `docs/legal/solicitor-brief.md`.
+- **Evidence**: `.github/workflows/snapshot.yml` saves a dated copy of the public data on the 1st of each month as a GitHub release with a SHA-256 fingerprint (`collector/snapshot.mjs`). Record ids are generated only by our collector.
+- **Not done on purpose**: invented trap fixtures (they would show to real users), and rate limiting at the edge (revisit only if copying is seen).
+
 ## Placement rules worth remembering
 
 - A ground found from a club or town name is only used for the sport it was found for (`slotFor` in `lib/grounds.mjs`).
