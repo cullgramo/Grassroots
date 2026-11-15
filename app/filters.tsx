@@ -133,10 +133,18 @@ export default function FiltersScreen() {
           ))}
         </Section>
         {legalReady() ? (
-          <Pressable onPress={() => router.push('/terms')} accessibilityRole="link" style={styles.adminLink}>
-            <Text style={[styles.note, { color: t.muted }]}>Terms of use</Text>
-          </Pressable>
+          <>
+            <Pressable onPress={() => router.push('/terms')} accessibilityRole="link" style={styles.adminLink}>
+              <Text style={[styles.note, { color: t.muted }]}>Terms of use</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push('/privacy')} accessibilityRole="link" style={styles.adminLink}>
+              <Text style={[styles.note, { color: t.muted }]}>Privacy policy</Text>
+            </Pressable>
+          </>
         ) : null}
+        <Pressable onPress={() => router.push('/credits')} accessibilityRole="link" style={styles.adminLink}>
+          <Text style={[styles.note, { color: t.muted }]}>Credits</Text>
+        </Pressable>
         {__DEV__ ? (
           <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>
             <Text style={[styles.note, { color: t.muted }]}>Add fixtures (admin)</Text>
