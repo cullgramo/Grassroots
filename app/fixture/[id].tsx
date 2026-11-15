@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -6,6 +6,7 @@ import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-na
 import { SaveButton } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
 import { ShareFixture, ShareHeaderButton } from '@/components/ShareFixture';
+import { SponsorSlot } from '@/components/SponsorSlot';
 import { useTheme } from '@/components/useTheme';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
@@ -23,6 +24,19 @@ function Row({ label, value }: { label: string; value: string }) {
       <Text style={[styles.rowLabel, { color: t.muted }]}>{label}</Text>
       <Text style={[styles.rowValue, { color: t.text }]}>{value}</Text>
     </View>
+  );
+}
+
+/** A team name that opens the club's page. */
+function ClubLink({ name }: { name: string }) {
+  const t = useTheme();
+  return (
+    <Pressable
+      onPress={() => router.push({ pathname: '/club/[name]', params: { name } })}
+      accessibilityRole="link"
+      accessibilityHint="Opens the club's page">
+      <Text style={[styles.teams, { color: t.text }]}>{name}</Text>
+    </Pressable>
   );
 }
 
@@ -80,9 +94,9 @@ export default function FixtureScreen() {
         </Text>
         {fixture.homeTeam && fixture.awayTeam ? (
           <>
-            <Text style={[styles.teams, { color: t.text }]}>{fixture.homeTeam}</Text>
+            <ClubLink name={fixture.homeTeam} />
             <Text style={[styles.versus, { color: t.muted }]}>v</Text>
-            <Text style={[styles.teams, { color: t.text }]}>{fixture.awayTeam}</Text>
+            <ClubLink name={fixture.awayTeam} />
           </>
         ) : (
           <Text style={[styles.teams, { color: t.text }]}>{fixtureTitle(fixture)}</Text>
@@ -149,12 +163,22 @@ export default function FixtureScreen() {
           </Text>
         </Pressable>
         <ShareFixture fixture={fixture} />
+        <SponsorSlot clubs={[fixture.homeTeam, fixture.awayTeam]} competition={fixture.competition} county={fixture.county} />
+        <Pressable
+          onPress={() => router.push({ pathname: '/report/[id]', params: { id: fixture.id } })}
+          accessibilityRole="button"
+          accessibilityHint="Tell us if the time, ground or anything else is wrong"
+          style={styles.reportLink}>
+          <Text style={[styles.reportText, { color: t.muted }]}>Something wrong with this fixture? Tell us</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  reportLink: { alignItems: 'center', paddingVertical: 18, marginTop: 8 },
+  reportText: { fontSize: 14, textDecorationLine: 'underline' },
   content: { paddingBottom: 32 },
   missing: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
   map: { height: 220 },

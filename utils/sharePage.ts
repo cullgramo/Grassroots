@@ -61,6 +61,7 @@ h1{font-size:28px;line-height:1.15;margin-top:10px}
 .when{font-size:22px;font-weight:800;margin-top:18px}
 .where{font-size:17px;margin-top:4px}
 .btn{display:block;text-align:center;font-weight:800;font-size:17px;border-radius:26px;padding:15px;margin-top:12px;text-decoration:none}
+.report{display:block;text-align:center;font-size:14px;color:#64748b;margin-top:18px}
 .primary{background:#17704A;color:#fff}
 .secondary{border:2px solid #17704A;color:#17704A}
 .note{color:#4A5A52;font-size:13px;text-align:center;margin-top:20px}
@@ -110,7 +111,8 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
     : `<a class="btn primary" href="/fixture/${encodeURIComponent(f.id)}">See it on the map</a>
 <a class="btn secondary" href="${esc(directionsUrl(f))}">Get directions</a>
 ${tickets?.kind === 'seller' ? `<a class="btn secondary" href="/go/${encodeURIComponent(f.id)}">Get tickets</a>` : ''}
-<a class="btn secondary" href="/?ref=share">More games near you</a>`;
+<a class="btn secondary" href="/?ref=share">More games near you</a>
+<a class="report" href="/report/${encodeURIComponent(f.id)}">Something wrong with this fixture? Tell us</a>`;
 
   return `${head}
 <div class="card" style="--c:${esc(sport.color)}">
