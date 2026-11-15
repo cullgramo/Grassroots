@@ -1188,7 +1188,14 @@
   "longitude": -8.4621,
   "how": "place search (leisure/track: Sligo Racecourse)"
  },
- "Ireland|terenure dome|": null,
+ "Ireland|terenure dome|": {
+  "name": "Terenure Dome",
+  "county": "Dublin",
+  "latitude": 53.3051803,
+  "longitude": -6.2918034,
+  "family": "handball",
+  "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on Templeogue Road, Terenure, about 300 m from Terenure College; the map does not name a dome there, so the position is the owner’s alone"
+ },
  "Ireland|the dub malone playing fields|BT9 5NA": null,
  "Ireland|the glade|BT36 5NN": {
   "name": "The Glade",
