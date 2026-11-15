@@ -282,13 +282,42 @@ async function removeStale(runStarted: string): Promise<number> {
   return (await res.json()).length;
 }
 
+
+/**
+ * A venue is a name, a county and a place: its position in thousandths of a degree, cut (not rounded), so two grounds
+ * that share a name stay two venues (migration 0005). Matches the database's generated "place" column exactly.
+ */
+const roundCoord = (n: number) => Number(Number(n).toFixed(5));
+const placeOf = (lat: number, lon: number) => {
+  const cut = (n: number) => String(parseInt(roundCoord(n).toFixed(5).replace('.', '').slice(0, -2), 10));
+  return `${cut(lat)},${cut(lon)}`;
+};
+
+type Venue = ImportedFixture['venue'];
+
+/** Saves the venues and returns each fixture's venue id. Falls back to the old name-and-county key until migration 0005 is run. */
+async function saveVenues(fixtures: ImportedFixture[]): Promise<(f: ImportedFixture) => string | undefined> {
+  const at = (v: Venue): Venue => ({ ...v, latitude: roundCoord(v.latitude), longitude: roundCoord(v.longitude) });
+  const newKey = (v: Venue) => `${v.name}|${v.county}|${placeOf(v.latitude, v.longitude)}`;
+  const oldKey = (v: Venue) => `${v.name}|${v.county}`;
+  const rows = (key: (v: Venue) => string) => new Map(fixtures.map((f) => [key(at(f.venue)), at(f.venue)]));
+  const prefer = 'resolution=merge-duplicates,return=representation';
+  try {
+    const saved = await db('venues?on_conflict=name,county,place', [...rows(newKey).values()], prefer);
+    const ids = new Map(saved.map((v) => [`${v.name}|${v.county}|${v.place ?? placeOf(v.latitude, v.longitude)}`, v.id]));
+    return (f) => ids.get(newKey(at(f.venue)));
+  } catch (e) {
+    if (!/42703|42P10|no unique or exclusion constraint|venues\.place/i.test(String((e as Error).message))) throw e;
+    const saved = await db('venues?on_conflict=name,county', [...rows(oldKey).values()], prefer);
+    const ids = new Map(saved.map((v) => [oldKey(v as Venue), v.id]));
+    return (f) => ids.get(oldKey(f.venue));
+  }
+}
+
 async function save(fixtures: ImportedFixture[]): Promise<number> {
   if (fixtures.length === 0) return 0;
-  const venues = new Map<string, ImportedFixture['venue']>();
-  for (const f of fixtures) venues.set(`${f.venue.name}|${f.venue.county}`, f.venue);
-  const saved = await db('venues?on_conflict=name,county', [...venues.values()], 'resolution=merge-duplicates,return=representation');
-  const ids = new Map(saved.map((v) => [`${v.name}|${v.county}`, v.id]));
-  const rows = fixtures.map(({ venue, ...rest }) => ({ ...rest, venue_id: ids.get(`${venue.name}|${venue.county}`) }));
+  const venueId = await saveVenues(fixtures);
+  const rows = fixtures.map(({ venue, ...rest }) => ({ ...rest, venue_id: venueId({ venue } as ImportedFixture) }));
   const written = await db('fixtures?on_conflict=source,source_ref', rows, 'resolution=merge-duplicates,return=representation');
   return written.length;
 }

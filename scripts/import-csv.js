@@ -198,7 +198,7 @@ const sql = [
   '',
   'insert into public.venues (name, county, latitude, longitude) values',
   usedVenues.map((v) => `  (${q(v.name)}, ${q(v.county)}, ${v.latitude}, ${v.longitude})`).join(',\n'),
-  'on conflict (name, county) do nothing;',
+  'on conflict (name, county, place) do nothing;',
   '',
   'insert into public.fixtures',
   '  (sport_id, level, category, competition, home_team, away_team, venue_id, starts_at, ticketed, approval, source, source_ref, source_url)',

@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gather, toRow, unplacedGrounds } from '../lib/build.mjs';
-import { makeDb, removeUnseen, saveFixtures, safeToRemove, countUpcoming } from '../lib/save.mjs';
+import { makeDb, placeOf, removeUnseen, roundCoord, saveFixtures, safeToRemove, countUpcoming } from '../lib/save.mjs';
 
 /** A fake fetch that records every request and answers like the database's REST interface. */
 function fake({ venues = [], deleted = [], total = 0 } = {}) {
@@ -51,7 +51,7 @@ test('saving writes grounds first, then fixtures linked to them, with the upsert
   assert.deepEqual(calls.map((c) => c.path), ['sports', 'venues', 'fixtures']);
   assert.match(calls[0].search, /on_conflict=id/);
   assert.deepEqual(calls[0].body.map((r) => r.id), ['rugby']);
-  assert.match(calls[1].search, /on_conflict=name,county/);
+  assert.match(calls[1].search, /on_conflict=name,county,place/);
   assert.match(calls[2].search, /on_conflict=source,source_ref/);
   assert.equal(calls[2].body[0].venue_id, 'v0');
   assert.equal(calls[2].body[0].approval, 'approved');
@@ -134,4 +134,46 @@ test('the same two clubs on the same day in a men’s and a women’s league are
   });
   assert.equal(fixtures.length, 2);
   assert.deepEqual(leftOut.map((r) => r.reason), ['Already listed by another source']);
+});
+
+test('two different grounds with the same name stay two venues, and each fixture keeps its own', async () => {
+  const two = {
+    'Leinster|ground one|': { name: 'Ground One', county: 'Dublin', latitude: 53.3, longitude: -6.2, how: 'rugby club search (club/sport: Ground One RFC)' },
+    'Leinster|ground one|~gaa': { name: 'Ground One', county: 'Dublin', latitude: 53.4, longitude: -6.3, family: 'gaa' },
+  };
+  const { fixtures } = await gather({
+    sources: { fake: source([game({ ref: 'a', sport: 'rugby' }), game({ ref: 'b', sport: 'hurling', home: 'H', away: 'A' })]) },
+    grounds: two,
+  });
+  assert.equal(fixtures.length, 2);
+  const { fetchImpl, calls } = fake();
+  await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures);
+  const venues = calls.find((c) => c.path === 'venues').body;
+  assert.equal(venues.length, 2);
+  const rows = calls.find((c) => c.path === 'fixtures').body;
+  assert.notEqual(rows[0].venue_id, rows[1].venue_id);
+  // the rugby fixture is linked to the venue at 53.3, the hurling fixture to the one at 53.4
+  assert.equal(venues[rows.findIndex((r) => r.sport_id === 'rugby')].latitude, 53.3);
+  assert.equal(venues[rows.findIndex((r) => r.sport_id === 'hurling')].latitude, 53.4);
+});
+
+test('the place key matches the database column: thousandths of a degree, cut', () => {
+  assert.equal(placeOf(51.8555, -8.3149), '51855,-8314');
+  assert.equal(placeOf(53.275, -6.26917), '53275,-6269');
+  assert.equal(placeOf(52.8, -7.3), '52800,-7300');
+  assert.equal(roundCoord(53.1234567), 53.12346);
+});
+
+test('before migration 0005 is run, venues fall back to the old name-and-county key and still save', async () => {
+  const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds });
+  const calls = [];
+  const fetchImpl = async (url, init) => {
+    const u = new URL(url); const body = init.body ? JSON.parse(init.body) : null;
+    calls.push(`${init.method} ${u.pathname.split('/').pop()}${u.search.includes('name,county,place') ? ' (new key)' : ''}`);
+    if (u.search.includes('name,county,place')) return { ok: false, status: 400, text: async () => '{"code":"42P10","message":"there is no unique or exclusion constraint matching the ON CONFLICT specification"}' };
+    const json = (data) => ({ ok: true, status: 200, json: async () => data, text: async () => '', headers: { get: () => null } });
+    return json(u.pathname.endsWith('/venues') ? body.map((v, i) => ({ ...v, id: `v${i}` })) : body);
+  };
+  assert.equal(await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures), 1);
+  assert.deepEqual(calls, ['POST sports', 'POST venues (new key)', 'POST venues', 'POST fixtures']);
 });

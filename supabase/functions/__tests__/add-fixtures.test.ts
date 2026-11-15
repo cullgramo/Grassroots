@@ -1,5 +1,6 @@
-import { checkFixture } from '../add-fixtures/index';
+import { checkFixture, sameSecret } from '../add-fixtures/index';
 
+const SECRET = 'k7Qx2-Vn9PzL4mWc8TfR1sYb6HdJ3aEu';
 const now = new Date('2026-11-11T12:00:00Z');
 const good = {
   sport_id: 'gaelic-football', level: 'local', competition: 'Leinster JFC - Quarter-Final', home_team: 'Ballinacor', away_team: 'St Annes',
@@ -41,11 +42,21 @@ describe('add-fixtures: checking one fixture', () => {
   });
 });
 
+describe('add-fixtures: comparing secrets', () => {
+  it('is true only for identical strings of any length', () => {
+    expect(sameSecret('abc', 'abc')).toBe(true);
+    expect(sameSecret('abc', 'abd')).toBe(false);
+    expect(sameSecret('abc', 'abcd')).toBe(false);
+    expect(sameSecret('', '')).toBe(true);
+    expect(sameSecret('', 'x')).toBe(false);
+  });
+});
+
 describe('add-fixtures: the whole request, with a fake database', () => {
   const calls: { url: string; body: any }[] = [];
   let handler: (req: Request) => Promise<Response>;
+  const env: Record<string, string> = { IMPORT_SECRET: SECRET, SUPABASE_URL: 'https://db.test', SUPABASE_SERVICE_ROLE_KEY: 'service' };
   beforeAll(() => {
-    const env: Record<string, string> = { IMPORT_SECRET: 's3cret', SUPABASE_URL: 'https://db.test', SUPABASE_SERVICE_ROLE_KEY: 'service' };
     (globalThis as any).Deno = { env: { get: (k: string) => env[k] }, serve: (h: typeof handler) => (handler = h) };
     (globalThis as any).fetch = async (url: string, init: any) => {
       const body = JSON.parse(init.body);
@@ -59,29 +70,48 @@ describe('add-fixtures: the whole request, with a fake database', () => {
   const post = (body: unknown) => handler(new Request('https://fn.test/', { method: 'POST', body: JSON.stringify(body) }));
   const fixture = { ...good, starts_at: soon };
 
-  it('answers the browser pre-check', async () => {
-    const res = await handler(new Request('https://fn.test/', { method: 'OPTIONS' }));
-    expect([res.status, res.headers.get('Access-Control-Allow-Origin')]).toEqual([204, '*']);
+  it('answers the browser pre-check, but only for the app\'s own web addresses', async () => {
+    const pre = (origin: string) => handler(new Request('https://fn.test/', { method: 'OPTIONS', headers: { origin } }));
+    expect((await pre('https://grassroots.expo.app')).headers.get('Access-Control-Allow-Origin')).toBe('https://grassroots.expo.app');
+    expect((await pre('https://evil.example')).headers.get('Access-Control-Allow-Origin')).toBeNull();
+    expect((await pre('https://evil.example')).status).toBe(204);
   });
-  it('refuses a wrong or missing phrase and touches nothing', async () => {
-    expect((await post({ secret: 'nope', fixtures: [fixture] })).status).toBe(401);
+  it('refuses a wrong or missing secret and touches nothing', async () => {
+    const res = await post({ secret: 'nope', fixtures: [fixture] });
+    expect([res.status, (await res.json()).error]).toEqual([401, 'Not allowed.']);
     expect((await post({ fixtures: [fixture] })).status).toBe(401);
     expect(calls).toHaveLength(0);
   });
+  it('will not run with a short secret, so a guessable phrase can never be the only lock', async () => {
+    env.IMPORT_SECRET = 'admin phrase';
+    const res = await post({ secret: 'admin phrase', fixtures: [fixture] });
+    env.IMPORT_SECRET = SECRET;
+    expect(res.status).toBe(500);
+    expect((await res.json()).error).toMatch(/at least 24 characters/);
+    expect(calls).toHaveLength(0);
+  });
+  it('locks a caller out after five wrong secrets, even if the sixth is right, and lets others in', async () => {
+    const from = (ip: string, secret: string) => handler(new Request('https://fn.test/', { method: 'POST', headers: { 'x-forwarded-for': ip }, body: JSON.stringify({ secret, fixtures: [fixture], dry: true }) }));
+    for (let i = 0; i < 5; i++) expect((await from('203.0.113.9', 'guess' + i)).status).toBe(401);
+    const locked = await from('203.0.113.9', SECRET);
+    expect(locked.status).toBe(429);
+    expect(Number(locked.headers.get('Retry-After'))).toBeGreaterThan(0);
+    expect((await from('203.0.113.10', SECRET)).status).toBe(200);
+  });
   it('saves nothing if any fixture is bad, and says which', async () => {
-    const res = await post({ secret: 's3cret', fixtures: [fixture, { ...fixture, level: 'x' }] });
+    const res = await post({ secret: SECRET, fixtures: [fixture, { ...fixture, level: 'x' }] });
     expect(res.status).toBe(400);
     expect(await res.json()).toEqual({ error: 'Nothing was saved.', problems: ['Fixture 2: level must be local or top'] });
     expect(calls).toHaveLength(0);
   });
   it('dry run checks but does not save', async () => {
-    expect(await (await post({ secret: 's3cret', dry: true, fixtures: [fixture] })).json()).toEqual({ dryRun: true, wouldSave: 1, saved: 0 });
+    expect(await (await post({ secret: SECRET, dry: true, fixtures: [fixture] })).json()).toEqual({ dryRun: true, wouldSave: 1, saved: 0 });
     expect(calls).toHaveLength(0);
   });
   it('saves the venue then the fixtures, once each even if pasted twice', async () => {
-    const res = await post({ secret: 's3cret', fixtures: [fixture, fixture, { ...fixture, away_team: 'Other' }] });
+    const res = await post({ secret: SECRET, fixtures: [fixture, fixture, { ...fixture, away_team: 'Other' }] });
     expect(await res.json()).toEqual({ dryRun: false, saved: 2 });
-    expect(calls.map((c) => c.url)).toEqual(['https://db.test/rest/v1/venues?on_conflict=name,county', 'https://db.test/rest/v1/fixtures?on_conflict=source,source_ref']);
+    expect(calls.map((c) => c.url)).toEqual(['https://db.test/rest/v1/venues?on_conflict=name,county,place', 'https://db.test/rest/v1/fixtures?on_conflict=source,source_ref']);
     expect(calls[0].body).toHaveLength(1);
     expect(calls[1].body.every((r: any) => r.venue_id === 'v1' && r.source === 'admin')).toBe(true);
   });

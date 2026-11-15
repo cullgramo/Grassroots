@@ -206,7 +206,7 @@ describe('Ticketmaster import, end to end with a fake Ticketmaster and database'
     expect(body).toMatchObject({ dryRun: false, importable: 2, saved: 2 });
     const writes = calls.filter((c) => c.method === 'POST');
     expect(writes.map((w) => w.url)).toEqual([
-      'https://db.test/rest/v1/venues?on_conflict=name,county',
+      'https://db.test/rest/v1/venues?on_conflict=name,county,place',
       'https://db.test/rest/v1/fixtures?on_conflict=source,source_ref',
     ]);
     expect(writes[0].body).toEqual([
