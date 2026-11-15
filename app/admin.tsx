@@ -1,3 +1,4 @@
+import { Redirect } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,7 +26,13 @@ function toFixture(p: ParsedFixture, venue: Venue, index: number): Fixture {
   };
 }
 
+/** The paste-in-fixtures tool is for the owner while building the app: it is not part of store or website builds. */
 export default function AdminScreen() {
+  if (!__DEV__) return <Redirect href="/" />;
+  return <AdminTool />;
+}
+
+function AdminTool() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
   const { refresh } = useApp();

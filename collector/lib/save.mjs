@@ -18,6 +18,17 @@ export function makeDb(base, key, fetchImpl = fetch) {
   };
 }
 
+/**
+ * A venue is a name, a county and a place: its position in thousandths of a degree, cut (not rounded), so two grounds
+ * that share a name stay two venues (migration 0005). Must match the database's generated "place" column exactly:
+ * the coordinates are first rounded to 5 decimals (about a metre), which is also what is sent and stored.
+ */
+export const roundCoord = (n) => Number(Number(n).toFixed(5));
+export const placeOf = (lat, lon) => {
+  const cut = (n) => String(parseInt(roundCoord(n).toFixed(5).replace('.', '').slice(0, -2), 10));
+  return `${cut(lat)},${cut(lon)}`;
+};
+
 const chunks = (list, size) => Array.from({ length: Math.ceil(list.length / size) }, (_, i) => list.slice(i * size, (i + 1) * size));
 
 /** Upserts the grounds, then the fixtures. Returns how many fixtures were written. */
@@ -28,15 +39,33 @@ export async function saveFixtures(db, fixtures) {
   const used = new Set(fixtures.map((f) => f.sport));
   const sportRows = SPORTS.map((sp, i) => ({ id: sp.id, name: sp.name, sport_group: sp.group, shape: sp.shape, color: sp.color, start_word: sp.startWord, sort_order: i + 1 })).filter((r) => used.has(r.id));
   if (sportRows.length) await db('POST', 'sports?on_conflict=id', { body: sportRows, prefer: 'resolution=merge-duplicates' });
-  const venues = new Map(fixtures.map((f) => [`${f.ground.name}|${f.ground.county}`, { name: f.ground.name, county: f.ground.county, latitude: f.ground.latitude, longitude: f.ground.longitude }]));
+  // Venues are keyed by name, county and place (migration 0005). If that migration has not been run yet the database
+  // answers that the conflict target does not exist, and the old name-and-county key is used until it is.
+  const at = (f) => ({ ...f.ground, latitude: roundCoord(f.ground.latitude), longitude: roundCoord(f.ground.longitude) });
+  const newKey = (g) => `${g.name}|${g.county}|${placeOf(g.latitude, g.longitude)}`;
+  const oldKey = (g) => `${g.name}|${g.county}`;
+  const venueRows = (key) => new Map(fixtures.map((f) => { const g = at(f); return [key(g), { name: g.name, county: g.county, latitude: g.latitude, longitude: g.longitude }]; }));
   const ids = new Map();
-  for (const part of chunks([...venues.values()], 400)) {
-    const saved = await db('POST', 'venues?on_conflict=name,county', { body: part, prefer: 'resolution=merge-duplicates,return=representation' });
-    for (const v of saved) ids.set(`${v.name}|${v.county}`, v.id);
+  let keyOf = newKey;
+  let conflict = 'name,county,place';
+  try {
+    for (const part of chunks([...venueRows(newKey).values()], 400)) {
+      const saved = await db('POST', `venues?on_conflict=${conflict}`, { body: part, prefer: 'resolution=merge-duplicates,return=representation' });
+      for (const v of saved) ids.set(`${v.name}|${v.county}|${v.place ?? placeOf(v.latitude, v.longitude)}`, v.id);
+    }
+  } catch (e) {
+    if (!/42703|42P10|no unique or exclusion constraint|venues\.place/i.test(String(e.message))) throw e;
+    keyOf = oldKey;
+    conflict = 'name,county';
+    ids.clear();
+    for (const part of chunks([...venueRows(oldKey).values()], 400)) {
+      const saved = await db('POST', `venues?on_conflict=${conflict}`, { body: part, prefer: 'resolution=merge-duplicates,return=representation' });
+      for (const v of saved) ids.set(oldKey(v), v.id);
+    }
   }
   let written = 0;
   for (const part of chunks(fixtures, 400)) {
-    const rows = part.map((f) => ({ ...toRow(f), venue_id: ids.get(`${f.ground.name}|${f.ground.county}`) }));
+    const rows = part.map((f) => ({ ...toRow(f), venue_id: ids.get(keyOf(at(f))) }));
     if (rows.some((r) => !r.venue_id)) throw new Error('A ground was not saved, so its fixtures were not either');
     written += (await db('POST', 'fixtures?on_conflict=source,source_ref', { body: rows, prefer: 'resolution=merge-duplicates,return=representation' })).length;
   }

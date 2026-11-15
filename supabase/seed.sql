@@ -57,7 +57,7 @@ insert into public.venues (name, county, latitude, longitude) values
   ('Ulster Hall', 'Antrim', 54.5947, -5.9306),
   ('Galway Racecourse', 'Galway', 53.299, -8.999),
   ('The K Club', 'Kildare', 53.309, -6.625)
-on conflict (name, county) do update set latitude = excluded.latitude, longitude = excluded.longitude;
+on conflict (name, county, place) do update set latitude = excluded.latitude, longitude = excluded.longitude;
 
 insert into public.fixtures
   (sport_id, level, competition, home_team, away_team, title, venue_id, starts_at, ticketed, ticket_url, approval, source, source_ref)

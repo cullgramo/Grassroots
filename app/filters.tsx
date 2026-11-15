@@ -104,9 +104,11 @@ export default function FiltersScreen() {
             <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c })} />
           ))}
         </Section>
-        <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>
-          <Text style={[styles.note, { color: t.muted }]}>Add fixtures (admin)</Text>
-        </Pressable>
+        {__DEV__ ? (
+          <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>
+            <Text style={[styles.note, { color: t.muted }]}>Add fixtures (admin)</Text>
+          </Pressable>
+        ) : null}
       </ScrollView>
 
       <View style={[styles.footer, { backgroundColor: t.card, borderColor: t.border, paddingBottom: insets.bottom + 12 }]}>

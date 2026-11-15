@@ -32,7 +32,7 @@ const out = [
   '',
   'insert into public.venues (name, county, latitude, longitude) values',
   [...venues.values()].map((f) => `  (${q(f.venue)}, ${q(f.county)}, ${f.latitude}, ${f.longitude})`).join(',\n'),
-  'on conflict (name, county) do update set latitude = excluded.latitude, longitude = excluded.longitude;',
+  'on conflict (name, county, place) do update set latitude = excluded.latitude, longitude = excluded.longitude;',
   '',
   'insert into public.fixtures',
   '  (sport_id, level, competition, home_team, away_team, title, venue_id, starts_at, ticketed, ticket_url, approval, source, source_ref)',
