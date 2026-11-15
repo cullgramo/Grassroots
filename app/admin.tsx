@@ -10,6 +10,7 @@ import { useTheme } from '@/components/useTheme';
 import { SPORTS, type SportId } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { backendConfigured } from '@/lib/fixtures';
+import { reportTo } from '@/lib/report';
 import { fetchVenues, findVenue, matchVenue, saveFixtures, searchPlace, type Venue } from '@/lib/venues';
 import type { Fixture, Level } from '@/types/fixture';
 import { parseFixtures, type ParsedFixture } from '@/utils/parseFixtures';
@@ -49,7 +50,7 @@ function AdminTool() {
   const started = useRef(new Set<string>());
 
   useEffect(() => {
-    if (backendConfigured) fetchVenues().then(setKnown).catch(() => {});
+    if (backendConfigured) fetchVenues().then(setKnown).catch(reportTo('loading known grounds'));
   }, []);
 
   const parsed = useMemo(() => parseFixtures(text, { defaultSport: sport, level }), [text, sport, level]);

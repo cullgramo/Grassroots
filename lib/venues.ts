@@ -1,5 +1,6 @@
 import { countyFor } from '@/data/counties';
 import { SUPABASE_KEY, SUPABASE_URL } from './config';
+import { fetchT } from './http';
 
 export interface Venue {
   name: string;
@@ -12,7 +13,7 @@ const BASE = SUPABASE_URL;
 const KEY = SUPABASE_KEY;
 
 export async function fetchVenues(): Promise<Venue[]> {
-  const res = await fetch(`${BASE}/rest/v1/venues?select=name,county,latitude,longitude&limit=5000`, {
+  const res = await fetchT(`${BASE}/rest/v1/venues?select=name,county,latitude,longitude&limit=5000`, {
     headers: { apikey: KEY!, Authorization: `Bearer ${KEY}` },
   });
   if (!res.ok) throw new Error(`Venues request failed (${res.status})`);
@@ -50,7 +51,7 @@ export async function searchPlace(query: string, keepName?: string): Promise<Ven
   const url =
     'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&addressdetails=1&countrycodes=ie,gb' +
     `&q=${encodeURIComponent(`${query}, Ireland`)}`;
-  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  const res = await fetchT(url, { headers: { Accept: 'application/json' } }, 10_000);
   if (!res.ok) return null;
   const [hit] = (await res.json()) as { lat: string; lon: string; address?: Record<string, string> }[];
   if (!hit) return null;
@@ -71,11 +72,11 @@ export async function findVenue(name: string): Promise<Venue | null> {
 }
 
 export async function saveFixtures(secret: string, fixtures: unknown[]): Promise<{ saved: number }> {
-  const res = await fetch(`${BASE}/functions/v1/add-fixtures`, {
+  const res = await fetchT(`${BASE}/functions/v1/add-fixtures`, {
     method: 'POST',
     headers: { apikey: KEY!, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ secret, fixtures }),
-  });
+  }, 30_000);
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error([body.error ?? `Could not save (${res.status})`, ...(body.problems ?? [])].join('\n'));
   return body;

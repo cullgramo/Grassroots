@@ -3,6 +3,7 @@ import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '
 import { matchesAge } from './ageGroup';
 import { addDays, startOfDay, weekendRange } from './date';
 import { calculateDistance } from './distance';
+import { isPlayed } from './played';
 
 export function distanceTo(fixture: Fixture, location: UserLocation | null): number | null {
   if (!location) return null;
@@ -26,6 +27,8 @@ export function filterFixtures(
 
   return fixtures
     .filter((f) => {
+      // Games already played never show as upcoming, even from a copy of the list saved days ago.
+      if (isPlayed(f, now)) return false;
       if (filters.sport) {
         if (f.sport !== filters.sport) return false;
       } else if (filters.group) {
