@@ -66,6 +66,14 @@
   "longitude": -8.063091,
   "how": "Get Ireland Active club list: Carrick on Shannon Rugby Football Club (the home team is Carrick on Shannon; checked by hand)"
  },
+ "Connacht|castlebar mitchels gaa|": {
+  "family": "gaa",
+  "name": "An Sportlann",
+  "county": "Mayo",
+  "latitude": 53.854198,
+  "longitude": -9.284292,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"An Spórtlann\"; the club list has Castlebar Mitchels Hurling GAA Club is 2 m away; the club list has Castlebar Mitchels LGFA Club is 6 m away; the club list has Castlebar Mitchels Football GAA Club is 7 m away; the GAA pitch list has Castlebar Mitchels Hurling: Páirc Josie Munnelly is 104 m away (proposer's source: OpenStreetMap way/445934624: An Spórtlann)"
+ },
  "Connacht|castlebar rfc|": {
   "name": "Castlebar RFC",
   "county": "Mayo",
@@ -490,6 +498,14 @@
   "longitude": -6.325145,
   "how": "GAA pitch list, matched on pitch name (St. Enda's GAA, Ballyboden: Ballycullen)"
  },
+ "Dublin|ballymastone|": {
+  "family": "soccer",
+  "name": "St Ita's AFC",
+  "county": "Dublin",
+  "latitude": 53.486825,
+  "longitude": -6.128555,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"St Ita's AFC\"; the club list has St. Ita's Athletic Football Club is 63 m away (proposer's source: OpenStreetMap way/1339593028: St Ita's AFC)"
+ },
  "Dublin|ballywaltrim bray|": null,
  "Dublin|belvedere clontarf astro|": {
   "name": "Mount Temple Comprehensive School (Clontarf astro)",
@@ -657,6 +673,14 @@
   "longitude": -6.234415,
   "how": "place search (leisure/park: Herbert Park)"
  },
+ "Dublin|hermitage park|": {
+  "family": "soccer",
+  "name": "Hermitage Park",
+  "county": "Dublin",
+  "latitude": 53.3562,
+  "longitude": -6.415283,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Esker Celtic FC is 189 m away (proposer's source: OpenStreetMap way/20377215: Hermitage Park)"
+ },
  "Dublin|hyde park|": {
   "name": "Hyde Park",
   "county": "Dublin",
@@ -687,7 +711,14 @@
  },
  "Dublin|jamestown road|": null,
  "Dublin|joe maughan park|": null,
- "Dublin|john paul park|": null,
+ "Dublin|john paul park|": {
+  "family": "soccer",
+  "name": "John Paul Park",
+  "county": "Dublin",
+  "latitude": 53.367278,
+  "longitude": -6.306906,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Broombridge United is 4 m away; the club list has Dingle united Fc is 4 m away; the club list has St brendens/ dingle over 35s is 4 m away; the club list has York Road is 4 m away (proposer's source: OpenStreetMap way/37611153: John Paul II Park)"
+ },
  "Dublin|johnstown park|": {
   "name": "Johnstown Park",
   "county": "Dublin",
@@ -750,6 +781,14 @@
  },
  "Dublin|mountview park|": null,
  "Dublin|ned kelly park kilnamanagh|": null,
+ "Dublin|nord anglia international school leopardstown|": {
+  "family": "soccer",
+  "name": "Nord Anglia International School",
+  "county": "Dublin",
+  "latitude": 53.266306,
+  "longitude": -6.198285,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Nord Anglia International School Dublin\" (proposer's source: OpenStreetMap way/754959750: Nord Anglia International School Dublin)"
+ },
  "Dublin|oscar traynor complex|": {
   "name": "Oscar Traynor Complex",
   "county": "Dublin",
@@ -842,6 +881,14 @@
   "longitude": -6.415531,
   "how": "place search (leisure/sports_centre: Roadstone Group Sports Club)"
  },
+ "Dublin|rockbrook park school|": {
+  "family": "soccer",
+  "name": "Rockbrook Park School",
+  "county": "Dublin",
+  "latitude": 53.26236,
+  "longitude": -6.300718,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Rockbrook Park School\"; the club list has Parkvale Football Club is 7 m away; the club list has Parkvale FC is 100 m away (proposer's source: OpenStreetMap way/307639213: Rockbrook Park School)"
+ },
  "Dublin|rockfield park|": {
   "name": "Rockfield Park",
   "county": "Dublin",
@@ -906,7 +953,14 @@
   "longitude": -6.177102,
   "how": "place search (leisure/park: St Anne's Park)"
  },
- "Dublin|st annes park|": null,
+ "Dublin|st annes park|": {
+  "family": "athletics",
+  "name": "St Anne's Park",
+  "county": "Dublin",
+  "latitude": 53.372124,
+  "longitude": -6.177102,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"St Anne's Park Pitch and Putt\" (proposer's source: OpenStreetMap way/129321742: St Anne's Park)"
+ },
  "Dublin|st catherines park co kildare|": null,
  "Dublin|st kevins boys|": {
   "name": "St Kevins Boys",
@@ -1145,6 +1199,14 @@
   "longitude": -6.674888,
   "how": "place search (leisure/track: Navan Racecourse)"
  },
+ "Ireland|pembroke wanderers hc|": {
+  "family": "hockey",
+  "name": "Pembroke Wanderers Hockey Club",
+  "county": "Dublin",
+  "latitude": 53.32867,
+  "longitude": -6.223401,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Pembroke Wanderers Hockey Club is 58 m away; the club list has Oscar Wildes Hockey Club is 87 m away; the club list has Pink Ladies Hockey Club is 87 m away (proposer's source: OpenStreetMap way/921861917: Pembroke Wanderers Hockey Club)"
+ },
  "Ireland|phibblestown community centre|": {
   "name": "Phibblestown Community Centre",
   "county": "Dublin",
@@ -1159,6 +1221,14 @@
   "latitude": 53.184488,
   "longitude": -6.621748,
   "how": "place search (leisure/track: Punchestown Racecourse)"
+ },
+ "Ireland|railway union hc|": {
+  "family": "hockey",
+  "name": "Railway Union Sports Club",
+  "county": "Dublin",
+  "latitude": 53.326415,
+  "longitude": -6.210997,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Railway Union Hockey Club is 115 m away (proposer's source: OpenStreetMap way/53162286: Railway Union Sports Club)"
  },
  "Ireland|rathdown sch|": {
   "name": "Rathdown Sch.",
@@ -1232,6 +1302,14 @@
   "longitude": -6.2294969,
   "family": "handball",
   "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on the UCD Belfield campus, 43 m from the map’s building named UCD Sports Centre (Wynnsward Drive)"
+ },
+ "Ireland|wesley college|": {
+  "family": "hockey",
+  "name": "Wesley College",
+  "county": "Dublin",
+  "latitude": 53.276316,
+  "longitude": -6.241252,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\"; the club list has YMCA Hockey Club is 181 m away (proposer's source: OpenStreetMap way/23015925: Wesley College)"
  },
  "Ireland|wexford racecourse|": {
   "name": "Wexford Racecourse",
@@ -1615,7 +1693,14 @@
   "longitude": -7.451694,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Clough Ballacolla: The Hawthorn)"
  },
- "Leinster|college park newbridge|": null,
+ "Leinster|college park newbridge|": {
+  "family": "gaa",
+  "name": "Newbridge College",
+  "county": "Kildare",
+  "latitude": 53.188758,
+  "longitude": -6.794147,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Newbridge College\" (proposer's source: OpenStreetMap way/264358296: Newbridge College)"
+ },
  "Leinster|college park|": {
   "name": "College Park",
   "county": "Dublin",
@@ -1867,7 +1952,14 @@
   "how": "GAA pitch list, matched on club name (Birr: St. Brendan's Park)"
  },
  "Leinster|heavey technology park rathfarnham|": null,
- "Leinster|high school|": null,
+ "Leinster|high school|": {
+  "family": "rugby",
+  "name": "The High School",
+  "county": "Dublin",
+  "latitude": 53.306009,
+  "longitude": -6.273591,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"The High School Dublin\" (proposer's source: OpenStreetMap way/116718080: The High School Dublin)"
+ },
  "Leinster|hollywood|": {
   "family": "gaa",
   "name": "Hollywood",
@@ -2060,7 +2152,14 @@
   "longitude": -6.601028,
   "how": "place search (amenity/university: Maynooth University North Campus)"
  },
- "Leinster|maynooth university|": null,
+ "Leinster|maynooth university|": {
+  "family": "gaa",
+  "name": "Maynooth University North Campus",
+  "county": "Kildare",
+  "latitude": 53.384767,
+  "longitude": -6.601028,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: OpenStreetMap way/33452092: Maynooth University North Campus)"
+ },
  "Leinster|mccauley park bellefield|": null,
  "Leinster|mcgrath park bagenalstown|": null,
  "Leinster|merrion rd|": {
@@ -2099,6 +2198,14 @@
   "latitude": 52.590449,
   "longitude": -6.91204,
   "how": "GAA pitch list, matched on club name (Mount Leinster Rangers)"
+ },
+ "Leinster|mount temple sch|": {
+  "family": "hockey",
+  "name": "Mount Temple Comprehensive School",
+  "county": "Dublin",
+  "latitude": 53.368546,
+  "longitude": -6.220434,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Mount Temple Comprehensive School\"; the club list has Clontarf Hockey Club is 69 m away (proposer's source: OpenStreetMap way/70799689: Mount Temple Comprehensive School)"
  },
  "Leinster|mountmellick gaa|": {
   "name": "Mountmellick GAA",
@@ -2200,7 +2307,14 @@
  },
  "Leinster|pairc si siochain|": null,
  "Leinster|pairc ui bhriain|": null,
- "Leinster|pairc ui cheallaigh ui dhalaigh|": null,
+ "Leinster|pairc ui cheallaigh ui dhalaigh|": {
+  "family": "gaa",
+  "name": "Kelly-Daly Park",
+  "county": "Laois",
+  "latitude": 52.853219,
+  "longitude": -7.587383,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the GAA pitch list has Rathdowney: Kelly Daly Park is 24 m away; the club list has St Brigids LGFC. LGFA Club is 103 m away; the club list has Rathdowney Errill GAA Club is 109 m away; the club list has Rathdowney GAA Club is 110 m away (proposer's source: OpenStreetMap way/63374004: Kelly O'Daly Park)"
+ },
  "Leinster|palatine gaa club|": {
   "name": "Palatine GAA Club",
   "county": "Carlow",
@@ -2245,6 +2359,14 @@
   "latitude": 53.233792,
   "longitude": -6.719323,
   "how": "GAA pitch list, matched on club name (Raheens)"
+ },
+ "Leinster|railway union hc|": {
+  "family": "hockey",
+  "name": "Railway Union Sports Club",
+  "county": "Dublin",
+  "latitude": 53.326415,
+  "longitude": -6.210997,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Railway Union Hockey Club is 115 m away (proposer's source: OpenStreetMap way/53162286: Railway Union Sports Club)"
  },
  "Leinster|rathcoffey gaa|": {
   "name": "Rathcoffey GAA",
@@ -2311,7 +2433,14 @@
   "longitude": -7.302444,
   "how": "coordinates from Gemini research, checked against the map: same position as the GAA pitch list entry for St Mary's GAA, Rochfortbridge"
  },
- "Leinster|ros glas|": null,
+ "Leinster|ros glas|": {
+  "family": "gaa",
+  "name": "Ros Glas GAA",
+  "county": "Kildare",
+  "latitude": 53.135196,
+  "longitude": -7.04219,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the GAA pitch list has Rosglas is 17 m away; the club list has Ros Glas GAA & Camogie Club is 44 m away (proposer's source: OpenStreetMap way/1481437721: Ros Glas GAA)"
+ },
  "Leinster|rosenallis gaa|": {
   "name": "Rosenallis GAA",
   "county": "Laois",
@@ -2341,7 +2470,14 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|santry|": null,
- "Leinster|sarsfields gaa club|": null,
+ "Leinster|sarsfields gaa club|": {
+  "family": "gaa",
+  "name": "Sarsfields GAA",
+  "county": "Kildare",
+  "latitude": 53.187905,
+  "longitude": -6.810303,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the GAA pitch list has Sarsfields is 150 m away; the club list has Sarsfields GAA Club is 234 m away; the club list has Sarsfields Hurling Club is 234 m away; the club list has Sarsfields LGFA Club is 240 m away (proposer's source: OpenStreetMap way/263990465: Sarsfields GAA)"
+ },
  "Leinster|seneschalstown|": {
   "name": "Seneschalstown",
   "county": "Meath",
@@ -2565,7 +2701,14 @@
   "longitude": -6.337295,
   "how": "GAA pitch list, matched on club name (Wicklow GAA: Aughrim County Ground)"
  },
- "Louth|ddac training field newtownstalaban|": null,
+ "Louth|ddac training field newtownstalaban|": {
+  "family": "athletics",
+  "name": "Drogheda and District AC",
+  "county": "Louth",
+  "latitude": 53.729386,
+  "longitude": -6.32018,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Drogheda and District AC\" (proposer's source: OpenStreetMap way/1123391979: Drogheda and District AC)"
+ },
  "Mayo|hollymount|": {
   "name": "hollymount",
   "county": "Mayo",
@@ -2584,6 +2727,14 @@
  "Munster|an baile loiscthe|": null,
  "Munster|annacotty|": null,
  "Munster|anner park cloneen|": null,
+ "Munster|ashton school|": {
+  "family": "hockey",
+  "name": "Ashton School",
+  "county": "Cork",
+  "latitude": 51.892989,
+  "longitude": -8.45181,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Ashton School\" (proposer's source: OpenStreetMap way/32653251: Ashton School)"
+ },
  "Munster|austin stack park tralee|": {
   "name": "Austin Stack Park Tralee",
   "county": "Kerry",
@@ -2591,7 +2742,14 @@
   "longitude": -9.693463,
   "how": "place search (leisure/pitch: Austin Stack Park)"
  },
- "Munster|azzurri walsh park waterford|": null,
+ "Munster|azzurri walsh park waterford|": {
+  "family": "gaa",
+  "name": "Walsh Park",
+  "county": "Waterford",
+  "latitude": 52.254756,
+  "longitude": -7.12865,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Walsh Park\"; the GAA pitch list has Waterford GAA: Walsh Park is 151 m away (proposer's source: OpenStreetMap way/44029388: Walsh Park)"
+ },
  "Munster|azzurri walsh park|": {
   "name": "Azzurri Walsh Park",
   "county": "Waterford",
@@ -2832,7 +2990,14 @@
   "longitude": -8.166094,
   "how": "checked by hand (OpenStreetMap: Clanwilliam Rugby Football Club, Tipperary town)"
  },
- "Munster|clareabbey|": null,
+ "Munster|clareabbey|": {
+  "family": "gaa",
+  "name": "Clare GAA Centre of Excellence",
+  "county": "Clare",
+  "latitude": 52.852261,
+  "longitude": -8.814787,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Clare GAA Centre of Excellence\"; the GAA pitch list has Clare GAA: Caherlohan Centre of Excellence is 237 m away (proposer's source: OpenStreetMap way/331092054: Clare GAA Centre of Excellence)"
+ },
  "Munster|clarecastle gaa 4g pitch|": {
   "name": "Clarecastle GAA 4G Pitch",
   "county": "Clare",
@@ -2920,6 +3085,14 @@
   "latitude": 52.696227,
   "longitude": -8.761287,
   "how": "GAA pitch list, matched on club name (Cratloe)"
+ },
+ "Munster|crescent comp sch|": {
+  "family": "hockey",
+  "name": "Crescent College Comprehensive",
+  "county": "Limerick",
+  "latitude": 52.635384,
+  "longitude": -8.639159,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Crescent Hockey Club is 181 m away (proposer's source: OpenStreetMap way/42304685: Crescent College Comprehensive)"
  },
  "Munster|crescent comp|": {
   "name": "Crescent Comp",
@@ -3757,6 +3930,14 @@
   "longitude": -6.035741,
   "how": "GAA pitch list, matched on club name (An Ríocht GAA, Greencastle: Páirc na Rochta, Dunavil)"
  },
+ "Ulster|antrim forum lc|BT41 4DQ": {
+  "family": "hockey",
+  "name": "Antrim Forum Leisure Centre",
+  "county": "Antrim",
+  "latitude": 54.714959,
+  "longitude": -6.22494,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Antrim Forum Leisure Centre\"; the club list has Antrim Hockey Club is 119 m away (proposer's source: OpenStreetMap way/141273551: Antrim Forum Leisure Centre)"
+ },
  "Ulster|antrim grammar school|": {
   "name": "Antrim Grammar School",
   "county": "Antrim",
@@ -4374,6 +4555,14 @@
   "longitude": -6.924508,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Wolfe Tone's GAA, Kildress: Peter Tierney Park)"
  },
+ "Ulster|kilkeel high sch|BT4 3TA": {
+  "family": "hockey",
+  "name": "Kilkeel High School",
+  "county": "Down",
+  "latitude": 54.05879,
+  "longitude": -5.999997,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Kilkeel High School\"; the club list has Kilkeel Hockey Club is 67 m away (proposer's source: OpenStreetMap way/78112350: Kilkeel High School)"
+ },
  "Ulster|killeeshil|": {
   "name": "Killeeshil",
   "county": "Tyrone",
@@ -4409,6 +4598,14 @@
   "latitude": 54.4973,
   "longitude": -8.17227,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|larne grammar school|BT40 1PQ": {
+  "family": "hockey",
+  "name": "Larne Grammar School",
+  "county": "Antrim",
+  "latitude": 54.854106,
+  "longitude": -5.827625,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Larne Grammar School\" (proposer's source: OpenStreetMap relation/11211893: Larne Grammar School)"
  },
  "Ulster|larne gs|": {
   "name": "Larne GS",
@@ -4555,12 +4752,28 @@
   "longitude": -5.94431,
   "how": "position from the source; county from the map"
  },
+ "Ulster|newry h c|BT34 1QA": {
+  "family": "hockey",
+  "name": "Newry Olympic Hockey Club",
+  "county": "Down",
+  "latitude": 54.184974,
+  "longitude": -6.333972,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Newry Olympic Hockey Club\"; the club list has Newry Olympic Hockey Club is 72 m away (proposer's source: OpenStreetMap way/83047460: Newry Olympic Hockey Club)"
+ },
  "Ulster|newtownstewart|": {
   "name": "Newtownstewart",
   "county": "Tyrone",
   "latitude": 54.718492,
   "longitude": -7.371679,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Eugene's GAA, Newtownstewart: Páirc Naomh Eoghan)"
+ },
+ "Ulster|nics stormont|BT4 3TA": {
+  "family": "hockey",
+  "name": "Northern Ireland Civil Service Sports Club",
+  "county": "Down",
+  "latitude": 54.596891,
+  "longitude": -5.832058,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Northern Ireland Civil Service Sports Club\" (proposer's source: OpenStreetMap node/4034454145: Northern Ireland Civil Service Sports Club)"
  },
  "Ulster|o connell park drumlane|": {
   "name": "O'Connell Park Drumlane",
@@ -4726,6 +4939,14 @@
   "how": "position from the source; county from the map"
  },
  "Ulster|royal school dungannon|": null,
+ "Ulster|royal school dungannon|BT71 6EG": {
+  "family": "hockey",
+  "name": "Royal School Dungannon",
+  "county": "Tyrone",
+  "latitude": 54.503239,
+  "longitude": -6.763804,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"The Royal School Dungannon\" (proposer's source: OpenStreetMap way/259089807: Royal School Dungannon)"
+ },
  "Ulster|rugby avenue|": {
   "name": "Rugby Avenue",
   "county": "Derry",
@@ -5020,6 +5241,14 @@
   "how": "race start, place search (building/industrial: SETU)"
  },
  "Wexford|gorey civic centre|": null,
+ "Wicklow|tinahely community hall|": {
+  "family": "athletics",
+  "name": "Tinahely Community Hall",
+  "county": "Wicklow",
+  "latitude": 52.798349,
+  "longitude": -6.458587,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Tinahely Community Hall\" (proposer's source: OpenStreetMap way/1196902740: Tinahely Community Hall)"
+ },
  "|alsaa|": {
   "name": "ALSAA",
   "county": "Dublin",
