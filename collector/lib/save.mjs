@@ -29,6 +29,22 @@ export const placeOf = (lat, lon) => {
   return `${cut(lat)},${cut(lon)}`;
 };
 
+const kmBetween = (a, b) => Math.hypot((a.latitude - b.latitude) * 111.2, (a.longitude - b.longitude) * 111.2 * Math.cos((a.latitude * Math.PI) / 180));
+
+/** Every venue in the database, a page at a time (the database hands back at most 1,000 rows per request). */
+async function allVenues(db) {
+  const out = [];
+  for (let offset = 0; offset < 20000; offset += 1000) {
+    const page = await db('GET', `venues?select=id,name,county,latitude,longitude&order=id&limit=1000&offset=${offset}`, { prefer: 'return=representation' });
+    out.push(...page);
+    if (page.length < 1000) break;
+  }
+  return out;
+}
+
+/** Two sources can give one ground positions a few metres apart. Within this distance they are the same ground. */
+export const SAME_GROUND_KM = 0.15;
+
 const chunks = (list, size) => Array.from({ length: Math.ceil(list.length / size) }, (_, i) => list.slice(i * size, (i + 1) * size));
 
 /** Upserts the grounds, then the fixtures. Returns how many fixtures were written. */
@@ -41,7 +57,16 @@ export async function saveFixtures(db, fixtures) {
   if (sportRows.length) await db('POST', 'sports?on_conflict=id', { body: sportRows, prefer: 'resolution=merge-duplicates' });
   // Venues are keyed by name, county and place (migration 0005). If that migration has not been run yet the database
   // answers that the conflict target does not exist, and the old name-and-county key is used until it is.
-  const at = (f) => ({ ...f.ground, latitude: roundCoord(f.ground.latitude), longitude: roundCoord(f.ground.longitude) });
+  // A ground that already exists under the same name and county within 150 m is the same ground: it keeps the position
+  // it has, so two sources that place one ground a few metres apart share one venue instead of making two (and the
+  // position cannot flip between runs). A position more than 150 m away is a different ground and gets its own venue.
+  const known = new Map();
+  for (const v of await allVenues(db).catch(() => [])) (known.get(`${v.name}|${v.county}`) ?? known.set(`${v.name}|${v.county}`, []).get(`${v.name}|${v.county}`)).push(v);
+  const snap = (g) => {
+    const near = (known.get(`${g.name}|${g.county}`) ?? []).filter((v) => kmBetween(v, g) <= SAME_GROUND_KM).sort((a, b) => kmBetween(a, g) - kmBetween(b, g))[0];
+    return near ? { ...g, latitude: roundCoord(near.latitude), longitude: roundCoord(near.longitude) } : g;
+  };
+  const at = (f) => snap({ ...f.ground, latitude: roundCoord(f.ground.latitude), longitude: roundCoord(f.ground.longitude) });
   const newKey = (g) => `${g.name}|${g.county}|${placeOf(g.latitude, g.longitude)}`;
   const oldKey = (g) => `${g.name}|${g.county}`;
   const venueRows = (key) => new Map(fixtures.map((f) => { const g = at(f); return [key(g), { name: g.name, county: g.county, latitude: g.latitude, longitude: g.longitude }]; }));

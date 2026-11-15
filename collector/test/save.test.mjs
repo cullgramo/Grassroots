@@ -12,6 +12,7 @@ function fake({ venues = [], deleted = [], total = 0 } = {}) {
     const body = init.body ? JSON.parse(init.body) : null;
     calls.push({ method: init.method, path: u.pathname.split('/').pop(), search: u.search, body, headers: init.headers });
     const json = (data, headers = {}) => ({ ok: true, status: 200, json: async () => data, text: async () => '', headers: { get: (h) => headers[h.toLowerCase()] ?? null } });
+    if (init.method === 'GET' && u.pathname.endsWith('/venues')) return json(venues);
     if (u.pathname.endsWith('/venues')) return json(body.map((v, i) => ({ ...v, id: `v${i}` })));
     if (init.method === 'DELETE') return json(deleted);
     if (init.method === 'GET') return json([], { 'content-range': `0-0/${total}` });
@@ -48,14 +49,14 @@ test('saving writes grounds first, then fixtures linked to them, with the upsert
   const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds });
   const { fetchImpl, calls } = fake();
   assert.equal(await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures), 1);
-  assert.deepEqual(calls.map((c) => c.path), ['sports', 'venues', 'fixtures']);
+  assert.deepEqual(calls.map((c) => `${c.method} ${c.path}`), ['POST sports', 'GET venues', 'POST venues', 'POST fixtures']);
   assert.match(calls[0].search, /on_conflict=id/);
   assert.deepEqual(calls[0].body.map((r) => r.id), ['rugby']);
-  assert.match(calls[1].search, /on_conflict=name,county,place/);
-  assert.match(calls[2].search, /on_conflict=source,source_ref/);
-  assert.equal(calls[2].body[0].venue_id, 'v0');
-  assert.equal(calls[2].body[0].approval, 'approved');
-  assert.equal(calls[2].headers.apikey, 'key');
+  assert.match(calls[2].search, /on_conflict=name,county,place/);
+  assert.match(calls[3].search, /on_conflict=source,source_ref/);
+  assert.equal(calls[3].body[0].venue_id, 'v0');
+  assert.equal(calls[3].body[0].approval, 'approved');
+  assert.equal(calls[3].headers.apikey, 'key');
 });
 
 test('removal only touches the source, upcoming games, and rows this run did not write', async () => {
@@ -148,7 +149,7 @@ test('two different grounds with the same name stay two venues, and each fixture
   assert.equal(fixtures.length, 2);
   const { fetchImpl, calls } = fake();
   await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures);
-  const venues = calls.find((c) => c.path === 'venues').body;
+  const venues = calls.find((c) => c.method === 'POST' && c.path === 'venues').body;
   assert.equal(venues.length, 2);
   const rows = calls.find((c) => c.path === 'fixtures').body;
   assert.notEqual(rows[0].venue_id, rows[1].venue_id);
@@ -175,5 +176,21 @@ test('before migration 0005 is run, venues fall back to the old name-and-county 
     return json(u.pathname.endsWith('/venues') ? body.map((v, i) => ({ ...v, id: `v${i}` })) : body);
   };
   assert.equal(await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures), 1);
-  assert.deepEqual(calls, ['POST sports', 'POST venues (new key)', 'POST venues', 'POST fixtures']);
+  assert.deepEqual(calls, ['POST sports', 'GET venues', 'POST venues (new key)', 'POST venues', 'POST fixtures']);
+});
+
+test('a ground another source already placed a few metres away is the same ground; one far away is not', async () => {
+  const existing = [{ id: 'old', name: 'Ground One', county: 'Dublin', latitude: 53.30010, longitude: -6.20010 }];
+  const near = { name: 'Ground One', county: 'Dublin', latitude: 53.30060, longitude: -6.20000 }; // about 55 m away
+  const far = { name: 'Ground One', county: 'Dublin', latitude: 53.40000, longitude: -6.30000 }; // about 13 km away
+  const run = async (ground) => {
+    const { fixtures } = await gather({ sources: { fake: source([game({})]) }, grounds: { 'Leinster|ground one|': ground } });
+    const { fetchImpl, calls } = fake({ venues: existing });
+    await saveFixtures(makeDb('https://db.test', 'key', fetchImpl), fixtures);
+    return calls.find((c) => c.method === 'POST' && c.path === 'venues').body[0];
+  };
+  const snapped = await run(near);
+  assert.deepEqual([snapped.latitude, snapped.longitude], [53.3001, -6.2001]); // keeps the position it already has
+  const separate = await run(far);
+  assert.deepEqual([separate.latitude, separate.longitude], [53.4, -6.3]); // a different ground
 });
