@@ -21,7 +21,22 @@
   "longitude": -8.966484,
   "how": "race start, place search (place/village: Clarecastle)"
  },
- "Connacht|alan feeley memorial park|": null,
+ "Clare|seanchoill sports centre parteen|": {
+  "name": "seanchoill sports centre, parteen",
+  "county": "Clare",
+  "latitude": 52.695594,
+  "longitude": -8.595968,
+  "how": "OpenStreetMap relation/6309291: Seanchoill Sports Complex; corroboration: Border Half Marathon / Seanchoill Sports Complex, Parteen, Co Clare (runningcalendar.ie); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "athletics"
+ },
+ "Connacht|alan feeley memorial park|": {
+  "name": "Alan Feeley Memorial Park",
+  "county": "Mayo",
+  "latitude": 53.722382,
+  "longitude": -8.99457,
+  "how": "GAA Pitch Finder (CC BY 4.0): Claremorris GAA / Claremorris GAA; corroboration: GIA #187116; mayonews: Alan Feeley Memorial Park is the Claremorris GAA complex; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Connacht|an ghaeltacht rugbai|": null,
  "Connacht|ardnaree|": {
   "name": "Ardnaree",
@@ -243,7 +258,14 @@
   "longitude": -8.834138,
   "how": "place search (leisure/sports_centre: Gort GAA Grounds)"
  },
- "Connacht|gort rfc|": null,
+ "Connacht|gort rfc|": {
+  "name": "Gort RFC",
+  "county": "Galway",
+  "latitude": 53.060232,
+  "longitude": -8.826082,
+  "how": "OpenStreetMap way/521700424: St Colmans Park; corroboration: Gort RFC site/playsport: club based at St Colman's Park, Tubber Road, Gort; GIA Gort RFC record at same park; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Connacht|hamilton park|": {
   "name": "Hamilton Park",
   "county": "Sligo",
@@ -331,7 +353,14 @@
   "longitude": -8.90529,
   "how": "checked by hand (OpenStreetMap: Milltown GAA)"
  },
- "Connacht|monastery field|": null,
+ "Connacht|monastery field|": {
+  "name": "Monastery Field",
+  "county": "Galway",
+  "latitude": 53.480913,
+  "longitude": -10.018396,
+  "how": "OpenStreetMap way/195794253: Connemara Rugby Club; corroboration: GIA #181840 address 'Monastery Field, Clifden'; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Connacht|monivea rfc|": {
   "name": "Monivea RFC",
   "county": "Galway",
@@ -474,6 +503,14 @@
   "how": "race start, place search (boundary/administrative: Watergrasshill)"
  },
  "Derry|dublin|": null,
+ "Donegal|aura leisure centre letterkenny|": {
+  "name": "aura leisure centre, letterkenny",
+  "county": "Donegal",
+  "latitude": 54.946146,
+  "longitude": -7.750357,
+  "how": "OpenStreetMap way/63950134: Aura Leisure Centre; corroboration: Nominatim confirms Aura Leisure Centre, Letterkenny; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "athletics"
+ },
  "Dublin|12th lock|": {
   "name": "12th Lock",
   "county": "Dublin",
@@ -482,6 +519,14 @@
   "how": "coordinates supplied by the owner: Lucan Sarsfields clubhouse grounds, 12th Lock"
  },
  "Dublin|5 acres perrystown|": null,
+ "Dublin|abbotstown|": {
+  "name": "Abbotstown",
+  "county": "Dublin",
+  "latitude": 53.390741,
+  "longitude": -6.354777,
+  "how": "OpenStreetMap way/825387209: Abbotstown Cross Country track; corroboration: OSM Abbotstown cross-country track, Dublin 15; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "athletics"
+ },
  "Dublin|abbottstown|": null,
  "Dublin|acres road pheonix park|": {
   "name": "Acres Road, Pheonix Park",
@@ -490,7 +535,22 @@
   "longitude": -6.328327,
   "how": "race start, place search (highway/unclassified: Acres Road)"
  },
- "Dublin|archerstown|": null,
+ "Dublin|albert college park|": {
+  "name": "Albert College Park",
+  "county": "Dublin",
+  "latitude": 53.383022,
+  "longitude": -6.261787,
+  "how": "OpenStreetMap way/25835859: Albert College Park; corroboration: glasnevinfc.ie pitches page and Dublin City Council park page: soccer pitches at Albert College Park; GIA #186384; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
+ "Dublin|archerstown|": {
+  "name": "Archerstown",
+  "county": "Meath",
+  "latitude": 53.511206,
+  "longitude": -6.386371,
+  "how": "OpenStreetMap way/1138168885: Ashbourne United AFC; corroboration: GIA #186517 address Archerstown, Ashbourne, Co Meath (about 375 m away); irishyouthfootball.com Ashbourne United page; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|arthur griffith park|": {
   "name": "Arthur Griffith Park",
   "county": "Dublin",
@@ -505,7 +565,14 @@
   "longitude": -6.216204,
   "how": "place search (leisure/sports_centre: AUL Complex)"
  },
- "Dublin|balheary res|": null,
+ "Dublin|balheary res|": {
+  "name": "Balheary Res",
+  "county": "Dublin",
+  "latitude": 53.472709,
+  "longitude": -6.225386,
+  "how": "OpenStreetMap way/49862815: Swords Celtic Football Club; corroboration: GIA #185689 address Balheary Reservoir (Swords Celtic); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|ballycullen|": {
   "name": "Ballycullen",
   "county": "Dublin",
@@ -522,6 +589,14 @@
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"St Ita's AFC\"; the club list has St. Ita's Athletic Football Club is 63 m away (proposer's source: OpenStreetMap way/1339593028: St Ita's AFC)"
  },
  "Dublin|ballywaltrim bray|": null,
+ "Dublin|bancroft park|": {
+  "name": "Bancroft Park",
+  "county": "Dublin",
+  "latitude": 53.292542,
+  "longitude": -6.349765,
+  "how": "OpenStreetMap relation/8182102: Bancroft Park; corroboration: St Maelruans FC site and SDCC pitch sheet: pitch 119 at Bancroft Park, Tallaght; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|belvedere clontarf astro|": {
   "name": "Mount Temple Comprehensive School (Clontarf astro)",
   "county": "Dublin",
@@ -554,6 +629,14 @@
   "longitude": -6.25141,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: Knowledge Base / Maps)"
  },
+ "Dublin|brickfield park|": {
+  "name": "Brickfield Park",
+  "county": "Dublin",
+  "latitude": 53.331728,
+  "longitude": -6.307122,
+  "how": "OpenStreetMap way/107908259: Brickfield Park; corroboration: stjohnboscofc.com and Dublin City Council allocations: St John Bosco FC uses Brickfield Park, Drimnagh; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|bushy park|": {
   "name": "Bushy Park",
   "county": "Dublin",
@@ -561,9 +644,32 @@
   "longitude": -6.291446,
   "how": "place search (leisure/park: Bushy Park)"
  },
+ "Dublin|butler park|": {
+  "name": "Butler Park",
+  "county": "Dublin",
+  "latitude": 53.287005,
+  "longitude": -6.396945,
+  "how": "Sport Ireland Get Ireland Active #186623: Marks celtic fc; corroboration: GIA #186623 Marks Celtic 'Butler park tallaght'; echo.ie and irishyouthfootball.com: Marks Celtic home is Butler Park, Tallaght D24 F7K2; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
+ "Dublin|cabinteely park|": {
+  "name": "Cabinteely Park",
+  "county": "Dublin",
+  "latitude": 53.261098,
+  "longitude": -6.158789,
+  "how": "OpenStreetMap way/23314461: Cabinteely Park; corroboration: parkceltic.ie / irishyouthfootball: Park Celtic home is Cabinteely Park; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|carrick hill|": null,
  "Dublin|castlemartin|": null,
- "Dublin|celtic park|": null,
+ "Dublin|celtic park|": {
+  "name": "Celtic Park",
+  "county": "Dublin",
+  "latitude": 53.379946,
+  "longitude": -6.092662,
+  "how": "Sport Ireland Get Ireland Active #185701: Howth Celtic; corroboration: GIA #185701 Howth Celtic, Carrickbrack Rd, Sutton D13 X863; howthceltic.ie location page gives Celtic Park, Carrickbrack Road, Sutton D13X863; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|cherry orchard|": {
   "name": "Cherry Orchard",
   "county": "Dublin",
@@ -585,12 +691,28 @@
   "longitude": -6.25035,
   "how": "place search (leisure/sports_centre: Clonturk Park)"
  },
+ "Dublin|collie maher park front pitch|": {
+  "name": "Collie Maher Park(Front Pitch)",
+  "county": "Dublin",
+  "latitude": 53.521123,
+  "longitude": -6.150016,
+  "how": "OpenStreetMap way/65195835: Collie Maher Park; corroboration: pitchpin.ie and irishyouthfootball.com: Lusk United uses Collie Maher Park, Lusk; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|collinstown lane|": {
   "name": "Collinstown Lane",
   "county": "Dublin",
   "latitude": 53.4244,
   "longitude": -6.2478,
   "how": "coordinates supplied by the owner: Na Fianna northern pitches near Dublin Airport"
+ },
+ "Dublin|coolmine park|": {
+  "name": "Coolmine Park",
+  "county": "Dublin",
+  "latitude": 53.389739,
+  "longitude": -6.392176,
+  "how": "OpenStreetMap way/26355929: Verona Sports and Leisure Club; corroboration: Verona FC site (Grove Rd, Coolmine Park); Fingal pitch plan 'COOLMINE PARK/VERONA'; GIA #186381; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
  },
  "Dublin|corduff park|": {
   "name": "Corduff Park",
@@ -614,6 +736,14 @@
   "how": "race start, place search (leisure/park: Corkagh Park)"
  },
  "Dublin|cross chapel|": null,
+ "Dublin|croydon park|": {
+  "name": "Croydon Park",
+  "county": "",
+  "latitude": 53.366496,
+  "longitude": -6.234079,
+  "how": "OpenStreetMap way/157684197: Marino AFC; corroboration: marinoafc.ie: Croydon Park, Croydon Park Avenue; GIA #185771; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|crumlin united|": null,
  "Dublin|damastown park|": {
   "name": "Damastown Park",
@@ -621,6 +751,14 @@
   "latitude": 53.40916,
   "longitude": -6.40724,
   "how": "coordinates from Gemini research, checked against the map: Damastown Way; Clonee United listed 110 m away (medium confidence)"
+ },
+ "Dublin|deerpark|": {
+  "name": "Deerpark",
+  "county": "Dublin",
+  "latitude": 53.294725,
+  "longitude": -6.215473,
+  "how": "Sport Ireland Get Ireland Active #190941: Mount Merrion Youths FC; corroboration: GIA #190941 Mount Merrion Youths, Deer Park Pavilion, Glenabbey Road; #186614 'Deer park' 20 m away; mmyfc.ie two pitches at Deerpark; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
  },
  "Dublin|donabate|": {
   "name": "Donabate",
@@ -630,6 +768,14 @@
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Patricks GAA, Donabate)"
  },
  "Dublin|dr ryan park|": null,
+ "Dublin|dunboyne|": {
+  "name": "Dunboyne",
+  "county": "Meath",
+  "latitude": 53.427806,
+  "longitude": -6.49409,
+  "how": "OpenStreetMap way/70061130: Dunybone AFC; corroboration: dunboyneafc.ie: grounds on Summerhill Road, Colliersland North, Dunboyne, Co Meath; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|edenmore|": {
   "name": "Edenmore",
   "county": "Dublin",
@@ -712,6 +858,14 @@
   "longitude": -6.415283,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Esker Celtic FC is 189 m away (proposer's source: OpenStreetMap way/20377215: Hermitage Park)"
  },
+ "Dublin|home farm|": {
+  "name": "Home Farm",
+  "county": "Dublin",
+  "latitude": 53.377637,
+  "longitude": -6.251581,
+  "how": "OpenStreetMap way/40617787: Homefarm F.C.; corroboration: GIA #186025 Home Farm; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|hyde park|": {
   "name": "Hyde Park",
   "county": "Dublin",
@@ -757,6 +911,14 @@
   "longitude": -6.282666,
   "how": "place search (leisure/park: Johnstown Park)"
  },
+ "Dublin|kettles lane|": {
+  "name": "Kettles Lane",
+  "county": "Dublin",
+  "latitude": 53.439503,
+  "longitude": -6.200653,
+  "how": "OpenStreetMap way/68348810: Kettles Memorial Park; corroboration: kinsealyunitedfc.ie/kettles-lane (Kettles Lane / Kettle Memorial Park); GIA #186478; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|kilbarrack utd fc|": {
   "family": "soccer",
   "name": "Kilbarrack United FC",
@@ -773,6 +935,14 @@
   "how": "place search (leisure/park: Kilbogget Park)"
  },
  "Dublin|kildonan road|": null,
+ "Dublin|kilmore drive|": {
+  "name": "Kilmore Drive",
+  "county": "Dublin",
+  "latitude": 53.38982,
+  "longitude": -6.21082,
+  "how": "Sport Ireland Get Ireland Active #186412: St. John Vianney Football Club; corroboration: GIA #186412 St John Vianney FC address 'Kilmore drive'; Dublin City Council pitch allocations list Kilmore Drive Pitch 1 for the club (Coolock/Artane D5); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|knocklyon united|": {
   "name": "Knocklyon United",
   "county": "Dublin",
@@ -796,6 +966,14 @@
   "longitude": -6.300455,
   "how": "checked by hand (OpenStreetMap: Lourdes Celtic FC, Crumlin)"
  },
+ "Dublin|lucan united|": {
+  "name": "Lucan United",
+  "county": "Dublin",
+  "latitude": 53.349889,
+  "longitude": -6.470112,
+  "how": "OpenStreetMap way/296335849: Lucan United; corroboration: GIA #186635/#185719 Lucan United; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|malahide united|": {
   "name": "Malahide United",
   "county": "Dublin",
@@ -811,6 +989,14 @@
   "how": "Get Ireland Active club list, matched on club address (Drogheda Boys/Girls FC)"
  },
  "Dublin|meadow vale|": null,
+ "Dublin|meadowbrook|": {
+  "name": "Meadowbrook",
+  "county": "Dublin",
+  "latitude": 53.28174,
+  "longitude": -6.256606,
+  "how": "OpenStreetMap relation/4234449: Meadowbrook dlr Leisure Services; corroboration: dundrumfc.ie: home ground Meadowbrook Park, Acorn Road, Dundrum; DLR Meadowbrook pitches page; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|mount merrion|": {
   "name": "Mount Merrion",
   "county": "Dublin",
@@ -819,6 +1005,14 @@
   "how": "Get Ireland Active club list, matched on club name (Mount Merrion)"
  },
  "Dublin|mountview park|": null,
+ "Dublin|moyle park college|": {
+  "name": "Moyle Park College",
+  "county": "Dublin",
+  "latitude": 53.319265,
+  "longitude": -6.397838,
+  "how": "OpenStreetMap relation/4481513: Moyle Park College; corroboration: ncpfc.ie and pitchpin.ie: Newlands/Castle Park FC home is Moyle Park College, Clondalkin; GIA #186435; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|ned kelly park kilnamanagh|": null,
  "Dublin|nord anglia international school leopardstown|": {
   "family": "soccer",
@@ -885,6 +1079,14 @@
   "longitude": -6.4026,
   "how": "place search (leisure/park: Porterstown Park)"
  },
+ "Dublin|portrane athletic fc|": {
+  "name": "Portrane Athletic FC",
+  "county": "Dublin",
+  "latitude": 53.492005,
+  "longitude": -6.118759,
+  "how": "OpenStreetMap way/57680626: Portrane Athletic Football Club; corroboration: GIA #186202 Portrane Athletic; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|racecourse park|": {
   "name": "Racecourse Park",
   "county": "Dublin",
@@ -912,6 +1114,14 @@
   "latitude": 53.447868,
   "longitude": -6.254817,
   "how": "place search (leisure/sports_centre: Ridgewood Playing Pitches)"
+ },
+ "Dublin|ring commons sport centre|": {
+  "name": "Ring Commons Sport Centre",
+  "county": "Dublin",
+  "latitude": 53.576163,
+  "longitude": -6.215225,
+  "how": "OpenStreetMap way/510492996: Ring Commons Sports Centre; corroboration: GIA #185863/#186547 address Ring Commons; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
  },
  "Dublin|ringsend park|": {
   "name": "Ringsend Park",
@@ -1029,6 +1239,14 @@
   "longitude": -6.2642,
   "how": "coordinates supplied by the owner: Na Fianna main grounds, Glasnevin"
  },
+ "Dublin|station road|": {
+  "name": "Station Road",
+  "county": "Kildare",
+  "latitude": 53.184783,
+  "longitude": -6.810886,
+  "how": "OpenStreetMap way/105320190: Newbridge Town Football Club; corroboration: newbridgetownfc.com: home ground Station Road, Piercetown, Newbridge W12 PW89, beside the railway station; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
  "Dublin|templeogue united|": {
   "name": "Templeogue United",
   "county": "Dublin",
@@ -1043,6 +1261,14 @@
   "latitude": 53.604167,
   "longitude": -6.182125,
   "how": "place search (leisure/park: Balbriggan Town Park)"
+ },
+ "Dublin|tyrellstown park|": {
+  "name": "Tyrellstown Park",
+  "county": "Dublin",
+  "latitude": 53.425455,
+  "longitude": -6.391525,
+  "how": "OpenStreetMap way/518355712: Tyrrelstown Park; corroboration: tyrrelstownutdfc.com / irishyouthfootball.com: Tyrrelstown United home is Tyrrelstown Park; Fingal pitch plan tyrellstown-gp-11; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
  },
  "Dublin|vec whitehall|": null,
  "Dublin|whelan park|": {
@@ -1145,7 +1371,14 @@
   "longitude": -6.47363,
   "how": "checked by hand (OpenStreetMap: Fairyhouse Racecourse bus stop, Racecourse Service Road)"
  },
- "Ireland|farmers cross|": null,
+ "Ireland|farmers cross|": {
+  "name": "Farmers' Cross",
+  "county": "Cork",
+  "latitude": 51.846925,
+  "longitude": -8.466719,
+  "how": "OpenStreetMap way/78213241: Cork Harlequins; corroboration: corkharlequins.com: Harlequin Park, Farmers Cross; GIA #190479; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
+ },
  "Ireland|galway racecourse|": {
   "name": "Galway Racecourse",
   "county": "Galway",
@@ -1378,12 +1611,28 @@
   "longitude": -6.69268,
   "how": "race start, place search (leisure/sports_centre: Clane GAA Club)"
  },
+ "Kildare|kilcullen gaa|": {
+  "name": "kilcullen GAA",
+  "county": "Kildare",
+  "latitude": 53.126941,
+  "longitude": -6.75478,
+  "how": "GAA Pitch Finder (CC BY 4.0): Kilcullen / Kilcullen; corroboration: OSM w398385644; GIA #189931 / Kilcullen GAA GIA record; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "athletics"
+ },
  "Kildare|kildare town|": {
   "name": "Kildare Town",
   "county": "Kildare",
   "latitude": 53.156895,
   "longitude": -6.910627,
   "how": "race start, place search (highway/bus_stop: Kildare Town)"
+ },
+ "Kildare|mondello|": {
+  "name": "Mondello",
+  "county": "Kildare",
+  "latitude": 53.257696,
+  "longitude": -6.747513,
+  "how": "OpenStreetMap way/86127389: Mondello Park; corroboration: Trasna Mondello Park events (runningcalendar.ie), Naas, Co Kildare; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "athletics"
  },
  "Kildare|newtown|": null,
  "Kilkenny|dungarvan|": {
@@ -1410,7 +1659,14 @@
   "how": "GAA pitch list, matched on pitch name (Lucan Sarsfields: Adamstown)"
  },
  "Leinster|ait gaa pitch|": null,
- "Leinster|alcast park|": null,
+ "Leinster|alcast park|": {
+  "name": "Alcast Park",
+  "county": "Wexford",
+  "latitude": 52.502107,
+  "longitude": -6.581518,
+  "how": "OpenStreetMap way/159852028: Enniscorthy Rugby Club; corroboration: Enniscorthy RFC site; GIA #191630; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|allen park|": {
   "name": "Allen Park",
   "county": "Longford",
@@ -1462,7 +1718,14 @@
   "longitude": -6.109534,
   "how": "GAA pitch list, matched on club name (Ashford GAA)"
  },
- "Leinster|ashtown lane|": null,
+ "Leinster|ashtown lane|": {
+  "name": "Ashtown Lane",
+  "county": "Wicklow",
+  "latitude": 52.972776,
+  "longitude": -6.067643,
+  "how": "OpenStreetMap way/1229790895: Wicklow Rugby Club; corroboration: GIA #191676 address Ashtown Lane (Wicklow RFC); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|athy|": {
   "name": "Athy",
   "county": "Kildare",
@@ -1593,7 +1856,14 @@
   "longitude": -6.12736,
   "how": "GAA pitch list, matched on club name (Bray Emmets GAA)"
  },
- "Leinster|bree|": null,
+ "Leinster|bree|": {
+  "name": "Bree",
+  "county": "Wexford",
+  "latitude": 52.431664,
+  "longitude": -6.605711,
+  "how": "GAA Pitch Finder (CC BY 4.0): Ballyhogue GAA / Ballyhogue GAA; corroboration: GIA #186902/#188407; web says Ballyhogue GAA grounds are in Bree, Enniscorthy; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|bunclody|": {
   "name": "Bunclody",
   "county": "Wexford",
@@ -1821,6 +2091,14 @@
  "Leinster|devenish park pitch 4|": null,
  "Leinster|devenish park pitch 5|": null,
  "Leinster|devenish park pitch 6|": null,
+ "Leinster|donabate portrane community center|": {
+  "name": "Donabate Portrane Community Center",
+  "county": "Dublin",
+  "latitude": 53.489847,
+  "longitude": -6.143221,
+  "how": "OpenStreetMap way/66555567: Donabate Portrane Community & Leisure Centre; corroboration: GIA hockey #190500 Donabate Portrane Community Centre; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
+ },
  "Leinster|donaghmore ashbourne gaa|": {
   "name": "Donaghmore Ashbourne GAA",
   "county": "Meath",
@@ -1852,7 +2130,14 @@
   "longitude": -7.92287,
   "how": "place search (leisure/pitch: Dubarry Park)"
  },
- "Leinster|duleek tony callaghan park|": null,
+ "Leinster|duleek tony callaghan park|": {
+  "name": "Duleek (Tony Callaghan Park)",
+  "county": "Meath",
+  "latitude": 53.654461,
+  "longitude": -6.433657,
+  "how": "GAA Pitch Finder (CC BY 4.0): Duleek-Bellewstown / Duleek; corroboration: GIA #187312; Meath GAA venue page (Tony Callaghan Park, Duleek); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|dunbeggan|": {
   "name": "Dunbeggan",
   "county": "Longford",
@@ -1997,7 +2282,14 @@
   "longitude": -7.908861,
   "how": "GAA pitch list, matched on club name (Birr: St. Brendan's Park)"
  },
- "Leinster|heavey technology park rathfarnham|": null,
+ "Leinster|heavey technology park rathfarnham|": {
+  "name": "Heavey Technology Park, Rathfarnham",
+  "county": "Dublin",
+  "latitude": 53.262288,
+  "longitude": -6.288585,
+  "how": "OpenStreetMap way/1137609458: Stillorgan Rathfarnham Rugby Football Club; corroboration: Stillorgan Rathfarnham RFC site: Tibradden Road, Rathfarnham; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|high school|": {
   "family": "rugby",
   "name": "The High School",
@@ -2041,7 +2333,14 @@
   "how": "position from the source; county from the map"
  },
  "Leinster|jim roice park|": null,
- "Leinster|john j mcdowell memorial grounds|": null,
+ "Leinster|john j mcdowell memorial grounds|": {
+  "name": "John J McDowell Memorial Grounds",
+  "county": "Dublin",
+  "latitude": 53.390549,
+  "longitude": -6.11604,
+  "how": "OpenStreetMap way/129467450: Suttonians Rugby Football Club; corroboration: Suttonians RFC site gives Station Road, Sutton D13; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|john locke park|": {
   "family": "gaa",
   "name": "John Locke Park",
@@ -2174,7 +2473,14 @@
   "longitude": -7.38991,
   "how": "GAA pitch list, matched on club name (Lisdowney)"
  },
- "Leinster|loetb centre of excellence|": null,
+ "Leinster|loetb centre of excellence|": {
+  "name": "LOETB Centre of Excellence",
+  "county": "Laois",
+  "latitude": 53.025026,
+  "longitude": -7.302493,
+  "how": "OpenStreetMap way/64877624: Laois GAA Centre of Excellence; corroboration: LOETB Laois Centre of Excellence, Fr Browne Ave, Portlaoise (web); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|longwood|": {
   "name": "Longwood",
   "county": "Meath",
@@ -2206,8 +2512,22 @@
   "longitude": -6.601028,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: OpenStreetMap way/33452092: Maynooth University North Campus)"
  },
- "Leinster|mccauley park bellefield|": null,
- "Leinster|mcgrath park bagenalstown|": null,
+ "Leinster|mccauley park bellefield|": {
+  "name": "McCauley Park Bellefield",
+  "county": "Wexford",
+  "latitude": 52.503268,
+  "longitude": -6.576653,
+  "how": "GAA Pitch Finder (CC BY 4.0): Rapparees-Starlights GAA, Enniscorthy / Bellefield; corroboration: OSM w159852020 McCauley Park; GIA #193737; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
+ "Leinster|mcgrath park bagenalstown|": {
+  "name": "McGrath Park Bagenalstown",
+  "county": "Carlow",
+  "latitude": 52.708891,
+  "longitude": -6.948602,
+  "how": "GAA Pitch Finder (CC BY 4.0): St. Andrew's / McGrath Park; corroboration: OSM w94450434 McGrath Park; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|merrion rd|": {
   "name": "Merrion Rd",
   "county": "Dublin",
@@ -2236,7 +2556,14 @@
   "longitude": -6.376087,
   "how": "checked by hand (OpenStreetMap: Ashbourne Rugby Club)"
  },
- "Leinster|moneenroe|": null,
+ "Leinster|moneenroe|": {
+  "name": "Moneenroe",
+  "county": "Kilkenny",
+  "latitude": 52.838245,
+  "longitude": -7.154363,
+  "how": "GAA Pitch Finder (CC BY 4.0): Railyard / Railyard; corroboration: kilkennygaa.ie venue page (Chapel Lane / The Glen, Moneenroe); GIA Railyard record; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|monkstown|": null,
  "Leinster|mount leinster rangers|": {
   "name": "Mount Leinster Rangers",
@@ -2340,8 +2667,22 @@
   "longitude": -6.17247,
   "how": "checked by hand (OpenStreetMap: Newpark Comprehensive Secondary School, Blackrock)"
  },
- "Leinster|oak park|": null,
- "Leinster|ollie campbell park|": null,
+ "Leinster|oak park|": {
+  "name": "Oak Park",
+  "county": "Carlow",
+  "latitude": 52.8509,
+  "longitude": -6.912329,
+  "how": "OpenStreetMap way/275798644: Carlow Rugby Club; corroboration: carlowrugby.ie: Oak Park Road, Carlow; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
+ "Leinster|ollie campbell park|": {
+  "name": "Ollie Campbell Park",
+  "county": "Dublin",
+  "latitude": 53.32199,
+  "longitude": -6.227509,
+  "how": "OpenStreetMap way/167126127: Old Belvedere R.F.C; corroboration: Old Belvedere site: 28a Anglesea Road; GIA #191651; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|paddy martin memorial park|": null,
  "Leinster|pairc sheamuis stiophan|": {
   "family": "gaa",
@@ -2351,8 +2692,22 @@
   "longitude": -7.24471,
   "how": "GAA pitch list, matched on pitch name (James Stephens, Kilkenny: Páirc Sheamuis Stiophan)"
  },
- "Leinster|pairc si siochain|": null,
- "Leinster|pairc ui bhriain|": null,
+ "Leinster|pairc si siochain|": {
+  "name": "Pairc Si Siochain",
+  "county": "Wexford",
+  "latitude": 52.681772,
+  "longitude": -6.274384,
+  "how": "GAA Pitch Finder (CC BY 4.0): Naomh Eanna GAA / Páirc Uí Shíocháin; corroboration: GIA #193626; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
+ "Leinster|pairc ui bhriain|": {
+  "name": "Pairc Ui Bhriain",
+  "county": "Carlow",
+  "latitude": 52.83017,
+  "longitude": -6.917612,
+  "how": "GAA Pitch Finder (CC BY 4.0): Éire Óg / Páirc Uí Bhrian; corroboration: OSM w194343304; GIA #187344; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|pairc ui cheallaigh ui dhalaigh|": {
   "family": "gaa",
   "name": "Kelly-Daly Park",
@@ -2390,7 +2745,14 @@
   "longitude": -6.513583,
   "how": "checked by hand (OpenStreetMap: Barnhall Rugby Football Club)"
  },
- "Leinster|pearses park arklow|": null,
+ "Leinster|pearses park arklow|": {
+  "name": "Pearses Park,Arklow",
+  "county": "Wicklow",
+  "latitude": 52.801196,
+  "longitude": -6.169578,
+  "how": "GAA Pitch Finder (CC BY 4.0): Arklow Geraldines Ballymoney GAA / Pearse's Park; corroboration: GIA #186799; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|piltown|": {
   "family": "gaa",
   "name": "Piltown",
@@ -2515,7 +2877,14 @@
   "longitude": -6.662907,
   "how": "position from the source; county from the map"
  },
- "Leinster|santry|": null,
+ "Leinster|santry|": {
+  "name": "Santry",
+  "county": "Dublin",
+  "latitude": 53.400778,
+  "longitude": -6.254905,
+  "how": "OpenStreetMap way/526597079: Trinity Sports Ground; corroboration: TCD Santry Sports Grounds page (one natural-grass rugby pitch); DUFC page says its junior teams use Santry Avenue fields; GIA hockey #190469 at same site; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|sarsfields gaa club|": {
   "family": "gaa",
   "name": "Sarsfields GAA",
@@ -2540,7 +2909,14 @@
   "how": "checked by hand (OpenStreetMap: Boyne Rugby Football Club, Drogheda)"
  },
  "Leinster|shay murtagh park|": null,
- "Leinster|silken thomas park|": null,
+ "Leinster|silken thomas park|": {
+  "name": "Silken Thomas Park",
+  "county": "Kildare",
+  "latitude": 53.183085,
+  "longitude": -6.909074,
+  "how": "OpenStreetMap way/1000498193: Cill Dara Rugby Club; corroboration: Cill Dara RFC pitchero contact page: Silken Thomas Park, Kildare town; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|skerries cc|": null,
  "Leinster|skryne|": {
   "name": "Skryne",
@@ -2623,7 +2999,14 @@
   "longitude": -6.857612,
   "how": "GAA pitch list, matched on club name (Suncroft)"
  },
- "Leinster|sydney parade|": null,
+ "Leinster|sydney parade|": {
+  "name": "Sydney Parade",
+  "county": "Dublin",
+  "latitude": 53.324484,
+  "longitude": -6.215164,
+  "how": "OpenStreetMap way/23008482: Monkstown FC and Pembroke Cricket Club; corroboration: monkstownfc.ie: Sydney Parade, Sandymount; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|tagoat|": null,
  "Leinster|teg cusack park westmeath|": {
   "name": "TEG Cusack Park, Westmeath",
@@ -2631,6 +3014,14 @@
   "latitude": 53.52754,
   "longitude": -7.337773,
   "how": "position from the source; county from the map"
+ },
+ "Leinster|temple carraig school|": {
+  "name": "Temple Carraig School",
+  "county": "Wicklow",
+  "latitude": 53.152992,
+  "longitude": -6.084399,
+  "how": "OpenStreetMap way/113741173: Temple Carrig Secondary School; corroboration: OSM school named Temple Carrig; hockey fixture feed lists it as a venue; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
  },
  "Leinster|templeville rd|": {
   "name": "Templeville Rd",
@@ -2677,7 +3068,14 @@
   "longitude": -6.457152,
   "how": "place search (leisure/park: The Rocks)"
  },
- "Leinster|the showgrounds|": null,
+ "Leinster|the showgrounds|": {
+  "name": "The Showgrounds",
+  "county": "Kildare",
+  "latitude": 52.990496,
+  "longitude": -6.969204,
+  "how": "OpenStreetMap way/394886044: Rugby artificial pitches; corroboration: athyrugbyclub.com: The Showgrounds, Dublin Road, Athy; GIA #191608; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Leinster|three rock rovers hc|": {
   "name": "Three Rock Rovers HC",
   "county": "Dublin",
@@ -2685,7 +3083,14 @@
   "longitude": -6.272811,
   "how": "Get Ireland Active club list, matched on club name (Three Rock Rovers Hockey Club)"
  },
- "Leinster|tinyrland gfc|": null,
+ "Leinster|tinyrland gfc|": {
+  "name": "Tinyrland GFC",
+  "county": "Carlow",
+  "latitude": 52.799333,
+  "longitude": -6.880853,
+  "how": "GAA Pitch Finder (CC BY 4.0): Tinryland / Tinryland; corroboration: GIA #188286; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Leinster|togher|": {
   "name": "Togher",
   "county": "Laois",
@@ -2715,12 +3120,28 @@
   "longitude": -6.911498,
   "how": "Get Ireland Active club list, matched on club address (Athboy Rugby Football Club)"
  },
+ "Leinster|trinity college sports ground|": {
+  "name": "Trinity College Sports Ground",
+  "county": "Dublin",
+  "latitude": 53.400778,
+  "longitude": -6.254905,
+  "how": "OpenStreetMap way/526597079: Trinity Sports Ground; corroboration: GIA hockey #190469/#190510 address Trinity Sports Grounds, Santry Ave; TCD Santry Sports Grounds page; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
+ },
  "Leinster|trinity gaels|": {
   "name": "Trinity Gaels",
   "county": "Dublin",
   "latitude": 53.414424,
   "longitude": -6.164447,
   "how": "place search (leisure/sports_centre: Trinity Gaels GAA Club)"
+ },
+ "Leinster|trinity sports grounds|": {
+  "name": "Trinity Sports Grounds",
+  "county": "Dublin",
+  "latitude": 53.400778,
+  "longitude": -6.254905,
+  "how": "OpenStreetMap way/526597079: Trinity Sports Ground; corroboration: GIA hockey #190469/#190510 address Trinity Sports Grounds, Santry Ave; TCD Santry Sports Grounds page; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
  },
  "Leinster|tullaroan|": {
   "family": "gaa",
@@ -2817,7 +3238,14 @@
   "longitude": -7.12865,
   "how": "checked by hand (OpenStreetMap: Walsh Park, Waterford)"
  },
- "Munster|ballinakill|": null,
+ "Munster|ballinakill|": {
+  "name": "Ballinakill",
+  "county": "Waterford",
+  "latitude": 52.248675,
+  "longitude": -7.07141,
+  "how": "OpenStreetMap way/130997347: Waterpark Rugby Club; corroboration: GIA #191739 address Lower Maypark Lane, Ballinakill, Waterford; Waterpark RFC site gives the same address; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|ballina|": {
   "name": "Ballina",
   "county": "Tipperary",
@@ -2995,7 +3423,14 @@
   "longitude": -7.850779,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Cappoquin / Affane)"
  },
- "Munster|carrick on suir|": null,
+ "Munster|carrick on suir|": {
+  "name": "Carrick-on-Suir",
+  "county": "Kilkenny",
+  "latitude": 52.350387,
+  "longitude": -7.373242,
+  "how": "OpenStreetMap way/268152769: Carrick-on-Suir RFC; corroboration: Carrick-on-Suir RFC site: grounds at Tybroughney, just outside Carrick-on-Suir; GIA #191684; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|carrigaline|": {
   "name": "Carrigaline",
   "county": "Cork",
@@ -3234,6 +3669,14 @@
   "longitude": -8.991535,
   "how": "Get Ireland Active club list, matched on club name (Éire Óg Ennis GAA,LGFA & Camogie Club)"
  },
+ "Munster|emly|": {
+  "name": "Emly",
+  "county": "Tipperary",
+  "latitude": 52.464751,
+  "longitude": -8.347427,
+  "how": "GAA Pitch Finder (CC BY 4.0): Emly / St. Ailbe's Park; corroboration: OSM w1244711739; GIA #187356; GPF pitch St. Ailbe's Park; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|ennis|": {
   "name": "Ennis",
   "county": "Clare",
@@ -3315,7 +3758,14 @@
   "longitude": -8.297383,
   "how": "rugby club search (leisure/pitch: Galbally RFC); the source names the club or town, not the pitch"
  },
- "Munster|garyowen|": null,
+ "Munster|garyowen|": {
+  "name": "Garyowen",
+  "county": "Limerick",
+  "latitude": 52.63496,
+  "longitude": -8.646139,
+  "how": "OpenStreetMap way/129467782: Garryowen FC; corroboration: limericksports.ie: Garryowen grounds at Dooradoyle Road, Dooradoyle; GIA #181849; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|glenstal|": {
   "name": "Glenstal",
   "county": "Limerick",
@@ -3431,7 +3881,14 @@
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Sennan's, Kilkee)"
  },
  "Munster|kilkenny college|": null,
- "Munster|kilkenny rfc|": null,
+ "Munster|kilkenny rfc|": {
+  "name": "Kilkenny RFC",
+  "county": "Kilkenny",
+  "latitude": 52.623199,
+  "longitude": -7.251281,
+  "how": "OpenStreetMap way/168743394: Kilkenny Rugby Club; corroboration: GIA #191636 Kilkenny RFC; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|kilkishen|": null,
  "Munster|killaloe|": null,
  "Munster|killarney|": {
@@ -3767,7 +4224,14 @@
   "longitude": -8.158535,
   "how": "GAA pitch list, matched on pitch name (Arravale Rovers: Sean Treacy Park)"
  },
- "Munster|setu arena carriganore|": null,
+ "Munster|setu arena carriganore|": {
+  "name": "SETU Arena, Carriganore",
+  "county": "Waterford",
+  "latitude": 52.251427,
+  "longitude": -7.17948,
+  "how": "OpenStreetMap way/764257065: SETU Arena; corroboration: setuarena.ie: Carriganore, Co Waterford, with GAA pitches; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Munster|setu carlow campus|": null,
  "Munster|sixmilebridge|": {
   "name": "Sixmilebridge",
@@ -3820,7 +4284,14 @@
   "longitude": -8.625024,
   "how": "place search (leisure/pitch: Tanner Park)"
  },
- "Munster|temple hill|": null,
+ "Munster|temple hill|": {
+  "name": "Temple Hill",
+  "county": "Cork",
+  "latitude": 51.890508,
+  "longitude": -8.435289,
+  "how": "OpenStreetMap way/129467097: Cork Constitution Football Club; corroboration: corkcon.ie; GIA #191692; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "rugby"
+ },
  "Munster|templemore|": null,
  "Munster|templetuohy|": {
   "name": "Templetuohy",
@@ -4339,6 +4810,14 @@
   "longitude": -6.75079,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Fr. Rock's GAA, Cookstown: Paddy Cullen Park)"
  },
+ "Ulster|corduff|": {
+  "name": "Corduff",
+  "county": "Monaghan",
+  "latitude": 54.010197,
+  "longitude": -6.82086,
+  "how": "GAA Pitch Finder (CC BY 4.0): Corduff Gaels / Páirc Eoghain Uí Mhearáin; corroboration: OSM w1223035671; GIA #187193; GPF pitch Páirc Eoghain Uí Mhearáin; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Ulster|dalriada school|": {
   "name": "Dalriada School",
   "county": "Derry",
@@ -4432,6 +4911,14 @@
   "how": "position from the source; county from the map"
  },
  "Ulster|emmett park|": null,
+ "Ulster|erins own gac cargin|": {
+  "name": "Erins Own GAC, Cargin",
+  "county": "Antrim",
+  "latitude": 54.749321,
+  "longitude": -6.459257,
+  "how": "Sport Ireland Get Ireland Active #187370: Erins Own GAC, Cargin GAA & LGFA Club; corroboration: erinsowngac.com: Cargin GAA Grounds, 1 Shore Road, Toomebridge BT41 3NQ; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Ulster|errigal ciaran|": {
   "name": "Errigal Ciaran",
   "county": "Tyrone",
@@ -4452,6 +4939,14 @@
   "latitude": 53.861097,
   "longitude": -7.209629,
   "how": "place search (leisure/pitch: Fay Park)"
+ },
+ "Ulster|ferris park playing fields|": {
+  "name": "Ferris Park Playing Fields",
+  "county": "Down",
+  "latitude": 54.411099,
+  "longitude": -6.161413,
+  "how": "OpenStreetMap way/211956177: Ferris Park; corroboration: Web: Ferris Park, 39 Banbridge Rd, Dromore, Co Down; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
  },
  "Ulster|foyle college|": {
   "name": "Foyle College",
@@ -4887,7 +5382,14 @@
   "longitude": -7.105762,
   "how": "GAA pitch list, matched on pitch name (St. Teresa's GAA, Loughmacrory: Páirc an Locha)"
  },
- "Ulster|pairc an tathair ui conghalaigh|": null,
+ "Ulster|pairc an tathair ui conghalaigh|": {
+  "name": "Páirc An tAthair Uí Conghalaigh",
+  "county": "Tyrone",
+  "latitude": 54.452881,
+  "longitude": -6.796992,
+  "how": "Sport Ireland Get Ireland Active #187341: Eglish St Patrick's GAA Club; corroboration: eglishgac.com / wheresthepitch: main ground Fr. Connolly Park (Páirc An tAthair Uí Chonghalaigh), Roan, Eglish, Co Tyrone; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Ulster|pairc arthur mallon edendork|": null,
  "Ulster|pairc colmcille carrickmore|": {
   "name": "Páirc Colmcille, Carrickmore",
@@ -4905,7 +5407,14 @@
  },
  "Ulster|pairc gearoid o gallachoir|": null,
  "Ulster|pairc ghearrdhroma|": null,
- "Ulster|pairc mhic sioghair|": null,
+ "Ulster|pairc mhic sioghair|": {
+  "name": "Páirc Mhic Sioghair",
+  "county": "Tyrone",
+  "latitude": 54.816627,
+  "longitude": -7.457993,
+  "how": "GAA Pitch Finder (CC BY 4.0): Sigerson's GAA, Strabane / Sigerson Park; corroboration: gaapitchfinder club page and GIA Strabane Sigersons record (about 100 m away); Tyrone GAA site: Páirc Mhic Sioghair, Ballycolman, Strabane; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Ulster|pairc naomh columba|": {
   "name": "Pairc Naomh Columba",
   "county": "Donegal",
@@ -4920,7 +5429,14 @@
   "longitude": -7.493099,
   "how": "place search (leisure/pitch: Páirc Naomh Fionnán)"
  },
- "Ulster|pairc rosa|": null,
+ "Ulster|pairc rosa|": {
+  "name": "Pairc Rosa",
+  "county": "Antrim",
+  "latitude": 54.57464,
+  "longitude": -6.006294,
+  "how": "GAA Pitch Finder (CC BY 4.0): O'Donovan Rossa's GAC, Belfast / Rossa Park; corroboration: GIA #193673; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Ulster|pairc sean o caoilte dundrum|": {
   "name": "Páirc Sean O'Caoilte - Dundrum",
   "county": "Down",
@@ -4928,7 +5444,14 @@
   "longitude": -5.838307,
   "how": "GAA pitch list, matched on club name (Dundrum GAA: John Kielty Memorial Park)"
  },
- "Ulster|pairc ui rathaille|": null,
+ "Ulster|pairc ui rathaille|": {
+  "name": "Páirc Uí Rathaille",
+  "county": "Tyrone",
+  "latitude": 54.533554,
+  "longitude": -6.677183,
+  "how": "GAA Pitch Finder (CC BY 4.0): O'Rahilly's GAA, Clonoe / O'Rahilly Park; corroboration: GIA #187153; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "gaa"
+ },
  "Ulster|palace grounds|": {
   "name": "Palace Grounds",
   "county": "Armagh",
@@ -4998,6 +5521,14 @@
   "latitude": 54.6889,
   "longitude": -6.02048,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|royal and prior sch|": {
+  "name": "Royal and Prior Sch.",
+  "county": "Donegal",
+  "latitude": 54.876613,
+  "longitude": -7.589509,
+  "how": "OpenStreetMap way/1479258669: Royal and Prior Comprehensive School; corroboration: Raphoe Hockey Club plays at the Royal & Prior School pitch, Raphoe (Donegal Daily); checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "hockey"
  },
  "Ulster|royal belfast academical inst|": {
   "name": "Royal Belfast Academical Inst",
