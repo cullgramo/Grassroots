@@ -82,7 +82,14 @@
   "how": "rugby club search (leisure/sports_centre: Castlebar Rugby Football Club); the source names the club or town, not the pitch"
  },
  "Connacht|castlepark galway|": null,
- "Connacht|castlerea st kevins|": null,
+ "Connacht|castlerea st kevins|": {
+  "family": "gaa",
+  "name": "O'Rourke Park",
+  "county": "Roscommon",
+  "latitude": 53.76639,
+  "longitude": -8.49083,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Connacht|claremorris rfc|": {
   "name": "Claremorris RFC",
   "county": "Mayo",
@@ -451,6 +458,14 @@
  },
  "Cork|clearstream deutsche borse group offices at nsq1 navigation square albert quay east|": null,
  "Cork|cloynes|": null,
+ "Cork|safaris nightclub newmarket|P51 CY62": {
+  "family": "athletics",
+  "name": "Safaris Nightclub",
+  "county": "Cork",
+  "latitude": 52.21556,
+  "longitude": -9.00167,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Cork|watergrasshill ac|": {
   "name": "watergrasshill AC",
   "county": "Cork",
@@ -516,12 +531,28 @@
  },
  "Dublin|blackrock rugby club|": null,
  "Dublin|bluebell comm centre|": null,
+ "Dublin|blunden drive|": {
+  "family": "soccer",
+  "name": "Ayrfield United FC",
+  "county": "Dublin",
+  "latitude": 53.39343,
+  "longitude": -6.18342,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Clonrosse Drive\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Dublin|bohernabreena|": {
   "name": "Bohernabreena",
   "county": "Dublin",
   "latitude": 53.2687,
   "longitude": -6.3529,
   "how": "coordinates supplied by the owner: St Annes GAA club grounds"
+ },
+ "Dublin|brackenstown road|": {
+  "family": "soccer",
+  "name": "Swords Manor FC",
+  "county": "Dublin",
+  "latitude": 53.46387,
+  "longitude": -6.25141,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: Knowledge Base / Maps)"
  },
  "Dublin|bushy park|": {
   "name": "Bushy Park",
@@ -726,6 +757,14 @@
   "longitude": -6.282666,
   "how": "place search (leisure/park: Johnstown Park)"
  },
+ "Dublin|kilbarrack utd fc|": {
+  "family": "soccer",
+  "name": "Kilbarrack United FC",
+  "county": "Dublin",
+  "latitude": 53.38889,
+  "longitude": -6.15583,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the club list has Kilbarrack United Football Club is 118 m away (proposer's source: Knowledge Base / Maps)"
+ },
  "Dublin|kilbogget park|": {
   "name": "Kilbogget Park",
   "county": "Dublin",
@@ -803,7 +842,14 @@
   "longitude": -6.281547,
   "how": "place search (leisure/sports_centre: The Paddy Brennan Rosary Park)"
  },
- "Dublin|paddy s hill|": null,
+ "Dublin|paddy s hill|": {
+  "family": "soccer",
+  "name": "Portmarnock AFC",
+  "county": "Dublin",
+  "latitude": 53.42833,
+  "longitude": -6.12639,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Portmarnock Links\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Dublin|pairc ui bhriain|": {
   "name": "Páirc Uí Bhriain",
   "county": "Dublin",
@@ -2601,7 +2647,14 @@
   "longitude": -7.241625,
   "how": "GAA pitch list, matched on club name (The Downs)"
  },
- "Leinster|the grange kells|": null,
+ "Leinster|the grange kells|": {
+  "family": "rugby",
+  "name": "The Grange",
+  "county": "Meath",
+  "latitude": 53.74333,
+  "longitude": -6.87972,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Kells Bypass\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Leinster|the harps gaa|": {
   "name": "The Harps GAA",
   "county": "Laois",
@@ -2677,7 +2730,14 @@
   "longitude": -7.444648,
   "how": "GAA pitch list, matched on pitch name (Tullaroan: Tullaroan)"
  },
- "Leinster|tullow cs|": null,
+ "Leinster|tullow cs|": {
+  "family": "gaa",
+  "name": "Tullow Community School",
+  "county": "Carlow",
+  "latitude": 52.80278,
+  "longitude": -6.7375,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Tullow Post Office\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Leinster|ucd|": {
   "name": "UCD",
   "county": "Dublin",
@@ -2891,7 +2951,14 @@
   "longitude": -8.814414,
   "how": "place search (leisure/pitch: Caherlohan GAA Training Pitch)"
  },
- "Munster|caherslee tralee|": null,
+ "Munster|caherslee tralee|": {
+  "family": "gaa",
+  "name": "Caherslee GAA Grounds",
+  "county": "Kerry",
+  "latitude": 52.27944,
+  "longitude": -9.71917,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Caherslee Road\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Munster|cahir|": {
   "name": "Cahir",
   "county": "Tipperary",
@@ -3894,6 +3961,14 @@
   "latitude": 52.8469,
   "longitude": -8.97826,
   "how": "checked by hand (OpenStreetMap: Cusack Park, Ennis)"
+ },
+ "Offaly|lough boora discovery park|": {
+  "family": "athletics",
+  "name": "Lough Boora Discovery Park",
+  "county": "Offaly",
+  "latitude": 53.22889,
+  "longitude": -7.72889,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: Knowledge Base / Maps)"
  },
  "Ulster|3g pitch|": {
   "name": "3G Pitch",
@@ -5240,7 +5315,14 @@
   "longitude": -7.142379,
   "how": "race start, place search (building/industrial: SETU)"
  },
- "Wexford|gorey civic centre|": null,
+ "Wexford|gorey civic centre|": {
+  "family": "athletics",
+  "name": "Gorey Civic Centre",
+  "county": "Wexford",
+  "latitude": 52.6775,
+  "longitude": -6.2975,
+  "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: Knowledge Base / Maps)"
+ },
  "Wicklow|tinahely community hall|": {
   "family": "athletics",
   "name": "Tinahely Community Hall",
