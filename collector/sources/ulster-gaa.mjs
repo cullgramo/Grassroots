@@ -9,6 +9,9 @@ export const withMore = (page, more = 4) => [
   page,
   ...Array.from({ length: more }, (_, i) => ({ ...page, url: `${page.url}?ajax=1&feed_type=fixtures&page=${i + 1}&size=50`, gapMs: 3000 })),
 ];
+/** The activity in a competition's link path, as the app's sport. */
+export const ACTIVITIES = { football: 'gaelic-football', hurling: 'hurling', camogie: 'camogie', ladies_football: 'ladies-football', 'ladies-football': 'ladies-football' };
+const NOT_A_TEAM = /^(bye|tbc|tba|to be (confirmed|announced|decided))$/i;
 export const pages = withMore({ url: 'https://ulster.gaa.ie/fixtures-results/', area: 'Ulster' });
 
 export function read(html, page, now = new Date()) {
@@ -35,6 +38,15 @@ export function read(html, page, now = new Date()) {
       if (+date.slice(0, 4) > now.getUTCFullYear() + 2) continue;
       // "Winner of Semi-Final 1" is a placeholder, not a team.
       if (/\b(winner|loser|runner.up)\b/i.test(home) || /\b(winner|loser|runner.up)\b/i.test(away)) continue;
+      // A side that is not a team yet: a bye, or an opponent still to be named.
+      if (NOT_A_TEAM.test(home) || NOT_A_TEAM.test(away)) continue;
+      // The competition's own link says what it is: /fixtures-results/<activity>/<type>/<grade>/...
+      const path = (compLink?.getAttribute('href') ?? '').match(/\/fixtures-results\/([a-z_-]+)\/([a-z_-]+)\/([a-z0-9_-]+)\//i);
+      const sport = (path && ACTIVITIES[path[1].toLowerCase()]) ?? gaaSport(competition);
+      if (!sport) continue; // not a sport this app lists (or not one we can name): better left out than filed as men's football
+      const type = path?.[2].toLowerCase();
+      const level = type === 'inter_county' ? 'top' : type ? 'local' : /club|school|college|pps/i.test(competition) ? 'local' : 'top';
+      const timeText = tidy(row.querySelector('.time')?.text);
       let info = row.nextElementSibling;
       if (!info?.classList?.contains('more_info')) info = null;
       // Only the venue link is read from this row; the referee's name beside it is left alone.
@@ -42,10 +54,10 @@ export function read(html, page, now = new Date()) {
       const ids = [row.querySelector('.home_team a'), row.querySelector('.away_team a')].map((a) => id(a?.getAttribute('href')) ?? tidy(a?.text));
       out.push({
         ref: `${id(compLink?.getAttribute('href')) ?? competition}-${ids[0]}-${ids[1]}-${date}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        sport: gaaSport(competition) ?? 'gaelic-football',
-        level: /club|school|college|pps/i.test(competition) ? 'local' : 'top', category: null,
+        sport, level, grade: path?.[3].toLowerCase() ?? null, category: null,
         competition: withBoard(page.prefix, competition),
-        home, away, title: null, date, time: readTime(row.querySelector('.time')?.text ?? ''),
+        home, away, title: null, date, time: readTime(timeText),
+        status: /\bpostponed\b/i.test(timeText) ? 'postponed' : 'scheduled',
         venue: /^(tbc|tba|to be confirmed)?$/i.test(venue) ? '' : venue, county: null, postcode: null, area: page.area ?? 'Ulster', countyHint: page.countyHint ?? null, url: page.url,
       });
     }

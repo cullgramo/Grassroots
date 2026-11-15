@@ -1,11 +1,41 @@
 // Reads every public-page source, places each fixture on the map from the grounds directory, and works out
 // what is ready to save. Shared by make-sql.mjs (writes a SQL file) and run.mjs (saves straight to the database).
+import { readFileSync } from 'node:fs';
 import { SOURCES, collect } from '../look.mjs';
 import { loadGrounds, slotFor } from './grounds.mjs';
 import { countyFor } from '../../data/counties.ts';
 import { irishTimeToIso, norm } from './util.mjs';
 
 const words = (t) => norm(t).split(' ').filter((w) => w.length >= 5);
+
+let clubAliases;
+/** Other names for a club, from clubs.json entries that list `aliases`, as normalised name -> the club's normalised name. */
+function aliasMap() {
+  if (!clubAliases) {
+    clubAliases = new Map();
+    try {
+      const { clubs = [] } = JSON.parse(readFileSync(new URL('../clubs.json', import.meta.url), 'utf8'));
+      for (const c of clubs) for (const a of c.aliases ?? []) clubAliases.set(teamKey(a, null), teamKey(c.name, null));
+    } catch { /* no club list: names are compared as written */ }
+  }
+  return clubAliases;
+}
+
+/**
+ * A team's name as compared between sources: "Dr. Crokes (Kerry)" and "Dr Crokes GAA" are the same side. The
+ * county in brackets (provincial lists add it) and a trailing GAA/CLG/club word are dropped; a club's other
+ * names (clubs.json `aliases`) become its main one.
+ */
+export function teamKey(name, aliases = aliasMap()) {
+  const key = norm(String(name ?? '').replace(/\([^)]*\)/g, ' ')).replace(/( (gaa|clg|gac|club|gaa club))+$/, '').trim();
+  return aliases?.get(key) ?? key;
+}
+
+/** The same game from any source: sport, day, the two sides in either order, and the category. */
+export function gameKey(f, aliases) {
+  const sides = [teamKey(f.home ?? f.title, aliases), teamKey(f.away ?? '', aliases)].sort();
+  return `${f.sport}|${f.date}|${sides[0]}|${sides[1]}|${f.category ?? ''}`;
+}
 
 /**
  * @param {{ existing?: object[], sources?: Record<string, any>, grounds?: Record<string, any>, now?: Date }} [options]
@@ -46,7 +76,7 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
       const ground = { ...found_, county: found_.county || countyFor([], found_.latitude, found_.longitude) };
       if (HOME_COUNTY_BOARDS.has(key) && f.countyHint && ground.county !== f.countyHint && isBareName(f.venue) && !CHECKED.test(found_.how ?? '')) { leave(`Ground not placed on the map yet (the directory put it in ${ground.county}, outside ${f.countyHint}, so it needs checking)`); continue; }
       // The category is part of the key: the same two clubs meet on the same day in a men's and a women's league.
-      const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}|${f.category ?? ''}`;
+      const game = gameKey(f);
       if (seen.has(game)) { leave('Already listed by another source'); continue; }
       seen.add(game);
       const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time ?? '12:00');
