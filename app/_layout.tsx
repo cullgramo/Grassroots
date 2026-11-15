@@ -18,6 +18,7 @@ export default function RootLayout() {
           <Stack.Screen name="sports" options={{ presentation: 'modal', title: 'My sports' }} />
           <Stack.Screen name="county" options={{ presentation: 'modal', title: 'Your county' }} />
           <Stack.Screen name="admin" options={{ title: 'Add fixtures' }} />
+          <Stack.Screen name="terms" options={{ title: 'Terms of use' }} />
           <Stack.Screen name="fixture/[id]" options={{ title: 'Fixture' }} />
         </Stack>
       </AppProvider>

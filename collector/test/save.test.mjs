@@ -194,3 +194,19 @@ test('a ground another source already placed a few metres away is the same groun
   const separate = await run(far);
   assert.deepEqual([separate.latitude, separate.longitude], [53.4, -6.3]); // a different ground
 });
+
+test('the monthly data snapshot reads every page, and its fingerprint matches the stored bytes', async () => {
+  const { takeSnapshot } = await import('../snapshot.mjs');
+  const { createHash } = await import('node:crypto');
+  const { gunzipSync } = await import('node:zlib');
+  const table = { fixtures: Array.from({ length: 2300 }, (_, i) => ({ id: `f${i}`, source: i % 2 ? 'club-rugby' : 'ddsl' })), venues: [{ id: 'v1' }] };
+  const fetchImpl = async (url) => {
+    const u = new URL(url); const name = u.pathname.split('/').pop(); const offset = Number(u.searchParams.get('offset'));
+    return { ok: true, status: 200, json: async () => table[name].slice(offset, offset + 1000) };
+  };
+  const { file, manifest } = await takeSnapshot({ base: 'https://db.test', key: 'k', now: new Date('2026-12-01T03:00:00Z'), fetchImpl });
+  assert.equal(manifest.fixtures, 2300);
+  assert.deepEqual(manifest.sources, { 'club-rugby': 1150, ddsl: 1150 });
+  assert.equal(manifest.sha256, createHash('sha256').update(file).digest('hex'));
+  assert.equal(JSON.parse(gunzipSync(file)).fixtures.length, 2300);
+});
