@@ -60,6 +60,8 @@ export const tidy = (s) => String(s ?? '').replace(/ /g, ' ').replace(/\s+/g, '
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
+const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
 /** Reads "Friday 13 November 2026", "Sunday November 15th", "14/11/2026". Returns YYYY-MM-DD or null. */
 export function readDate(text, now = new Date()) {
   const t = tidy(text).toLowerCase();
@@ -73,7 +75,18 @@ export function readDate(text, now = new Date()) {
   } else return null;
   if (!(month >= 1 && month <= 12 && day >= 1 && day <= 31)) return null;
   if (year == null) {
-    // No year given: the nearest one, allowing for a page that still lists last month's games.
+    // A weekday names the year: "Tuesday November 3rd" is 2026 because 3 November 2026 is a Tuesday. Of the years
+    // either side of today the nearest one whose weekday matches is used; none matching ("Tuesday January 1st",
+    // a placeholder) means the date is not real.
+    const wd = t.match(/\b(mon|tue|wed|thu|fri|sat|sun)[a-z]*\b/)?.[1];
+    if (wd) {
+      const want = WEEKDAYS.indexOf(wd);
+      const fits = [now.getFullYear() - 1, now.getFullYear(), now.getFullYear() + 1]
+        .filter((y) => new Date(Date.UTC(y, month - 1, day)).getUTCDay() === want && new Date(Date.UTC(y, month - 1, day)).getUTCMonth() === month - 1)
+        .sort((a, b) => Math.abs(Date.UTC(a, month - 1, day) - now.getTime()) - Math.abs(Date.UTC(b, month - 1, day) - now.getTime()));
+      return fits.length ? `${fits[0]}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}` : null;
+    }
+    // No year or weekday given: the nearest year, allowing for a page that still lists last month's games.
     year = now.getFullYear();
     const d = Date.UTC(year, month - 1, day);
     if (d < now.getTime() - 120 * 86_400_000) year++;
