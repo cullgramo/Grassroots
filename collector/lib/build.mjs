@@ -45,7 +45,8 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
       // Every ground needs a county; if the map did not name one, the nearest county is used.
       const ground = { ...found_, county: found_.county || countyFor([], found_.latitude, found_.longitude) };
       if (HOME_COUNTY_BOARDS.has(key) && f.countyHint && ground.county !== f.countyHint && isBareName(f.venue) && !CHECKED.test(found_.how ?? '')) { leave(`Ground not placed on the map yet (the directory put it in ${ground.county}, outside ${f.countyHint}, so it needs checking)`); continue; }
-      const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}`;
+      // The category is part of the key: the same two clubs meet on the same day in a men's and a women's league.
+      const game = `${f.sport}|${f.date}|${norm(f.home ?? f.title)}|${norm(f.away ?? '')}|${f.category ?? ''}`;
       if (seen.has(game)) { leave('Already listed by another source'); continue; }
       seen.add(game);
       const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time ?? '12:00');

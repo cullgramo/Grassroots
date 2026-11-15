@@ -126,3 +126,12 @@ test("a county board's bare village name placed in another county is held, not g
   assert.match(leftOut[0].reason, /outside Wexford/);
   assert.deepEqual(unplacedGrounds(leftOut), [['Adamstown (Fake)', 1]]);
 });
+
+test('the same two clubs on the same day in a men’s and a women’s league are two games, not one', async () => {
+  const { fixtures, leftOut } = await gather({
+    sources: { fake: source([game({ ref: 'a', category: null }), game({ ref: 'b', category: 'women' }), game({ ref: 'c', category: 'women' })]) },
+    grounds,
+  });
+  assert.equal(fixtures.length, 2);
+  assert.deepEqual(leftOut.map((r) => r.reason), ['Already listed by another source']);
+});
