@@ -20,6 +20,9 @@ export default function RootLayout() {
           <Stack.Screen name="admin" options={{ title: 'Add fixtures' }} />
           <Stack.Screen name="terms" options={{ title: 'Terms of use' }} />
           <Stack.Screen name="fixture/[id]" options={{ title: 'Fixture' }} />
+          <Stack.Screen name="report/[id]" options={{ presentation: 'modal', title: 'Something wrong?' }} />
+          <Stack.Screen name="club/[name]" options={{ title: 'Club' }} />
+          <Stack.Screen name="claim" options={{ presentation: 'modal', title: 'Claim your club' }} />
         </Stack>
       </AppProvider>
     </ThemeProvider>
