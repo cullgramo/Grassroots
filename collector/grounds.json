@@ -1694,7 +1694,14 @@
   "longitude": -7.149966,
   "how": "race start, place search (place/town: Stradbally)"
  },
- "Leinster|abbottstown gaa centre of excellence|": null,
+ "Leinster|abbottstown gaa centre of excellence|": {
+  "name": "Abbottstown - GAA Centre of Excellence",
+  "county": "Dublin",
+  "latitude": 53.397967,
+  "longitude": -6.368085,
+  "how": "OpenStreetMap way/590500660: GAA National Games Development Centre; corroboration: mse.ie / the42.ie (as pass 2): GAA National Games Development Centre, National Sports Campus, Abbotstown, Dublin 15; checked 2026-11-15 pass 3 (Nominatim reverse: Snugborough Road, Blanchardstown, County Dublin)",
+  "family": "gaa"
+ },
  "Leinster|adamstown|": {
   "family": "gaa",
   "name": "Adamstown",
@@ -2389,6 +2396,14 @@
   "how": "GAA pitch list, matched on club name (Horeswood GAA)"
  },
  "Leinster|hugginstown|": null,
+ "Leinster|inistioge|": {
+  "name": "Inistioge",
+  "county": "Kilkenny",
+  "latitude": 52.489838,
+  "longitude": -7.063163,
+  "how": "OpenStreetMap way/158889349: Rower Inistioge GAA Club; corroboration: GAA Pitch Finder (CC BY 4.0): Rower Inistioge / Rower Inistioge (28 m away) | Get Ireland Active record #193787 Rower Inistioge GAA & LGFA Club (121 m away) | OpenStreetMap way/158889376: unnamed gaelic_games (16 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Rock Road, The Municipal District of Callan — Thomastown, County Kilkenny)",
+  "family": "gaa"
+ },
  "Leinster|iveagh grounds|": null,
  "Leinster|jenkinstown|": {
   "name": "Jenkinstown",
@@ -3354,12 +3369,28 @@
   "how": "OpenStreetMap way/130997347: Waterpark Rugby Club; corroboration: GIA #191739 address Lower Maypark Lane, Ballinakill, Waterford; Waterpark RFC site gives the same address; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "rugby"
  },
+ "Munster|ballinascarthy|": {
+  "name": "Ballinascarthy",
+  "county": "Cork",
+  "latitude": 51.665817,
+  "longitude": -8.83169,
+  "how": "OpenStreetMap way/678131095: Ballinascarthy Hurling & Football Club; corroboration: GAA Pitch Finder (CC BY 4.0): Ballinascarthy / Henry Ford Park (96 m away) | Get Ireland Active record #186851 Ballinascarthy GAA Club (197 m away); checked 2026-11-15 pass 3 (Nominatim reverse: L4026, , County Cork)",
+  "family": "gaa"
+ },
  "Munster|ballina|": {
   "name": "Ballina",
   "county": "Tipperary",
   "latitude": 52.815314,
   "longitude": -8.440019,
   "how": "GAA pitch list, matched on pitch name (Ballina: Ballina)"
+ },
+ "Munster|ballincollig|": {
+  "name": "Ballincollig",
+  "county": "Cork",
+  "latitude": 51.892043,
+  "longitude": -8.589832,
+  "how": "OpenStreetMap way/129462852: Ballincollig GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Ballincollig / Ballincollig (119 m away) | Get Ireland Active record #186854 Ballincollig GAA Club (73 m away) | OpenStreetMap way/749352367: Páirc Uí Chonchúir (123 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Long Range, Cork, County Cork)",
+  "family": "gaa"
  },
  "Munster|ballyanly|": {
   "name": "Ballyanly",
@@ -3420,13 +3451,44 @@
   "longitude": -8.76691,
   "how": "rugby club search (leisure/sports_centre: Bandon Rugby Football Club); the source names the club or town, not the pitch"
  },
- "Munster|bansha|": null,
+ "Munster|bandon|~gaa": {
+  "name": "Bandon",
+  "county": "Cork",
+  "latitude": 51.739542,
+  "longitude": -8.742455,
+  "how": "GAA Pitch Finder (CC BY 4.0): Bandon / Charlie Hurley Park; corroboration: OpenStreetMap way/186165577: Bandon GAA (70 m away) | OpenStreetMap way/186165588: unnamed gaelic_games (4 m away) | Get Ireland Active record #186937 Bandon GAA Club (70 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Saint Bridget's Terrace, , County Cork)",
+  "family": "gaa"
+ },
+ "Munster|bansha|": {
+  "name": "Bansha",
+  "county": "Tipperary",
+  "latitude": 52.447204,
+  "longitude": -8.067739,
+  "how": "OpenStreetMap way/1480591988: Galtee Rovers GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Galtee Rovers / Canon Hayes Park (55 m away) | Get Ireland Active record #187422 Galtee Rovers/St Pecaun GAA Club (105 m away) | OpenStreetMap way/385931022: unnamed gaelic_games (84 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Galtee View Estate, Bansha, County Tipperary)",
+  "family": "gaa"
+ },
+ "Munster|bantry school|": {
+  "name": "Bantry School",
+  "county": "Cork",
+  "latitude": 51.673614,
+  "longitude": -9.445429,
+  "how": "OpenStreetMap way/658295990: Coláiste Pobail Bheanntraí; corroboration: gov.ie school register: Coláiste Pobail Bheanntraí, Seskin, Bantry, P75 TE27; colaistepobailbheanntrai.ie/hurling/ (Venue: School Pitch); checked 2026-11-15 pass 3 (Nominatim reverse: Vaughan's Pass, , County Cork)",
+  "family": "gaa"
+ },
  "Munster|bantry|": {
   "name": "Bantry",
   "county": "Cork",
   "latitude": 51.634221,
   "longitude": -9.477789,
   "how": "rugby club search (leisure/sports_centre: Bantry Bay Rugby Football Club); the source names the club or town, not the pitch"
+ },
+ "Munster|bishopstown 4g|": {
+  "name": "Bishopstown 4G",
+  "county": "Cork",
+  "latitude": 51.884888,
+  "longitude": -8.521586,
+  "how": "OpenStreetMap way/35784816: Bishopstown GAA Club; corroboration: GAA Pitch Finder (CC BY 4.0): Bishopstown / Bishopstown (31 m away) | Get Ireland Active record #186966 Bishopstown GAA,LGFA & Camogie Club (106 m away) | OpenStreetMap way/154419465: unnamed gaelic_games (149 m away) | bishopstowngaa.com/club-development-plan/ and pitchbooking.com (Bishopstown GAA Club - Artificial Grass Pitch, Ballinaspig Lawn); checked 2026-11-15 pass 3 (Nominatim reverse: Firgrove Lawn, Cork, County Cork)",
+  "family": "gaa"
  },
  "Munster|bishopstown|": {
   "family": "gaa",
@@ -3442,6 +3504,14 @@
   "latitude": 53.30463,
   "longitude": -6.19278,
   "how": "coordinates from Gemini research, checked against the map: Blackrock College school grounds, Rock Road"
+ },
+ "Munster|blarney|": {
+  "name": "Blarney",
+  "county": "Cork",
+  "latitude": 51.928996,
+  "longitude": -8.56123,
+  "how": "OpenStreetMap way/276514581: Blarney GAA Club; corroboration: GAA Pitch Finder (CC BY 4.0): Blarney / Blarney (11 m away) | Get Ireland Active record #186972 Blarney GAA & Camogie Club (100 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Castle Close Road, Cork, County Cork)",
+  "family": "gaa"
  },
  "Munster|bodyke|": {
   "name": "Bodyke",
@@ -3530,6 +3600,14 @@
   "latitude": 52.143862,
   "longitude": -7.850779,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Cappoquin / Affane)"
+ },
+ "Munster|carraig ui leighin|": {
+  "name": "Carraig Ui Leighin",
+  "county": "Cork",
+  "latitude": 51.826282,
+  "longitude": -8.402238,
+  "how": "OpenStreetMap way/1579295056: Gaelcholáiste Charraig Uí Leighin; corroboration: gov.ie school register and gaelcholaistecul.ie: Gaelcholáiste Charraig Uí Leighin, Árd na Cloiche, Carrigaline, P43 XV78 (Carrigaline Education Campus, Ballinrea Road); Nominatim address agrees (Ballinrea Road, Carrigaline); checked 2026-11-15 pass 3 (Nominatim reverse: Ballinrea Road, Carrigaline, County Cork)",
+  "family": "gaa"
  },
  "Munster|carrick on suir|": {
   "name": "Carrick-on-Suir",
@@ -3622,7 +3700,14 @@
   "longitude": -8.972481,
   "how": "GAA pitch list, matched on club name (Clarecastle)"
  },
- "Munster|cloneen|": null,
+ "Munster|cloneen|": {
+  "name": "Cloneen",
+  "county": "Tipperary",
+  "latitude": 52.474503,
+  "longitude": -7.595447,
+  "how": "GAA Pitch Finder (CC BY 4.0): St. Patricks / Anner Park; corroboration: OpenStreetMap way/658700783: St. Patrick's GAA (14 m away) | OpenStreetMap way/1238458123: unnamed gaelic_games (15 m away) | Get Ireland Active record #193972 St Patrick's GAA Club (93 m away); checked 2026-11-15 pass 3 (Nominatim reverse: R692, , County Tipperary)",
+  "family": "gaa"
+ },
  "Munster|clongowes|": null,
  "Munster|clonlara|": {
   "name": "Clonlara",
@@ -3659,6 +3744,14 @@
   "latitude": 51.856385,
   "longitude": -8.285338,
   "how": "GAA pitch list, matched on club name (Cobh)"
+ },
+ "Munster|col an phiarsaigh|": {
+  "name": "Col an Phiarsaigh",
+  "county": "Cork",
+  "latitude": 51.918043,
+  "longitude": -8.398877,
+  "how": "OpenStreetMap way/76379715: Coláiste an Phiarsaigh; corroboration: gov.ie school register: Coláiste an Phiarsaigh, Gleann Maghair (Glanmire), Co. Cork, T45 HC86; colaisteanphiarsaigh.ie; checked 2026-11-15 pass 3 (Nominatim reverse: R639, Cork, County Cork)",
+  "family": "gaa"
  },
  "Munster|college lands|": null,
  "Munster|coolmeen|": {
@@ -3726,6 +3819,14 @@
   "how": "place search (leisure/stadium: Cusack Park)"
  },
  "Munster|derryknockane|": null,
+ "Munster|doneraile|": {
+  "name": "Doneraile",
+  "county": "Cork",
+  "latitude": 52.210774,
+  "longitude": -8.585977,
+  "how": "OpenStreetMap way/1478641252: Doneraile GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Doneraile / Doneraile (66 m away) | Get Ireland Active record #187269 Doneraile GAA Club (173 m away) | OpenStreetMap way/1478641254: unnamed gaelic_games (67 m away); checked 2026-11-15 pass 3 (Nominatim reverse: L1332, The Municipal District of Fermoy, County Cork)",
+  "family": "gaa"
+ },
  "Munster|doonbeg|": {
   "name": "Doonbeg",
   "county": "Clare",
@@ -3874,6 +3975,14 @@
   "how": "OpenStreetMap way/129467782: Garryowen FC; corroboration: limericksports.ie: Garryowen grounds at Dooradoyle Road, Dooradoyle; GIA #181849; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "rugby"
  },
+ "Munster|glen field|": {
+  "name": "Glen Field",
+  "county": "Cork",
+  "latitude": 51.916969,
+  "longitude": -8.462179,
+  "how": "GAA Pitch Finder (CC BY 4.0): St. Nicholas / Glen Field; corroboration: OpenStreetMap way/31340043: unnamed gaelic_games (10 m away) | OpenStreetMap relation/17713083: Glen Rovers (154 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Glenheights Road, Dublin Hill, County Cork)",
+  "family": "gaa"
+ },
  "Munster|glenstal|": {
   "name": "Glenstal",
   "county": "Limerick",
@@ -3967,6 +4076,14 @@
   "longitude": -8.68765,
   "how": "GAA pitch list, matched on club name (Kilbrittain)"
  },
+ "Munster|kildorrery|": {
+  "name": "Kildorrery",
+  "county": "Cork",
+  "latitude": 52.243959,
+  "longitude": -8.428047,
+  "how": "OpenStreetMap way/179859092: Kildorrery GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Kildorrery / Kildorrery (26 m away) | Get Ireland Active record #193364 Kildorrery GAA,LGFA & Camogie Club (131 m away) | OpenStreetMap way/1133334868: unnamed gaelic_games (25 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Hillcrest, The Municipal District of Fermoy, County Cork)",
+  "family": "gaa"
+ },
  "Munster|kildysart|": {
   "name": "Kildysart",
   "county": "Clare",
@@ -4048,6 +4165,14 @@
   "latitude": 52.629429,
   "longitude": -9.472197,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Kilrush Shamrocks: The Cricket Field)"
+ },
+ "Munster|kilshannig|": {
+  "name": "Kilshannig",
+  "county": "Cork",
+  "latitude": 52.105125,
+  "longitude": -8.747111,
+  "how": "OpenStreetMap way/1252111469: Kilshannig GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Kilshannig / Kilshannig (18 m away) | Get Ireland Active record #193434 Kilshannig GAA Club (176 m away) | OpenStreetMap way/279804221: unnamed gaelic_games (13 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Navigation Road, , County Cork)",
+  "family": "gaa"
  },
  "Munster|kilsheelan|": {
   "name": "Kilsheelan",
@@ -4143,6 +4268,14 @@
   "latitude": 52.699415,
   "longitude": -8.65135,
   "how": "GAA pitch list, matched on club name (Meelick)"
+ },
+ "Munster|micc dunmanway|": {
+  "name": "MICC Dunmanway",
+  "county": "Cork",
+  "latitude": 51.714854,
+  "longitude": -9.114322,
+  "how": "OpenStreetMap way/294776810: Maria Immaculata Community College; corroboration: micc.ie/contact-us/ and gov.ie school register: Maria Immaculata Community College, Bantry Road, Dunmanway, P47 AP82; checked 2026-11-15 pass 3 (Nominatim reverse: Ros Geal, , County Cork)",
+  "family": "gaa"
  },
  "Munster|midleton college|": {
   "name": "Midleton College",
@@ -4264,7 +4397,14 @@
   "longitude": -7.10107,
   "how": "checked by hand (OpenStreetMap: Newtown School, Waterford)"
  },
- "Munster|ovens|": null,
+ "Munster|ovens|": {
+  "name": "Ovens",
+  "county": "Cork",
+  "latitude": 51.87534,
+  "longitude": -8.671464,
+  "how": "OpenStreetMap way/553225814: Éire Óg GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Éire Óg / Éire Óg (126 m away) | Get Ireland Active record #188537 Eire Og LGFA Club (198 m away) | OpenStreetMap way/286265604: unnamed gaelic_games (127 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Boithrín A' Troim, , County Cork)",
+  "family": "gaa"
+ },
  "Munster|pairc mhic shithigh listowel emmets|": null,
  "Munster|pairc ui rinn|": {
   "name": "Páirc Uí Rinn",
@@ -4390,6 +4530,14 @@
   "latitude": 51.880086,
   "longitude": -8.470863,
   "how": "Get Ireland Active club list, matched on club name (Sundays Well RFC)"
+ },
+ "Munster|supervalu pairc ui chaoimh 4g|": {
+  "name": "SuperValu Pairc Ui Chaoimh 4G",
+  "county": "Cork",
+  "latitude": 51.899716,
+  "longitude": -8.435189,
+  "how": "OpenStreetMap relation/3357154: SuperValu Páirc Uí Chaoimh; corroboration: GAA Pitch Finder (CC BY 4.0): Cork GAA / Páirc Uí Chaoimh (14 m away) | OpenStreetMap way/103407450: unnamed gaelic_games (10 m away) | gaacork.ie/pps-fixtures/ and gaacork.ie/2026/11/12/cork-pps-senior-championships-2026-semi-final-and-final-fixtures/ (read 15 Nov 2026): fixtures at \"SuperValu Páirc Uí Chaoimh 4G\"; checked 2026-11-15 pass 3 (Nominatim reverse: Cork Harbour Greenway, The Marina, County Cork)",
+  "family": "gaa"
  },
  "Munster|takumi park|": {
   "name": "Takumi Park",
@@ -6173,6 +6321,13 @@
   "longitude": -9.062913,
   "how": "checked by hand (OpenStreetMap: Kingfisher, University of Galway Sports Centre)"
  },
+ "|laya arena|": {
+  "name": "Laya Arena",
+  "county": "Dublin",
+  "latitude": 53.32577,
+  "longitude": -6.22923,
+  "how": "OpenStreetMap way/1066758508: RDS Arena; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists (Laya Arena); owner confirmed on 15 Nov 2026 that Laya Arena is RDS Arena; checked 2026-11-15"
+ },
  "|leixlip amenities|": {
   "name": "Leixlip Amenities",
   "county": "Kildare",
@@ -6368,6 +6523,13 @@
   "latitude": 52.67344,
   "longitude": -8.56521,
   "how": "checked by hand (OpenStreetMap: University Arena, Castletroy)"
+ },
+ "|virgin media park|": {
+  "name": "Virgin Media Park",
+  "county": "Cork",
+  "latitude": 51.880734,
+  "longitude": -8.472406,
+  "how": "OpenStreetMap way/130996815: Musgrave Park; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists (Virgin Media Park); owner confirmed on 15 Nov 2026 that Virgin Media Park is Musgrave Park; checked 2026-11-15"
  },
  "|virginia show centre|": {
   "name": "Virginia Show Centre",

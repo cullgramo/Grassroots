@@ -3,7 +3,7 @@
 A running record of every county board and league: what we read, what we don't, and why. Update this whenever a
 source changes. The daily report (`collector/run.mjs`) shows live counts; this file keeps the reasons.
 
-Last updated: 14 November 2026.
+Last updated: 15 November 2026.
 
 ## County GAA boards
 
@@ -14,13 +14,13 @@ Last updated: 14 November 2026.
 | Carlow | Reading | own reader | |
 | Cavan | Reading | Club & County (`county-gaa.mjs`) | |
 | Clare | Reading | Club & County | |
-| Cork | Reading | own reader (`cork-gaa.mjs`, SportLoMo widget) | |
+| Cork | Reading | own reader (`cork-gaa.mjs`, SportLoMo widget): the county board page plus the nine divisional and Cork PPS pages (`?user=<id>`) | Checked 15 Nov 2026: the county page alone showed 0 games (its own competitions only); the divisional and PPS pages carry the club games (26 upcoming 15-30 Nov: 16 football, 10 hurling). Each competition is prefixed with its division. Camogie/ladies are women; adult hurling/football men; juvenile and schools unlabelled. |
 | Derry | Reading | Club & County, via `derry.clubandcounty.com` | Its extra pages answered 503 once on 14 Nov; if that repeats, the daily run shows red though data is saved. |
 | Donegal | Reading | Club & County | |
 | Down | Reading | Club & County | |
 | Dublin | Reading | SportLoMo page (`dublin-gaa.mjs`) | |
 | Fermanagh | Reading | Club & County | |
-| **Galway** | **No fixtures to read** | none | Owner sent the link on 14 Nov: the page has no fixtures (off-season, or not published). Check again in the new year; GAA club fixtures start about February. |
+| Galway | Reader published, currently 0 fixtures | own reader (`galway-gaa.mjs`, SportLoMo site): Football `?user=6929`, Hurling `?user=44` | Checked 15 Nov 2026: server-rendered, robots.txt only blocks /wp-admin/; 0 upcoming games published (season over). The page shows the next 30 days only. The script-loaded per-game "More +" panel (referee) is never fetched. Should return games once club fixtures are published (about February). |
 | Kerry | Reading | Club & County | |
 | Kildare | Reading | Club & County | |
 | Kilkenny | Reading | Club & County | |
@@ -44,6 +44,8 @@ Last updated: 14 November 2026.
 
 Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 
+**GAA audit note (15 Nov 2026, pass 3):** Cork was silently returning nothing (it read only the county board's own page) and Galway had no reader. Both now follow the shared rules: referee names are never read or stored, `admin-ajax.php` and the per-game "More +" panel are never used, BYE/TBC/placeholder rows and played results are dropped, and postponed games are kept with status postponed. Cork and Galway grounds were placed in pass 3 (`grounds.json`); the school-site, Bishopstown 4G, Cloneen and Bansha placements are medium confidence.
+
 ## Other sources
 
 | Source | Status | Notes |
@@ -54,7 +56,7 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Running Calendar Ireland (races) | Snapshot only | `running-calendar-snapshot.mjs`: 158 races, 15 Nov 2026 to Nov 2027, copied by the owner on 15 Nov and cleaned. Removed 30 (date TBC 13, not running 10, already in the app 6, nationwide 1) and left out 22 races to review plus 4 region-level or mismatched ones; every start place was checked against the map. The site answers 403 "Unusual Activity" to automated reading, so it is not live and not to be worked around. No times on the calendar (shown as Time TBC). Start places are town or venue level. Rights: permission from the site's operators still to be asked; a feed would replace the copy. |
 | Irish FA, League of Ireland | Not read | Terms forbid copying. Permission needed. |
 | Ticketmaster and Universe | Reading | |
-| Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
+| Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved; the URC source was reviewed and kept by the owner on 15 Nov 2026; Laya Arena = RDS Arena and Virgin Media Park = Musgrave Park, owner-confirmed), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
 | Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
 
 ## Protecting the data (audit M5)

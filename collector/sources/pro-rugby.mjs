@@ -7,7 +7,7 @@
 // OWNER DECISION (URC): unitedrugby.com/robots.txt does not Disallow /graphql (it disallows /posts/, /latest/, /category/,
 // /tag/ and some sitemaps), but it carries a comment, "Allow only these specific pages", listing marketing pages. Under the
 // robots.txt standard a comment is not a rule, and the match centre's own app reads this endpoint with plain GETs, so this
-// reader does too. The owner should still confirm with the URC that this use is acceptable before relying on it.
+// reader does too. The owner reviewed this source on 15 Nov 2026 and confirmed it is to be kept.
 //
 // Deliberately NOT used: the GetRefereesByMatchId query (no match-official names are read or kept anywhere), the URC /latest/
 // and /posts/ pages, feeds.incrowdsports.com, the Leinster WordPress API host (robots.txt Disallow: /) and Leinster's stats API.
