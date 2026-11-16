@@ -2,10 +2,12 @@
 // through FixtureMap.web.tsx; the server never imports this file while building pages.
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { MAPTILER_KEY } from '@/lib/config';
+import { hasSize, refreshMap } from '@/lib/mapRefresh';
 import { getTileSource } from '@/lib/mapTiles';
 import { getSport } from '@/constants/sports';
 import { fixtureTitle } from '@/types/fixture';
@@ -52,12 +54,14 @@ export function LeafletMap({
   recenterKey,
   fitKey,
   interactive = true,
+  attributionBottom = 0,
   style,
 }: FixtureMapProps) {
   const el = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const markers = useRef<L.LayerGroup | null>(null);
   const userLayer = useRef<L.LayerGroup | null>(null);
+  const report = useRef<() => void>(() => {});
   const startedOnUser = useRef(false);
   const hadRadius = useRef(false);
   const handlers = useRef({ onSelect, onVenuePress, onBoundsChange });
@@ -71,6 +75,7 @@ export function LeafletMap({
     if (!el.current) return;
     const m = L.map(el.current, {
       zoomControl: false,
+      attributionControl: false,
       dragging: interactive,
       scrollWheelZoom: interactive,
       doubleClickZoom: interactive,
@@ -83,23 +88,47 @@ export function LeafletMap({
     const tiles = getTileSource(MAPTILER_KEY);
     if (!MAPTILER_KEY && __DEV__) console.warn('EXPO_PUBLIC_MAPTILER_KEY is not set; the web map is using OpenStreetMap tiles.');
     L.tileLayer(tiles.url, tiles.options).addTo(m);
+    // Bottom left, so it clears the locate button on the right; the screen lifts it above the bottom sheet.
+    L.control.attribution({ position: 'bottomleft', prefix: false }).addTo(m);
     userLayer.current = L.layerGroup().addTo(m);
     markers.current = L.layerGroup().addTo(m);
     map.current = m;
-    const report = () => {
+    const read = () => {
+      // A hidden map has no size, so its bounds cover no ground; wait for it to come back rather than report that.
+      if (!hasSize(m.getContainer())) return;
       const bounds = toBounds(m);
       setView({ bounds, zoom: m.getZoom() });
       handlers.current.onBoundsChange?.(bounds);
     };
-    m.on('moveend', report);
+    report.current = read;
+    m.on('moveend', read);
     m.on('click', () => handlers.current.onSelect?.(null));
-    report();
+    read();
+    // The map's box changes when its screen is covered and uncovered, and when the window resizes.
+    const watcher = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => refreshMap(m, m.getContainer(), read)) : null;
+    watcher?.observe(el.current);
     return () => {
+      watcher?.disconnect();
+      report.current = () => {};
       m.remove();
       map.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Coming back to this screen from another one: re-measure and re-read the bounds so the count is right.
+  useFocusEffect(
+    useCallback(() => {
+      refreshMap(map.current, el.current, report.current);
+      const id = requestAnimationFrame(() => refreshMap(map.current, el.current, report.current));
+      return () => cancelAnimationFrame(id);
+    }, [])
+  );
+
+  useEffect(() => {
+    const corner = el.current?.querySelector<HTMLElement>('.leaflet-bottom.leaflet-left');
+    if (corner) corner.style.bottom = `${attributionBottom}px`;
+  }, [attributionBottom]);
 
   const index = useMemo(() => buildClusterIndex(fixtures), [fixtures]);
 
