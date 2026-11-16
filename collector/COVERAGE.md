@@ -57,11 +57,8 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Irish FA, League of Ireland | Not read | Terms forbid copying. Permission needed. |
 | Ticketmaster and Universe | Reading | |
 | Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved; the URC source was reviewed and kept by the owner on 15 Nov 2026; Laya Arena = RDS Arena and Virgin Media Park = Musgrave Park, owner-confirmed), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
-| Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
-| Camogie Association | Reading | own reader (`camogie.mjs`) | Checked 16 Nov 2026: `robots.txt` allows the site and sets no crawl-delay. The fixtures list is HTML. The referee named beside each venue is not read. The page's "Load more" was hidden; one further page is still requested. |
-| LGFA (ladies football) | Reading | own reader (`lgfa.mjs`) | Checked 16 Nov 2026: `robots.txt` does not disallow `/fixtures-results/upcoming-fixtures/` and sets no crawl-delay. The HTML list has the fixtures, so the PDF master plan is not used. A referee named on a row is stripped before the venue is read. |
-| GAA Handball | Reading | own reader (`gaa-handball.mjs`) | Checked 16 Nov 2026: `gaahandball.ie/robots.txt` allows `/`; `knowthescore.ie/robots.txt` is a 404 (no disallow, no crawl-delay). The association page embeds the public fixtures list, which loads `knowthescore.ie/api.php/match/listfixtures?matches=-1` (its Fixtures tab). Crests and the referee field are not read. Players are the sides. Filed under the app's `handball` sport id. Placeholder sides (TBC, Winner, Seed) are dropped. |
-| Shinty-hurling and shinty-camogie internationals | Reading | own reader (`shinty-internationals.mjs`) | Checked 16 Nov 2026: `gaa.ie/robots.txt` only disallows `/_libraries/` and `/_test/`. The article states Saturday 24 October 2026, 4pm (camogie) and 6pm (hurling), at SuperValu Páirc Uí Chaoimh. That day is already past, so a run after 24 Oct keeps nothing from it. Quotes naming officers are not read. |
+| Athletics Ireland, Leggit, FAI Connect | Not read | Permission or off-season; see the plan. |
+| Cricket Leinster, North West championship, GRI race meetings, Motorsport Ireland, ANICC 2026 calendar, Rowing Ireland 2026 calendar, Volleyball Ireland 2026-27 calendar, Netball Ireland, Belfast Giants home games, Ireland Water Polo, Irish Lawn Bowls | Reading | Added 16 Nov 2026. See the pull request for robots checks, skipped sites, and grounds the directory does not know yet. |
 
 ## Protecting the data (audit M5)
 

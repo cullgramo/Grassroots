@@ -30,22 +30,43 @@ import * as niflSnapshot from './sources/nifl-snapshot.mjs';
 import * as handballSnapshot from './sources/handball-snapshot.mjs';
 import * as runningCalendarSnapshot from './sources/running-calendar-snapshot.mjs';
 import * as longfordSnapshot from './sources/longford-snapshot.mjs';
-import * as camogie from './sources/camogie.mjs';
-import * as lgfa from './sources/lgfa.mjs';
-import * as gaaHandball from './sources/gaa-handball.mjs';
-import * as shintyInternationals from './sources/shinty-internationals.mjs';
+import * as cricketLeinster from './sources/cricket-leinster.mjs';
+import * as northwestCricket from './sources/northwest-cricket.mjs';
+import * as greyhounds from './sources/greyhounds.mjs';
+import * as motorsportIreland from './sources/motorsport-ireland.mjs';
+import * as motorsportNi from './sources/motorsport-ni.mjs';
+import * as rowingIreland from './sources/rowing-ireland.mjs';
+import * as volleyballIreland from './sources/volleyball-ireland.mjs';
+import * as netball from './sources/netball.mjs';
+import * as belfastGiants from './sources/belfast-giants.mjs';
+import * as waterPolo from './sources/water-polo.mjs';
+import * as irishBowls from './sources/irish-bowls.mjs';
 
 export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'pro-rugby': proRugby,'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'cork-gaa': corkGaa, 'galway-gaa': galwayGaa, 'waterford-gaa': waterfordGaa, 'armagh-gaa': armaghGaa, 'longford-snapshot': longfordSnapshot, 'nifl-snapshot': niflSnapshot, 'handball-snapshot': handballSnapshot, 'running-calendar-snapshot': runningCalendarSnapshot, camogie, lgfa, 'gaa-handball': gaaHandball, 'shinty-internationals': shintyInternationals,
   // Leitrim GAA (sources/leitrim-gaa.mjs) is switched off: its site answered 403 to the daily run on GitHub. A refusal stands; add 'leitrim-gaa': leitrimGaa back only if Leitrim agrees.
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
-  ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };
+  ...(process.env.FOIREANN_API_KEY ? { foireann } : {}),
+  'cricket-leinster': cricketLeinster,
+  'northwest-cricket': northwestCricket,
+  greyhounds,
+  'motorsport-ireland': motorsportIreland,
+  'motorsport-ni': motorsportNi,
+  'rowing-ireland': rowingIreland,
+  'volleyball-ireland': volleyballIreland,
+  netball,
+  'belfast-giants': belfastGiants,
+  'water-polo': waterPolo,
+  'irish-bowls': irishBowls,
+};
 
 export async function collect(source, now = new Date()) {
   const all = [];
   const problems = [];
   for (const page of source.pages) {
     try {
-      all.push(...source.read(page.text ?? await getPage(page.url, page.gapMs, page.headers), page, now));
+      const body = page.text ?? await getPage(page.url, page.gapMs, page.headers, { binary: page.binary === true });
+      // A reader may be async when it has to read a PDF or a page it discovered on this one.
+      all.push(...await source.read(body, page, now));
     } catch (e) {
       problems.push(`${page.url}: ${e.message}`);
     }

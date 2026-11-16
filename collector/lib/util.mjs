@@ -9,15 +9,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const lastVisit = new Map();
 
 
-/** Fetches one public page, never faster than `gapMs` per site, and always saying who we are. */
-export async function getPage(url, gapMs = 2000, headers = {}) {
+/**
+ * Fetches one public page, never faster than `gapMs` per site, and always saying who we are.
+ * `binary` keeps the bytes (a PDF). The usual path returns text.
+ */
+export async function getPage(url, gapMs = 2000, headers = {}, { binary = false } = {}) {
   const host = new URL(url).host;
   const wait = (lastVisit.get(host) ?? 0) + gapMs - Date.now();
   if (wait > 0) await sleep(wait);
   lastVisit.set(host, Date.now());
+  const asBody = (buf) => (binary ? buf : decodeLoose(buf));
   // Inside some sandboxes Node cannot reach the network directly but curl can; behaviour is the same.
   if (process.env.COLLECTOR_USE_CURL === '1') {
-    return decodeLoose(execFileSync('curl', ['-sS', '-m', '40', '-L', '--fail', '-A', USER_AGENT, ...Object.entries(headers).flatMap(([k, v]) => ['-H', `${k}: ${v}`]), url], { maxBuffer: 64 * 1024 * 1024 }));
+    return asBody(execFileSync('curl', ['-sS', '-m', '40', '-L', '--fail', '-A', USER_AGENT, ...Object.entries(headers).flatMap(([k, v]) => ['-H', `${k}: ${v}`]), url], { maxBuffer: 64 * 1024 * 1024 }));
   }
   // A dropped connection (no answer at all) is tried again after a pause, twice at most. A site that
   // answers with an error, such as 403 or 429, is never retried: that is a "no", and it stands.
@@ -26,7 +30,7 @@ export async function getPage(url, gapMs = 2000, headers = {}) {
     try {
       const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/json', ...headers } });
       if (!res.ok) throw Object.assign(new Error(`${host} answered ${res.status}`), { answered: true });
-      return decodeLoose(Buffer.from(await res.arrayBuffer()));
+      return asBody(Buffer.from(await res.arrayBuffer()));
     } catch (e) {
       if (e.answered) throw e;
       const why = [e.cause?.code, e.cause?.message ?? e.message].filter(Boolean).join(': ');
