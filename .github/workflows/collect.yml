@@ -54,3 +54,44 @@ jobs:
           path: collector-report/left-out.csv
           if-no-files-found: ignore
           retention-days: 14
+
+      - name: Keep today's per-source counts for the watchdog
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-stats
+          path: collector-report/run-stats.json
+          if-no-files-found: ignore
+          retention-days: 3
+
+  # Runs after every collection, even a failed one, and raises (or closes) a "data-watchdog" issue. See collector/watchdog.mjs.
+  watchdog:
+    needs: collect
+    # Not for dry runs (nothing was saved, and they are for trying things out) or a run someone cancelled.
+    if: ${{ always() && needs.collect.result != 'cancelled' && needs.collect.result != 'skipped' && inputs.dry != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    env:
+      SUPABASE_URL: https://dxkurwkmbnireaptcsbd.supabase.co
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - uses: actions/download-artifact@v4
+        continue-on-error: true # none when the run died before reporting; the watchdog then raises that
+        with:
+          name: run-stats
+          path: collector-report
+
+      - name: Check every source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          COLLECT_RESULT: ${{ needs.collect.result }}
+        run: node collector/watchdog.mjs
