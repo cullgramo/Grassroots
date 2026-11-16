@@ -7,7 +7,14 @@ export const OSM_ATTRIBUTION =
 
 export type TileSource = {
   url: string;
-  options: { maxZoom: number; attribution: string; tileSize?: number; zoomOffset?: number; crossOrigin?: boolean };
+  options: {
+    maxZoom: number;
+    minZoom?: number;
+    attribution: string;
+    tileSize?: number;
+    zoomOffset?: number;
+    crossOrigin?: boolean;
+  };
 };
 
 export function getTileSource(key: string | null | undefined): TileSource {
@@ -15,8 +22,9 @@ export function getTileSource(key: string | null | undefined): TileSource {
     return { url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', options: { maxZoom: 19, attribution: OSM_ATTRIBUTION } };
   }
   // 512px tiles shown at zoomOffset -1 are the same map at the same scale but with twice the pixels, so they stay sharp on retina screens.
+  // Tile zoom is the map zoom minus 1, and MapTiler has no zoom below 0, so the map itself must not go below 1.
   return {
     url: `https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${encodeURIComponent(key)}`,
-    options: { maxZoom: 22, tileSize: 512, zoomOffset: -1, crossOrigin: true, attribution: MAPTILER_ATTRIBUTION },
+    options: { maxZoom: 22, minZoom: 1, tileSize: 512, zoomOffset: -1, crossOrigin: true, attribution: MAPTILER_ATTRIBUTION },
   };
 }
