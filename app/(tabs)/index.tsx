@@ -118,6 +118,7 @@ export default function ExploreScreen() {
         recenterKey={recenterKey}
         // The app changing the place (All Ireland, a chosen county, a widened view) re-fits the map too.
         fitKey={fitKey + viewKey}
+        attributionBottom={PEEK + 2}
       />
 
       <View
@@ -145,7 +146,7 @@ export default function ExploreScreen() {
       ) : null}
 
       {snap === 'peek' ? (
-        <View style={[styles.floating, { bottom: PEEK + 12 }]} pointerEvents="box-none">
+        <View style={[styles.floating, { bottom: PEEK + 28 }]} pointerEvents="box-none">
           <Pressable
             onPress={locate}
             accessibilityRole="button"

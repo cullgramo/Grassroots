@@ -23,6 +23,8 @@ export interface FixtureMapProps {
   /** Changing this value zooms out to show every fixture. */
   fitKey?: number;
   interactive?: boolean;
+  /** Web only: lifts the map credit this many pixels so it clears a bottom sheet. */
+  attributionBottom?: number;
   style?: StyleProp<ViewStyle>;
 }
 
