@@ -30,8 +30,13 @@ import * as niflSnapshot from './sources/nifl-snapshot.mjs';
 import * as handballSnapshot from './sources/handball-snapshot.mjs';
 import * as runningCalendarSnapshot from './sources/running-calendar-snapshot.mjs';
 import * as longfordSnapshot from './sources/longford-snapshot.mjs';
+import { galwayFa, munsterSenior, donegalJunior, corkYouth, midUlster, wicklow } from './sources/wp-fixtures.mjs';
+import * as amateurFl from './sources/amateur-fl.mjs';
+import * as nafl from './sources/nafl.mjs';
+import * as limerickDistrict from './sources/limerick-district.mjs';
+import * as corkAul from './sources/cork-aul.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'pro-rugby': proRugby,'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'cork-gaa': corkGaa, 'galway-gaa': galwayGaa, 'waterford-gaa': waterfordGaa, 'armagh-gaa': armaghGaa, 'longford-snapshot': longfordSnapshot, 'nifl-snapshot': niflSnapshot, 'handball-snapshot': handballSnapshot, 'running-calendar-snapshot': runningCalendarSnapshot,
+export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'pro-rugby': proRugby,'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'cork-gaa': corkGaa, 'galway-gaa': galwayGaa, 'waterford-gaa': waterfordGaa, 'armagh-gaa': armaghGaa, 'longford-snapshot': longfordSnapshot, 'nifl-snapshot': niflSnapshot, 'handball-snapshot': handballSnapshot, 'running-calendar-snapshot': runningCalendarSnapshot, 'galway-fa': galwayFa, 'munster-senior': munsterSenior, 'donegal-junior': donegalJunior, 'cork-youth': corkYouth, 'mid-ulster': midUlster, 'amateur-fl': amateurFl, nafl, wicklow, 'limerick-district': limerickDistrict, 'cork-aul': corkAul,
   // Leitrim GAA (sources/leitrim-gaa.mjs) is switched off: its site answered 403 to the daily run on GitHub. A refusal stands; add 'leitrim-gaa': leitrimGaa back only if Leitrim agrees.
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
   ...(process.env.FOIREANN_API_KEY ? { foireann } : {}) };

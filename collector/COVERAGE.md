@@ -3,7 +3,7 @@
 A running record of every county board and league: what we read, what we don't, and why. Update this whenever a
 source changes. The daily report (`collector/run.mjs`) shows live counts; this file keeps the reasons.
 
-Last updated: 15 November 2026.
+Last updated: 16 November 2026.
 
 ## County GAA boards
 
@@ -57,6 +57,12 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Irish FA, League of Ireland | Not read | Terms forbid copying. Permission needed. |
 | Ticketmaster and Universe | Reading | |
 | Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved; the URC source was reviewed and kept by the owner on 15 Nov 2026; Laya Arena = RDS Arena and Virgin Media Park = Musgrave Park, owner-confirmed), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
+| Galway FA, Munster Senior League, Donegal Junior League, Cork Youth Leagues, Mid-Ulster Football League, Wicklow & District FL | Reading | One reader (`wp-fixtures.mjs`), configured per league. Approved 16 Nov 2026. Officials' names and crests are not read. Wicklow's list is the seven public pages of `/fixtures/`. Grounds are mostly not in `grounds.json` yet. |
+| Cork Athletic Union League | Reading | `cork-aul.mjs`. The latest "Fixtures" post on the public blog feed. Each line names an official after the ground; that name is not stored. |
+| Limerick & District League | Reading | `limerick-district.mjs`. Upcoming rows on the public scores-results page. Played games and scorers are not read. |
+| Amateur Football League (Republic) | Reading | `amateur-fl.mjs`. SportsPress list. Distinct from the Northern Amateur Football League. The published rows name no ground (`N/A`). |
+| Northern Amateur Football League | Reading | `nafl.mjs`. The fixtures page is filled from `/data/fixtures.json` (the given `/grounds/fixtures.html` URL returns the homepage). Every scheduled row has a blank venue. `robots.txt` allows `/`; Cloudflare content-signal sets `ai-train=no` and `use=reference`. |
+| SFAI, Limerick District Schoolchildren League, Kildare & District Football League, Connacht Senior Alliance, Clubforce leagues (LWSSL, Leinster Senior League, Carlow, Kilkenny, Wexford, United Churches), Cork Business League | Not read | Checked 16 Nov 2026. Reasons are in the pull request. Clubforce fixture rows are not in the public HTML; `apicm.clubforce.com` robots.txt disallows every path, and the Comortais feed is not used. Cork Business League answered with a Cloudflare challenge. `carlowsoccer.ie` was not requested (`Disallow: /`). |
 | Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
 
 ## Protecting the data (audit M5)
