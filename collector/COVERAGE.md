@@ -3,7 +3,7 @@
 A running record of every county board and league: what we read, what we don't, and why. Update this whenever a
 source changes. The daily report (`collector/run.mjs`) shows live counts; this file keeps the reasons.
 
-Last updated: 15 November 2026.
+Last updated: 16 November 2026.
 
 ## County GAA boards
 
@@ -26,7 +26,7 @@ Last updated: 15 November 2026.
 | Kilkenny | Reading | Club & County | |
 | Laois | Reading | Club & County | |
 | Leitrim | **Switched off** | `leitrim-gaa.mjs` (kept) | The site answered 403 to GitHub's servers on 13 Nov. A refusal stands: not retried or worked around. Re-enable in `look.mjs` only if the board agrees. |
-| **Limerick** | **Needs thought** | none yet | Owner sent the link on 14 Nov; it does not fit the existing readers. Look at how its site publishes fixtures, check its rules, then decide between a reader, a snapshot or asking the board. |
+| **Limerick** | **Skipped** | none | Checked 16 Nov 2026. `robots.txt` is Cloudflare-managed: `User-agent: *` is allowed on `/`, with no crawl-delay. The fixtures pages (`/fixtures/`, `/football-fixtures/`, `/hurling-fixtures/`) answer 403 with a Cloudflare challenge ("Just a moment..."). A challenge stands: not worked around. |
 | Longford | Snapshot only | `longford-snapshot.mjs` | One-off copy from 13 Nov (the page is fed by the Foireann API). Not live. |
 | **Louth** | **Site down** | none yet | Owner reported on 14 Nov that the board's website is down. Try again later; nothing to read meanwhile. |
 | Mayo | Reading | own reader | |
@@ -58,6 +58,10 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Ticketmaster and Universe | Reading | |
 | Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved; the URC source was reviewed and kept by the owner on 15 Nov 2026; Laya Arena = RDS Arena and Virgin Media Park = Musgrave Park, owner-confirmed), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
 | Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
+| Camogie Association | Reading | own reader (`camogie.mjs`) | Checked 16 Nov 2026: `robots.txt` allows the site and sets no crawl-delay. The fixtures list is HTML. The referee named beside each venue is not read. The page's "Load more" was hidden; one further page is still requested. |
+| LGFA (ladies football) | Reading | own reader (`lgfa.mjs`) | Checked 16 Nov 2026: `robots.txt` does not disallow `/fixtures-results/upcoming-fixtures/` and sets no crawl-delay. The HTML list has the fixtures, so the PDF master plan is not used. A referee named on a row is stripped before the venue is read. |
+| GAA Handball | Reading | own reader (`gaa-handball.mjs`) | Checked 16 Nov 2026: `gaahandball.ie/robots.txt` allows `/`; `knowthescore.ie/robots.txt` is a 404 (no disallow, no crawl-delay). The association page embeds the public fixtures list, which loads `knowthescore.ie/api.php/match/listfixtures?matches=-1` (its Fixtures tab). Crests and the referee field are not read. Players are the sides. Filed under the app's `handball` sport id. Placeholder sides (TBC, Winner, Seed) are dropped. |
+| Shinty-hurling and shinty-camogie internationals | Reading | own reader (`shinty-internationals.mjs`) | Checked 16 Nov 2026: `gaa.ie/robots.txt` only disallows `/_libraries/` and `/_test/`. The article states Saturday 24 October 2026, 4pm (camogie) and 6pm (hurling), at SuperValu Páirc Uí Chaoimh. That day is already past, so a run after 24 Oct keeps nothing from it. Quotes naming officers are not read. |
 
 ## Protecting the data (audit M5)
 
