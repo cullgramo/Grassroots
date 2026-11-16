@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { SymbolView } from 'expo-symbols';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
@@ -20,9 +21,16 @@ export function SaveButton({ fixture, size = 24 }: { fixture: Fixture; size?: nu
       accessibilityState={{ selected: saved }}
       accessibilityLabel={`${saved ? 'Remove' : 'Save'} ${fixtureTitle(fixture)}`}
       style={styles.heart}>
-      <Text style={{ fontSize: size, lineHeight: size + 4, color: saved ? '#e11d48' : t.muted }}>
-        {saved ? '♥' : '♡'}
-      </Text>
+      {saved && Platform.OS !== 'ios' ? (
+        // The Material Symbols font used on Android and web only has an outline heart, so use the emoji.
+        <Text style={{ fontSize: size - 4, lineHeight: size, width: size, textAlign: 'center' }}>{'❤️'}</Text>
+      ) : (
+        <SymbolView
+          name={saved ? { ios: 'heart.fill' } : { ios: 'heart', android: 'favorite', web: 'favorite' }}
+          tintColor={saved ? '#e11d48' : t.muted}
+          size={size}
+        />
+      )}
     </Pressable>
   );
 }
