@@ -77,7 +77,8 @@ export const SOURCES = {
   'cork-gaa': corkGaa,
   'galway-gaa': galwayGaa,
   'waterford-gaa': waterfordGaa,
-  'armagh-gaa': armaghGaa,
+  // Armagh GAA (sources/armagh-gaa.mjs) is switched off: armaghgaa.net answered 403 to the daily run on GitHub (16 Nov 2026).
+  // A refusal stands; add 'armagh-gaa': armaghGaa back only if Armagh agrees.
   'longford-snapshot': longfordSnapshot,
   'nifl-snapshot': niflSnapshot,
   'handball-snapshot': handballSnapshot,

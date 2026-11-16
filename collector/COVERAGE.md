@@ -10,7 +10,7 @@ Last updated: 16 November 2026.
 | County | Status | How | Notes |
 |---|---|---|---|
 | Antrim | Reading | own reader (`antrim-gaa.mjs`) | |
-| Armagh | Skipped | none | Its feed is about 17 MB for 18 fixtures. Skipped on the owner's call; revisit. |
+| Armagh | **Switched off** | `armagh-gaa.mjs` (kept) | armaghgaa.net answered 403 to the daily run on GitHub on 16 Nov 2026. A refusal stands: not retried or worked around. Re-enable in `look.mjs` only if Armagh agrees. |
 | Carlow | Reading | own reader | |
 | Cavan | Reading | Club & County (`county-gaa.mjs`) | |
 | Clare | Reading | Club & County | |
