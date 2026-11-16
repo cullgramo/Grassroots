@@ -51,7 +51,41 @@ import * as belfastGiants from './sources/belfast-giants.mjs';
 import * as waterPolo from './sources/water-polo.mjs';
 import * as irishBowls from './sources/irish-bowls.mjs';
 
-export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hockey': ulsterHockey, 'leinster-gaa': leinsterGaa, 'irish-hockey': irishHockey, 'ulster-gaa': ulsterGaa, 'munster-gaa': munsterGaa, 'connacht-gaa': connachtGaa, 'club-rugby': clubRugby, 'pro-rugby': proRugby,'horse-racing': horseRacing, 'county-gaa': countyGaa, myrunresults, 'antrim-gaa': antrimGaa, 'roscommon-gaa': roscommonGaa, 'sligo-gaa': sligoGaa, 'mayo-gaa': mayoGaa, 'carlow-gaa': carlowGaa, 'cork-gaa': corkGaa, 'galway-gaa': galwayGaa, 'waterford-gaa': waterfordGaa, 'armagh-gaa': armaghGaa, 'longford-snapshot': longfordSnapshot, 'nifl-snapshot': niflSnapshot, 'handball-snapshot': handballSnapshot, 'running-calendar-snapshot': runningCalendarSnapshot, camogie, lgfa, 'gaa-handball': gaaHandball, 'shinty-internationals': shintyInternationals,
+// One source per line. Add a new source on its OWN line (and its import above), so two branches adding different sources
+// merge cleanly: a single long line made them conflict every time, and a resolution once dropped four imports.
+// test/registry.test.mjs fails if anything here is undefined, malformed, duplicated or not imported.
+export const SOURCES = {
+  ddsl,
+  basketball,
+  'dublin-gaa': dublinGaa,
+  'ulster-hockey': ulsterHockey,
+  'leinster-gaa': leinsterGaa,
+  'irish-hockey': irishHockey,
+  'ulster-gaa': ulsterGaa,
+  'munster-gaa': munsterGaa,
+  'connacht-gaa': connachtGaa,
+  'club-rugby': clubRugby,
+  'pro-rugby': proRugby,
+  'horse-racing': horseRacing,
+  'county-gaa': countyGaa,
+  myrunresults,
+  'antrim-gaa': antrimGaa,
+  'roscommon-gaa': roscommonGaa,
+  'sligo-gaa': sligoGaa,
+  'mayo-gaa': mayoGaa,
+  'carlow-gaa': carlowGaa,
+  'cork-gaa': corkGaa,
+  'galway-gaa': galwayGaa,
+  'waterford-gaa': waterfordGaa,
+  'armagh-gaa': armaghGaa,
+  'longford-snapshot': longfordSnapshot,
+  'nifl-snapshot': niflSnapshot,
+  'handball-snapshot': handballSnapshot,
+  'running-calendar-snapshot': runningCalendarSnapshot,
+  camogie,
+  lgfa,
+  'gaa-handball': gaaHandball,
+  'shinty-internationals': shintyInternationals,
   // Leitrim GAA (sources/leitrim-gaa.mjs) is switched off: its site answered 403 to the daily run on GitHub. A refusal stands; add 'leitrim-gaa': leitrimGaa back only if Leitrim agrees.
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
   ...(process.env.FOIREANN_API_KEY ? { foireann } : {}),
