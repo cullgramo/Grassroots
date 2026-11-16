@@ -588,7 +588,14 @@
   "longitude": -6.128555,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"St Ita's AFC\"; the club list has St. Ita's Athletic Football Club is 63 m away (proposer's source: OpenStreetMap way/1339593028: St Ita's AFC)"
  },
- "Dublin|ballywaltrim bray|": null,
+ "Dublin|ballywaltrim bray|": {
+  "name": "Ballywaltrim",
+  "county": "Wicklow",
+  "latitude": 53.183631,
+  "longitude": -6.125977,
+  "how": "OpenStreetMap way/106408490: grass soccer pitch at Ballywaltrim, Bray, in the pitch cluster beside Ballywaltrim Park (way/666286201). Ardmore Rovers' address, Dysart Park, Ardmore, is about 80 m away; checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|bancroft park|": {
   "name": "Bancroft Park",
   "county": "Dublin",
@@ -603,6 +610,14 @@
   "latitude": 53.36844,
   "longitude": -6.22077,
   "how": "coordinates from Gemini research, checked against the map: Mount Temple Comprehensive School, Clontarf; Clontarf Hockey Club listed 70 m away"
+ },
+ "Dublin|blackhills|": {
+  "name": "Blackhills",
+  "county": "Meath",
+  "latitude": 53.711661,
+  "longitude": -6.279325,
+  "how": "OpenStreetMap way/1124066787: grass soccer pitch beside Blackhills Crescent, Bettystown. Donacarney Celtic's other ground is Castlemartin, nearby; checked 2026-11-16",
+  "family": "soccer"
  },
  "Dublin|blackrock rugby club|": null,
  "Dublin|bluebell comm centre|": null,
@@ -661,7 +676,14 @@
   "family": "soccer"
  },
  "Dublin|carrick hill|": null,
- "Dublin|castlemartin|": null,
+ "Dublin|castlemartin|": {
+  "name": "Castlemartin",
+  "county": "Meath",
+  "latitude": 53.707141,
+  "longitude": -6.26267,
+  "how": "OpenStreetMap way/1369593352: full-size pitch (about 106 by 68 m) at Castlemartin, Bettystown, paired with way/1369593353. Sport is not tagged. Donacarney Celtic's address is Castlemartin, Bettystown, on these pitches; checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|celtic park|": {
   "name": "Celtic Park",
   "county": "Dublin",
@@ -676,6 +698,13 @@
   "latitude": 53.341575,
   "longitude": -6.373022,
   "how": "Get Ireland Active club list, matched on club name (Cherry Orchard Football Club)"
+ },
+ "Dublin|clondalkin s l centre|": {
+  "name": "Clondalkin Leisure Centre",
+  "county": "Dublin",
+  "latitude": 53.321829,
+  "longitude": -6.398938,
+  "how": "OpenStreetMap node/4420684270: Clondalkin Leisure Centre (the building is way/1175118212, Old Nangor Road). DDSL writes S&L Centre; checked 2026-11-16"
  },
  "Dublin|clontarf|": {
   "name": "Clontarf",
@@ -705,6 +734,14 @@
   "latitude": 53.4244,
   "longitude": -6.2478,
   "how": "coordinates supplied by the owner: Na Fianna northern pitches near Dublin Airport"
+ },
+ "Dublin|collinstown park|": {
+  "name": "Collinstown Park",
+  "county": "Dublin",
+  "latitude": 53.340987,
+  "longitude": -6.397851,
+  "how": "OpenStreetMap way/1110333614: soccer pitch beside Collinstown Park Community College (way/111218825, Collinstown Road). Collinstown FC; checked 2026-11-16",
+  "family": "soccer"
  },
  "Dublin|coolmine park|": {
   "name": "Coolmine Park",
@@ -798,6 +835,13 @@
   "longitude": -6.1834,
   "how": "coordinates supplied by the owner: Millwood Park / Edenmore Park (St Monicas)"
  },
+ "Dublin|fairview park|": {
+  "name": "Fairview Park",
+  "county": "Dublin",
+  "latitude": 53.361604,
+  "longitude": -6.233224,
+  "how": "OpenStreetMap way/14508760: Fairview Park; soccer pitches inside the park include way/944142862. East Wall Bessborough's address is Alfie Byrne Road, along this park; checked 2026-11-16"
+ },
  "Dublin|firhouse cc|": null,
  "Dublin|fr collins park|": {
   "name": "FR Collins Park",
@@ -820,7 +864,14 @@
   "longitude": -6.302801,
   "how": "place search (leisure/sports_centre: Frank Kelly Park)"
  },
- "Dublin|gerry keaneally park|": null,
+ "Dublin|gerry keaneally park|": {
+  "name": "Gerry Kenneally Park",
+  "county": "Kildare",
+  "latitude": 53.33421,
+  "longitude": -6.558865,
+  "how": "DDSL spells Kenneally as Keaneally. OpenStreetMap way/644675013: full-size grass soccer pitch in Ballymakealy Lower (relation/4589728), with ways/644675014, 644675015 and 396328242. Nominatim places eircode W23 HFX0, published for Gerry Kenneally Park, Ballymakealy, on this cluster. This is not St Patrick's Park, Celbridge Town's other ground; checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|glencullen adventure park|": {
   "name": "glencullen adventure park",
   "county": "Dublin",
@@ -836,6 +887,13 @@
   "latitude": 53.3458,
   "longitude": -6.3219,
   "how": "coordinates supplied by the owner: St Brendans, pitch at Longmeadows, Islandbridge"
+ },
+ "Dublin|greenhills park|": {
+  "name": "Greenhills Park",
+  "county": "Dublin",
+  "latitude": 53.309003,
+  "longitude": -6.335334,
+  "how": "OpenStreetMap way/1135983548: grass soccer pitch in Greenhills Park (relation/7220404). Greenhills Boys' address is St Joseph's Road, Greenhills, beside the park; checked 2026-11-16"
  },
  "Dublin|greenogue|": {
   "name": "Greenogue",
@@ -910,7 +968,22 @@
   "how": "place search (leisure/sports_centre: Jackson Park)"
  },
  "Dublin|jamestown road|": null,
- "Dublin|joe maughan park|": null,
+ "Dublin|joe maughan park|": {
+  "name": "Joe Maughan Park",
+  "county": "Dublin",
+  "latitude": 53.269993,
+  "longitude": -6.388672,
+  "how": "OpenStreetMap way/254257291: full-size soccer pitch at Killinarden (also ways/254257293 and 254257303). Sacred Heart FC's address is Joe Maughan Park, Killinarden Heights, Tallaght, on this pitch; the park name is not tagged on the map; checked 2026-11-16",
+  "family": "soccer"
+ },
+ "Dublin|john hyland park|": {
+  "name": "John Hyland Park",
+  "county": "Dublin",
+  "latitude": 53.302916,
+  "longitude": -6.430485,
+  "how": "OpenStreetMap way/275476465: floodlit artificial soccer pitch in the Baldonnell pitch cluster, with full-size grass pitch way/275476470. St Francis FC's address is John Hyland Park, Baldonnell, on this cluster; the park name is not tagged on the map; checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|john paul park|": {
   "family": "soccer",
   "name": "John Paul Park",
@@ -949,7 +1022,14 @@
   "longitude": -6.139592,
   "how": "place search (leisure/park: Kilbogget Park)"
  },
- "Dublin|kildonan road|": null,
+ "Dublin|kildonan road|": {
+  "name": "Kildonan Road",
+  "county": "Dublin",
+  "latitude": 53.392976,
+  "longitude": -6.314702,
+  "how": "OpenStreetMap way/74190006: full-size soccer pitch on Kildonan Road (way/3793264), one of four along the road (also ways/74190024, 74190100 and 74190014). Finglas United FC; checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|kilmore drive|": {
   "name": "Kilmore Drive",
   "county": "Dublin",
@@ -967,12 +1047,42 @@
  },
  "Dublin|le fanu road|": null,
  "Dublin|lein road mcauley park ptch|": null,
+ "Dublin|leixlip amm centre|": {
+  "name": "Leixlip Amenity Centre",
+  "county": "Kildare",
+  "latitude": 53.371093,
+  "longitude": -6.518033,
+  "how": "DDSL shortens Amenity to Amm. OpenStreetMap way/133615188: full-size soccer pitch at Leixlip Amenity Centre (building way/45885645, also named on pitch way/50473233). Leixlip United's address is the Leixlip Amenities Centre, Collinstown, and that address point sits on this pitch; checked 2026-11-16",
+  "family": "soccer"
+ },
+ "Dublin|loreto park pitch 1|": {
+  "name": "Loreto Park Pitch 1",
+  "county": "Dublin",
+  "latitude": 53.28991,
+  "longitude": -6.270384,
+  "how": "OpenStreetMap way/22980750: Loreto Park, Rathfarnham. Leicester Celtic's address is Loreto Park, Dublin 14. Soccer pitches inside the park (ways/673928621, 673928625, 824301650 and 887610167) are not numbered, so Pitch 1 and Pitch 4 both use the park; checked 2026-11-16"
+ },
+ "Dublin|loreto park pitch 4|": {
+  "name": "Loreto Park Pitch 4",
+  "county": "Dublin",
+  "latitude": 53.28991,
+  "longitude": -6.270384,
+  "how": "OpenStreetMap way/22980750: Loreto Park, Rathfarnham. Leicester Celtic's address is Loreto Park, Dublin 14. Soccer pitches inside the park (ways/673928621, 673928625, 824301650 and 887610167) are not numbered, so Pitch 1 and Pitch 4 both use the park; checked 2026-11-16"
+ },
  "Dublin|loreto park|": {
   "name": "Loreto Park",
   "county": "Dublin",
   "latitude": 53.289892,
   "longitude": -6.270209,
   "how": "place search (leisure/park: Loreto Park)"
+ },
+ "Dublin|loughlinstown road|": {
+  "name": "Loughlinstown Road",
+  "county": "Kildare",
+  "latitude": 53.337147,
+  "longitude": -6.510432,
+  "how": "OpenStreetMap way/616158715: Pitch A, grass soccer, on the Ballyoulster pitch complex (also Pitch B way/616158714, C1 way/616158713, C2 way/1509787547 and D way/616158712). Ballyoulster United's address is Loughlinstown Road, Celbridge; checked 2026-11-16",
+  "family": "soccer"
  },
  "Dublin|lourdes celtic|": {
   "name": "Lourdes Celtic",
@@ -988,6 +1098,13 @@
   "longitude": -6.470112,
   "how": "OpenStreetMap way/296335849: Lucan United; corroboration: GIA #186635/#185719 Lucan United; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "soccer"
+ },
+ "Dublin|malahide castle|": {
+  "name": "Malahide Castle",
+  "county": "Dublin",
+  "latitude": 53.442906,
+  "longitude": -6.162344,
+  "how": "OpenStreetMap way/326383257: grass soccer pitch inside Malahide Castle (way/20876550). Further pitches in the same grounds are ways/326383256, 326383258 and 326383259. Portmarnock AFC; checked 2026-11-16"
  },
  "Dublin|malahide united|": {
   "name": "Malahide United",
@@ -1026,6 +1143,14 @@
   "latitude": 53.28174,
   "longitude": -6.256606,
   "how": "OpenStreetMap relation/4234449: Meadowbrook dlr Leisure Services; corroboration: dundrumfc.ie: home ground Meadowbrook Park, Acorn Road, Dundrum; DLR Meadowbrook pitches page; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
+  "family": "soccer"
+ },
+ "Dublin|mill lane|": {
+  "name": "Mill Lane",
+  "county": "Dublin",
+  "latitude": 53.57561,
+  "longitude": -6.109287,
+  "how": "OpenStreetMap way/1230321405: pitch between Mill Lane (way/1365940003) and Skerries Town's Park Lane address, which sits about 60 m away. Sport is not tagged; it is the only pitch within 150 m of Mill Lane. Skerries Town FC; checked 2026-11-16",
   "family": "soccer"
  },
  "Dublin|mount merrion|": {
@@ -1116,6 +1241,14 @@
   "latitude": 53.369052,
   "longitude": -6.4026,
   "how": "place search (leisure/park: Porterstown Park)"
+ },
+ "Dublin|porterstown road|": {
+  "name": "Porterstown Road",
+  "county": "Dublin",
+  "latitude": 53.378623,
+  "longitude": -6.404668,
+  "how": "OpenStreetMap way/256251603: full-size grass soccer pitch on Porterstown Road. St Mochtas FC's address, Porterstown Road, D15 TR90, sits on this pitch (also way/781846934). Not Porterstown Park (way/38727008), which is further south; checked 2026-11-16",
+  "family": "soccer"
  },
  "Dublin|portrane athletic fc|": {
   "name": "Portrane Athletic FC",
@@ -1212,6 +1345,14 @@
   "longitude": -6.108,
   "how": "coordinates supplied by the owner: St Maurs main grounds on Park Road"
  },
+ "Dublin|shamrock rovers|": {
+  "name": "Shamrock Rovers Football Club",
+  "county": "Dublin",
+  "latitude": 53.283534,
+  "longitude": -6.373675,
+  "how": "OpenStreetMap way/38634836: Shamrock Rovers Football Club, a full-size grass pitch beside Tallaght Stadium (way/38626330); checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|shanganagh park|": {
   "name": "Shanganagh Park",
   "county": "Dublin",
@@ -1262,7 +1403,13 @@
   "longitude": -6.177102,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"St Anne's Park Pitch and Putt\" (proposer's source: OpenStreetMap way/129321742: St Anne's Park)"
  },
- "Dublin|st catherines park co kildare|": null,
+ "Dublin|st catherines park co kildare|": {
+  "name": "Saint Catherine's Park",
+  "county": "Dublin",
+  "latitude": 53.370715,
+  "longitude": -6.468893,
+  "how": "OpenStreetMap way/1047615070: grass soccer pitch inside Saint Catherine's Park (way/37136359). Liffeybank FC's address is St Catherine's Park, Leixlip/Lucan, on this pitch. The pitch is on the Dublin side of the park; DDSL writes Co Kildare; checked 2026-11-16"
+ },
  "Dublin|st kevins boys|": {
   "name": "St Kevins Boys",
   "county": "Dublin",
@@ -1299,13 +1446,35 @@
   "longitude": -6.328611,
   "how": "place search (leisure/sports_centre: Templeogue United)"
  },
- "Dublin|tolka vally road|": null,
+ "Dublin|the bog meadow|": {
+  "name": "The Bog Meadow",
+  "county": "Wicklow",
+  "latitude": 53.194651,
+  "longitude": -6.172811,
+  "how": "OpenStreetMap way/1313025084: Enniskerry FC, a grass soccer pitch. Bog Meadow parking (way/51245838) and The Bog Meadow nature reserve (way/34693828) are the neighbouring names; checked 2026-11-16",
+  "family": "soccer"
+ },
+ "Dublin|tolka vally road|": {
+  "name": "Tolka Valley Road",
+  "county": "Dublin",
+  "latitude": 53.377811,
+  "longitude": -6.297336,
+  "how": "DDSL spells Valley as Vally. OpenStreetMap way/720078906: grass soccer pitch inside Tolka Valley Park (way/23078248) and within 80 m of Tolka Valley Road (way/3701391). A second pitch is way/720078907. Rivermount Boys FC; checked 2026-11-16"
+ },
  "Dublin|town park balbriggan|": {
   "name": "Town Park Balbriggan",
   "county": "Dublin",
   "latitude": 53.604167,
   "longitude": -6.182125,
   "how": "place search (leisure/park: Balbriggan Town Park)"
+ },
+ "Dublin|transport club|": {
+  "name": "Transport Social and Sports Club",
+  "county": "Dublin",
+  "latitude": 53.327804,
+  "longitude": -6.289218,
+  "how": "OpenStreetMap way/200298566: Transport Social and Sports Club, with soccer pitch way/228356449 on the ground. Transport Iveagh Trust FC; checked 2026-11-16",
+  "family": "soccer"
  },
  "Dublin|tyrellstown park|": {
   "name": "Tyrellstown Park",
@@ -1323,7 +1492,14 @@
   "longitude": -6.291036,
   "how": "place search (leisure/sports_centre: Whelan Park (Larkview Football Club))"
  },
- "Dublin|woodlands 11 a side all weather|": null,
+ "Dublin|woodlands 11 a side all weather|": {
+  "name": "Woodlands",
+  "county": "Wicklow",
+  "latitude": 53.138629,
+  "longitude": -6.057556,
+  "how": "OpenStreetMap way/176979175: Greystones United Football Club, the full-size pitch at Woodlands, Greystones (sports-centre outline way/299875389). The club's address is Woodlands, Greystones, on this pitch. The map does not tag the surface; DDSL calls this ground the 11-a-side all-weather, as against the separate 5-a-side grass listing; checked 2026-11-16",
+  "family": "soccer"
+ },
  "Dublin|woodlands 5 a side grass|": null,
  "Galway|ballinderreen community centre|": {
   "name": "ballinderreen community centre",
