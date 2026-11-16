@@ -4,6 +4,7 @@ import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { runImport } from '../supabase/functions/import-ticketmaster/index.ts';
 import { SOURCES } from './look.mjs';
 import { gather, unplacedGrounds } from './lib/build.mjs';
+import { redact } from './lib/watchdog.mjs';
 import { countUpcoming, makeDb, removeReplaced, removeUnseen, safeToRemove, saveFixtures } from './lib/save.mjs';
 
 const dry = process.env.DRY === '1' || process.env.DRY === 'true';
@@ -22,12 +23,17 @@ let failed = false;
 // and every other source still saves. The run only fails when saving or the database goes wrong.
 const warnings = [];
 const note = (...l) => lines.push(...l);
+// What each source found and placed today, kept for the data watchdog (collector/watchdog.mjs). Counts and error text
+// only (keys blanked); nothing about any fixture or person.
+const stats = { runKey: `${process.env.GITHUB_RUN_ID ?? 'local'}-${process.env.GITHUB_RUN_ATTEMPT ?? 1}`, ranAt: runStarted.toISOString(), failed: false, sources: {}, pages: { found: 0, placed: 0 }, saved: 0 };
 
 // 1. Ticketmaster and Universe (top-level fixtures and club listings with tickets).
 if (ticketmasterKey && SUPABASE_URL && serviceKey) {
   try {
     const r = await runImport(ticketmasterKey, dry);
     const sports = Object.entries(r.bySport).map(([k, n]) => `${k} ${n}`).join(', ');
+    stats.sources.ticketmaster = { name: 'Ticketmaster and Universe', found: r.importable, placed: r.importable, saved: r.saved, problems: r.errors.map((e) => redact(e)) };
+    stats.saved += r.saved ?? 0;
     note('## Ticketmaster and Universe', '', `- Found: ${r.importable}`, `- Saved: ${r.saved}`, `- Removed as no longer listed: ${r.removedAsNoLongerListed}`, `- By sport: ${sports || 'none'}`);
     if (r.errors.length) {
       failed = true;
@@ -36,6 +42,7 @@ if (ticketmasterKey && SUPABASE_URL && serviceKey) {
     note('');
   } catch (e) {
     failed = true;
+    stats.sources.ticketmaster = { name: 'Ticketmaster and Universe', found: 0, placed: 0, saved: null, problems: [redact(e.message)] };
     note('## Ticketmaster and Universe', '', `- Failed: ${e.message}`, '');
   }
 } else {
@@ -50,6 +57,10 @@ try {
 
   for (const [key, source] of Object.entries(SOURCES)) {
     const mine = fixtures.filter((f) => f.source === key);
+    const entry = { name: source.name, found: found[key], placed: mine.length, saved: null, problems: (problems[key] ?? []).map((p) => redact(p)) };
+    stats.sources[key] = entry;
+    stats.pages.found += found[key];
+    stats.pages.placed += mine.length;
     note(`## ${source.name}`, '', `- On the pages, still to be played: ${found[key]}`, `- Placed on the map and ready: ${mine.length}`);
     if (problems[key]) {
       warnings.push(`${source.name}: ${problems[key].join('; ')}`);
@@ -58,6 +69,8 @@ try {
     if (!db || dry) { note(''); continue; }
     try {
       const saved = await saveFixtures(db, mine);
+      entry.saved = saved;
+      stats.saved += saved;
       note(`- Saved: ${saved}`);
       if (live[key]) {
         const inDatabase = await countUpcoming(db, key, runStarted);
@@ -66,6 +79,7 @@ try {
       }
     } catch (e) {
       failed = true;
+      entry.problems.push('Saving to the database failed (see the run log)');
       note(`- Failed: ${e.message}`);
     }
     note('');
@@ -79,6 +93,7 @@ try {
   writeFileSync('collector-report/left-out.csv', csv + '\n');
 } catch (e) {
   failed = true;
+  stats.error = redact(e.message);
   note('## Public pages', '', `- Failed: ${e.message}`, '');
 }
 
@@ -89,4 +104,17 @@ if (warnings.length) {
 const report = lines.join('\n');
 console.log(report);
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, report + '\n');
+
+// Hand the stats to the watchdog: a file for the next job in this workflow, and (real runs only) one small row of history.
+stats.failed = failed;
+mkdirSync('collector-report', { recursive: true });
+writeFileSync('collector-report/run-stats.json', JSON.stringify(stats, null, 1));
+if (!dry && process.env.GITHUB_RUN_ID && SUPABASE_URL && serviceKey) {
+  try {
+    await makeDb(SUPABASE_URL, serviceKey)('POST', 'collector_runs?on_conflict=run_key', { body: [{ run_key: stats.runKey, ran_at: stats.ranAt, failed, stats }], prefer: 'resolution=merge-duplicates' });
+  } catch (e) {
+    // Not fatal: the watchdog still sees today's file, it just has no history to compare with. Usually migration 0008 not run yet.
+    console.log(`::warning title=Run history not saved::${redact(e.message).replace(/\r?\n/g, ' ')}`);
+  }
+}
 process.exit(failed ? 1 : 0);
