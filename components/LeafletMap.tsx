@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { MAPTILER_KEY } from '@/lib/config';
-import { hasSize, refreshMap } from '@/lib/mapRefresh';
+import { flushMove, hasSize, refreshMap, whenSized } from '@/lib/mapRefresh';
 import { getTileSource } from '@/lib/mapTiles';
 import { getSport } from '@/constants/sports';
 import { fixtureTitle } from '@/types/fixture';
@@ -64,6 +64,17 @@ export function LeafletMap({
   const report = useRef<() => void>(() => {});
   const startedOnUser = useRef(false);
   const hadRadius = useRef(false);
+  // A fit or recentre asked for while Explore is covered (the first-run sports screen) waits here.
+  const heldMove = useRef<(() => void) | null>(null);
+  const runWhenSized = useCallback((move: (m: L.Map) => void) => {
+    whenSized(el.current, heldMove, () => {
+      const m = map.current;
+      if (!m) return;
+      // Leaflet still has the old size until asked. Measure, then move, or the zoom is worked out from nothing.
+      m.invalidateSize(false);
+      move(m);
+    });
+  }, []);
   const handlers = useRef({ onSelect, onVenuePress, onBoundsChange });
   useEffect(() => {
     handlers.current = { onSelect, onVenuePress, onBoundsChange };
@@ -105,7 +116,11 @@ export function LeafletMap({
     m.on('click', () => handlers.current.onSelect?.(null));
     read();
     // The map's box changes when its screen is covered and uncovered, and when the window resizes.
-    const watcher = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => refreshMap(m, m.getContainer(), read)) : null;
+    const watcher = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => {
+      // The waiting fit must run before the bounds are read, so the count is for the place we actually show.
+      flushMove(m.getContainer(), heldMove);
+      refreshMap(m, m.getContainer(), read);
+    }) : null;
     watcher?.observe(el.current);
     return () => {
       watcher?.disconnect();
@@ -119,8 +134,12 @@ export function LeafletMap({
   // Coming back to this screen from another one: re-measure and re-read the bounds so the count is right.
   useFocusEffect(
     useCallback(() => {
-      refreshMap(map.current, el.current, report.current);
-      const id = requestAnimationFrame(() => refreshMap(map.current, el.current, report.current));
+      const fix = () => {
+        flushMove(el.current, heldMove);
+        refreshMap(map.current, el.current, report.current);
+      };
+      fix();
+      const id = requestAnimationFrame(fix);
       return () => cancelAnimationFrame(id);
     }, [])
   );
@@ -182,7 +201,8 @@ export function LeafletMap({
     if (!userLocation) return;
     if (recenterKey || (startOnUser && !startedOnUser.current)) {
       startedOnUser.current = true;
-      map.current?.setView([userLocation.latitude, userLocation.longitude], 9);
+      const at: L.LatLngTuple = [userLocation.latitude, userLocation.longitude];
+      runWhenSized((m) => m.setView(at, 9));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recenterKey, userLocation]);
@@ -190,20 +210,21 @@ export function LeafletMap({
   useEffect(() => {
     if (!fitRadius) return;
     if (!userLocation || !radiusKm) {
-      if (hadRadius.current) map.current?.fitBounds([[51.3, -10.7], [55.4, -5.4]], { paddingTopLeft: [10, 180], paddingBottomRight: [10, 110] });
+      if (hadRadius.current) {
+        runWhenSized((m) => m.fitBounds([[51.3, -10.7], [55.4, -5.4]], { paddingTopLeft: [10, 180], paddingBottomRight: [10, 110] }));
+      }
       hadRadius.current = false;
       return;
     }
     hadRadius.current = true;
-    map.current?.fitBounds(L.latLng(userLocation.latitude, userLocation.longitude).toBounds(radiusKm * 2200));
-  }, [fitRadius, radiusKm, userLocation]);
+    const around = L.latLng(userLocation.latitude, userLocation.longitude).toBounds(radiusKm * 2200);
+    runWhenSized((m) => m.fitBounds(around));
+  }, [fitRadius, radiusKm, userLocation, runWhenSized]);
 
   useEffect(() => {
     if (!fitKey || fixtures.length === 0) return;
-    map.current?.fitBounds(L.latLngBounds(fixtures.map((f) => [f.latitude, f.longitude] as L.LatLngTuple)), {
-      paddingTopLeft: [40, 150],
-      paddingBottomRight: [40, 150],
-    });
+    const bounds = L.latLngBounds(fixtures.map((f) => [f.latitude, f.longitude] as L.LatLngTuple));
+    runWhenSized((m) => m.fitBounds(bounds, { paddingTopLeft: [40, 150], paddingBottomRight: [40, 150] }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fitKey]);
 
