@@ -4,7 +4,7 @@ describe('getTileSource', () => {
   it('uses MapTiler Streets 512px tiles with attribution when a key is set', () => {
     const t = getTileSource('abc 123');
     expect(t.url).toBe('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=abc%20123');
-    expect(t.options).toMatchObject({ tileSize: 512, zoomOffset: -1 });
+    expect(t.options).toMatchObject({ tileSize: 512, zoomOffset: -1, minZoom: 1 });
     expect(t.options.attribution).toContain('https://www.maptiler.com/copyright/');
     expect(t.options.attribution).toContain('https://www.openstreetmap.org/copyright');
   });
