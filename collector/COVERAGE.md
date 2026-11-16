@@ -26,7 +26,7 @@ Last updated: 16 November 2026.
 | Kilkenny | Reading | Club & County | |
 | Laois | Reading | Club & County | |
 | Leitrim | **Switched off** | `leitrim-gaa.mjs` (kept) | The site answered 403 to GitHub's servers on 13 Nov. A refusal stands: not retried or worked around. Re-enable in `look.mjs` only if the board agrees. |
-| **Limerick** | **Needs thought** | none yet | Owner sent the link on 14 Nov; it does not fit the existing readers. Look at how its site publishes fixtures, check its rules, then decide between a reader, a snapshot or asking the board. |
+| **Limerick** | **Skipped** | none | Checked 16 Nov 2026. `robots.txt` is Cloudflare-managed: `User-agent: *` is allowed on `/`, with no crawl-delay. The fixtures pages (`/fixtures/`, `/football-fixtures/`, `/hurling-fixtures/`) answer 403 with a Cloudflare challenge ("Just a moment..."). A challenge stands: not worked around. |
 | Longford | Snapshot only | `longford-snapshot.mjs` | One-off copy from 13 Nov (the page is fed by the Foireann API). Not live. |
 | **Louth** | **Site down** | none yet | Owner reported on 14 Nov that the board's website is down. Try again later; nothing to read meanwhile. |
 | Mayo | Reading | own reader | |
@@ -63,7 +63,8 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Amateur Football League (Republic) | Reading | `amateur-fl.mjs`. SportsPress list. Distinct from the Northern Amateur Football League. The published rows name no ground (`N/A`). |
 | Northern Amateur Football League | Reading | `nafl.mjs`. The fixtures page is filled from `/data/fixtures.json` (the given `/grounds/fixtures.html` URL returns the homepage). Every scheduled row has a blank venue. `robots.txt` allows `/`; Cloudflare content-signal sets `ai-train=no` and `use=reference`. |
 | SFAI, Limerick District Schoolchildren League, Kildare & District Football League, Connacht Senior Alliance, Clubforce leagues (LWSSL, Leinster Senior League, Carlow, Kilkenny, Wexford, United Churches), Cork Business League | Not read | Checked 16 Nov 2026. Reasons are in the pull request. Clubforce fixture rows are not in the public HTML; `apicm.clubforce.com` robots.txt disallows every path, and the Comortais feed is not used. Cork Business League answered with a Cloudflare challenge. `carlowsoccer.ie` was not requested (`Disallow: /`). |
-| Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
+| Athletics Ireland, Leggit, FAI Connect | Not read | Permission or off-season; see the plan. |
+| Cricket Leinster, North West championship, GRI race meetings, Motorsport Ireland, ANICC 2026 calendar, Rowing Ireland 2026 calendar, Volleyball Ireland 2026-27 calendar, Netball Ireland, Belfast Giants home games, Ireland Water Polo, Irish Lawn Bowls | Reading | Added 16 Nov 2026. See the pull request for robots checks, skipped sites, and grounds the directory does not know yet. |
 
 ## Protecting the data (audit M5)
 

@@ -1,0 +1,42 @@
+name: Checks
+
+# Runs on every pull request (and on main), so a change that stops the collector or the app from working is caught
+# before it is merged, not by the next daily run. Uses no secrets.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  collector:
+    name: Collector loads and its tests pass
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      - run: node --test collector/test/*.test.mjs
+
+  app:
+    name: App typecheck, lint and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      - run: npx tsc --noEmit
+      - run: npx expo lint
+      - run: npx jest --ci

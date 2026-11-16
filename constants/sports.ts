@@ -26,7 +26,14 @@ export const SPORTS = [
   { id: 'athletics', name: 'Athletics', group: 'athletics', shape: 'event', color: '#dc2626', startWord: 'Start' },
   { id: 'golf', name: 'Golf', group: 'golf', shape: 'event', color: '#0f766e', startWord: 'First tee' },
   { id: 'horse-racing', name: 'Horse Racing', group: 'racing', shape: 'event', color: '#7c2d12', startWord: 'First race' },
+  { id: 'greyhound-racing', name: 'Greyhound Racing', group: 'racing', shape: 'event', color: '#b45309', startWord: 'First race' },
   { id: 'boxing', name: 'Boxing', group: 'boxing', shape: 'event', color: '#475569', startWord: 'First bell' },
+  { id: 'motorsport', name: 'Motorsport', group: 'motorsport', shape: 'event', color: '#334155', startWord: 'Start' },
+  { id: 'rowing', name: 'Rowing', group: 'rowing', shape: 'event', color: '#0369a1', startWord: 'Start' },
+  { id: 'volleyball', name: 'Volleyball', group: 'volleyball', shape: 'match', color: '#7c3aed', startWord: 'Serve' },
+  { id: 'netball', name: 'Netball', group: 'netball', shape: 'match', color: '#be185d', startWord: 'Centre pass' },
+  { id: 'water-polo', name: 'Water Polo', group: 'water-polo', shape: 'match', color: '#0284c7', startWord: 'Whistle' },
+  { id: 'bowls', name: 'Bowls', group: 'bowls', shape: 'match', color: '#15803d', startWord: 'Jack' },
 ] as const satisfies readonly SportInfo[];
 
 export type SportId = (typeof SPORTS)[number]['id'];
@@ -54,6 +61,12 @@ export const GROUPS: { id: GroupId; label: string; color: string | null }[] = [
   { id: 'golf', label: 'Golf', color: '#0f766e' },
   { id: 'racing', label: 'Racing', color: '#7c2d12' },
   { id: 'boxing', label: 'Boxing', color: '#475569' },
+  { id: 'motorsport', label: 'Motorsport', color: '#334155' },
+  { id: 'rowing', label: 'Rowing', color: '#0369a1' },
+  { id: 'volleyball', label: 'Volleyball', color: '#7c3aed' },
+  { id: 'netball', label: 'Netball', color: '#be185d' },
+  { id: 'water-polo', label: 'Water Polo', color: '#0284c7' },
+  { id: 'bowls', label: 'Bowls', color: '#15803d' },
 ];
 
 export function sportsInGroup(group: string): (typeof SPORTS)[number][] {
