@@ -79,9 +79,9 @@ test('Armagh GAA: reads cards from the feed, with postponed, sport and a date ca
   assert.ok(!JSON.stringify(got).includes('Ref Person'));
 });
 
-test('Armagh GAA is registered in SOURCES', async () => {
+test('Armagh GAA is switched off: armaghgaa.net answered 403 (a refusal), so it is not in SOURCES', async () => {
   const { SOURCES } = await import('../look.mjs');
-  assert.equal(SOURCES['armagh-gaa']?.name, 'Armagh GAA');
+  assert.equal(SOURCES['armagh-gaa'], undefined);
 });
 
 const source = (rows) => ({ name: 'Fake', pages: [{ url: 'data:text/plain,x' }], read: () => rows });
