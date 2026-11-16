@@ -34,6 +34,11 @@ import * as niflSnapshot from './sources/nifl-snapshot.mjs';
 import * as handballSnapshot from './sources/handball-snapshot.mjs';
 import * as runningCalendarSnapshot from './sources/running-calendar-snapshot.mjs';
 import * as longfordSnapshot from './sources/longford-snapshot.mjs';
+import { galwayFa, munsterSenior, donegalJunior, corkYouth, midUlster, wicklow } from './sources/wp-fixtures.mjs';
+import * as amateurFl from './sources/amateur-fl.mjs';
+import * as nafl from './sources/nafl.mjs';
+import * as limerickDistrict from './sources/limerick-district.mjs';
+import * as corkAul from './sources/cork-aul.mjs';
 import * as cricketLeinster from './sources/cricket-leinster.mjs';
 import * as northwestCricket from './sources/northwest-cricket.mjs';
 import * as greyhounds from './sources/greyhounds.mjs';
@@ -50,6 +55,16 @@ export const SOURCES = { ddsl, basketball, 'dublin-gaa': dublinGaa, 'ulster-hock
   // Leitrim GAA (sources/leitrim-gaa.mjs) is switched off: its site answered 403 to the daily run on GitHub. A refusal stands; add 'leitrim-gaa': leitrimGaa back only if Leitrim agrees.
   // The GAA's official Foireann Open Data API. Only present when a key issued to Grassroots is set; see sources/foireann.mjs.
   ...(process.env.FOIREANN_API_KEY ? { foireann } : {}),
+  'galway-fa': galwayFa,
+  'munster-senior': munsterSenior,
+  'donegal-junior': donegalJunior,
+  'cork-youth': corkYouth,
+  'mid-ulster': midUlster,
+  'amateur-fl': amateurFl,
+  nafl,
+  wicklow,
+  'limerick-district': limerickDistrict,
+  'cork-aul': corkAul,
   'cricket-leinster': cricketLeinster,
   'northwest-cricket': northwestCricket,
   greyhounds,
