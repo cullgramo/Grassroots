@@ -1,3 +1,4 @@
+import { SymbolView } from 'expo-symbols';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { getSport } from '@/constants/sports';
@@ -20,9 +21,15 @@ export function SaveButton({ fixture, size = 24 }: { fixture: Fixture; size?: nu
       accessibilityState={{ selected: saved }}
       accessibilityLabel={`${saved ? 'Remove' : 'Save'} ${fixtureTitle(fixture)}`}
       style={styles.heart}>
-      <Text style={{ fontSize: size, lineHeight: size + 4, color: saved ? '#e11d48' : t.muted }}>
-        {saved ? '♥' : '♡'}
-      </Text>
+      <SymbolView
+        name={
+          saved
+            ? { ios: 'heart.fill', android: 'favorite', web: 'favorite' }
+            : { ios: 'heart', android: 'favorite_border', web: 'favorite_border' }
+        }
+        tintColor={saved ? '#e11d48' : t.muted}
+        size={size}
+      />
     </Pressable>
   );
 }
