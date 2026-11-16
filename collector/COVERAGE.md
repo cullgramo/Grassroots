@@ -57,7 +57,8 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Irish FA, League of Ireland | Not read | Terms forbid copying. Permission needed. |
 | Ticketmaster and Universe | Reading | |
 | Club rugby (four provinces), professional rugby (Leinster, Munster, Connacht, Ulster: URC, Champions Cup, Challenge Cup; only games at placed grounds are saved; the URC source was reviewed and kept by the owner on 15 Nov 2026; Laya Arena = RDS Arena and Virgin Media Park = Musgrave Park, owner-confirmed), basketball, hockey, Dublin youth soccer (DDSL), horse racing, MyRunResults | Reading | |
-| Athletics Ireland, Leggit, FAI Connect, cricket | Not read | Permission or off-season; see the plan. |
+| Athletics Ireland, Leggit, FAI Connect | Not read | Permission or off-season; see the plan. |
+| Cricket Leinster, North West championship, GRI race meetings, Motorsport Ireland, ANICC 2026 calendar, Rowing Ireland 2026 calendar, Volleyball Ireland 2026-27 calendar, Netball Ireland, Belfast Giants home games, Ireland Water Polo, Irish Lawn Bowls | Reading | Added 16 Nov 2026. See the pull request for robots checks, skipped sites, and grounds the directory does not know yet. |
 
 ## Protecting the data (audit M5)
 
