@@ -5,6 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { MAPTILER_KEY } from '@/lib/config';
+import { getTileSource } from '@/lib/mapTiles';
 import { getSport } from '@/constants/sports';
 import { fixtureTitle } from '@/types/fixture';
 import { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM } from '@/utils/cluster';
@@ -78,10 +80,9 @@ export function LeafletMap({
       single ? [single.latitude, single.longitude] : [IRELAND.latitude, IRELAND.longitude],
       single ? 14 : 7
     );
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors',
-    }).addTo(m);
+    const tiles = getTileSource(MAPTILER_KEY);
+    if (!MAPTILER_KEY && __DEV__) console.warn('EXPO_PUBLIC_MAPTILER_KEY is not set; the web map is using OpenStreetMap tiles.');
+    L.tileLayer(tiles.url, tiles.options).addTo(m);
     userLayer.current = L.layerGroup().addTo(m);
     markers.current = L.layerGroup().addTo(m);
     map.current = m;

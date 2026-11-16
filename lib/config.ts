@@ -7,3 +7,7 @@ export const SUPABASE_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'sb_pub
 // Set EXPO_PUBLIC_SITE_URL (for example to a custom domain later) to point shared links somewhere else; set it to an
 // empty value to switch link sharing off, and shared messages then carry a directions link instead.
 export const SITE_URL: string | null = (process.env.EXPO_PUBLIC_SITE_URL ?? 'https://grassroots.expo.app') || null;
+
+// MapTiler key for the web map's tiles. Without it the web map falls back to OpenStreetMap's own tiles.
+// It is visible in the browser, so restrict it to the site's origins in the MapTiler dashboard.
+export const MAPTILER_KEY: string | null = process.env.EXPO_PUBLIC_MAPTILER_KEY || null;
