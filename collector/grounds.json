@@ -6097,6 +6097,14 @@
   "longitude": -7.491606,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Wolfe Tone's GAA, Drumquin: McGirr Park)"
  },
+ "Ulster|dry arch bonagee|": {
+  "family": "soccer",
+  "name": "Bonagee United Football Club - Dry Arch Park",
+  "county": "Donegal",
+  "latitude": 54.944417,
+  "longitude": -7.6974771,
+  "how": "pin supplied by the owner from Google Maps (place: Bonagee United Football Club - Dry Arch Park), 17 Nov 2026; checked against the map"
+ },
  "Ulster|dunfanaghy|": {
   "name": "Dunfanaghy",
   "county": "Donegal",
