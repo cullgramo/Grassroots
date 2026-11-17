@@ -7457,6 +7457,14 @@
   "longitude": -6.27486,
   "how": "checked by hand (OpenStreetMap: Saint Vincent's Secondary School, Finglas Road)"
  },
+ "|the o2 belfast|": {
+  "family": "ice-hockey",
+  "name": "The O2 Belfast",
+  "county": "Down",
+  "latitude": 54.603643,
+  "longitude": -5.914228,
+  "how": "pin supplied by the owner from Google Maps (place: The O2 Belfast), 17 Nov 2026; checked against the map"
+ },
  "|thomond park|": {
   "name": "Thomond Park",
   "county": "Limerick",
