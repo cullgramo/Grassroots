@@ -38,6 +38,14 @@
   "family": "gaa"
  },
  "Connacht|an ghaeltacht rugbai|": null,
+ "Connacht|annaghdown|": {
+  "family": "soccer",
+  "name": "Corrib Celtic FC, Annaghdown",
+  "county": "Galway",
+  "latitude": 53.38693,
+  "longitude": -9.065121,
+  "how": "place search (leisure/pitch: Corrib Celtic, Eanach Dhúin); the owner’s list names Corrib Celtic as the ground meant by \"Annaghdown\" (all home games are Corrib Celtic), 17 Nov 2026; position is the map’s, the proposer’s point was about 600 m away and was not used"
+ },
  "Connacht|ardnaree|": {
   "name": "Ardnaree",
   "county": "Mayo",
@@ -4213,7 +4221,14 @@
   "longitude": -9.456302,
   "how": "rugby club search (leisure/sports_centre: Castleisland Rugby Club); the source names the club or town, not the pitch"
  },
- "Munster|castletreasure|": null,
+ "Munster|castletreasure|": {
+  "family": "soccer",
+  "name": "College Corinthians AFC, Castletreasure",
+  "county": "Cork",
+  "latitude": 51.858734,
+  "longitude": -8.439988,
+  "how": "place search (leisure/sports_centre: College Corinthians A.F.C., Scart Road, Castletreasure, Douglas), 17 Nov 2026; position is the map’s"
+ },
  "Munster|castletroy college|": {
   "name": "Castletroy College",
   "county": "Limerick",
@@ -6321,6 +6336,14 @@
   "latitude": 54.360111,
   "longitude": -6.278181,
   "how": "place search (leisure/park: Havelock Park)"
+ },
+ "Ulster|hospital field donegal town|": {
+  "family": "soccer",
+  "name": "Hospital Field, Donegal Town FC",
+  "county": "Donegal",
+  "latitude": 54.65661,
+  "longitude": -8.0996,
+  "how": "proposed position (Gemini research), verified by collector/verify-grounds.mjs: the map names a pitch \"Donegal Town F.C.\" at this spot (Ballybofey Road), 17 Nov 2026"
  },
  "Ulster|ijm park|": {
   "name": "IJM Park",
