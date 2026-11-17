@@ -24,6 +24,11 @@ export interface Fixture {
   ticketUrl?: string;
   /** True when the source gives the day but not the start time; the clock part of startsAt is then a placeholder. */
   timeTbc?: boolean;
+  /**
+   * True when the league gave no ground and this is the home club's own ground: likely, but not confirmed.
+   * The app says so wherever it shows the venue alone.
+   */
+  venueUnconfirmed?: boolean;
   /** Missing means scheduled. */
   status?: FixtureStatus;
   /** Read from the competition's name; missing means adult. */

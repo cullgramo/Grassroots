@@ -210,3 +210,43 @@ test('the monthly data snapshot reads every page, and its fingerprint matches th
   assert.equal(manifest.sha256, createHash('sha256').update(file).digest('hex'));
   assert.equal(JSON.parse(gunzipSync(file)).fixtures.length, 2300);
 });
+
+test('a home-and-away league with no ground uses the home club\'s own ground, marked as not confirmed', async () => {
+  const league = { ...source([
+    game({ ref: 'h', sport: 'soccer', venue: '', home: 'Crumlin United U21', away: 'Sirocco Works', area: 'Ulster', competition: 'Division 1A' }),
+    game({ ref: 'u', sport: 'soccer', venue: '', home: 'Unknown Rovers', away: 'Sirocco Works', area: 'Ulster', competition: 'Division 1A' }),
+    game({ ref: 'f', sport: 'soccer', venue: '', home: 'Crumlin United', away: 'Other Town', area: 'Ulster', competition: 'Border Cup Semi-Final' }),
+    game({ ref: 'n', sport: 'soccer', venue: 'Ground One', home: 'Crumlin United', away: 'Third Team', area: 'Leinster', competition: 'Division 1A' }),
+  ]), homeGrounds: true };
+  const dir = { ...grounds, 'Ulster||@crumlin united': { name: 'Crumlin United FC', county: 'Antrim', latitude: 54.62, longitude: -6.21 } };
+  const { fixtures, leftOut } = await gather({ sources: { league }, grounds: dir });
+  assert.deepEqual(fixtures.map((f) => [f.ref, f.ground.name, f.venueConfirmed]), [['league-h', 'Crumlin United FC', false], ['league-n', 'Ground One', true]]);
+  assert.equal(toRow(fixtures[0]).venue_confirmed, false);
+  assert.equal(toRow(fixtures[1]).venue_confirmed, true);
+  assert.deepEqual(leftOut.map((r) => r.reason), ["No ground given (the home club's ground is not in the directory yet)", 'No ground given']);
+  // A source without the flag never uses a club's home ground.
+  const plain = await gather({ sources: { plain: source([game({ ref: 'h', sport: 'soccer', venue: '', home: 'Crumlin United', away: 'Sirocco Works', area: 'Ulster' })]) }, grounds: dir });
+  assert.equal(plain.fixtures.length, 0);
+  assert.equal(plain.leftOut[0].reason, 'No ground given');
+});
+
+test('before migration 0009 is run, unconfirmed home-ground fixtures are left out and the rest still save', async () => {
+  const { fixtures } = await gather({
+    sources: { league: { ...source([game({ ref: 'h', sport: 'soccer', venue: '', home: 'Crumlin United', away: 'Sirocco Works', area: 'Ulster' }), game({ ref: 'n', away: 'Third Team' })]), homeGrounds: true } },
+    grounds: { ...grounds, 'Ulster||@crumlin united': { name: 'Crumlin United FC', county: 'Antrim', latitude: 54.62, longitude: -6.21 } },
+  });
+  assert.equal(fixtures.length, 2);
+  const posted = [];
+  const base = fake();
+  const fetchImpl = async (url, init) => {
+    const body = init.body ? JSON.parse(init.body) : null;
+    if (init.method === 'POST' && new URL(url).pathname.endsWith('/fixtures')) {
+      if (body.some((r) => 'venue_confirmed' in r)) return { ok: false, status: 400, json: async () => ({}), text: async () => "Could not find the 'venue_confirmed' column of 'fixtures' in the schema cache", headers: { get: () => null } };
+      posted.push(...body);
+    }
+    return base.fetchImpl(url, init);
+  };
+  const db = makeDb('http://db', 'key', fetchImpl);
+  assert.equal(await saveFixtures(db, fixtures), 1);
+  assert.deepEqual(posted.map((r) => r.source_ref), ['league-n']);
+});

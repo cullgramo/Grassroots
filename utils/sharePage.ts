@@ -120,7 +120,7 @@ ${tickets?.kind === 'seller' ? `<a class="btn secondary" href="/go/${encodeURICo
 ${teams}
 ${f.competition ? `<p class="comp">${esc(f.competition)}</p>` : ''}
 <p class="when">${esc(when.day)}, ${esc(time)}</p>
-<p class="where">${esc(f.venue)}, ${esc(f.county)}</p>
+<p class="where">${esc(f.venue)}, ${esc(f.county)}${f.venueUnconfirmed ? ' (home ground, not confirmed by the league)' : ''}</p>
 </div>
 ${actions}
 <p class="note">Check with the club or the competition before you travel. Fixtures can change.${legalReady() ? ' · <a href="/terms" style="color:inherit">Terms</a>' : ''}</p>

@@ -71,3 +71,11 @@ describe('mapFixture category', () => {
     expect(mapFixture({ ...row(1), category: 'whatever' })?.category).toBeUndefined();
   });
 });
+
+describe('a venue the league did not confirm', () => {
+  it('is flagged only when the database says so; a missing column means confirmed', () => {
+    expect(mapFixture({ ...row(1), venue_confirmed: false })?.venueUnconfirmed).toBe(true);
+    expect(mapFixture({ ...row(1), venue_confirmed: true })?.venueUnconfirmed).toBeUndefined();
+    expect(mapFixture(row(1))?.venueUnconfirmed).toBeUndefined();
+  });
+});

@@ -223,6 +223,8 @@ export const midUlster = league({
 // The public list is paged. Page 8 answers, but it has no games; 7 is the last page that does (16 Nov 2026).
 export const wicklow = {
   name: 'Wicklow & District Football League',
+  // A home-and-away league that leaves the venue blank: such a game may be shown at the home club's own ground.
+  homeGrounds: true,
   pages: [1, 2, 3, 4, 5, 6, 7].map((n) => ({
     url: n === 1 ? 'https://wdflgrassroots.com/fixtures/' : `https://wdflgrassroots.com/fixtures/?fixtures_page=${n}`,
     area: 'Leinster', countyHint: 'Wicklow', prefix: 'Wicklow & District', layout: 'cards',

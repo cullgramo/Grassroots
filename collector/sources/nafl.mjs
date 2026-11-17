@@ -5,6 +5,8 @@ import { categoryFromText, readTime } from '../lib/util.mjs';
 import { blankVenue, decode, notATeam } from './wp-fixtures.mjs';
 
 export const name = 'Northern Amateur Football League';
+// A home-and-away league that often leaves the venue blank: such a game may be shown at the home club's own ground.
+export const homeGrounds = true;
 export const pages = [{
   url: 'https://www.thenafl.co.uk/data/fixtures.json',
   pageUrl: 'https://www.thenafl.co.uk/fixtures.html',

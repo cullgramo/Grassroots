@@ -2,7 +2,7 @@
 // what is ready to save. Shared by make-sql.mjs (writes a SQL file) and run.mjs (saves straight to the database).
 import { readFileSync } from 'node:fs';
 import { SOURCES, collect } from '../look.mjs';
-import { loadGrounds, slotFor } from './grounds.mjs';
+import { homeGroundKey, loadGrounds, slotFor } from './grounds.mjs';
 import { countyFor } from '../../data/counties.ts';
 import { irishTimeToIso, norm } from './util.mjs';
 
@@ -48,6 +48,7 @@ export function gameKey(f, aliases) {
 // checked it by hand, it is held for checking instead of guessed. A named park or ground is not affected.
 const HOME_COUNTY_BOARDS = new Set(['county-gaa', 'cork-gaa', 'waterford-gaa']);
 const CHECKED = /^(checked by hand|coordinates|address supplied|postcode|home club search, address matches)/i;
+const NEUTRAL = /\bfinals?\b|\bsemi/i;
 const isBareName = (venue) => !venue.includes(',') && venue.trim().split(/\s+/).length <= 2 && !/park|p[aá]irc|gaa|gac|club|field|grounds|college|school|university/i.test(venue);
 
 export async function gather({ existing = [], sources = SOURCES, grounds = loadGrounds(), now = new Date() } = {}) {
@@ -67,10 +68,17 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
     if (pageProblems.length === 0 && upcoming.length > 0) live[key] = [];
     for (const f of upcoming) {
       const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, title: f.title, venue: f.venue, area: f.area, sport: f.sport, competition: f.competition ?? '', countyHint: f.countyHint ?? '', reason });
-      if (!f.venue) { leave('No ground given'); continue; }
+      // A home-and-away league that gives no ground: the home club's own ground is used, if the directory holds it,
+      // and the fixture is marked as not confirmed. Never for a final or semi-final, which may be on neutral ground.
+      let homeGround = null;
+      if (!f.venue) {
+        const k = source.homeGrounds && f.home && !NEUTRAL.test(f.competition ?? '') ? homeGroundKey(f) : null;
+        homeGround = k ? grounds[k] ?? null : null;
+        if (!homeGround) { leave(k ? 'No ground given (the home club\'s ground is not in the directory yet)' : 'No ground given'); continue; }
+      }
       // A fixture with a day but no time is still shown, marked "Time TBC" and stored at midday.
       const timeKnown = Boolean(f.startsAt || f.time);
-      const found_ = grounds[slotFor(f, grounds)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
+      const found_ = homeGround ?? grounds[slotFor(f, grounds)] ?? (f.latitude != null ? { name: f.venue, county: f.county, latitude: f.latitude, longitude: f.longitude } : null);
       if (!found_) { leave('Ground not placed on the map yet'); continue; }
       // Every ground needs a county; if the map did not name one, the nearest county is used.
       const ground = { ...found_, county: found_.county || countyFor([], found_.latitude, found_.longitude) };
@@ -87,7 +95,7 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
         const theirs = [...words(e.home_team ?? ''), ...words(e.away_team ?? '')];
         if (words(f.home ?? f.title ?? '').some((w) => theirs.includes(w)) && words(f.away ?? f.title ?? '').some((w) => theirs.includes(w))) replaced.add(e.source_ref);
       }
-      fixtures.push({ ...f, source: key, ref, startsAt, ground, timeKnown });
+      fixtures.push({ ...f, source: key, ref, startsAt, ground, timeKnown, venueConfirmed: !homeGround });
     }
   }
   return { fixtures, leftOut, live, problems, found, replaced };
@@ -98,6 +106,7 @@ export function toRow(f) {
   return {
     sport_id: f.sport, level: f.level, category: f.category ?? null, competition: f.competition ?? null,
     home_team: f.home ?? null, away_team: f.away ?? null, title: f.title ?? null, time_known: f.timeKnown,
+    venue_confirmed: f.venueConfirmed !== false,
     starts_at: f.startsAt, ticketed: Boolean(f.ticketUrl), ticket_url: f.ticketUrl ?? null,
     status: f.status ?? 'scheduled', approval: 'approved', source: f.source, source_ref: f.ref, source_url: f.url ?? null,
   };

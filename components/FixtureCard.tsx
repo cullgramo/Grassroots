@@ -81,6 +81,7 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
         </Text>
         <Text style={[styles.meta, { color: t.muted }]} numberOfLines={1}>
           {fixture.venue}
+          {fixture.venueUnconfirmed ? ' (venue not confirmed)' : ''}
           {km != null ? <Text style={[styles.strong, { color: t.tint }]}> · {formatDistance(km)}</Text> : null}
           {fixture.ticketed ? ' · Ticketed' : ''}
         </Text>

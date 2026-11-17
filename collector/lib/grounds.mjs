@@ -28,6 +28,11 @@ export function entryFamily(entry) {
 }
 /** A home team's club, without its age grade or team letter: "Bandon U17A", "Bandon AFC" and "Bandon B" are all "bandon". */
 export const clubKey = (home) => norm(home).split(' ').filter((w) => !/^(u\d{1,2}[a-z]?|[a-e]|\d|fc|afc|res|reserves)$/.test(w)).join(' ');
+/**
+ * Where a club's own home ground is kept: the area, no ground name, and the club ("Ulster||@crumlin united").
+ * Used only for a home-and-away league that publishes a game with no ground at all.
+ */
+export const homeGroundKey = (f) => { const club = clubKey(f.home); return club ? `${f.area ?? ''}||@${club}` : null; };
 /** The key to read or write this fixture's ground under: the shared one unless it belongs to another sport. */
 export function slotFor(f, grounds) {
   const key = groundKey(f);

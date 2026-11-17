@@ -58,3 +58,10 @@ describe('shared fixture page', () => {
     expect(html).toContain('A &quot;B&quot; &amp; C');
   });
 });
+
+describe('a home ground the league did not confirm', () => {
+  it('is said on the shared page', () => {
+    expect(fixturePageHtml({ ...f, venueUnconfirmed: true }, opts)).toContain('home ground, not confirmed by the league');
+    expect(fixturePageHtml(f, opts)).not.toContain('not confirmed by the league');
+  });
+});

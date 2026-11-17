@@ -25,6 +25,8 @@ export interface FixtureRow {
   source?: string;
   /** Missing on databases that have not had the column added yet; treated as known. */
   time_known?: boolean | null;
+  /** False when the league gave no ground and the home club's own ground is shown. Missing on older databases; treated as confirmed. */
+  venue_confirmed?: boolean | null;
   /** 'men', 'women' or 'mixed' when the source says; null when it does not. */
   category?: string | null;
   venue: { name: string; county: string; latitude: number; longitude: number } | null;
@@ -53,6 +55,7 @@ export function mapFixture(row: FixtureRow): Fixture | null {
     ticketed: row.ticketed,
     ticketUrl: row.ticket_url ?? undefined,
     timeTbc: row.time_known === false ? true : undefined,
+    venueUnconfirmed: row.venue_confirmed === false ? true : undefined,
     ageGroup: age.group,
     ageLabel: age.label,
     category: parseCategory(row.category),
@@ -61,9 +64,9 @@ export function mapFixture(row: FixtureRow): Fixture | null {
 }
 
 // Only the columns the app uses: about 40% less to download than every column. If a database is missing one of them
-// (an older copy without time_known, say) the request is retried asking for every column.
+// (an older copy without venue_confirmed, say) the request is retried asking for every column.
 const COLUMNS =
-  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,time_known,category,venue:venues(name,county,latitude,longitude)';
+  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,time_known,venue_confirmed,category,venue:venues(name,county,latitude,longitude)';
 const ALL_COLUMNS = '*,venue:venues(name,county,latitude,longitude)';
 
 const PAGE = 1000;
