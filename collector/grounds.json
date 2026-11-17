@@ -7142,6 +7142,14 @@
   "longitude": -6.458587,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Tinahely Community Hall\" (proposer's source: OpenStreetMap way/1196902740: Tinahely Community Hall)"
  },
+ "|aer lingus|": {
+  "family": "bowls",
+  "name": "Aer Lingus Bowls Club",
+  "county": "Dublin",
+  "latitude": 53.4212701,
+  "longitude": -6.2314851,
+  "how": "pin supplied by the owner from Google Maps (place: Aer Lingus Bowls Club), 17 Nov 2026; checked against the map"
+ },
  "|affidea stadium|": {
   "name": "Affidea Stadium",
   "county": "Down",
