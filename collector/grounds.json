@@ -7460,6 +7460,14 @@
   "longitude": -9.659711,
   "how": "place search (leisure/sports_centre: Sportlann Naomh Anna)"
  },
+ "|sportslink|": {
+  "family": "bowls",
+  "name": "SportsLink",
+  "county": "Dublin",
+  "latitude": 53.4080514,
+  "longitude": -6.2478201,
+  "how": "pin supplied by the owner from Google Maps (place: SportsLink), 17 Nov 2026; checked against the map"
+ },
  "|st mary s hall|": {
   "name": "St Mary's Hall",
   "county": "Laois",
