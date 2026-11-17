@@ -115,6 +115,7 @@ export default function FixtureScreen() {
           <Row label="Date" value={date} />
           <Row label={sport.startWord} value={fixture.timeTbc ? 'To be confirmed' : timeLabel(fixture.startsAt)} />
           <Row label="Venue" value={`${fixture.venue}, ${fixture.county}`} />
+          {fixture.venueUnconfirmed ? <Row label="Note" value="Home ground. Not confirmed by the league, so check before you travel." /> : null}
           {km != null ? <Row label="Distance" value={`${formatDistance(km)} away`} /> : null}
           <Row label="Entry" value={entryLabel(fixture)} />
         </View>

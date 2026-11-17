@@ -52,7 +52,7 @@ export function shareMessage(f: Fixture, site: string | null = SITE_URL): string
   if (link) {
     // One link only, like a good property or shop share: chat apps turn it into a card (picture, title, details), and the
     // page behind it has directions, tickets and more games. A second link in the message can stop the card appearing.
-    lines.push(`${whenLine} · ${f.venue}, ${f.county}`);
+    lines.push(`${whenLine} · ${f.venue}, ${f.county}${f.venueUnconfirmed ? ' (venue not confirmed)' : ''}`);
     lines.push('Directions, tickets and more on Grassroots:');
     lines.push(link);
     return lines.join('\n');
@@ -60,7 +60,7 @@ export function shareMessage(f: Fixture, site: string | null = SITE_URL): string
   // No site address: the message carries the facts itself.
   lines.push([sport.name, f.competition].filter(Boolean).join(' · '));
   lines.push(whenLine);
-  lines.push(`${f.venue}, ${f.county}`);
+  lines.push(`${f.venue}, ${f.county}${f.venueUnconfirmed ? ' (venue not confirmed)' : ''}`);
   lines.push(`Directions: ${mapLink(f)}`);
   if (tickets?.kind === 'seller') lines.push(`Tickets: ${outboundTicketUrl(tickets, 'web')}`);
   lines.push('Found on Grassroots');

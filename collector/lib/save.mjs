@@ -92,7 +92,16 @@ export async function saveFixtures(db, fixtures) {
   for (const part of chunks(fixtures, 400)) {
     const rows = part.map((f) => ({ ...toRow(f), venue_id: ids.get(keyOf(at(f))) }));
     if (rows.some((r) => !r.venue_id)) throw new Error('A ground was not saved, so its fixtures were not either');
-    written += (await db('POST', 'fixtures?on_conflict=source,source_ref', { body: rows, prefer: 'resolution=merge-duplicates,return=representation' })).length;
+    const post = (body) => db('POST', 'fixtures?on_conflict=source,source_ref', { body, prefer: 'resolution=merge-duplicates,return=representation' });
+    try {
+      written += (await post(rows)).length;
+    } catch (e) {
+      // Before migration 0009 is run the database has no venue_confirmed column. Fixtures shown at an unconfirmed home
+      // ground are then left out altogether, since they could not be labelled; everything else saves as before.
+      if (!/venue_confirmed/i.test(String(e.message))) throw e;
+      const sure = rows.filter((r) => r.venue_confirmed !== false).map(({ venue_confirmed, ...r }) => r);
+      if (sure.length) written += (await post(sure)).length;
+    }
   }
   return written;
 }

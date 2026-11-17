@@ -83,3 +83,11 @@ describe('sharing with the site live', () => {
     expect(fixtureLink('a b', 'https://x.example')).toBe('https://x.example/f/a%20b');
   });
 });
+
+describe('a home ground the league did not confirm', () => {
+  it('is said in the shared message, with and without a site link', () => {
+    expect(shareMessage({ ...base, venueUnconfirmed: true }, null)).toContain('(venue not confirmed)');
+    expect(shareMessage({ ...base, venueUnconfirmed: true }, 'https://grassroots.example')).toContain('(venue not confirmed)');
+    expect(shareMessage(base, null)).not.toContain('not confirmed');
+  });
+});
