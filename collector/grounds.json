@@ -38,6 +38,14 @@
   "family": "gaa"
  },
  "Connacht|an ghaeltacht rugbai|": null,
+ "Connacht|annaghdown|": {
+  "family": "soccer",
+  "name": "Corrib Celtic FC, Annaghdown",
+  "county": "Galway",
+  "latitude": 53.38693,
+  "longitude": -9.065121,
+  "how": "place search (leisure/pitch: Corrib Celtic, Eanach Dhúin); the owner’s list names Corrib Celtic as the ground meant by \"Annaghdown\" (all home games are Corrib Celtic), 17 Nov 2026; position is the map’s, the proposer’s point was about 600 m away and was not used"
+ },
  "Connacht|ardnaree|": {
   "name": "Ardnaree",
   "county": "Mayo",
@@ -143,6 +151,14 @@
   "latitude": 53.740047,
   "longitude": -9.00462,
   "how": "Get Ireland Active club list, matched on club name (Claremorris RFC)"
+ },
+ "Connacht|clarinbridge|": {
+  "family": "soccer",
+  "name": "Colga FC",
+  "county": "Galway",
+  "latitude": 53.2336049,
+  "longitude": -8.8513612,
+  "how": "pin supplied by the owner from Google Maps (place: Colga FC), 17 Nov 2026; checked against the map"
  },
  "Connacht|clifden|": null,
  "Connacht|cloonacool community park|": {
@@ -292,6 +308,14 @@
   "longitude": -8.8054,
   "how": "GAA pitch list, matched on pitch name (Charlestown Sarsfields: Fr. O'Hara Park)"
  },
+ "Connacht|furbo|": {
+  "family": "soccer",
+  "name": "An Sportlann, Na Forbacha (Furbo)",
+  "county": "Galway",
+  "latitude": 53.25962,
+  "longitude": -9.20806,
+  "how": "position supplied by the owner (An Sportlann, Sportlann na bhForbacha, H91 TX48), 17 Nov 2026; checked: the point is on a pitch and the map names the sports centre \"An Sportlann\" 40 m away in Na Forbacha"
+ },
  "Connacht|galway|": null,
  "Connacht|galwegians rfc|": {
   "name": "Galwegians RFC",
@@ -336,7 +360,14 @@
   "longitude": -9.2865,
   "how": "checked by hand (OpenStreetMap: MacHale Park, Castlebar)"
  },
- "Connacht|headford|": null,
+ "Connacht|headford|": {
+  "family": "soccer",
+  "name": "Moyne Villa Football Club",
+  "county": "Galway",
+  "latitude": 53.4703499,
+  "longitude": -9.110909,
+  "how": "pin supplied by the owner from Google Maps (place: Moyne Villa Football Club), 17 Nov 2026; checked against the map"
+ },
  "Connacht|heffernan park|": {
   "name": "Heffernan Park",
   "county": "Mayo",
@@ -472,7 +503,23 @@
   "longitude": -8.69745,
   "how": "rugby club search (leisure/sports_centre: Monivea Rugby Club); the source names the club or town, not the pitch"
  },
+ "Connacht|new village|": {
+  "family": "soccer",
+  "name": "Oughterard AFC, Newvillage",
+  "county": "Galway",
+  "latitude": 53.444364,
+  "longitude": -9.34399,
+  "how": "place search (club/sport: Oughterard AFC, Western Way High Road, Oughterard); the owner named Oughterard AFC at Newvillage as this ground, 17 Nov 2026; position is the map’s, not the proposer’s"
+ },
  "Connacht|newcastle galway|": null,
+ "Connacht|nfp park drom|": {
+  "family": "soccer",
+  "name": "Drom Soccer Park",
+  "county": "Galway",
+  "latitude": 53.2935476,
+  "longitude": -9.1325999,
+  "how": "pin supplied by the owner from Google Maps (place: Drom Soccer Park), 17 Nov 2026; checked against the map"
+ },
  "Connacht|o rourke park|": {
   "family": "gaa",
   "name": "O'Rourke Park",
@@ -607,6 +654,14 @@
   "latitude": 53.509365,
   "longitude": -8.853748,
   "how": "checked by hand (OpenStreetMap: Saint Jarlath's Park, Tuam)"
+ },
+ "Connacht|tuam|": {
+  "family": "soccer",
+  "name": "Tuam Celtic Football Club",
+  "county": "Galway",
+  "latitude": 53.507801,
+  "longitude": -8.860884,
+  "how": "place search (leisure/sports_centre: Tuam Celtic Football Club); the owner named Tuam Celtic as the ground meant by the Galway FA’s bare \"Tuam\" (all home games are Tuam Celtic), 17 Nov 2026; position is the map’s. The proposer’s own point was the town square and was not used"
  },
  "Connacht|westport gaa|": {
   "name": "Westport GAA",
@@ -4174,7 +4229,14 @@
   "longitude": -9.456302,
   "how": "rugby club search (leisure/sports_centre: Castleisland Rugby Club); the source names the club or town, not the pitch"
  },
- "Munster|castletreasure|": null,
+ "Munster|castletreasure|": {
+  "family": "soccer",
+  "name": "College Corinthians AFC, Castletreasure",
+  "county": "Cork",
+  "latitude": 51.858734,
+  "longitude": -8.439988,
+  "how": "place search (leisure/sports_centre: College Corinthians A.F.C., Scart Road, Castletreasure, Douglas), 17 Nov 2026; position is the map’s"
+ },
  "Munster|castletroy college|": {
   "name": "Castletroy College",
   "county": "Limerick",
@@ -4812,6 +4874,22 @@
   "how": "place search (leisure/sports_centre: Kirwan Park)"
  },
  "Munster|knockanure|": null,
+ "Munster|knockgriffin park|": {
+  "family": "soccer",
+  "name": "Midleton Football Club",
+  "county": "Cork",
+  "latitude": 51.9158583,
+  "longitude": -8.1871798,
+  "how": "pin supplied by the owner from Google Maps (place: Midleton Football Club), 17 Nov 2026; checked against the map"
+ },
+ "Munster|knockgriffin|": {
+  "family": "soccer",
+  "name": "Midleton Football Club",
+  "county": "Cork",
+  "latitude": 51.9158583,
+  "longitude": -8.1871798,
+  "how": "pin supplied by the owner from Google Maps (place: Midleton Football Club), 17 Nov 2026; checked against the map"
+ },
  "Munster|lahinch ns|": null,
  "Munster|lansdowne|": {
   "name": "Lansdowne",
@@ -5084,6 +5162,14 @@
   "longitude": -8.436834,
   "how": "place search (leisure/stadium: Páirc Uí Rinn)"
  },
+ "Munster|pat bowdren park|": {
+  "family": "soccer",
+  "name": "Wilton United Pat Bowdren Park",
+  "county": "Cork",
+  "latitude": 51.8970332,
+  "longitude": -8.531027,
+  "how": "pin supplied by the owner from Google Maps (place: Wilton United Pat Bowdren Park), 17 Nov 2026; checked against the map"
+ },
  "Munster|portroe|": {
   "name": "Portroe",
   "county": "Tipperary",
@@ -5339,6 +5425,22 @@
   "latitude": 52.646226,
   "longitude": -8.629242,
   "how": "place search (leisure/sports_centre: Tom Clifford Park)"
+ },
+ "Munster|town park|@bandon": {
+  "family": "soccer",
+  "name": "Town Park, Bandon AFC",
+  "county": "Cork",
+  "latitude": 51.752002,
+  "longitude": -8.740138,
+  "how": "place search (leisure/sports_centre: Bandon AFC, Macroom Road, Bandon), 17 Nov 2026; kept per home club because the leagues write 'Town Park' for both Bandon's and Macroom's grounds; position is the map's"
+ },
+ "Munster|town park|@macroom": {
+  "family": "soccer",
+  "name": "Town Park, Macroom FC",
+  "county": "Cork",
+  "latitude": 51.906482,
+  "longitude": -8.952159,
+  "how": "same ground as 'Macroom Town Park' (Get Ireland Active club list, matched on club name (Macroom FC); match read and accepted by hand, 17 Nov 2026); kept per home club because the leagues write 'Town Park' for both Bandon's and Macroom's grounds"
  },
  "Munster|towns park|": {
   "name": "Towns Park",
@@ -5792,6 +5894,14 @@
   "longitude": -7.599265,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Eugene's GAA, Castlederg: Marius McHugh Park)"
  },
+ "Ulster|central park keadue|": {
+  "family": "soccer",
+  "name": "Central Park, Keadue Rovers",
+  "county": "Donegal",
+  "latitude": 55.000884,
+  "longitude": -8.406232,
+  "how": "place search (building: Keadue Rovers, R259); the owner named Keadue Rovers’ Central Park, 17 Nov 2026; position is the map’s. The proposer’s own point was about 1 km away and was not used"
+ },
  "Ulster|chambers park|": {
   "name": "Chambers Park",
   "county": "Armagh",
@@ -6026,6 +6136,14 @@
   "longitude": -7.491606,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Wolfe Tone's GAA, Drumquin: McGirr Park)"
  },
+ "Ulster|dry arch bonagee|": {
+  "family": "soccer",
+  "name": "Bonagee United Football Club - Dry Arch Park",
+  "county": "Donegal",
+  "latitude": 54.944417,
+  "longitude": -7.6974771,
+  "how": "pin supplied by the owner from Google Maps (place: Bonagee United Football Club - Dry Arch Park), 17 Nov 2026; checked against the map"
+ },
  "Ulster|dunfanaghy|": {
   "name": "Dunfanaghy",
   "county": "Donegal",
@@ -6242,6 +6360,14 @@
   "latitude": 54.360111,
   "longitude": -6.278181,
   "how": "place search (leisure/park: Havelock Park)"
+ },
+ "Ulster|hospital field donegal town|": {
+  "family": "soccer",
+  "name": "Hospital Field, Donegal Town FC",
+  "county": "Donegal",
+  "latitude": 54.65661,
+  "longitude": -8.0996,
+  "how": "proposed position (Gemini research), verified by collector/verify-grounds.mjs: the map names a pitch \"Donegal Town F.C.\" at this spot (Ballybofey Road), 17 Nov 2026"
  },
  "Ulster|ijm park|": {
   "name": "IJM Park",
@@ -6469,6 +6595,14 @@
   "latitude": 54.18296,
   "longitude": -6.224988,
   "how": "GAA pitch list, matched on club name (Mayobridge GAA: St. Patrick's Park)"
+ },
+ "Ulster|mcgettigan park glasserchoo|": {
+  "family": "soccer",
+  "name": "Glenea United FC (Gleann Átha Aontaithe)",
+  "county": "Donegal",
+  "latitude": 55.1353848,
+  "longitude": -8.2079797,
+  "how": "pin supplied by the owner from Google Maps (place: Glenea United FC (Gleann Átha Aontaithe)), 17 Nov 2026; checked against the map"
  },
  "Ulster|mcgovern park ruislip|": null,
  "Ulster|methodist college|": {
@@ -7127,6 +7261,14 @@
   "longitude": -6.458587,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"Tinahely Community Hall\" (proposer's source: OpenStreetMap way/1196902740: Tinahely Community Hall)"
  },
+ "|aer lingus|": {
+  "family": "bowls",
+  "name": "Aer Lingus Bowls Club",
+  "county": "Dublin",
+  "latitude": 53.4212701,
+  "longitude": -6.2314851,
+  "how": "pin supplied by the owner from Google Maps (place: Aer Lingus Bowls Club), 17 Nov 2026; checked against the map"
+ },
  "|affidea stadium|": {
   "name": "Affidea Stadium",
   "county": "Down",
@@ -7418,6 +7560,14 @@
   "latitude": 54.55853,
   "longitude": -5.94236,
   "how": "checked by hand (OpenStreetMap: Newforge Country Club, New Forge Lane, Belfast)"
+ },
+ "|north kildare|": {
+  "family": "bowls",
+  "name": "North Kildare Bowls Club",
+  "county": "Kildare",
+  "latitude": 53.3908083,
+  "longitude": -6.6413835,
+  "how": "pin supplied by the owner from Google Maps (place: North Kildare Bowls Club), 17 Nov 2026; checked against the map"
  },
  "|o loughlin gaels|": {
   "name": "O'Loughlin Gaels",

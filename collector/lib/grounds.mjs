@@ -26,10 +26,16 @@ export function entryFamily(entry) {
   const hits = Object.keys(FAMILY_WORDS).filter((k) => FAMILY_WORDS[k].test(how));
   return hits.length === 1 ? hits[0] : null;
 }
+/** A home team's club, without its age grade or team letter: "Bandon U17A", "Bandon AFC" and "Bandon B" are all "bandon". */
+export const clubKey = (home) => norm(home).split(' ').filter((w) => !/^(u\d{1,2}[a-z]?|[a-e]|\d|fc|afc|res|reserves)$/.test(w)).join(' ');
 /** The key to read or write this fixture's ground under: the shared one unless it belongs to another sport. */
 export function slotFor(f, grounds) {
   const key = groundKey(f);
   const family = familyOf(f.sport);
+  // A league can write the same bare name for two clubs' grounds ("Town Park" is Bandon's and Macroom's in one list).
+  // Such a ground is kept per home club, under the key plus "@club"; it is used only for that club's home games.
+  const club = clubKey(f.home);
+  if (club && grounds[`${key}@${club}`]) return `${key}@${club}`;
   if (!(key in grounds) || grounds[key] === null) return key;
   const theirs = entryFamily(grounds[key]);
   return theirs && theirs !== family ? `${key}~${family}` : key;

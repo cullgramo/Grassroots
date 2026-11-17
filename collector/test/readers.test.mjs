@@ -489,3 +489,18 @@ test('Running Calendar snapshot: races with their own checked start place, no ti
   assert.ok(got.every((f) => /^[A-Z][a-z]+$/.test(f.county)));
   assert.equal(new Set(got.map((f) => f.ref)).size, got.length);
 });
+
+test('a bare ground name shared by two clubs is placed per home club, and never for a third club', async () => {
+  const { slotFor, clubKey } = await import('../lib/grounds.mjs');
+  assert.equal(clubKey('Bandon U17A'), 'bandon');
+  assert.equal(clubKey('Bandon AFC'), 'bandon');
+  assert.equal(clubKey('Macroom U18'), 'macroom');
+  assert.equal(clubKey('Leeside United B'), 'leeside united');
+  const grounds = { 'Munster|town park|@bandon': { name: 'Town Park, Bandon', latitude: 51.75, longitude: -8.74 }, 'Munster|town park|@macroom': { name: 'Town Park, Macroom', latitude: 51.9, longitude: -8.95 } };
+  const at = (home) => ({ venue: 'Town Park', area: 'Munster', sport: 'soccer', home, postcode: null });
+  assert.equal(slotFor(at('Bandon U17'), grounds), 'Munster|town park|@bandon');
+  assert.equal(slotFor(at('Macroom U18'), grounds), 'Munster|town park|@macroom');
+  assert.equal(slotFor(at('Fermoy U17'), grounds), 'Munster|town park|');
+  assert.equal(grounds[slotFor(at('Fermoy U17'), grounds)], undefined);
+  assert.equal(slotFor({ venue: 'Town Park', area: 'Munster', sport: 'soccer', title: 'Cup day', postcode: null }, grounds), 'Munster|town park|');
+});
