@@ -144,6 +144,14 @@
   "longitude": -9.00462,
   "how": "Get Ireland Active club list, matched on club name (Claremorris RFC)"
  },
+ "Connacht|clarinbridge|": {
+  "family": "soccer",
+  "name": "Colga FC",
+  "county": "Galway",
+  "latitude": 53.2336049,
+  "longitude": -8.8513612,
+  "how": "pin supplied by the owner from Google Maps (place: Colga FC), 17 Nov 2026; checked against the map"
+ },
  "Connacht|clifden|": null,
  "Connacht|cloonacool community park|": {
   "name": "Cloonacool Community Park",
@@ -480,6 +488,14 @@
   "how": "rugby club search (leisure/sports_centre: Monivea Rugby Club); the source names the club or town, not the pitch"
  },
  "Connacht|newcastle galway|": null,
+ "Connacht|nfp park drom|": {
+  "family": "soccer",
+  "name": "Drom Soccer Park",
+  "county": "Galway",
+  "latitude": 53.2935476,
+  "longitude": -9.1325999,
+  "how": "pin supplied by the owner from Google Maps (place: Drom Soccer Park), 17 Nov 2026; checked against the map"
+ },
  "Connacht|o rourke park|": {
   "family": "gaa",
   "name": "O'Rourke Park",
