@@ -45,6 +45,22 @@
   "longitude": -9.142244,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Ardnaree Sarsfields: Sean Duffy Park)"
  },
+ "Connacht|athenry astro|": {
+  "family": "soccer",
+  "name": "Athenry Astro",
+  "county": "Galway",
+  "latitude": 53.308636,
+  "longitude": -8.766534,
+  "how": "Get Ireland Active club list, matched on club name (Athenry FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Connacht|athenry|": {
+  "family": "soccer",
+  "name": "Athenry",
+  "county": "Galway",
+  "latitude": 53.308636,
+  "longitude": -8.766534,
+  "how": "Get Ireland Active club list, matched on club name (Athenry FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Connacht|athlone|": null,
  "Connacht|ballinasloe rfc|": {
   "name": "Ballinasloe RFC",
@@ -52,6 +68,14 @@
   "latitude": 53.301972,
   "longitude": -8.245005,
   "how": "rugby club search (leisure/sports_centre: Ballinasloe Rugby Football Club); the source names the club or town, not the pitch"
+ },
+ "Connacht|ballinasloe|": {
+  "family": "soccer",
+  "name": "Ballinasloe",
+  "county": "Galway",
+  "latitude": 53.32709,
+  "longitude": -8.23123,
+  "how": "Get Ireland Active club list, matched on club name (Ballinasloe Town Association Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Connacht|ballinrobe rfc|": {
   "name": "Ballinrobe RFC",
@@ -66,6 +90,14 @@
   "latitude": 53.768714,
   "longitude": -8.775319,
   "how": "rugby club search (leisure/pitch: Ballyhaunis Rugby Club); the source names the club or town, not the pitch"
+ },
+ "Connacht|cappagh park|": {
+  "family": "soccer",
+  "name": "Cappagh Park",
+  "county": "Galway",
+  "latitude": 53.26354,
+  "longitude": -9.132955,
+  "how": "place search (leisure/park: Cappagh Park); match read and accepted by hand, 17 Nov 2026"
  },
  "Connacht|carnmore gaa club|": {
   "name": "Carnmore GAA Club",
@@ -135,6 +167,22 @@
   "longitude": -8.936159,
   "how": "place search (amenity/school: Coláiste Bhaile Chláir)"
  },
+ "Connacht|colemanstown|": {
+  "family": "soccer",
+  "name": "Colemanstown",
+  "county": "Galway",
+  "latitude": 53.39614,
+  "longitude": -8.62326,
+  "how": "Get Ireland Active club list, matched on club name (Colemanstown United Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Connacht|colga astro|": {
+  "family": "soccer",
+  "name": "Colga Astro",
+  "county": "Galway",
+  "latitude": 53.233612,
+  "longitude": -8.851731,
+  "how": "Get Ireland Active club list, matched on club name (Colga FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Connacht|colts park|": {
   "name": "Colts Park",
   "county": "Mayo",
@@ -164,6 +212,14 @@
   "latitude": 53.317765,
   "longitude": -8.983548,
   "how": "checked by hand (OpenStreetMap: Galway Corinthians RFC, Cloonacauneen)"
+ },
+ "Connacht|corofin|": {
+  "family": "soccer",
+  "name": "Corofin",
+  "county": "Galway",
+  "latitude": 53.43925,
+  "longitude": -8.88731,
+  "how": "Get Ireland Active club list, matched on club name (Corofin United Association Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Connacht|corrib rfc|": {
   "name": "Corrib RFC",
@@ -309,6 +365,14 @@
   "longitude": -9.581397,
   "how": "GAA pitch list, matched on club name (Kilmeena GAA: St. Brendan's Sports Park)"
  },
+ "Connacht|kilronan park|": {
+  "family": "gaa",
+  "name": "Kilronan Park",
+  "county": "Roscommon",
+  "latitude": 54.072147,
+  "longitude": -8.200167,
+  "how": "GAA pitch list, matched on pitch name (St. Ronan's GAA: Kilronan Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Connacht|kiltimagh gaa club|": {
   "name": "Kiltimagh GAA Club",
   "county": "Mayo",
@@ -322,6 +386,14 @@
   "latitude": 53.625,
   "longitude": -8.180833,
   "how": "coordinates from Gemini research, checked against the map: pitch list has Roscommon Gaels at Dr. Hyde Park 20 m away"
+ },
+ "Connacht|knockmore gaa club|": {
+  "family": "gaa",
+  "name": "Knockmore GAA Club",
+  "county": "Mayo",
+  "latitude": 54.025504,
+  "longitude": -9.176225,
+  "how": "GAA pitch list, matched on pitch name (Knockmore GAA: Knockmore); match read and accepted by hand, 17 Nov 2026"
  },
  "Connacht|lisnamult|": {
   "name": "Lisnamult",
@@ -346,6 +418,38 @@
   "how": "place search (leisure/stadium: Markievicz Park)"
  },
  "Connacht|mcgovern park ruislip|": null,
+ "Connacht|merlin woods city park|": {
+  "family": "soccer",
+  "name": "Merlin Woods City Park",
+  "county": "Galway",
+  "latitude": 53.283194,
+  "longitude": -8.986677,
+  "how": "Get Ireland Active club list, matched on club address (Merlin Woods Sports Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Connacht|mervue astro|": {
+  "family": "soccer",
+  "name": "Mervue Astro",
+  "county": "Galway",
+  "latitude": 53.281682,
+  "longitude": -9.018881,
+  "how": "Get Ireland Active club list, matched on club name (Mervue United Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Connacht|mervue|": {
+  "family": "soccer",
+  "name": "Mervue",
+  "county": "Galway",
+  "latitude": 53.281682,
+  "longitude": -9.018881,
+  "how": "Get Ireland Active club list, matched on club name (Mervue United Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Connacht|millers lane|": {
+  "family": "soccer",
+  "name": "Millers Lane",
+  "county": "Galway",
+  "latitude": 53.273238,
+  "longitude": -9.094719,
+  "how": "Get Ireland Active club list, matched on club address (Galway Bohemians AFC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Connacht|milltown gaa club|": {
   "name": "Milltown GAA Club",
   "county": "Galway",
@@ -369,6 +473,14 @@
   "how": "rugby club search (leisure/sports_centre: Monivea Rugby Club); the source names the club or town, not the pitch"
  },
  "Connacht|newcastle galway|": null,
+ "Connacht|o rourke park|": {
+  "family": "gaa",
+  "name": "O'Rourke Park",
+  "county": "Roscommon",
+  "latitude": 53.770402,
+  "longitude": -8.487095,
+  "how": "GAA pitch list, matched on pitch name (St. Kevin's GAA, Castlerea: O'Rourke Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Connacht|orchard park|": {
   "name": "Orchard Park",
   "county": "Roscommon",
@@ -389,6 +501,14 @@
   "latitude": 53.09229,
   "longitude": -8.1849,
   "how": "Get Ireland Active club list, matched on club name (Portumna RFC)"
+ },
+ "Connacht|renmore|": {
+  "family": "soccer",
+  "name": "Renmore",
+  "county": "Galway",
+  "latitude": 53.276264,
+  "longitude": -9.016596,
+  "how": "Get Ireland Active club list, matched on club name (Renmore AFC); match read and accepted by hand, 17 Nov 2026"
  },
  "Connacht|rockfield|": {
   "name": "Rockfield",
@@ -419,6 +539,22 @@
   "longitude": -9.053405,
   "how": "place search (leisure/park: South Park)"
  },
+ "Connacht|south park|": {
+  "family": "soccer",
+  "name": "South Park",
+  "county": "Galway",
+  "latitude": 53.265021,
+  "longitude": -9.053405,
+  "how": "place search (leisure/park: South Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Connacht|st brigid s gaa kiltoom|": {
+  "family": "gaa",
+  "name": "St Brigid's GAA, Kiltoom",
+  "county": "Roscommon",
+  "latitude": 53.485433,
+  "longitude": -8.026574,
+  "how": "GAA pitch list, matched on pitch name (St. Brigid's GAA, Kiltoom: Kiltoom); match read and accepted by hand, 17 Nov 2026"
+ },
  "Connacht|st colmans park|": {
   "name": "St Colmans Park",
   "county": "Galway",
@@ -439,6 +575,14 @@
   "latitude": 54.265175,
   "longitude": -8.478383,
   "how": "place search (amenity/school: Summerhill College)"
+ },
+ "Connacht|tallagh belmullet|": {
+  "family": "gaa",
+  "name": "Tallagh (Belmullet)",
+  "county": "Mayo",
+  "latitude": 54.24866,
+  "longitude": -9.9979,
+  "how": "GAA pitch list, matched on pitch name (Belmullet GAA: Belmullet GAA Pitch, Tallagh); match read and accepted by hand, 17 Nov 2026"
  },
  "Connacht|tallagh|": null,
  "Connacht|tarmonbarry|": null,
@@ -477,6 +621,14 @@
   "latitude": 53.813772,
   "longitude": -9.583738,
   "how": "rugby club search (leisure/pitch: Westport Rugby Club); the source names the club or town, not the pitch"
+ },
+ "Connacht|westside|": {
+  "family": "soccer",
+  "name": "Westside",
+  "county": "Galway",
+  "latitude": 53.275843,
+  "longitude": -9.079977,
+  "how": "place search (leisure/park: Westside Park); match read and accepted by hand, 17 Nov 2026"
  },
  "Cork|churchtown|": {
   "name": "Churchtown",
@@ -587,6 +739,22 @@
   "latitude": 53.486825,
   "longitude": -6.128555,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"St Ita's AFC\"; the club list has St. Ita's Athletic Football Club is 63 m away (proposer's source: OpenStreetMap way/1339593028: St Ita's AFC)"
+ },
+ "Dublin|ballymount park|": {
+  "family": "soccer",
+  "name": "Ballymount Park",
+  "county": "Dublin",
+  "latitude": 53.310692,
+  "longitude": -6.372528,
+  "how": "place search (leisure/park: Ballymount Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Dublin|ballymun soccer complex|": {
+  "family": "soccer",
+  "name": "Ballymun Soccer Complex",
+  "county": "Dublin",
+  "latitude": 53.40705,
+  "longitude": -6.27938,
+  "how": "Get Ireland Active club list, matched on club address (Ballymun United FC); match read and accepted by hand, 17 Nov 2026"
  },
  "Dublin|ballywaltrim bray|": {
   "name": "Ballywaltrim",
@@ -1536,6 +1704,22 @@
   "longitude": -6.357113,
   "how": "place search (leisure/track: Bellewstown Racecourse)"
  },
+ "Ireland|boardsmill gaa|": {
+  "family": "gaa",
+  "name": "Boardsmill GAA",
+  "county": "Meath",
+  "latitude": 53.525985,
+  "longitude": -6.872563,
+  "how": "GAA pitch list, matched on club name (Boardsmill GAA); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ireland|clarecastle|": {
+  "family": "handball",
+  "name": "Clarecastle Sports Complex",
+  "county": "Clare",
+  "latitude": 52.8156689,
+  "longitude": -8.9668268,
+  "how": "pin supplied by the owner from Google Maps (place: Clarecastle Sports Complex), 17 Nov 2026; checked against the map"
+ },
  "Ireland|clonmel racecourse|": {
   "name": "Clonmel Racecourse",
   "county": "Tipperary",
@@ -1628,6 +1812,14 @@
   "longitude": -7.49588,
   "how": "checked by hand (OpenStreetMap: Kilbeggan Races)"
  },
+ "Ireland|kilkishen|": {
+  "family": "handball",
+  "name": "Kilkishen Handball Club",
+  "county": "Clare",
+  "latitude": 52.80249,
+  "longitude": -8.7550112,
+  "how": "pin supplied by the owner from Google Maps (place: Kilkishen Handball Club), 17 Nov 2026; checked against the map"
+ },
  "Ireland|killarney racecourse|": {
   "name": "Killarney Racecourse",
   "county": "Kerry",
@@ -1699,6 +1891,22 @@
   "longitude": -6.674888,
   "how": "place search (leisure/track: Navan Racecourse)"
  },
+ "Ireland|netwatch cullen park carlow|": {
+  "family": "gaa",
+  "name": "Netwatch Cullen Park, Carlow",
+  "county": "Carlow",
+  "latitude": 52.846798,
+  "longitude": -6.916638,
+  "how": "place search (leisure/stadium: Netwatch Cullen Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ireland|ocallaghans mills|": {
+  "family": "handball",
+  "name": "O'Callaghans Mills GAA Club - Hamilton Park Kilkishen",
+  "county": "Clare",
+  "latitude": 52.8025837,
+  "longitude": -8.7548633,
+  "how": "pin supplied by the owner from Google Maps (place: O'Callaghans Mills GAA Club - Hamilton Park Kilkishen), 17 Nov 2026; checked against the map"
+ },
  "Ireland|pembroke wanderers hc|": {
   "family": "hockey",
   "name": "Pembroke Wanderers Hockey Club",
@@ -1751,6 +1959,30 @@
   "longitude": -8.222915,
   "how": "place search (leisure/sports_centre: Roscommon Racecourse)"
  },
+ "Ireland|sean eiffe park ratoath|": {
+  "family": "gaa",
+  "name": "Sean Eiffe Park, Ratoath",
+  "county": "Meath",
+  "latitude": 53.510425,
+  "longitude": -6.478256,
+  "how": "GAA pitch list, matched on pitch name (Ratoath GAA: Sean Eiffe Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ireland|sean o leary s gac newbridge|": {
+  "family": "gaa",
+  "name": "Seán O'Leary's GAC Newbridge",
+  "county": "Derry",
+  "latitude": 54.761608,
+  "longitude": -6.506944,
+  "how": "GAA pitch list, matched on pitch name (Seán O'Leary's GAA, Newbridge: Seán O'Leary Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ireland|shelbourne park|": {
+  "family": "greyhound-racing",
+  "name": "Shelbourne Park",
+  "county": "Dublin",
+  "latitude": 53.340479,
+  "longitude": -6.230196,
+  "how": "place search (leisure/stadium: Shelbourne Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ireland|sligo racecourse|": {
   "name": "Sligo Racecourse",
   "county": "Sligo",
@@ -1774,6 +2006,14 @@
   "longitude": -5.95294,
   "how": "checked by hand (OpenStreetMap: Mossley Hockey Club, The Glade)"
  },
+ "Ireland|three rock rovers hc|": {
+  "family": "hockey",
+  "name": "Three Rock Rovers HC",
+  "county": "Dublin",
+  "latitude": 53.279655,
+  "longitude": -6.272811,
+  "how": "Get Ireland Active club list, matched on club name (Three Rock Rovers Hockey Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ireland|thurles racecourse|": {
   "name": "Thurles Racecourse",
   "county": "Tipperary",
@@ -1788,12 +2028,28 @@
   "longitude": -8.206771,
   "how": "place search (leisure/sports_centre: Tipperary Racecourse)"
  },
+ "Ireland|toonagh|": {
+  "family": "handball",
+  "name": "Toonagh handball court",
+  "county": "Clare",
+  "latitude": 52.8903467,
+  "longitude": -9.0348917,
+  "how": "pin supplied by the owner from Google Maps (place: Toonagh handball court), 17 Nov 2026; checked against the map"
+ },
  "Ireland|tramore racecourse|": {
   "name": "Tramore Racecourse",
   "county": "Waterford",
   "latitude": 52.172464,
   "longitude": -7.148459,
   "how": "place search (leisure/sports_centre: Waterford & Tramore Racecourse)"
+ },
+ "Ireland|tuamgraney|": {
+  "family": "handball",
+  "name": "Tuamgraney",
+  "county": "Clare",
+  "latitude": 52.896892,
+  "longitude": -8.539976,
+  "how": "place search (club/sport: Tuamgraney Handball Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Ireland|ucd sports complex|": {
   "name": "UCD Sports Complex",
@@ -2776,6 +3032,14 @@
   "longitude": -6.601028,
   "how": "proposed position, verified by collector/verify-grounds.mjs: the map names this spot \"\" (proposer's source: OpenStreetMap way/33452092: Maynooth University North Campus)"
  },
+ "Leinster|maynooth|": {
+  "family": "gaa",
+  "name": "Maynooth",
+  "county": "Kildare",
+  "latitude": 53.388073,
+  "longitude": -6.599887,
+  "how": "GAA pitch list, matched on club name (Maynooth); match read and accepted by hand, 17 Nov 2026"
+ },
  "Leinster|mccauley park bellefield|": {
   "name": "McCauley Park Bellefield",
   "county": "Wexford",
@@ -2916,6 +3180,14 @@
   "latitude": 52.739001,
   "longitude": -6.98256,
   "how": "GAA pitch list, matched on pitch name (Naomh Bríd: Superbowl)"
+ },
+ "Leinster|naomh mearnog|": {
+  "family": "gaa",
+  "name": "Naomh Mearnóg",
+  "county": "Dublin",
+  "latitude": 53.437508,
+  "longitude": -6.142577,
+  "how": "Get Ireland Active club list, matched on club name (Naomh Mearnóg GAA,LGFA & Camogie Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Leinster|netwatch cullen park carlow|": {
   "name": "Netwatch Cullen Park, Carlow",
@@ -3270,6 +3542,14 @@
   "longitude": -6.606638,
   "how": "GAA pitch list, matched on club name (Straffan)"
  },
+ "Leinster|straffan|": {
+  "family": "gaa",
+  "name": "Straffan",
+  "county": "Kildare",
+  "latitude": 53.311276,
+  "longitude": -6.606638,
+  "how": "GAA pitch list, matched on club name (Straffan); match read and accepted by hand, 17 Nov 2026"
+ },
  "Leinster|suncroft gfc|": {
   "name": "Suncroft GFC",
   "county": "Kildare",
@@ -3497,6 +3777,14 @@
   "how": "OpenStreetMap way/590500660: GAA National Games Development Centre; corroboration: GAA National Games Development Centre, National Sports Campus, Abbotstown, Dublin 15 (mse.ie, the42.ie); checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
   "family": "gaa"
  },
+ "Munster|aisling annacotty astro|": {
+  "family": "soccer",
+  "name": "Aisling Annacotty (Astro)",
+  "county": "Limerick",
+  "latitude": 52.662567,
+  "longitude": -8.532557,
+  "how": "Get Ireland Active club list, matched on club name (Aisling Annacotty AFC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|an baile loiscthe|": null,
  "Munster|annacotty|": null,
  "Munster|anner park cloneen|": {
@@ -3506,6 +3794,22 @@
   "longitude": -7.595447,
   "how": "GAA Pitch Finder (CC BY 4.0): St. Patricks / Anner Park; corroboration: GIA #193972 St Patrick's GAA Club, Tipperary (about 100 m away); OSM unnamed pitch w1238458123 at the same spot; GPF pitch is literally named Anner Park; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
   "family": "gaa"
+ },
+ "Munster|ardfinnan|": {
+  "family": "gaa",
+  "name": "Ardfinnan",
+  "county": "Tipperary",
+  "latitude": 52.318382,
+  "longitude": -7.864478,
+  "how": "GAA pitch list, matched on club name (Ardfinnan); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|ardrath park|": {
+  "family": "soccer",
+  "name": "Ardrath Park",
+  "county": "Cork",
+  "latitude": 51.951073,
+  "longitude": -7.850879,
+  "how": "place search (leisure/sports_centre: Ardrath Park); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|ashton school|": {
   "family": "hockey",
@@ -3522,6 +3826,14 @@
   "longitude": -9.693463,
   "how": "place search (leisure/pitch: Austin Stack Park)"
  },
+ "Munster|avondale park|": {
+  "family": "soccer",
+  "name": "Avondale Park",
+  "county": "Cork",
+  "latitude": 51.82234,
+  "longitude": -8.37904,
+  "how": "Get Ireland Active club list, matched on club name (Avondale United FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|azzurri walsh park waterford|": {
   "family": "gaa",
   "name": "Walsh Park",
@@ -3536,6 +3848,14 @@
   "latitude": 52.25476,
   "longitude": -7.12865,
   "how": "checked by hand (OpenStreetMap: Walsh Park, Waterford)"
+ },
+ "Munster|ballea park|": {
+  "family": "soccer",
+  "name": "Ballea Park",
+  "county": "Cork",
+  "latitude": 51.816506,
+  "longitude": -8.403598,
+  "how": "place search (leisure/sports_centre: Ballea Park Carrigaline United AFC); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|ballinakill|": {
   "name": "Ballinakill",
@@ -3598,6 +3918,14 @@
   "longitude": -8.394689,
   "how": "GAA pitch list, matched on club name (Ballyhooly)"
  },
+ "Munster|ballylongford|": {
+  "family": "gaa",
+  "name": "Ballylongford",
+  "county": "Kerry",
+  "latitude": 52.544152,
+  "longitude": -9.474968,
+  "how": "GAA pitch list, matched on club name (Ballylongford); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|ballylooby|": {
   "name": "Ballylooby",
   "county": "Tipperary",
@@ -3612,6 +3940,14 @@
   "latitude": 51.864176,
   "longitude": -8.555064,
   "how": "GAA pitch list, matched on pitch name (Ballinora GAA: Ballymah)"
+ },
+ "Munster|ballynanty park|": {
+  "family": "soccer",
+  "name": "Ballynanty Park",
+  "county": "Limerick",
+  "latitude": 52.670184,
+  "longitude": -8.63965,
+  "how": "Get Ireland Active club list, matched on club name (Ballynanty Rovers); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|bandon grammar sch|": {
   "name": "Bandon Grammar Sch.",
@@ -3642,6 +3978,14 @@
   "longitude": -8.067739,
   "how": "OpenStreetMap way/1480591988: Galtee Rovers GAA; corroboration: GAA Pitch Finder (CC BY 4.0): Galtee Rovers / Canon Hayes Park (55 m away) | Get Ireland Active record #187422 Galtee Rovers/St Pecaun GAA Club (105 m away) | OpenStreetMap way/385931022: unnamed gaelic_games (84 m away); checked 2026-11-15 pass 3 (Nominatim reverse: Galtee View Estate, Bansha, County Tipperary)",
   "family": "gaa"
+ },
+ "Munster|banteer 4g|": {
+  "family": "gaa",
+  "name": "Banteer 4G",
+  "county": "Cork",
+  "latitude": 52.127921,
+  "longitude": -8.898394,
+  "how": "GAA pitch list, matched on club name (Banteer); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|bantry school|": {
   "name": "Bantry School",
@@ -3838,7 +4182,14 @@
   "longitude": -8.542987,
   "how": "place search (amenity/school: Castletroy College)"
  },
- "Munster|charleville|": null,
+ "Munster|charleville|": {
+  "family": "gaa",
+  "name": "Charleville",
+  "county": "Cork",
+  "latitude": 52.351772,
+  "longitude": -8.678355,
+  "how": "GAA pitch list, matched on club name (Charleville); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|cill na martra|": {
   "family": "gaa",
   "name": "Cill Na Martra",
@@ -4017,6 +4368,14 @@
   "longitude": -8.645972,
   "how": "checked by hand (OpenStreetMap: Garryowen FC, Dooradoyle)"
  },
+ "Munster|douglas|": {
+  "family": "gaa",
+  "name": "Douglas",
+  "county": "Cork",
+  "latitude": 51.874471,
+  "longitude": -8.442898,
+  "how": "GAA pitch list, matched on club name (Douglas); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|drombane|": {
   "name": "Drombane",
   "county": "Tipperary",
@@ -4069,6 +4428,22 @@
   "longitude": -8.993973,
   "how": "rugby club search (leisure/sports_centre: Ennis Rugby Football Club); the source names the club or town, not the pitch"
  },
+ "Munster|everton park|": {
+  "family": "soccer",
+  "name": "Everton Park",
+  "county": "Cork",
+  "latitude": 51.85449,
+  "longitude": -8.48877,
+  "how": "Get Ireland Active club list, matched on club name (Everton AFC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|fairfield|": {
+  "family": "soccer",
+  "name": "Fairfield",
+  "county": "Cork",
+  "latitude": 51.917411,
+  "longitude": -8.487502,
+  "how": "place search (leisure/park: Fairfield Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|farmers cross|": null,
  "Munster|father hayes memorial park|": null,
  "Munster|fbd semple stadium thurles|": {
@@ -4077,6 +4452,14 @@
   "latitude": 52.682102,
   "longitude": -7.826016,
   "how": "place search (leisure/stadium: FBD Semple Stadium)"
+ },
+ "Munster|fermoy fc|": {
+  "family": "soccer",
+  "name": "Fermoy FC",
+  "county": "Cork",
+  "latitude": 52.14386,
+  "longitude": -8.28265,
+  "how": "Get Ireland Active club list, matched on club name (Fermoy Association Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|fermoy|": {
   "name": "Fermoy",
@@ -4151,6 +4534,14 @@
   "how": "OpenStreetMap way/129467782: Garryowen FC; corroboration: limericksports.ie: Garryowen grounds at Dooradoyle Road, Dooradoyle; GIA #181849; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "rugby"
  },
+ "Munster|geraldines afc|": {
+  "family": "soccer",
+  "name": "Geraldines AFC",
+  "county": "Limerick",
+  "latitude": 52.662998,
+  "longitude": -8.608398,
+  "how": "Get Ireland Active club list, matched on club name (geraldines afc); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|glen field|": {
   "name": "Glen Field",
   "county": "Cork",
@@ -4189,6 +4580,14 @@
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Golden/Kilfeacle)"
  },
  "Munster|gort gaa grounds|": null,
+ "Munster|gortnahoe|": {
+  "family": "gaa",
+  "name": "Gortnahoe",
+  "county": "Tipperary",
+  "latitude": 52.674159,
+  "longitude": -7.601641,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Gortnahoe-Glengoole); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|gracedieu|": {
   "family": "gaa",
   "name": "Gracedieu",
@@ -4214,6 +4613,14 @@
   "how": "checked by hand (OpenStreetMap: Saint Mary's RFC, Pa Healy Road, Grove Island)"
  },
  "Munster|gurteen|": null,
+ "Munster|herbertstown fc|": {
+  "family": "soccer",
+  "name": "Herbertstown FC",
+  "county": "Limerick",
+  "latitude": 52.516407,
+  "longitude": -8.468555,
+  "how": "Get Ireland Active club list, matched on club name (Herbertstown AFC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|iffley road|": null,
  "Munster|inagh|": {
   "name": "Inagh",
@@ -4221,6 +4628,22 @@
   "latitude": 52.877755,
   "longitude": -9.181087,
   "how": "GAA pitch list, matched on pitch name (Inagh Kilnamona: Inagh)"
+ },
+ "Munster|jackman park|": {
+  "family": "soccer",
+  "name": "Jackman Park",
+  "county": "Limerick",
+  "latitude": 52.657556,
+  "longitude": -8.62333,
+  "how": "place search (leisure/sports_centre: Jackman Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|janesboro association football club|": {
+  "family": "soccer",
+  "name": "Janesboro Association Football Club",
+  "county": "Limerick",
+  "latitude": 52.65143,
+  "longitude": -8.62364,
+  "how": "Get Ireland Active club list, matched on club name (Janesboro Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|jimmy slattery park|": null,
  "Munster|kanturk|": {
@@ -4236,6 +4659,14 @@
   "latitude": 52.172486,
   "longitude": -9.773946,
   "how": "GAA pitch list, matched on club name (Keel)"
+ },
+ "Munster|keel|": {
+  "family": "gaa",
+  "name": "Keel",
+  "county": "Kerry",
+  "latitude": 52.172486,
+  "longitude": -9.773946,
+  "how": "GAA pitch list, matched on club name (Keel); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|kilballyowen park|": {
   "name": "Kilballyowen Park",
@@ -4328,6 +4759,14 @@
   "longitude": -8.57367,
   "how": "checked by hand (OpenStreetMap: Kilmallock GAA); the source gives only the town, and this is the town's GAA ground"
  },
+ "Munster|kilmichael|": {
+  "family": "soccer",
+  "name": "Kilmichael",
+  "county": "Cork",
+  "latitude": 51.870106,
+  "longitude": -9.010354,
+  "how": "Get Ireland Active club list, matched on club name (Kilmichael Rovers FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|kilmihil gaa|": {
   "name": "Kilmihil GAA",
   "county": "Clare",
@@ -4388,6 +4827,22 @@
   "longitude": -7.877735,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Cashel King Cormacs: Leahy Park)"
  },
+ "Munster|leeds park|": {
+  "family": "soccer",
+  "name": "Leeds Park",
+  "county": "Cork",
+  "latitude": 51.918141,
+  "longitude": -8.457701,
+  "how": "Get Ireland Active club list, matched on club name (Leeds afc); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|leeside park|": {
+  "family": "soccer",
+  "name": "Leeside Park",
+  "county": "Cork",
+  "latitude": 51.900518,
+  "longitude": -8.368089,
+  "how": "Get Ireland Active club list, matched on club name (Leeside United); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|liam fitzgerald park|": {
   "name": "Liam Fitzgerald Park (Thomond RFC)",
   "county": "Limerick",
@@ -4408,6 +4863,22 @@
   "latitude": 52.642503,
   "longitude": -7.742512,
   "how": "GAA pitch list, matched on pitch name (Moycarkey-Borris: Littleton)"
+ },
+ "Munster|macroom town park|": {
+  "family": "soccer",
+  "name": "Macroom Town Park",
+  "county": "Cork",
+  "latitude": 51.906482,
+  "longitude": -8.952159,
+  "how": "Get Ireland Active club list, matched on club name (Macroom FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|madden park|": {
+  "family": "soccer",
+  "name": "Madden Park",
+  "county": "Cork",
+  "latitude": 51.698457,
+  "longitude": -8.496708,
+  "how": "place search (leisure/sports_centre: Madden Park - Kinsale AFC); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|mallow|": {
   "name": "Mallow",
@@ -4499,6 +4970,14 @@
   "how": "GAA pitch list, matched on club name (Moyvane)"
  },
  "Munster|multiflow park|": null,
+ "Munster|murroe afc|": {
+  "family": "soccer",
+  "name": "Murroe AFC",
+  "county": "Limerick",
+  "latitude": 52.650254,
+  "longitude": -8.431719,
+  "how": "Get Ireland Active club list, matched on club name (Murroe AFC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|murroe|": null,
  "Munster|muskerry|": {
   "name": "Muskerry",
@@ -4573,6 +5052,22 @@
   "longitude": -7.10107,
   "how": "checked by hand (OpenStreetMap: Newtown School, Waterford)"
  },
+ "Munster|o callaghans mills|": {
+  "family": "gaa",
+  "name": "O'Callaghans Mills",
+  "county": "Clare",
+  "latitude": 52.802605,
+  "longitude": -8.754876,
+  "how": "Get Ireland Active club list, matched on club name (O'Callaghans Mills GAA Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|o neill park|": {
+  "family": "soccer",
+  "name": "O'Neill Park",
+  "county": "Cork",
+  "latitude": 51.908243,
+  "longitude": -8.510878,
+  "how": "place search (leisure/sports_centre: O'Neill Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|ovens|": {
   "name": "Ovens",
   "county": "Cork",
@@ -4612,6 +5107,30 @@
   "how": "home club search, address matches the ground name (leisure/sports_centre: Old Christians RFC, L2977)"
  },
  "Munster|rathuard|": null,
+ "Munster|regional united afc|": {
+  "family": "soccer",
+  "name": "Regional United AFC",
+  "county": "Limerick",
+  "latitude": 52.623466,
+  "longitude": -8.643477,
+  "how": "Get Ireland Active club list, matched on club name (Regional United FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|rochestown|": {
+  "family": "gaa",
+  "name": "Rochestown",
+  "county": "Cork",
+  "latitude": 51.872988,
+  "longitude": -8.376033,
+  "how": "GAA pitch list, matched on club name (Rochestown); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|rockmount park|": {
+  "family": "soccer",
+  "name": "Rockmount Park",
+  "county": "Cork",
+  "latitude": 51.98404,
+  "longitude": -8.51418,
+  "how": "Get Ireland Active club list, matched on club name (Rockmount Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|rockwell|": {
   "name": "Rockwell",
   "county": "Tipperary",
@@ -4678,6 +5197,14 @@
   "how": "OpenStreetMap way/1168931542: South East Technological University - South Sports Campus; corroboration: setu.ie / SETU clubs: GAA pitches are on the South Sports Campus, Kilkenny Road, Carlow (six pitches); Nominatim reverse puts the OSM South Sports Campus object on Kilkenny Road, Carlow R93 AYW9; checked 2026-11-15 pass 2 (PlacesSearch unavailable, checked by hand)",
   "family": "gaa"
  },
+ "Munster|sheila flynn park|": {
+  "family": "soccer",
+  "name": "Sheila Flynn Park",
+  "county": "Cork",
+  "latitude": 52.170638,
+  "longitude": -8.24015,
+  "how": "Get Ireland Active club list, matched on club address (Kilworth Celtic FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|sixmilebridge|": {
   "name": "Sixmilebridge",
   "county": "Clare",
@@ -4700,6 +5227,22 @@
   "how": "place search (leisure/sports_centre: Solohead GAA Club)"
  },
  "Munster|st marys college|": null,
+ "Munster|st marys park|": {
+  "family": "soccer",
+  "name": "St Marys Park",
+  "county": "Cork",
+  "latitude": 51.937835,
+  "longitude": -8.475391,
+  "how": "Get Ireland Active club list, matched on club name (St Marys AFC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Munster|stephen ireland astro|": {
+  "family": "soccer",
+  "name": "Stephen Ireland Astro",
+  "county": "Cork",
+  "latitude": 51.854743,
+  "longitude": -8.285743,
+  "how": "Get Ireland Active club list, matched on club address (Springfield AFC/ Springfield Ramblers AFC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|sundays well|": {
   "name": "Sundays Well",
   "county": "Cork",
@@ -4714,6 +5257,14 @@
   "longitude": -8.435189,
   "how": "OpenStreetMap relation/3357154: SuperValu Páirc Uí Chaoimh; corroboration: GAA Pitch Finder (CC BY 4.0): Cork GAA / Páirc Uí Chaoimh (14 m away) | OpenStreetMap way/103407450: unnamed gaelic_games (10 m away) | gaacork.ie/pps-fixtures/ and gaacork.ie/2026/11/12/cork-pps-senior-championships-2026-semi-final-and-final-fixtures/ (read 15 Nov 2026): fixtures at \"SuperValu Páirc Uí Chaoimh 4G\"; checked 2026-11-15 pass 3 (Nominatim reverse: Cork Harbour Greenway, The Marina, County Cork)",
   "family": "gaa"
+ },
+ "Munster|supervalu pairc ui chaoimh|": {
+  "family": "gaa",
+  "name": "SuperValu Pairc Ui Chaoimh",
+  "county": "Cork",
+  "latitude": 51.899723,
+  "longitude": -8.435188,
+  "how": "place search (leisure/stadium: SuperValu Páirc Uí Chaoimh); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|takumi park|": {
   "name": "Takumi Park",
@@ -4744,6 +5295,14 @@
   "longitude": -8.435289,
   "how": "OpenStreetMap way/129467097: Cork Constitution Football Club; corroboration: corkcon.ie; GIA #191692; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "rugby"
+ },
+ "Munster|temple park|": {
+  "family": "soccer",
+  "name": "Temple Park",
+  "county": "Cork",
+  "latitude": 51.90741,
+  "longitude": -8.49577,
+  "how": "Get Ireland Active club list, matched on club name (Temple United Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Munster|templemore|": null,
  "Munster|templetuohy|": {
@@ -4871,6 +5430,14 @@
   "longitude": -8.98965,
   "how": "place search (leisure/common: Waterpark)"
  },
+ "Munster|whitechurch|": {
+  "family": "gaa",
+  "name": "Whitechurch",
+  "county": "Cork",
+  "latitude": 51.982503,
+  "longitude": -8.531731,
+  "how": "GAA pitch list, matched on club name (Whitechurch); match read and accepted by hand, 17 Nov 2026"
+ },
  "Munster|whitegate|": {
   "name": "Whitegate",
   "county": "Clare",
@@ -4943,12 +5510,28 @@
   "longitude": -7.704023,
   "how": "GAA pitch list, matched on club name (St. Davog's, Aghyaran: Michael Dolan Park)"
  },
+ "Ulster|aileach fc|": {
+  "family": "soccer",
+  "name": "Aileach FC",
+  "county": "Donegal",
+  "latitude": 55.060864,
+  "longitude": -7.443792,
+  "how": "Get Ireland Active club list, matched on club name (Aileach Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|an riocht|": {
   "name": "An Riocht",
   "county": "Down",
   "latitude": 54.049279,
   "longitude": -6.035741,
   "how": "GAA pitch list, matched on club name (An Ríocht GAA, Greencastle: Páirc na Rochta, Dunavil)"
+ },
+ "Ulster|an screaban gweedore|": {
+  "family": "soccer",
+  "name": "An Screaban, Gweedore",
+  "county": "Donegal",
+  "latitude": 55.06652,
+  "longitude": -8.28961,
+  "how": "Get Ireland Active club list, matched on club address (Gweedore Celtic Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|antrim forum lc|BT41 4DQ": {
   "family": "hockey",
@@ -4971,6 +5554,14 @@
   "latitude": 54.614172,
   "longitude": -6.551919,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (O'Donovan Rossa's GAA, Ardboe: Michael Coney Park)"
+ },
+ "Ulster|ardmore recreation centre|": {
+  "family": "soccer",
+  "name": "Ardmore Recreation Centre",
+  "county": "Armagh",
+  "latitude": 54.338759,
+  "longitude": -6.627385,
+  "how": "place search (leisure/sports_centre: Ardmore Recreation Centre); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|atticall|": {
   "name": "Atticall",
@@ -5158,6 +5749,14 @@
   "longitude": -7.288173,
   "how": "postcode"
  },
+ "Ulster|cappry park cappry|": {
+  "family": "soccer",
+  "name": "Cappry Park, Cappry",
+  "county": "Donegal",
+  "latitude": 54.79451,
+  "longitude": -7.81893,
+  "how": "Get Ireland Active club list, matched on club name (Cappry Rovers Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|cardonagh|": {
   "name": "Cardonagh",
   "county": "Donegal",
@@ -5199,6 +5798,14 @@
   "latitude": 54.4308,
   "longitude": -6.43202,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|cheney park|": {
+  "family": "soccer",
+  "name": "Cheney Park",
+  "county": "Down",
+  "latitude": 54.350754,
+  "longitude": -6.264144,
+  "how": "place search (leisure/sports_centre: Cheney Park); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|cherryvale|": null,
  "Ulster|circular road|": {
@@ -5292,12 +5899,28 @@
   "how": "GAA Pitch Finder (CC BY 4.0): Corduff Gaels / Páirc Eoghain Uí Mhearáin; corroboration: OSM w1223035671; GIA #187193; GPF pitch Páirc Eoghain Uí Mhearáin; checked 2026-11-15 (PlacesSearch unavailable, checked by hand)",
   "family": "gaa"
  },
+ "Ulster|cranford park|": {
+  "family": "soccer",
+  "name": "Cranford Park",
+  "county": "Donegal",
+  "latitude": 55.140765,
+  "longitude": -7.694475,
+  "how": "Get Ireland Active club list, matched on club name (Cranford FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|dalriada school|": {
   "name": "Dalriada School",
   "county": "Derry",
   "latitude": 55.0728,
   "longitude": -6.5224,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|darney park bruckless|": {
+  "family": "soccer",
+  "name": "Darney Park, Bruckless",
+  "county": "Donegal",
+  "latitude": 54.63223,
+  "longitude": -8.35707,
+  "how": "Get Ireland Active club list, matched on club address (Dunkineely Celtic Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|dave gallagher park|": {
   "name": "Dave Gallagher Park",
@@ -5327,6 +5950,14 @@
   "longitude": -6.61058,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (Derrylaughan Kevin Barry's GAC: Páirc Dhoire Locháin)"
  },
+ "Ulster|derryleckagh playing fields|": {
+  "family": "soccer",
+  "name": "Derryleckagh Playing Fields",
+  "county": "Down",
+  "latitude": 54.175285,
+  "longitude": -6.292064,
+  "how": "place search (landuse/recreation_ground: Derryleckagh Playing Fields); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|donaghmore gaa|": {
   "name": "Donaghmore GAA",
   "county": "Tyrone",
@@ -5341,7 +5972,23 @@
   "longitude": -5.5534,
   "how": "position from the source; county from the map"
  },
+ "Ulster|donegal gaa centre|": {
+  "family": "gaa",
+  "name": "Donegal GAA Centre",
+  "county": "Donegal",
+  "latitude": 54.851119,
+  "longitude": -7.686314,
+  "how": "place search (leisure/sports_centre: Donegal GAA Centre of Excellence); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|down hs|": null,
+ "Ulster|dromore community centre|": {
+  "family": "soccer",
+  "name": "Dromore Community Centre",
+  "county": "Down",
+  "latitude": 54.41548,
+  "longitude": -6.169717,
+  "how": "place search (leisure/sports_centre: Dromore Community Centre); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|dromore hs|": {
   "name": "Dromore HS",
   "county": "Armagh",
@@ -5355,6 +6002,22 @@
   "latitude": 54.22961,
   "longitude": -6.214452,
   "how": "GAA pitch list, matched on pitch name (St. Patrick's GAA, Drumgath: Drumgath GAA Grounds)"
+ },
+ "Ulster|drumhowan|": {
+  "family": "gaa",
+  "name": "Drumhowan",
+  "county": "Monaghan",
+  "latitude": 54.104848,
+  "longitude": -6.82205,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (Drumhowan Geraldines: Páirc Mhic Eoin); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster|drumineney raphoe|": {
+  "family": "soccer",
+  "name": "Drumineney-Raphoe",
+  "county": "Donegal",
+  "latitude": 54.851536,
+  "longitude": -7.615625,
+  "how": "Get Ireland Active club list, matched on club address (Raphoe Town Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|drumquin|": {
   "name": "Drumquin",
@@ -5370,6 +6033,14 @@
   "longitude": -7.988381,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Michael's GAA, Creeslough/Dunfanaghy: Páirc Naomh Micheál)"
  },
+ "Ulster|dunree united|": {
+  "family": "soccer",
+  "name": "Dunree United",
+  "county": "Donegal",
+  "latitude": 55.1864,
+  "longitude": -7.51589,
+  "how": "Get Ireland Active club list, matched on club name (Dunree Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|eaton park|": {
   "name": "Eaton Park",
   "county": "Antrim",
@@ -5383,6 +6054,14 @@
   "latitude": 54.4891,
   "longitude": -6.0677,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|emerald park killybegs|": {
+  "family": "soccer",
+  "name": "Emerald Park Killybegs",
+  "county": "Donegal",
+  "latitude": 54.6394,
+  "longitude": -8.44571,
+  "how": "Get Ireland Active club list, matched on club address (St Catherine’s Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|emmett park|": null,
  "Ulster|erins own gac cargin|": {
@@ -5478,6 +6157,14 @@
   "longitude": -7.839139,
   "how": "GAA pitch list, matched on club name (Glenswilly GAA: Páirc Naomh Columba)"
  },
+ "Ulster|glentornan park dunlewey|": {
+  "family": "soccer",
+  "name": "Glentornan park - Dunlewey",
+  "county": "Donegal",
+  "latitude": 55.020094,
+  "longitude": -8.163872,
+  "how": "Get Ireland Active club list, matched on club address (Dunlewey Celtic FC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|glynn|": {
   "name": "Glynn",
   "county": "Antrim",
@@ -5541,6 +6228,14 @@
   "longitude": -6.60573,
   "how": "position from the source; county from the map"
  },
+ "Ulster|havelock park|": {
+  "family": "soccer",
+  "name": "Havelock Park",
+  "county": "Down",
+  "latitude": 54.360111,
+  "longitude": -6.278181,
+  "how": "place search (leisure/park: Havelock Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|havelock park|BT32 4LU": {
   "name": "Havelock Park",
   "county": "Down",
@@ -5584,6 +6279,14 @@
   "latitude": 55.0188,
   "longitude": -7.26563,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|kernan playing fields|": {
+  "family": "soccer",
+  "name": "Kernan Playing Fields",
+  "county": "Armagh",
+  "latitude": 54.440668,
+  "longitude": -6.408165,
+  "how": "place search (leisure/park: Kernan Playing Fields); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|kickhams gac creggan|": {
   "name": "Kickhams GAC Creggan",
@@ -5642,6 +6345,14 @@
   "latitude": 54.4973,
   "longitude": -8.17227,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|langley road playing fields|": {
+  "family": "soccer",
+  "name": "Langley Road Playing Fields",
+  "county": "Down",
+  "latitude": 54.40996,
+  "longitude": -5.903605,
+  "how": "place search (leisure/park: Langley Road Playing Fields); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|larne grammar school|BT40 1PQ": {
   "family": "hockey",
@@ -5716,6 +6427,14 @@
   "longitude": -6.326759,
   "how": "postcode"
  },
+ "Ulster|lurgan junior high school|": {
+  "family": "soccer",
+  "name": "Lurgan Junior High School",
+  "county": "Armagh",
+  "latitude": 54.454648,
+  "longitude": -6.326759,
+  "how": "place search (amenity/school: Lurgan Junior High School); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|mac cumhaill park|": {
   "name": "Mac Cumhaill Park",
   "county": "Donegal",
@@ -5765,6 +6484,14 @@
   "latitude": 54.8019,
   "longitude": -7.76551,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|moira demesne|": {
+  "family": "soccer",
+  "name": "Moira Demesne",
+  "county": "Down",
+  "latitude": 54.484892,
+  "longitude": -6.23134,
+  "how": "place search (leisure/park: Moira Demesne); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|moortown|": {
   "name": "Moortown",
@@ -5997,6 +6724,14 @@
   "longitude": -7.439239,
   "how": "place search (leisure/pitch: Rory O'Moore Park)"
  },
+ "Ulster|rostrevor|": {
+  "family": "gaa",
+  "name": "Rostrevor",
+  "county": "Down",
+  "latitude": 54.105386,
+  "longitude": -6.203355,
+  "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Bronagh's GAA, Rostrevor: Canon Pettit Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|roughfort|": {
   "name": "Roughfort",
   "county": "Antrim",
@@ -6100,6 +6835,14 @@
   "longitude": -5.947285,
   "how": "place search (leisure/pitch: Solitude - Cliftonville A&FC)"
  },
+ "Ulster|sports complex killygordon|": {
+  "family": "soccer",
+  "name": "Sports Complex, Killygordon",
+  "county": "Donegal",
+  "latitude": 54.79474,
+  "longitude": -7.68199,
+  "how": "Get Ireland Active club list, matched on club address (Curragh Athletic Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|st bridget s park knockbride|": {
   "name": "St. Bridget's Park Knockbride",
   "county": "Cavan",
@@ -6136,6 +6879,14 @@
   "how": "GAA pitch list, matched on pitch name (St. Mary's GAA, Swanlinbar: St. Mary's Park)"
  },
  "Ulster|st patrick s park omagh|": null,
+ "Ulster|st patricks park drumkeen|": {
+  "family": "soccer",
+  "name": "St. Patricks Park, Drumkeen",
+  "county": "Donegal",
+  "latitude": 54.87003,
+  "longitude": -7.74774,
+  "how": "Get Ireland Active club list, matched on club address (Drumkeen United Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|st tiernach s park clones|": {
   "name": "St. Tiernach's Park, Clones",
   "county": "Monaghan",
@@ -6188,6 +6939,22 @@
   "longitude": -7.37588,
   "how": "position from the source; county from the map"
  },
+ "Ulster|swilly park ramelton|": {
+  "family": "soccer",
+  "name": "Swilly Park, Ramelton",
+  "county": "Donegal",
+  "latitude": 55.037283,
+  "longitude": -7.63779,
+  "how": "Get Ireland Active club list, matched on club address (Swilly Rovers F.C.); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster|tandragee recreation centre|": {
+  "family": "soccer",
+  "name": "Tandragee Recreation Centre",
+  "county": "Armagh",
+  "latitude": 54.354649,
+  "longitude": -6.407768,
+  "how": "place search (landuse/recreation_ground: Tandragee Recreation Centre); match read and accepted by hand, 17 Nov 2026"
+ },
  "Ulster|tattyreagh|": {
   "name": "Tattyreagh",
   "county": "Tyrone",
@@ -6209,6 +6976,14 @@
   "latitude": 54.1781,
   "longitude": -6.28942,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|tempo maguires gac|": {
+  "family": "gaa",
+  "name": "Tempo Maguires GAC",
+  "county": "Fermanagh",
+  "latitude": 54.381779,
+  "longitude": -7.460613,
+  "how": "GAA pitch list, matched on club name (Tempo Maguires: St. Patrick's Park); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|terry coyle park|": {
   "name": "Terry Coyle Park",
@@ -6239,6 +7014,14 @@
   "latitude": 54.6416,
   "longitude": -8.16298,
   "how": "position from the source; county from the map"
+ },
+ "Ulster|the moss drumoghill|": {
+  "family": "soccer",
+  "name": "The Moss, Drumoghill",
+  "county": "Donegal",
+  "latitude": 54.93414,
+  "longitude": -7.59676,
+  "how": "Get Ireland Active club list, matched on club address (Drumoghill Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Ulster|thomas mellon playing fields|": null,
  "Ulster|tria locha|": null,
@@ -6379,6 +7162,14 @@
   "longitude": -6.344777,
   "how": "place search (amenity/school: Ballymakenny College)"
  },
+ "|bray|": {
+  "family": "bowls",
+  "name": "Bray Bowling Club",
+  "county": "Wicklow",
+  "latitude": 53.2043319,
+  "longitude": -6.1033354,
+  "how": "pin supplied by the owner from Google Maps (place: Bray Bowling Club), 17 Nov 2026; checked against the map"
+ },
  "|calasanctius college|": {
   "name": "Calasanctius College",
   "county": "Galway",
@@ -6449,6 +7240,14 @@
   "longitude": -9.039562,
   "how": "OpenStreetMap way/159896536: Dexcom Stadium; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists; checked 2026-11-15"
  },
+ "|dun laoghaire|": {
+  "family": "bowls",
+  "name": "Dun Laoghaire",
+  "county": "Dublin",
+  "latitude": 53.287866,
+  "longitude": -6.142136,
+  "how": "place search (leisure/pitch: Dun Laoghaire Bowling Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "|fr mathews arena|": {
   "name": "Fr Mathews Arena",
   "county": "Cork",
@@ -6463,6 +7262,14 @@
   "longitude": -6.44524,
   "how": "checked by hand (OpenStreetMap: Hansfield Educate Together Secondary School)"
  },
+ "|herbert park|": {
+  "family": "bowls",
+  "name": "Herbert Park",
+  "county": "Dublin",
+  "latitude": 53.325724,
+  "longitude": -6.234415,
+  "how": "place search (leisure/park: Herbert Park); match read and accepted by hand, 17 Nov 2026"
+ },
  "|iwa clontarf|": {
   "name": "IWA Clontarf",
   "county": "Dublin",
@@ -6476,6 +7283,14 @@
   "latitude": 54.688803,
   "longitude": -5.883404,
   "how": "checked by hand (OpenStreetMap: Ulster University Sports Centre, Jordanstown)"
+ },
+ "|kenilworth|": {
+  "family": "bowls",
+  "name": "Kenilworth",
+  "county": "Dublin",
+  "latitude": 53.324042,
+  "longitude": -6.274026,
+  "how": "place search (leisure/sports_centre: Kenilworth Bowling Club); match read and accepted by hand, 17 Nov 2026"
  },
  "|kerry sports academy|": {
   "name": "Kerry Sports Academy",
@@ -6511,6 +7326,14 @@
   "latitude": 53.32577,
   "longitude": -6.22923,
   "how": "OpenStreetMap way/1066758508: RDS Arena; position fetched from OpenStreetMap (Nominatim lookup) by id, for the name used in the URC and EPCR fixture lists (Laya Arena); owner confirmed on 15 Nov 2026 that Laya Arena is RDS Arena; checked 2026-11-15"
+ },
+ "|leinster|": {
+  "family": "bowls",
+  "name": "Leinster",
+  "county": "Dublin",
+  "latitude": 53.326487,
+  "longitude": -6.262682,
+  "how": "place search (leisure/pitch: Leinster Bowling Club); match read and accepted by hand, 17 Nov 2026"
  },
  "|leixlip amenities|": {
   "name": "Leixlip Amenities",
@@ -6638,12 +7461,28 @@
   "longitude": -7.677623,
   "how": "place search (amenity/school: Scoil Ruáin)"
  },
+ "|shankill|": {
+  "family": "bowls",
+  "name": "Shankill",
+  "county": "Dublin",
+  "latitude": 53.232034,
+  "longitude": -6.114412,
+  "how": "place search (leisure/sports_centre: Shankill Bowling Club); match read and accepted by hand, 17 Nov 2026"
+ },
  "|sportlann naomh anna|": {
   "name": "Sportlann Naomh Anna",
   "county": "Galway",
   "latitude": 53.278699,
   "longitude": -9.659711,
   "how": "place search (leisure/sports_centre: Sportlann Naomh Anna)"
+ },
+ "|sportslink|": {
+  "family": "bowls",
+  "name": "SportsLink",
+  "county": "Dublin",
+  "latitude": 53.4080514,
+  "longitude": -6.2478201,
+  "how": "pin supplied by the owner from Google Maps (place: SportsLink), 17 Nov 2026; checked against the map"
  },
  "|st mary s hall|": {
   "name": "St Mary's Hall",
@@ -6665,6 +7504,14 @@
   "latitude": 53.36807,
   "longitude": -6.27486,
   "how": "checked by hand (OpenStreetMap: Saint Vincent's Secondary School, Finglas Road)"
+ },
+ "|the o2 belfast|": {
+  "family": "ice-hockey",
+  "name": "The O2 Belfast",
+  "county": "Down",
+  "latitude": 54.603643,
+  "longitude": -5.914228,
+  "how": "pin supplied by the owner from Google Maps (place: The O2 Belfast), 17 Nov 2026; checked against the map"
  },
  "|thomond park|": {
   "name": "Thomond Park",
