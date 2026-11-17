@@ -88,3 +88,7 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 ## Home-ground fallback (17 Nov 2026)
 
 Two home-and-away soccer leagues publish fixtures with no ground: the Northern Amateur Football League (333 in run 34) and the Wicklow & District Football League (83). For these two sources only (`homeGrounds` on the source), a fixture with no ground is shown at the home club's own ground when that ground is in `grounds.json` under `Area||@club` (for example `Ulster||@crumlin united`). Such a fixture is saved with `venue_confirmed = false` (migration 0009) and the app says "home ground, not confirmed by the league". Finals and semi-finals are never placed this way. A club whose ground is not in the directory stays left out, with the reason "No ground given (the home club's ground is not in the directory yet)". Before migration 0009 is run, these fixtures are not saved at all.
+
+## 5am timer (17 Nov 2026)
+
+GitHub starts scheduled runs late (one started over nine hours late). The database now has its own timer (migration 0010, job `collect-fixtures-5am`): at 5am Irish time, winter and summer, it asks GitHub to start "Collect fixtures". It needs a GitHub token stored in the Supabase Vault under the name `github_dispatch_token` (fine-grained, this repository only, Actions read and write). With no token it does nothing. GitHub's own 04:07 and 05:17 UTC schedules stay as a backup.
