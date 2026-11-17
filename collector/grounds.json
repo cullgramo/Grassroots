@@ -1899,6 +1899,14 @@
   "longitude": -6.916638,
   "how": "place search (leisure/stadium: Netwatch Cullen Park); match read and accepted by hand, 17 Nov 2026"
  },
+ "Ireland|ocallaghans mills|": {
+  "family": "handball",
+  "name": "O'Callaghans Mills GAA Club - Hamilton Park Kilkishen",
+  "county": "Clare",
+  "latitude": 52.8025837,
+  "longitude": -8.7548633,
+  "how": "pin supplied by the owner from Google Maps (place: O'Callaghans Mills GAA Club - Hamilton Park Kilkishen), 17 Nov 2026; checked against the map"
+ },
  "Ireland|pembroke wanderers hc|": {
   "family": "hockey",
   "name": "Pembroke Wanderers Hockey Club",
