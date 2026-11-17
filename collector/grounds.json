@@ -2004,6 +2004,14 @@
   "longitude": -8.206771,
   "how": "place search (leisure/sports_centre: Tipperary Racecourse)"
  },
+ "Ireland|toonagh|": {
+  "family": "handball",
+  "name": "Toonagh handball court",
+  "county": "Clare",
+  "latitude": 52.8903467,
+  "longitude": -9.0348917,
+  "how": "pin supplied by the owner from Google Maps (place: Toonagh handball court), 17 Nov 2026; checked against the map"
+ },
  "Ireland|tramore racecourse|": {
   "name": "Tramore Racecourse",
   "county": "Waterford",
