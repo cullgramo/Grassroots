@@ -487,6 +487,14 @@
   "longitude": -8.69745,
   "how": "rugby club search (leisure/sports_centre: Monivea Rugby Club); the source names the club or town, not the pitch"
  },
+ "Connacht|new village|": {
+  "family": "soccer",
+  "name": "Oughterard AFC, Newvillage",
+  "county": "Galway",
+  "latitude": 53.444364,
+  "longitude": -9.34399,
+  "how": "place search (club/sport: Oughterard AFC, Western Way High Road, Oughterard); the owner named Oughterard AFC at Newvillage as this ground, 17 Nov 2026; position is the map’s, not the proposer’s"
+ },
  "Connacht|newcastle galway|": null,
  "Connacht|nfp park drom|": {
   "family": "soccer",
@@ -630,6 +638,14 @@
   "latitude": 53.509365,
   "longitude": -8.853748,
   "how": "checked by hand (OpenStreetMap: Saint Jarlath's Park, Tuam)"
+ },
+ "Connacht|tuam|": {
+  "family": "soccer",
+  "name": "Tuam Celtic Football Club",
+  "county": "Galway",
+  "latitude": 53.507801,
+  "longitude": -8.860884,
+  "how": "place search (leisure/sports_centre: Tuam Celtic Football Club); the owner named Tuam Celtic as the ground meant by the Galway FA’s bare \"Tuam\" (all home games are Tuam Celtic), 17 Nov 2026; position is the map’s. The proposer’s own point was the town square and was not used"
  },
  "Connacht|westport gaa|": {
   "name": "Westport GAA",
@@ -5838,6 +5854,14 @@
   "latitude": 54.707328,
   "longitude": -7.599265,
   "how": "GAA pitch list, matched on club or town, within the county board's own county (St. Eugene's GAA, Castlederg: Marius McHugh Park)"
+ },
+ "Ulster|central park keadue|": {
+  "family": "soccer",
+  "name": "Central Park, Keadue Rovers",
+  "county": "Donegal",
+  "latitude": 55.000884,
+  "longitude": -8.406232,
+  "how": "place search (building: Keadue Rovers, R259); the owner named Keadue Rovers’ Central Park, 17 Nov 2026; position is the map’s. The proposer’s own point was about 1 km away and was not used"
  },
  "Ulster|chambers park|": {
   "name": "Chambers Park",
