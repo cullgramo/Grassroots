@@ -308,6 +308,14 @@
   "longitude": -8.8054,
   "how": "GAA pitch list, matched on pitch name (Charlestown Sarsfields: Fr. O'Hara Park)"
  },
+ "Connacht|furbo|": {
+  "family": "soccer",
+  "name": "An Sportlann, Na Forbacha (Furbo)",
+  "county": "Galway",
+  "latitude": 53.25962,
+  "longitude": -9.20806,
+  "how": "position supplied by the owner (An Sportlann, Sportlann na bhForbacha, H91 TX48), 17 Nov 2026; checked: the point is on a pitch and the map names the sports centre \"An Sportlann\" 40 m away in Na Forbacha"
+ },
  "Connacht|galway|": null,
  "Connacht|galwegians rfc|": {
   "name": "Galwegians RFC",
