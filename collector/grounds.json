@@ -1812,6 +1812,14 @@
   "longitude": -7.49588,
   "how": "checked by hand (OpenStreetMap: Kilbeggan Races)"
  },
+ "Ireland|kilkishen|": {
+  "family": "handball",
+  "name": "Kilkishen Handball Club",
+  "county": "Clare",
+  "latitude": 52.80249,
+  "longitude": -8.7550112,
+  "how": "pin supplied by the owner from Google Maps (place: Kilkishen Handball Club), 17 Nov 2026; checked against the map"
+ },
  "Ireland|killarney racecourse|": {
   "name": "Killarney Racecourse",
   "county": "Kerry",
