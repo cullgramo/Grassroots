@@ -1712,6 +1712,14 @@
   "longitude": -6.872563,
   "how": "GAA pitch list, matched on club name (Boardsmill GAA); match read and accepted by hand, 17 Nov 2026"
  },
+ "Ireland|clarecastle|": {
+  "family": "handball",
+  "name": "Clarecastle Sports Complex",
+  "county": "Clare",
+  "latitude": 52.8156689,
+  "longitude": -8.9668268,
+  "how": "pin supplied by the owner from Google Maps (place: Clarecastle Sports Complex), 17 Nov 2026; checked against the map"
+ },
  "Ireland|clonmel racecourse|": {
   "name": "Clonmel Racecourse",
   "county": "Tipperary",
@@ -7141,7 +7149,7 @@
  "|bray|": {
   "family": "bowls",
   "name": "Bray Bowling Club",
-  "county": "Dublin",
+  "county": "Wicklow",
   "latitude": 53.2043319,
   "longitude": -6.1033354,
   "how": "pin supplied by the owner from Google Maps (place: Bray Bowling Club), 17 Nov 2026; checked against the map"
