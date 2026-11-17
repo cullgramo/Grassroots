@@ -5665,6 +5665,14 @@
   "longitude": -7.174505,
   "how": "place search (leisure/pitch: Lavey GAA Grounds)"
  },
+ "Ulster|leckview park|": {
+  "family": "soccer",
+  "name": "Leckview Park",
+  "county": "Donegal",
+  "latitude": 54.94385,
+  "longitude": -7.73383,
+  "how": "proposed position (Gemini research), checked by collector/verify-grounds.mjs: 5-decimal point, map names a pitch there (\"Letterkenny Rovers F.C\", Paddy Harte Road, Letterkenny); Leckview Park is the Letterkenny Rovers home ground. Written by hand because the Donegal Junior League site is not reachable from the verifier session. Gemini cited an OSM way id that does not support it, so that id was not used."
+ },
  "Ulster|liatroim|": {
   "name": "Liatroim",
   "county": "Down",
