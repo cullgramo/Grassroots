@@ -7138,6 +7138,14 @@
   "longitude": -6.344777,
   "how": "place search (amenity/school: Ballymakenny College)"
  },
+ "|bray|": {
+  "family": "bowls",
+  "name": "Bray Bowling Club",
+  "county": "Dublin",
+  "latitude": 53.2043319,
+  "longitude": -6.1033354,
+  "how": "pin supplied by the owner from Google Maps (place: Bray Bowling Club), 17 Nov 2026; checked against the map"
+ },
  "|calasanctius college|": {
   "name": "Calasanctius College",
   "county": "Galway",
