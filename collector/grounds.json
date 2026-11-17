@@ -3802,6 +3802,78 @@
   "longitude": -6.337295,
   "how": "GAA pitch list, matched on club name (Wicklow GAA: Aughrim County Ground)"
  },
+ "Leinster||@arklow united": {
+  "family": "soccer",
+  "name": "Arklow United Football Club",
+  "county": "Wicklow",
+  "latitude": 52.792589,
+  "longitude": -6.17351,
+  "how": "home ground: place search (leisure/sports_centre: Arklow United Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@ashford rovers": {
+  "family": "soccer",
+  "name": "Ashford Rovers",
+  "county": "Wicklow",
+  "latitude": 53.003247,
+  "longitude": -6.109642,
+  "how": "home ground: Get Ireland Active club list, matched on club name (Ashford Rovers AFC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@aughrim rangers": {
+  "family": "soccer",
+  "name": "Aughrim Rangers",
+  "county": "Wicklow",
+  "latitude": 52.85113,
+  "longitude": -6.33787,
+  "how": "home ground: Get Ireland Active club list, matched on club name (Aughrim Rangers); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@carnew": {
+  "family": "soccer",
+  "name": "Carnew FC",
+  "county": "Wicklow",
+  "latitude": 52.711262,
+  "longitude": -6.49541,
+  "how": "home ground: place search (leisure/sports_centre: Carnew FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@coolboy rangers": {
+  "family": "soccer",
+  "name": "Coolboy Rangers",
+  "county": "Wicklow",
+  "latitude": 52.765025,
+  "longitude": -6.429171,
+  "how": "home ground: Get Ireland Active club list, matched on club name (Coolboy Rangers); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@glencormac united": {
+  "family": "soccer",
+  "name": "Glencormac United FC",
+  "county": "Wicklow",
+  "latitude": 53.161671,
+  "longitude": -6.136672,
+  "how": "home ground: place search (leisure/sports_centre: Glencormac United FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@newtown united": {
+  "family": "soccer",
+  "name": "Newtown United A",
+  "county": "Wicklow",
+  "latitude": 53.09037,
+  "longitude": -6.115203,
+  "how": "home ground: Get Ireland Active club list, matched on club name (Newtown United); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@rathnew": {
+  "family": "soccer",
+  "name": "Rathnew AFC B",
+  "county": "Wicklow",
+  "latitude": 52.98887,
+  "longitude": -6.07966,
+  "how": "home ground: Get Ireland Active club list, matched on club name (Rathnew Athletic Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Leinster||@roundwood": {
+  "family": "soccer",
+  "name": "Roundwood",
+  "county": "Wicklow",
+  "latitude": 53.0745,
+  "longitude": -6.215731,
+  "how": "home ground: Get Ireland Active club list, matched on club name (Roundwood AFC); match read and accepted by hand, 17 Nov 2026"
+ },
  "Louth|ddac training field newtownstalaban|": {
   "family": "athletics",
   "name": "Drogheda and District AC",
@@ -7229,6 +7301,86 @@
   "longitude": -5.9552188,
   "family": "soccer",
   "how": "pin supplied by the app owner from Google Maps (place named \"Windsor Park of Northern Ireland stadium\"); the map search names a stadium, National Football Stadium, 6 m away"
+ },
+ "Ulster||@ards rangers": {
+  "family": "soccer",
+  "name": "Ards Rangers Football Club",
+  "county": "Down",
+  "latitude": 54.590848,
+  "longitude": -5.68929,
+  "how": "home ground: place search (leisure/sports_centre: Ards Rangers Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@coagh united": {
+  "family": "soccer",
+  "name": "Coagh United FC",
+  "county": "Tyrone",
+  "latitude": 54.647457,
+  "longitude": -6.614922,
+  "how": "home ground: place search (leisure/pitch: Coagh United FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@crumlin united": {
+  "family": "soccer",
+  "name": "Crumlin United FC",
+  "county": "Antrim",
+  "latitude": 54.622415,
+  "longitude": -6.216553,
+  "how": "home ground: place search (leisure/pitch: Crumlin United FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@derriaghy cc": {
+  "family": "soccer",
+  "name": "Derriaghy CC Football Club",
+  "county": "Antrim",
+  "latitude": 54.538115,
+  "longitude": -6.007933,
+  "how": "home ground: place search (leisure/pitch: Derriaghy CC Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@dromara village": {
+  "family": "soccer",
+  "name": "Dromara Village FC",
+  "county": "Down",
+  "latitude": 54.371652,
+  "longitude": -6.019297,
+  "how": "home ground: place search (leisure/sports_centre: Dromara Village FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@drumaness mills": {
+  "family": "soccer",
+  "name": "Drumaness Mills FC Social Club",
+  "county": "Down",
+  "latitude": 54.368185,
+  "longitude": -5.850575,
+  "how": "home ground: place search (club/sport: Drumaness Mills FC Social Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@greencastle rovers": {
+  "family": "soccer",
+  "name": "Greencastle Rovers FC",
+  "county": "Antrim",
+  "latitude": 54.657994,
+  "longitude": -5.930204,
+  "how": "home ground: place search (leisure/pitch: Greencastle Rovers FC); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@greenisland": {
+  "family": "soccer",
+  "name": "Greenisland Football Club",
+  "county": "Antrim",
+  "latitude": 54.695284,
+  "longitude": -5.878267,
+  "how": "home ground: place search (club/sport: Greenisland Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@grove united": {
+  "family": "soccer",
+  "name": "Grove United FC Playing Fields",
+  "county": "Antrim",
+  "latitude": 54.643292,
+  "longitude": -5.920187,
+  "how": "home ground: place search (landuse/recreation_ground: Grove United FC Playing Fields); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@lisburn distillery": {
+  "family": "soccer",
+  "name": "Lisburn Distillery Football Club",
+  "county": "Down",
+  "latitude": 54.535897,
+  "longitude": -6.0037,
+  "how": "home ground: place search (leisure/pitch: Lisburn Distillery Football Club); match read and accepted by hand, 17 Nov 2026"
  },
  "Waterford|brickey rangers g a a club|": null,
  "Waterford|dungarvan|X35 AH76": {
