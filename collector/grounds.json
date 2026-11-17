@@ -6549,6 +6549,14 @@
   "longitude": -6.224988,
   "how": "GAA pitch list, matched on club name (Mayobridge GAA: St. Patrick's Park)"
  },
+ "Ulster|mcgettigan park glasserchoo|": {
+  "family": "soccer",
+  "name": "Glenea United FC (Gleann Átha Aontaithe)",
+  "county": "Donegal",
+  "latitude": 55.1353848,
+  "longitude": -8.2079797,
+  "how": "pin supplied by the owner from Google Maps (place: Glenea United FC (Gleann Átha Aontaithe)), 17 Nov 2026; checked against the map"
+ },
  "Ulster|mcgovern park ruislip|": null,
  "Ulster|methodist college|": {
   "name": "Methodist College",
