@@ -4835,6 +4835,22 @@
   "how": "place search (leisure/sports_centre: Kirwan Park)"
  },
  "Munster|knockanure|": null,
+ "Munster|knockgriffin park|": {
+  "family": "soccer",
+  "name": "Midleton Football Club",
+  "county": "Cork",
+  "latitude": 51.9158583,
+  "longitude": -8.1871798,
+  "how": "pin supplied by the owner from Google Maps (place: Midleton Football Club), 17 Nov 2026; checked against the map"
+ },
+ "Munster|knockgriffin|": {
+  "family": "soccer",
+  "name": "Midleton Football Club",
+  "county": "Cork",
+  "latitude": 51.9158583,
+  "longitude": -8.1871798,
+  "how": "pin supplied by the owner from Google Maps (place: Midleton Football Club), 17 Nov 2026; checked against the map"
+ },
  "Munster|lahinch ns|": null,
  "Munster|lansdowne|": {
   "name": "Lansdowne",
