@@ -336,7 +336,14 @@
   "longitude": -9.2865,
   "how": "checked by hand (OpenStreetMap: MacHale Park, Castlebar)"
  },
- "Connacht|headford|": null,
+ "Connacht|headford|": {
+  "family": "soccer",
+  "name": "Moyne Villa Football Club",
+  "county": "Galway",
+  "latitude": 53.4703499,
+  "longitude": -9.110909,
+  "how": "pin supplied by the owner from Google Maps (place: Moyne Villa Football Club), 17 Nov 2026; checked against the map"
+ },
  "Connacht|heffernan park|": {
   "name": "Heffernan Park",
   "county": "Mayo",
@@ -5084,6 +5091,14 @@
   "longitude": -8.436834,
   "how": "place search (leisure/stadium: Páirc Uí Rinn)"
  },
+ "Munster|pat bowdren park|": {
+  "family": "soccer",
+  "name": "Wilton United Pat Bowdren Park",
+  "county": "Cork",
+  "latitude": 51.8970332,
+  "longitude": -8.531027,
+  "how": "pin supplied by the owner from Google Maps (place: Wilton United Pat Bowdren Park), 17 Nov 2026; checked against the map"
+ },
  "Munster|portroe|": {
   "name": "Portroe",
   "county": "Tipperary",
@@ -7418,6 +7433,14 @@
   "latitude": 54.55853,
   "longitude": -5.94236,
   "how": "checked by hand (OpenStreetMap: Newforge Country Club, New Forge Lane, Belfast)"
+ },
+ "|north kildare|": {
+  "family": "bowls",
+  "name": "North Kildare Bowls Club",
+  "county": "Kildare",
+  "latitude": 53.3908083,
+  "longitude": -6.6413835,
+  "how": "pin supplied by the owner from Google Maps (place: North Kildare Bowls Club), 17 Nov 2026; checked against the map"
  },
  "|o loughlin gaels|": {
   "name": "O'Loughlin Gaels",
