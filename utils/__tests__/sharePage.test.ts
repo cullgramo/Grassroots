@@ -74,3 +74,10 @@ describe('when the fixture could not be looked up', () => {
     expect(html).not.toContain('no longer listed');
   });
 });
+
+describe('the chat preview of a home ground the league did not confirm', () => {
+  it('says the venue is not confirmed', () => {
+    expect(previewFor({ ...f, venueUnconfirmed: true }, 'upcoming').description).toContain('(venue not confirmed)');
+    expect(previewFor(f, 'upcoming').description).not.toContain('not confirmed');
+  });
+});

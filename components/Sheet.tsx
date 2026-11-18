@@ -15,12 +15,14 @@ interface SheetProps {
   snap: Snap;
   onSnap: (snap: Snap) => void;
   header: ReactNode;
+  /** What the header says, for a screen reader: the count of fixtures, or that the list is an offline copy. */
+  summary?: string;
   /** Receives the height hidden below the screen edge, to pad scrolling content. */
   children: (hiddenHeight: number) => ReactNode;
 }
 
 /** Draggable bottom sheet. Drag or tap the header to move between peek, half and full. */
-export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, children }: SheetProps) {
+export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, summary, children }: SheetProps) {
   const t = useTheme();
   const full = height - topOffset;
   const offsets = useMemo(
@@ -66,7 +68,7 @@ export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, chi
         <Pressable
           onPress={() => onSnap(snap === 'peek' ? 'half' : snap === 'half' ? 'full' : 'peek')}
           accessibilityRole="button"
-          accessibilityLabel={snap === 'full' ? 'Collapse list' : 'Expand list'}>
+          accessibilityLabel={`${summary ? `${summary}. ` : ''}${snap === 'full' ? 'Collapse list' : 'Expand list'}`}>
           <View style={[styles.grabber, { backgroundColor: t.border }]} />
           {header}
         </Pressable>

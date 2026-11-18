@@ -50,3 +50,44 @@ export function termsSections(l: { owner: string | null; email: string | null; l
     { heading: 'Changes and law', body: `We may update these terms; the date below shows the latest version. They are governed by the law of ${l.law}.` },
   ];
 }
+
+/**
+ * DRAFT privacy notice, in plain words. It describes what the app does today; update it whenever the app starts
+ * keeping or sending anything new (sign-in, reminders, a crash service). A solicitor should confirm it before launch.
+ */
+export function privacySections(l: { owner: string | null; email: string | null } = LEGAL): TermsSection[] {
+  const owner = l.owner?.trim() || 'the owner of Grassroots';
+  const email = l.email?.trim() || 'the contact address in the app store listing';
+  return [
+    { heading: 'The short version', body: 'Grassroots has no accounts and no adverts, and it does not track you. You do not give us your name to use it. Your location, your saved fixtures and the clubs you follow stay on your phone.' },
+    {
+      heading: 'Your location',
+      body: 'If you allow it, the app uses your location to show fixtures near you and how far away they are. This is worked out on your phone. Your location is not sent to us and we do not keep it. You can turn it off at any time in your phone\'s settings and pick a county instead.',
+    },
+    {
+      heading: 'What is kept on your phone',
+      body: 'Your sports, your age-group and men-or-women choices, your county, the fixtures you save, the clubs you follow, and a copy of the fixture list so the app works with a poor signal. None of this is sent to us. Deleting the app, or clearing the site\'s data in a browser, removes it.',
+    },
+    {
+      heading: 'What we count',
+      body: 'To see which fixtures people find useful, the app counts when a fixture is opened or shared, and when directions or a ticket link is used. We also count when a sponsor\'s notice is shown or opened. Each count holds the fixture or sponsor, the action, and whether it came from the app or the website. It holds nothing about you: no name, no device identifier and no location.',
+    },
+    {
+      heading: 'When you write to us',
+      body: 'If you report a problem with a fixture, we keep the fixture, the kind of problem and any note you add. Please do not put personal details in the note. If you claim a club, we keep the club, your name, your role, your email address and your message, so that we can check the claim and reply. We use these for that purpose only and delete a claim\'s details on request.',
+    },
+    {
+      heading: 'Companies that help run Grassroots',
+      body: 'The fixture data is stored with Supabase and the website is hosted by Expo. The map is drawn from map tiles supplied by OpenStreetMap or MapTiler. Like any website, these services see your internet address when your phone asks them for data, and may keep short-lived technical logs. Ticket links open the ticket seller\'s own site, which has its own privacy policy.',
+    },
+    {
+      heading: 'Children and underage games',
+      body: 'Grassroots lists underage and schools fixtures as they are published: the teams, the age grade, the time and the ground. It does not list the names of players, and it never stores the names of referees or other officials. A school or club that wants a fixture removed can ask us at the address below.',
+    },
+    {
+      heading: 'Your rights and how to reach us',
+      body: `Grassroots is run by ${owner}. Under data protection law you can ask what we hold about you, and ask us to correct or delete it. In practice that is only what you sent us in a report or a club claim. Write to ${email}. You can also complain to the Data Protection Commission (dataprotection.ie).`,
+    },
+    { heading: 'Changes', body: 'If the app starts to keep or send anything new, this notice will be updated first. The date below shows the latest version.' },
+  ];
+}

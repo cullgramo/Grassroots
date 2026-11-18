@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import { SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -20,7 +20,9 @@ export default function ListScreen() {
   const [query, setQuery] = useState('');
 
   // A search looks through every upcoming fixture in Ireland, not only the current view.
-  const shown = useMemo(() => (query.trim() ? searchFixtures(upcoming, query) : fixtures), [fixtures, upcoming, query]);
+  // The search itself runs a beat behind the typing, so each keystroke shows at once even with thousands of fixtures.
+  const slowQuery = useDeferredValue(query);
+  const shown = useMemo(() => (slowQuery.trim() ? searchFixtures(upcoming, slowQuery) : fixtures), [fixtures, upcoming, slowQuery]);
   const sections = useMemo(() => toSections(shown), [shown]);
   const count = shown.length;
   const summary =

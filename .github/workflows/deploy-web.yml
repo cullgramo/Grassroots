@@ -1,0 +1,61 @@
+name: Deploy web
+
+# Publishes the web version to grassroots.expo.app whenever the app changes on main, so a merge reaches the website
+# without anyone running commands. It can also be started by hand from the Actions page.
+#
+# Needs one secret, entered in GitHub only: EXPO_TOKEN (expo.dev, Account settings, Access tokens).
+# Optional secret: EXPO_PUBLIC_MAPTILER_KEY, the web map's tile key; without it the map uses OpenStreetMap's own tiles.
+# The Expo project is named in app.json (expo.extra.eas.projectId); without it this job stops and says so.
+on:
+  push:
+    branches: [main]
+    # Changes to the collector, the database files or documents do not change the website.
+    paths-ignore:
+      - 'collector/**'
+      - 'supabase/**'
+      - 'docs/**'
+      - '**/*.md'
+      - '.github/workflows/collect.yml'
+      - '.github/workflows/checks.yml'
+      - '.github/workflows/snapshot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deploy at a time; a newer merge replaces a deploy still waiting.
+concurrency:
+  group: deploy-web
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and publish the website
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EXPO_PUBLIC_MAPTILER_KEY: ${{ secrets.EXPO_PUBLIC_MAPTILER_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check the deploy is set up
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "::error::EXPO_TOKEN is not set. Add it under Settings, Secrets and variables, Actions."
+            exit 1
+          fi
+          if ! node -e "process.exit(require('./app.json').expo?.extra?.eas?.projectId ? 0 : 1)"; then
+            echo "::error::app.json has no expo.extra.eas.projectId, so Expo does not know which project to publish to."
+            exit 1
+          fi
+      - run: npm ci --ignore-scripts
+      # A build that does not typecheck or pass its tests is not published.
+      - run: npx tsc --noEmit
+      - run: npx jest --silent
+      - name: Build the website
+        run: npx expo export --platform web
+      - name: Publish to grassroots.expo.app
+        run: npx eas-cli@latest deploy --prod --non-interactive

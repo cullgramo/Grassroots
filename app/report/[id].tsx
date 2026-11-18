@@ -23,8 +23,8 @@ export default function ReportScreen() {
     if (!problem || !id) return;
     setState('sending');
     try {
-      await reportFixture(id, problem, note);
-      setState('sent');
+      // The server answers false when it did not take the report (too many in a short time, say): that is not "sent".
+      setState((await reportFixture(id, problem, note)) ? 'sent' : 'failed');
     } catch (e) {
       report(e, 'sending a fixture report');
       setState('failed');
