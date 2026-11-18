@@ -12,7 +12,7 @@ import { getTileSource } from '@/lib/mapTiles';
 import { getSport } from '@/constants/sports';
 import { fixtureTitle } from '@/types/fixture';
 import { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM } from '@/utils/cluster';
-import { pinLabel } from '@/utils/date';
+import { pinLabelFor } from '@/utils/date';
 import type { Bounds } from '@/utils/filterFixtures';
 import { IRELAND, PIN_DARK, type FixtureMapProps } from './FixtureMap.types';
 
@@ -169,7 +169,7 @@ export function LeafletMap({
       const f = item.fixture;
       const isSelected = f.id === selectedId;
       L.marker([f.latitude, f.longitude], {
-        icon: pillIcon(pinLabel(f.startsAt, undefined, f.timeTbc), getSport(f.sport).color, isSelected),
+        icon: pillIcon(pinLabelFor(f), getSport(f.sport).color, isSelected),
         zIndexOffset: isSelected ? 1000 : 0,
         title: fixtureTitle(f),
         interactive: interactive,

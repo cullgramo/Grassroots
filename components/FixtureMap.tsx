@@ -4,7 +4,7 @@ import MapView, { Circle, Marker, type Region } from 'react-native-maps';
 
 import { getSport } from '@/constants/sports';
 import { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM } from '@/utils/cluster';
-import { pinLabel } from '@/utils/date';
+import { pinLabelFor } from '@/utils/date';
 import type { Bounds } from '@/utils/filterFixtures';
 import { IRELAND, PIN_DARK, type FixtureMapProps } from './FixtureMap.types';
 
@@ -153,7 +153,7 @@ export function FixtureMap({
             onPress={() => onSelect?.(f.id)}>
             <View style={[styles.pill, isSelected && styles.pillSelected]}>
               <View style={[styles.dot, { backgroundColor: getSport(f.sport).color }]} />
-              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabel(f.startsAt, undefined, f.timeTbc)}</Text>
+              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabelFor(f)}</Text>
             </View>
           </Marker>
         );
