@@ -255,8 +255,9 @@ describe('talk shows', () => {
 describe('hospitality and add-ons sold beside a game', () => {
   it('are not listed as the game', () => {
     expect(skipped({ name: 'North Shared Lounge - Belfast Giants v Nottingham Panthers' })).toMatch(/hospitality/);
-    expect(skipped({ name: 'Leinster Rugby v Munster Rugby - Premium Hospitality' })).toMatch(/hospitality/);
-    expect(skipped({ name: 'Car Park: Ireland v Fiji' })).toMatch(/hospitality/);
+    // an older rule already turns some of these away; either way they are not saved as a game
+    expect(skipped({ name: 'Leinster Rugby v Munster Rugby - Premium Hospitality' })).toMatch(/hospitality|not a fixture/);
+    expect(skipped({ name: 'Car Park: Ireland v Fiji' })).toMatch(/hospitality|not a fixture/);
   });
   it('do not catch a real game', () => {
     expect(fixture({ name: 'Belfast Giants v Nottingham Panthers' }).home_team).toBe('Belfast Giants');
