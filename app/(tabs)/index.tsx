@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -49,7 +49,9 @@ export default function ExploreScreen() {
   // While searching, the map and the list both show every match, wherever the map is pointing.
   // A search looks through every upcoming fixture in Ireland, not only the current view: someone typing a club's name
   // wants that club, wherever and whenever it plays.
-  const shown = useMemo(() => (query.trim() ? searchFixtures(upcoming, query) : fixtures), [fixtures, upcoming, query]);
+  // The search itself runs a beat behind the typing, so each keystroke shows at once even with thousands of fixtures.
+  const slowQuery = useDeferredValue(query);
+  const shown = useMemo(() => (slowQuery.trim() ? searchFixtures(upcoming, slowQuery) : fixtures), [fixtures, upcoming, slowQuery]);
   const selected = shown.find((f) => f.id === pickedId) ?? null;
 
   const visible = useMemo(() => {
@@ -179,6 +181,7 @@ export default function ExploreScreen() {
         peekHeight={PEEK}
         snap={snap}
         onSnap={setSnap}
+        summary={isStale && loadState === 'ready' ? `${title}. Offline, showing the last saved copy` : title}
         header={
           <View style={styles.sheetHeader}>
             <Text style={[styles.sheetTitle, { color: t.text }]}>{title}</Text>

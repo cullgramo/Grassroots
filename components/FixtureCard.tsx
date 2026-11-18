@@ -54,7 +54,15 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`${fixtureTitle(fixture)}, ${sport.name}`}
+      // Everything a sighted user reads on the card, in one sentence for a screen reader.
+      accessibilityLabel={[
+        off,
+        fixtureTitle(fixture),
+        sport.name,
+        `${shortDay(fixture.startsAt).toLowerCase()} ${fixture.timeTbc ? 'time to be confirmed' : timeLabel(fixture.startsAt)}`,
+        `${fixture.venue}${fixture.venueUnconfirmed ? ', venue not confirmed' : ''}`,
+        fixture.ticketed ? 'ticketed' : null,
+      ].filter(Boolean).join(', ')}
       style={[styles.card, { backgroundColor: t.card, borderColor: t.border }, elevated && styles.elevated]}>
       <View style={[styles.time, { backgroundColor: color }]}>
         <Text style={styles.timeDay}>{shortDay(fixture.startsAt)}</Text>
@@ -81,10 +89,11 @@ export function FixtureCard({ fixture, onPress, elevated }: Props) {
         </Text>
         <Text style={[styles.meta, { color: t.muted }]} numberOfLines={1}>
           {fixture.venue}
-          {fixture.venueUnconfirmed ? ' (venue not confirmed)' : ''}
           {km != null ? <Text style={[styles.strong, { color: t.tint }]}> · {formatDistance(km)}</Text> : null}
           {fixture.ticketed ? ' · Ticketed' : ''}
         </Text>
+        {/* On its own line: sharing a line with the ground's name, it was cut off on long names. */}
+        {fixture.venueUnconfirmed ? <Text style={[styles.meta, styles.unconfirmed]} numberOfLines={1}>Venue not confirmed</Text> : null}
       </View>
       <SaveButton fixture={fixture} />
     </Pressable>
@@ -105,6 +114,7 @@ const styles = StyleSheet.create({
   timeDay: { color: '#fff', fontSize: 11, fontWeight: '800', letterSpacing: 0.5 },
   timeClock: { color: '#fff', fontSize: 20, fontWeight: '800', marginTop: 2 },
   timeTbc: { fontSize: 12, textAlign: 'center' },
+  unconfirmed: { color: '#b45309', fontWeight: '700' },
   body: { flex: 1, paddingVertical: 12, paddingLeft: 12, gap: 3 },
   topRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   sport: { fontSize: 11, fontWeight: '800', letterSpacing: 0.6 },

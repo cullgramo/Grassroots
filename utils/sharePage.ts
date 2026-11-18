@@ -41,7 +41,7 @@ export function previewFor(f: Fixture | null, state: PageState): Preview {
   const sport = getSport(f.sport).name;
   return {
     title: `${state === 'played' ? 'Played: ' : ''}${fixtureTitle(f)}`,
-    description: `${off}${when.day}, ${time} · ${f.venue}, ${f.county} · ${sport}`,
+    description: `${off}${when.day}, ${time} · ${f.venue}, ${f.county}${f.venueUnconfirmed ? ' (venue not confirmed)' : ''} · ${sport}`,
   };
 }
 
