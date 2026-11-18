@@ -39,7 +39,7 @@ export default function ClubScreen() {
         accessibilityRole="button"
         style={[styles.claim, { borderColor: t.tint }]}>
         <Text style={[styles.claimTitle, { color: t.tint }]}>Is this your club? Claim it free</Text>
-        <Text style={[styles.claimText, { color: t.muted }]}>Confirm your fixtures and get a free weekly “games this weekend” graphic.</Text>
+        <Text style={[styles.claimText, { color: t.muted }]}>Tell us you run this club, so we can check its fixtures with you.</Text>
       </Pressable>
       <Text style={[styles.section, { color: t.text }]}>Upcoming games</Text>
     </View>
