@@ -60,6 +60,13 @@ export function pinLabel(startsAt: string, now: Date = new Date(), timeTbc = fal
   return `${d.getDate()} ${MONTHS[d.getMonth()]}`;
 }
 
+/** What a map pin says for a fixture: a game that is off says so, in place of a time people would turn up for. */
+export function pinLabelFor(f: { startsAt: string; timeTbc?: boolean; status?: string }, now: Date = new Date()): string {
+  if (f.status === 'cancelled') return 'Cancelled';
+  if (f.status === 'postponed') return 'Postponed';
+  return pinLabel(f.startsAt, now, f.timeTbc);
+}
+
 /** Card badge that stresses how soon a game is, or null when it is more than a day away. */
 export function urgencyLabel(startsAt: string, now: Date = new Date(), timeTbc = false): string | null {
   const mins = Math.round((new Date(startsAt).getTime() - now.getTime()) / 60_000);

@@ -48,6 +48,11 @@ export function gameKey(f, aliases) {
 // checked it by hand, it is held for checking instead of guessed. A named park or ground is not affected.
 const HOME_COUNTY_BOARDS = new Set(['county-gaa', 'cork-gaa', 'waterford-gaa']);
 const CHECKED = /^(checked by hand|coordinates|address supplied|postcode|home club search, address matches)/i;
+// Guards that apply to every source, whatever its own reader lets through. A wrong fixture is worse than a missing one.
+// A side that is not a team yet: a bye, or the winner of a game still to be played.
+const NOT_A_TEAM = /^(bye|tbc|tba|tbd|to be (confirmed|decided)|team\s*[12]|(winners?|losers?|runners?[- ]up)(\s+(of|sf|qf|semi|quarter|final|game|match|group|pool|tie|round)\b.*|\s+\S{0,2}\d.*)?)$/i;
+// A ground that is not a ground yet ("Venue TBC"). Some feeds give one shared placeholder record, with a map position.
+const NOT_A_GROUND = /^(venue\s*)?(tbc|tba|tbd|to be (confirmed|decided|announced))$|\b(venue|ground|pitch)\s+(tbc|tba|tbd)\b/i;
 const NEUTRAL = /\bfinals?\b|\bsemi/i;
 const isBareName = (venue) => !venue.includes(',') && venue.trim().split(/\s+/).length <= 2 && !/park|p[aá]irc|gaa|gac|club|field|grounds|college|school|university/i.test(venue);
 
@@ -68,6 +73,10 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
     if (pageProblems.length === 0 && upcoming.length > 0) live[key] = [];
     for (const f of upcoming) {
       const leave = (reason) => leftOut.push({ source: source.name, date: f.date, time: f.time ?? '', home: f.home, away: f.away, title: f.title, venue: f.venue, area: f.area, sport: f.sport, competition: f.competition ?? '', countyHint: f.countyHint ?? '', reason });
+      if ([f.home, f.away].some((t) => t != null && NOT_A_TEAM.test(String(t).trim()))) { leave('Not a fixture yet (a bye, or a side still to be decided)'); continue; }
+      // No games are played in Ireland on Christmas Day; a source that lists one is parking a postponed game there.
+      if (/-12-25$/.test(f.date ?? '')) { leave('Placeholder date (25 December)'); continue; }
+      if (f.venue && NOT_A_GROUND.test(f.venue.trim())) { f.venue = ''; f.latitude = null; f.longitude = null; }
       // A home-and-away league that gives no ground: the home club's own ground is used, if the directory holds it,
       // and the fixture is marked as not confirmed. Never for a final or semi-final, which may be on neutral ground.
       let homeGround = null;

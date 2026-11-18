@@ -30,7 +30,9 @@ function one(fx, page, booking, address) {
   const iso = start.toISOString();
   const lat = Number(fx.place?.latitude);
   const lon = Number(fx.place?.longitude);
-  const hasSpot = lat >= 51 && lat <= 56 && lon >= -11 && lon <= -5;
+  // The feed has one shared "Venue TBC" record with a map position of its own (near Birr); it is not a ground.
+  const tbcVenue = /\b(tbc|tba|tbd|to be confirmed)\b/i.test(fx.place?.name ?? '');
+  const hasSpot = !tbcVenue && lat >= 51 && lat <= 56 && lon >= -11 && lon <= -5;
   const saidCounty = tidy(address).match(/\bCo\.?\s+([A-Z][a-z]+)/)?.[1];
   const ticket = /^https:\/\/www\.universe\.com\//.test(booking ?? '') ? booking : null;
   const competition = tidy([fx.competition?.name, fx.round && !/^\d+$/.test(fx.round) ? fx.round : ''].filter(Boolean).join(' - '));
@@ -42,7 +44,7 @@ function one(fx, page, booking, address) {
     home, away, title: null,
     // A midnight start means the time has not been set.
     startsAt: iso, date: iso.slice(0, 10), time: iso.slice(11, 16) === '00:00' ? null : iso.slice(11, 16),
-    venue: tidy(fx.place?.name), county: hasSpot ? countyFor([saidCounty], lat, lon) : null, postcode: null,
+    venue: tbcVenue ? '' : tidy(fx.place?.name), county: hasSpot ? countyFor([saidCounty], lat, lon) : null, postcode: null,
     latitude: hasSpot ? lat : null, longitude: hasSpot ? lon : null,
     area: 'Leinster',
     ticketUrl: ticket, status: fx.isPostponed ? 'postponed' : 'scheduled', url: page.link,

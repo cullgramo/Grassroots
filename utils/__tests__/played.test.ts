@@ -21,3 +21,26 @@ describe('played games', () => {
     expect(shown.map((f) => f.startsAt)).toEqual(['2026-11-20T19:00:00Z', '2026-11-27T14:00:00Z']);
   });
 });
+
+describe('a game with no confirmed time', () => {
+  // Stored at midday as a placeholder; it could be that evening.
+  const tbc = { ...at('2026-11-20T12:00:00Z'), timeTbc: true };
+  it('stays all of its day, and is gone the next morning', () => {
+    expect(isPlayed(tbc, new Date('2026-11-20T15:30:00Z'))).toBe(false);
+    expect(isPlayed(tbc, new Date('2026-11-20T23:30:00Z'))).toBe(false);
+    expect(isPlayed(tbc, new Date('2026-11-21T06:00:00Z'))).toBe(true);
+  });
+  it('a game with a real midday start still ends three hours on', () => {
+    expect(isPlayed(at('2026-11-20T12:00:00Z'), new Date('2026-11-20T15:30:00Z'))).toBe(true);
+  });
+});
+
+describe('map pins for games that are off', () => {
+  const { pinLabelFor } = require('../date');
+  it('say Cancelled or Postponed in place of a time', () => {
+    const f = at('2026-11-21T15:00:00Z');
+    expect(pinLabelFor({ ...f, status: 'cancelled' })).toBe('Cancelled');
+    expect(pinLabelFor({ ...f, status: 'postponed' })).toBe('Postponed');
+    expect(pinLabelFor(f, new Date('2026-11-20T10:00:00Z'))).toMatch(/^Sat /);
+  });
+});
