@@ -10,7 +10,9 @@ import { report, reportTo } from '@/lib/report';
 import { openingFilters, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import type { AgeFilter } from '@/utils/ageGroup';
 import { isGenderFilter, type GenderFilter } from '@/utils/category';
+import type { FollowedClub } from '@/utils/club';
 import { filterFixtures } from '@/utils/filterFixtures';
+import { isPlayed } from '@/utils/played';
 import { widenView } from '@/utils/view';
 
 interface AppState {
@@ -29,8 +31,13 @@ interface AppState {
   isStale: boolean;
   refreshing: boolean;
   refresh: () => Promise<void>;
+  /** Every fixture still to be played, soonest first, whatever the filters say. Search and club pages read this. */
+  upcoming: Fixture[];
   savedIds: string[];
   toggleSaved: (id: string) => void;
+  /** Clubs the user follows, kept on the phone. */
+  followedClubs: FollowedClub[];
+  toggleFollow: (club: FollowedClub) => void;
   /** Sports the user follows. Empty means every sport. */
   mySports: SportId[];
   setMySports: (ids: SportId[]) => void;
@@ -60,6 +67,7 @@ interface AppState {
 }
 
 const SAVED_KEY = 'grassroots.saved';
+const CLUBS_KEY = 'grassroots.clubs';
 const SPORTS_KEY = 'grassroots.mySports';
 const AGE_KEY = 'grassroots.myAge';
 const GENDER_KEY = 'grassroots.myGender';
@@ -104,6 +112,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSavedIds((ids) => {
       const next = ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
       AsyncStorage.setItem(SAVED_KEY, JSON.stringify(next)).catch(reportTo('saving a saved fixture'));
+      return next;
+    });
+  }, []);
+
+  const [followedClubs, setFollowedClubs] = useState<FollowedClub[]>([]);
+  useEffect(() => {
+    AsyncStorage.getItem(CLUBS_KEY)
+      .then((raw) => {
+        const list = raw ? JSON.parse(raw) : null;
+        if (Array.isArray(list)) setFollowedClubs(list.filter((c) => c && typeof c.id === 'string' && typeof c.name === 'string' && typeof c.group === 'string'));
+      })
+      .catch(reportTo('reading followed clubs'));
+  }, []);
+  const toggleFollow = useCallback((club: FollowedClub) => {
+    setFollowedClubs((list) => {
+      const next = list.some((c) => c.id === club.id) ? list.filter((c) => c.id !== club.id) : [...list, { id: club.id, name: club.name, group: club.group }];
+      AsyncStorage.setItem(CLUBS_KEY, JSON.stringify(next)).catch(reportTo('saving a followed club'));
       return next;
     });
   }, []);
@@ -259,9 +284,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [allFixtures, filters, location, mySports]
   );
 
+  const upcoming = useMemo(() => {
+    const now = new Date();
+    return allFixtures.filter((f) => !isPlayed(f, now)).sort((a, b) => a.startsAt.localeCompare(b.startsAt));
+  }, [allFixtures]);
+
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
