@@ -3,7 +3,7 @@
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { runImport } from '../supabase/functions/import-ticketmaster/index.ts';
 import { SOURCES } from './look.mjs';
-import { gather, unplacedGrounds } from './lib/build.mjs';
+import { gather, ticketMatcher, unplacedGrounds } from './lib/build.mjs';
 import { redact } from './lib/watchdog.mjs';
 import { countUpcoming, makeDb, removeReplaced, removeUnseen, safeToRemove, saveFixtures } from './lib/save.mjs';
 
@@ -27,14 +27,26 @@ const note = (...l) => lines.push(...l);
 // only (keys blanked); nothing about any fixture or person.
 const stats = { runKey: `${process.env.GITHUB_RUN_ID ?? 'local'}-${process.env.GITHUB_RUN_ATTEMPT ?? 1}`, ranAt: runStarted.toISOString(), failed: false, sources: {}, pages: { found: 0, placed: 0 }, saved: 0 };
 
+// The public pages are read first (nothing is saved yet), so that Ticketmaster's copy of a game one of them already
+// lists can be left out: the game then shows once, with Ticketmaster's ticket link on it.
+const db = SUPABASE_URL && serviceKey ? makeDb(SUPABASE_URL, serviceKey) : null;
+let gathered = null;
+let gatherError = null;
+try {
+  const existing = db ? await db('GET', 'fixtures?select=sport_id,home_team,away_team,starts_at,source,source_ref&source=eq.admin&limit=5000', { prefer: 'return=representation' }) : [];
+  gathered = await gather({ existing, now: runStarted });
+} catch (e) {
+  gatherError = e;
+}
+
 // 1. Ticketmaster and Universe (top-level fixtures and club listings with tickets).
 if (ticketmasterKey && SUPABASE_URL && serviceKey) {
   try {
-    const r = await runImport(ticketmasterKey, dry);
+    const r = await runImport(ticketmasterKey, dry, gathered ? { alreadyListed: ticketMatcher(gathered.fixtures) } : {});
     const sports = Object.entries(r.bySport).map(([k, n]) => `${k} ${n}`).join(', ');
     stats.sources.ticketmaster = { name: 'Ticketmaster and Universe', found: r.importable, placed: r.importable, saved: r.saved, problems: r.errors.map((e) => redact(e)) };
     stats.saved += r.saved ?? 0;
-    note('## Ticketmaster and Universe', '', `- Found: ${r.importable}`, `- Saved: ${r.saved}`, `- Removed as no longer listed: ${r.removedAsNoLongerListed}`, `- By sport: ${sports || 'none'}`);
+    note('## Ticketmaster and Universe', '', `- Found: ${r.importable}`, `- Also listed by another source, shown once with the ticket link: ${r.listedByAnotherSource ?? 0}`, `- Saved: ${r.saved}`, `- Removed as no longer listed: ${r.removedAsNoLongerListed}`, `- By sport: ${sports || 'none'}`);
     if (r.errors.length) {
       failed = true;
       note('- Problems:', ...r.errors.map((e) => `  - ${e}`));
@@ -51,9 +63,8 @@ if (ticketmasterKey && SUPABASE_URL && serviceKey) {
 
 // 2. Public fixture pages, placed with the grounds directory.
 try {
-  const db = SUPABASE_URL && serviceKey ? makeDb(SUPABASE_URL, serviceKey) : null;
-  const existing = db ? await db('GET', 'fixtures?select=sport_id,home_team,away_team,starts_at,source,source_ref&source=eq.admin&limit=5000', { prefer: 'return=representation' }) : [];
-  const { fixtures, leftOut, live, problems, found, replaced } = await gather({ existing, now: runStarted });
+  if (gatherError) throw gatherError;
+  const { fixtures, leftOut, live, problems, found, replaced } = gathered;
 
   for (const [key, source] of Object.entries(SOURCES)) {
     const mine = fixtures.filter((f) => f.source === key);

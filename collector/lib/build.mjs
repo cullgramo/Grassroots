@@ -110,6 +110,39 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
   return { fixtures, leftOut, live, problems, found, replaced };
 }
 
+// Words that say what kind of side it is, not which side: they must not make two different games look like one.
+const SIDE_GENERIC = new Set(['rugby', 'football', 'hurling', 'camogie', 'hockey', 'club', 'united', 'city', 'town', 'rovers', 'celtic', 'athletic', 'ladies', 'women', 'womens', 'mens', 'senior', 'junior', 'giants', 'university', 'college']);
+const sideWords = (t) => { const all = norm(t ?? '').split(' ').filter((w) => w.length >= 4); const own = all.filter((w) => !SIDE_GENERIC.has(w)); return own.length ? own : all; };
+const sameSide = (a, b) => { const theirs = sideWords(b); return sideWords(a).some((w) => theirs.includes(w)); };
+const irishDay = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Dublin', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso));
+
+/**
+ * Finds, among fixtures from `gather`, the one that is the same game as a Ticketmaster listing: same sport, same day in
+ * Ireland, the same two sides in either order, and (when both give a time) starts within three hours of each other.
+ * When found, the fixture takes the listing's ticket link, so the game is shown once and its tickets are still there.
+ * @returns a function for runImport's `alreadyListed`.
+ */
+export function ticketMatcher(fixtures) {
+  const byDay = new Map();
+  for (const f of fixtures) {
+    if (!f.home || !f.away) continue;
+    const k = `${f.sport}|${irishDay(f.startsAt)}`;
+    if (!byDay.has(k)) byDay.set(k, []);
+    byDay.get(k).push(f);
+  }
+  return (t) => {
+    if (!t.home_team || !t.away_team) return false;
+    const hit = (byDay.get(`${t.sport_id}|${irishDay(t.starts_at)}`) ?? []).find((f) => {
+      const sides = (sameSide(f.home, t.home_team) && sameSide(f.away, t.away_team)) || (sameSide(f.home, t.away_team) && sameSide(f.away, t.home_team));
+      const near = !f.timeKnown || Math.abs(new Date(f.startsAt) - new Date(t.starts_at)) <= 3 * 3_600_000;
+      return sides && near;
+    });
+    if (!hit) return false;
+    if (!hit.ticketUrl && t.ticket_url) hit.ticketUrl = t.ticket_url;
+    return true;
+  };
+}
+
 /** The database row for a fixture from `gather`, without its venue (the caller adds venue_id). */
 export function toRow(f) {
   return {
