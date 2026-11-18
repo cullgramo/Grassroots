@@ -132,10 +132,18 @@ export default function FiltersScreen() {
             <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c, distanceKm: null })} />
           ))}
         </Section>
+        <Pressable onPress={() => router.push('/credits')} accessibilityRole="link" style={styles.adminLink}>
+          <Text style={[styles.note, { color: t.muted }]}>Credits: where the fixtures and maps come from</Text>
+        </Pressable>
         {legalReady() ? (
-          <Pressable onPress={() => router.push('/terms')} accessibilityRole="link" style={styles.adminLink}>
-            <Text style={[styles.note, { color: t.muted }]}>Terms of use</Text>
-          </Pressable>
+          <>
+            <Pressable onPress={() => router.push('/privacy')} accessibilityRole="link" style={styles.adminLink}>
+              <Text style={[styles.note, { color: t.muted }]}>Privacy</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push('/terms')} accessibilityRole="link" style={styles.adminLink}>
+              <Text style={[styles.note, { color: t.muted }]}>Terms of use</Text>
+            </Pressable>
+          </>
         ) : null}
         {__DEV__ ? (
           <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>

@@ -31,3 +31,29 @@ describe('terms of use', () => {
     expect(html.includes('href="/terms"')).toBe(legalReady());
   });
 });
+
+describe('privacy notice and credits', () => {
+  const { privacySections } = require('@/constants/legal');
+  const { DATA_CREDITS, FIXTURE_SOURCES, NOT_AFFILIATED } = require('@/constants/credits');
+  it('the notice never prints "null" or "undefined", and names who to write to once known', () => {
+    const blank = privacySections({ owner: null, email: null }).map((s: { heading: string; body: string }) => s.heading + s.body).join(' ');
+    expect(blank).not.toMatch(/null|undefined/);
+    const filled = privacySections({ owner: 'Jane Doe', email: 'hello@example.ie' }).map((s: { body: string }) => s.body).join(' ');
+    expect(filled).toContain('Jane Doe');
+    expect(filled).toContain('hello@example.ie');
+  });
+  it('the notice says location stays on the phone and that referees are never stored', () => {
+    const text = privacySections({ owner: 'J', email: 'e@e.ie' }).map((s: { body: string }) => s.body).join(' ');
+    expect(text).toMatch(/location is not sent to us/i);
+    expect(text).toMatch(/never stores the names of referees/);
+  });
+  it('the credits name the open data with the wording its licences ask for', () => {
+    const text = DATA_CREDITS.map((c: { name: string; note: string }) => c.name + c.note).join(' ');
+    expect(text).toMatch(/© OpenStreetMap contributors/);
+    expect(text).toMatch(/Ryan McGuinness/);
+    expect(text).toMatch(/Creative Commons Attribution 4\.0/);
+    expect(text).toMatch(/changed/);
+    expect(FIXTURE_SOURCES.length).toBeGreaterThan(5);
+    expect(NOT_AFFILIATED).toMatch(/not affiliated/);
+  });
+});
