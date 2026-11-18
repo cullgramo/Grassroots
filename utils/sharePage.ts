@@ -67,7 +67,7 @@ h1{font-size:28px;line-height:1.15;margin-top:10px}
 .note{color:#4A5A52;font-size:13px;text-align:center;margin-top:20px}
 `;
 
-export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: string; now?: Date }): string {
+export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: string; now?: Date; unavailable?: boolean }): string {
   const now = opts.now ?? new Date();
   const state = pageState(f, now);
   const preview = previewFor(f, state);
@@ -88,6 +88,14 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
 <style>${STYLE}</style></head><body><main>
 <a class="brand" href="/?ref=share"><span class="mark" aria-hidden="true">G</span>Grassroots</a>`;
 
+  if (!f && opts.unavailable) {
+    // The fixture could not be looked up just now. It may well still be on, so the page must not say it is gone.
+    return `${head}
+<h1>Couldn’t load this fixture</h1>
+<p class="note">Something went wrong on our side. Please try again in a minute.</p>
+<a class="btn" href="${esc(pageUrl)}">Try again</a>
+</main></body></html>`;
+  }
   if (!f || state === 'missing') {
     return `${head}
 <div class="card" style="--c:#17704A"><h1>This fixture is no longer listed</h1>

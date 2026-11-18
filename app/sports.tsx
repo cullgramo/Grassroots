@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,9 +12,16 @@ import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
 export default function SportsScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { mySports, setMySports, myAge, setMyAge } = useApp();
+  const { mySports, setMySports, myAge, setMyAge, upcoming, loadState } = useApp();
   const [picked, setPicked] = useState<SportId[]>(mySports);
   const [pickedAge, setPickedAge] = useState<AgeFilter>(myAge);
+
+  // Once the fixtures have loaded, only sports that have any are offered: picking one with none would open an empty map.
+  // A sport already picked stays, so it can be unpicked.
+  const withGames = useMemo(() => new Set(upcoming.map((f) => f.sport)), [upcoming]);
+  const known = loadState === 'ready' && upcoming.length > 0;
+  const offered = SPORTS.filter((s) => !known || withGames.has(s.id) || picked.includes(s.id));
+  const none = known ? SPORTS.filter((s) => !offered.includes(s)) : [];
 
   const toggle = (id: SportId) =>
     setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
@@ -35,7 +42,7 @@ export default function SportsScreen() {
           The map opens on these. You can still browse any sport, and change this later.
         </Text>
         <View style={styles.chips}>
-          {SPORTS.map((s) => (
+          {offered.map((s) => (
             <Chip
               key={s.id}
               label={s.name}
@@ -45,6 +52,9 @@ export default function SportsScreen() {
             />
           ))}
         </View>
+        {none.length > 0 ? (
+          <Text style={[styles.none, { color: t.muted }]}>No fixtures listed yet for {none.map((s) => s.name).join(', ')}.</Text>
+        ) : null}
         <Text style={[styles.title, styles.ageTitle, { color: t.text }]}>Which games?</Text>
         <Text style={[styles.text, { color: t.muted }]}>Adult games, underage and schools games, or both.</Text>
         <View style={styles.chips}>
@@ -70,6 +80,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 26, fontWeight: '800' },
   text: { fontSize: 15, marginTop: 8, marginBottom: 22 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
+  none: { fontSize: 13, marginTop: 14 },
   ageTitle: { fontSize: 22, marginTop: 28 },
   footer: { padding: 12, borderTopWidth: 1 },
   apply: { minHeight: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center' },

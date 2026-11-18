@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { widerDistance } from '@/utils/filterFixtures';
 import { useTheme } from './useTheme';
@@ -7,7 +8,7 @@ import { useTheme } from './useTheme';
 /** Explains why no fixtures are showing and offers the one action most likely to fix it. */
 export function EmptyState({ onShowAll }: { onShowAll: () => void }) {
   const t = useTheme();
-  const { fixtures, filters, location, setFilters, resetFilters, loadState, refresh } = useApp();
+  const { fixtures, upcoming, mySports, filters, location, setFilters, resetFilters, loadState, refresh } = useApp();
 
   let title = 'No fixtures in this area';
   let action = `Show all ${fixtures.length} fixtures`;
@@ -32,9 +33,27 @@ export function EmptyState({ onShowAll }: { onShowAll: () => void }) {
       action = wider ? `Widen to ${wider}km` : 'Search any distance';
       run = () => setFilters({ distanceKm: wider });
     } else {
-      title = 'No fixtures match these filters';
-      action = 'Clear filters';
-      run = resetFilters;
+      // Say which limit is the cause and offer the one step that lifts it, instead of a reset that lands on the same view.
+      const sportIds = filters.sport ? [filters.sport] : filters.group ? null : !filters.allSports && mySports.length > 0 ? mySports : null;
+      const noneInSport = sportIds != null && !upcoming.some((f) => sportIds.includes(f.sport));
+      if (noneInSport) {
+        const names = sportIds.map((id) => getSport(id).name);
+        title = `No ${names.length <= 2 ? names.join(' or ') : 'fixtures for your sports'} ${names.length <= 2 ? 'fixtures ' : ''}listed yet`;
+        action = 'Show every sport';
+        run = () => setFilters({ sport: null, group: null, allSports: true });
+      } else if (filters.when !== 'any') {
+        title = filters.when === 'today' ? 'Nothing on today' : filters.when === 'weekend' ? 'Nothing on this weekend' : 'Nothing on in the next 7 days';
+        action = 'Show any date';
+        run = () => setFilters({ when: 'any' });
+      } else if (filters.county) {
+        title = `No fixtures in ${filters.county}`;
+        action = 'Show all Ireland';
+        run = () => setFilters({ county: null });
+      } else {
+        title = 'No fixtures match these filters';
+        action = 'Clear filters';
+        run = resetFilters;
+      }
     }
   }
 

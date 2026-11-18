@@ -65,3 +65,12 @@ describe('a home ground the league did not confirm', () => {
     expect(fixturePageHtml(f, opts)).not.toContain('not confirmed by the league');
   });
 });
+
+describe('when the fixture could not be looked up', () => {
+  it('the page says so and offers another try, and does not say the fixture is gone', () => {
+    const html = fixturePageHtml(null, { ...opts, unavailable: true });
+    expect(html).toContain('Couldn’t load this fixture');
+    expect(html).toContain('Try again');
+    expect(html).not.toContain('no longer listed');
+  });
+});

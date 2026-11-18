@@ -129,7 +129,7 @@ export default function FiltersScreen() {
         <Section title="County">
           <Chip label="All counties" selected={!filters.county} onPress={() => setFilters({ county: null })} />
           {COUNTIES.map((c) => (
-            <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c })} />
+            <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c, distanceKm: null })} />
           ))}
         </Section>
         {legalReady() ? (
