@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ClubMatches } from '@/components/ClubMatches';
 import { EmptyState } from '@/components/EmptyState';
 import { FixtureCard } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
@@ -23,7 +24,7 @@ const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', par
 export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, filters, location, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh } =
+  const { fixtures, upcoming, filters, location, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh } =
     useApp();
   const [height, setHeight] = useState(0);
   const [topBar, setTopBar] = useState(TOP_BAR);
@@ -46,7 +47,9 @@ export default function ExploreScreen() {
 
 
   // While searching, the map and the list both show every match, wherever the map is pointing.
-  const shown = useMemo(() => searchFixtures(fixtures, query), [fixtures, query]);
+  // A search looks through every upcoming fixture in Ireland, not only the current view: someone typing a club's name
+  // wants that club, wherever and whenever it plays.
+  const shown = useMemo(() => (query.trim() ? searchFixtures(upcoming, query) : fixtures), [fixtures, upcoming, query]);
   const selected = shown.find((f) => f.id === pickedId) ?? null;
 
   const visible = useMemo(() => {
@@ -200,6 +203,7 @@ export default function ExploreScreen() {
             contentContainerStyle={[styles.list, { paddingBottom: hidden + 24 }]}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
+            ListHeaderComponent={searching ? <ClubMatches query={query} /> : undefined}
             renderSectionHeader={({ section }) => (
               <Text style={[styles.section, { color: t.text }]}>{section.title}</Text>
             )}

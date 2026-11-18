@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ClubMatches } from '@/components/ClubMatches';
 import { EmptyState } from '@/components/EmptyState';
 import { FixtureCard } from '@/components/FixtureCard';
 import { SearchPill } from '@/components/SearchPill';
@@ -15,10 +16,11 @@ import { searchFixtures, toSections } from '@/utils/filterFixtures';
 export default function ListScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, loadState, isStale, refreshing, refresh } = useApp();
+  const { fixtures, upcoming, loadState, isStale, refreshing, refresh } = useApp();
   const [query, setQuery] = useState('');
 
-  const shown = useMemo(() => searchFixtures(fixtures, query), [fixtures, query]);
+  // A search looks through every upcoming fixture in Ireland, not only the current view.
+  const shown = useMemo(() => (query.trim() ? searchFixtures(upcoming, query) : fixtures), [fixtures, upcoming, query]);
   const sections = useMemo(() => toSections(shown), [shown]);
   const count = shown.length;
   const summary =
@@ -44,9 +46,12 @@ export default function ListScreen() {
         keyboardDismissMode="on-drag"
         contentContainerStyle={styles.list}
         ListHeaderComponent={
-          <Text style={[styles.summary, { color: t.muted }]}>
-            {isStale && loadState === 'ready' ? `${summary} · offline, last saved copy` : summary}
-          </Text>
+          <View>
+            <Text style={[styles.summary, { color: t.muted }]}>
+              {isStale && loadState === 'ready' ? `${summary} · offline, last saved copy` : summary}
+            </Text>
+            {query.trim() ? <ClubMatches query={query} /> : null}
+          </View>
         }
         renderSectionHeader={({ section }) => <Text style={[styles.section, { color: t.text }]}>{section.title}</Text>}
         renderItem={({ item }) => (

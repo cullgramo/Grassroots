@@ -28,11 +28,11 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 /** A team name that opens the club's page. */
-function ClubLink({ name }: { name: string }) {
+function ClubLink({ name, group }: { name: string; group: string }) {
   const t = useTheme();
   return (
     <Pressable
-      onPress={() => router.push({ pathname: '/club/[name]', params: { name } })}
+      onPress={() => router.push({ pathname: '/club/[name]', params: { name, sport: group } })}
       accessibilityRole="link"
       accessibilityHint="Opens the club's page">
       <Text style={[styles.teams, { color: t.text }]}>{name}</Text>
@@ -94,9 +94,9 @@ export default function FixtureScreen() {
         </Text>
         {fixture.homeTeam && fixture.awayTeam ? (
           <>
-            <ClubLink name={fixture.homeTeam} />
+            <ClubLink name={fixture.homeTeam} group={sport.group} />
             <Text style={[styles.versus, { color: t.muted }]}>v</Text>
-            <ClubLink name={fixture.awayTeam} />
+            <ClubLink name={fixture.awayTeam} group={sport.group} />
           </>
         ) : (
           <Text style={[styles.teams, { color: t.text }]}>{fixtureTitle(fixture)}</Text>

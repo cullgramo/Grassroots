@@ -111,6 +111,10 @@ const NOT_A_FIXTURE =
   /\b(dinner|dance|lotto|draw|raffle|membership|quiz|golf classic|camp|gala|awards?|social|concert|fundraiser|fundraising|training|registration|bingo|ball|night out|tour|coaching|course|workshop)\b/i;
 const FIXTURE_WORDS = /\b(final|semi|quarter|championship|league|round|cup|shield|fixture|match|game|derby|meeting|races)\b/i;
 
+// A lounge, suite, parking space or package sold beside a game. It has its own, earlier start time, so listing it would
+// show the same game twice at two times. The game's own listing carries the tickets.
+export const ADD_ON = /\b(lounge|hospitality|suite|vip|corporate|package|parking|car park|upgrade|pre[- ]?match (meal|dining)|dining)\b/i;
+
 const TEAM_SPLIT = /\s+(?:v|vs|vs\.|v\.)\s+/i;
 
 /** True when a club-created listing reads like a sporting fixture rather than a social event. */
@@ -179,6 +183,7 @@ export function mapEvent(event: Json, level: 'top' | 'local' = 'top'): { fixture
   const name = tidy(event.name);
   if (NOT_ONE_FIXTURE.test(name)) return { skipped: 'a pass, pack or gift card, not a fixture' };
   if (TALK_SHOW.test(name)) return { skipped: 'a talk or stage show, not a fixture' };
+  if (ADD_ON.test(name)) return { skipped: 'hospitality or an add-on to a game, not the game itself' };
   const sport = sportFor(event, level === 'local');
   if (!sport) {
     const c = (event.classifications ?? [])[0] ?? {};
@@ -331,7 +336,11 @@ const describe = (f: ImportedFixture) => ({
 });
 
 /** Runs the whole import and returns the report. */
-export async function runImport(key: string, dry: boolean): Promise<Json> {
+/**
+ * @param options.alreadyListed called for each fixture found. When another source already lists the same game, the caller
+ *   returns true (after taking the ticket link for its own copy), and this copy is not saved, so the game shows once.
+ */
+export async function runImport(key: string, dry: boolean, options: { alreadyListed?: (f: ImportedFixture) => boolean } = {}): Promise<Json> {
   const runStarted = new Date().toISOString();
   const errors: string[] = [];
   const fixtures = new Map<string, ImportedFixture>();
@@ -381,7 +390,9 @@ export async function runImport(key: string, dry: boolean): Promise<Json> {
     }
   }
 
-  const all = [...fixtures.values()];
+  const everyOne = [...fixtures.values()];
+  const all = options.alreadyListed ? everyOne.filter((f) => !options.alreadyListed!(f)) : everyOne;
+  const listedElsewhere = everyOne.length - all.length;
   const bySport: Record<string, number> = {};
   for (const f of all) bySport[f.sport_id] = (bySport[f.sport_id] ?? 0) + 1;
   const saved = dry ? 0 : await save(all);
@@ -391,6 +402,7 @@ export async function runImport(key: string, dry: boolean): Promise<Json> {
     dryRun: dry,
     found: tagged.length,
     importable: all.length,
+    listedByAnotherSource: listedElsewhere,
     saved,
     removedAsNoLongerListed: removed,
     bySport,

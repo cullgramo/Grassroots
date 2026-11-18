@@ -265,3 +265,31 @@ test('placeholders are never saved as fixtures: byes, undecided sides, Christmas
   assert.deepEqual(fixtures.map((f) => f.ref), ['fake-real']);
   assert.deepEqual(leftOut.map((r) => r.reason), ['Not a fixture yet (a bye, or a side still to be decided)', 'Not a fixture yet (a bye, or a side still to be decided)', 'Placeholder date (25 December)', 'No ground given']);
 });
+
+test('a game Ticketmaster also lists is shown once, and takes the ticket link', async () => {
+  const { ticketMatcher } = await import('../lib/build.mjs');
+  const { fixtures } = await gather({
+    sources: { giants: source([
+      game({ ref: 'g1', sport: 'ice-hockey', home: 'Belfast Giants', away: 'Nottingham Panthers', date: '2999-01-02', time: '17:00' }),
+      game({ ref: 'r1', sport: 'rugby', home: 'Ulster', away: 'Munster', date: '2999-01-02', time: '19:35' }),
+    ]) },
+    grounds,
+  });
+  const listed = ticketMatcher(fixtures);
+  const tm = (o) => ({ sport_id: 'ice-hockey', home_team: 'Belfast Giants', away_team: 'Nottingham Panthers', starts_at: '2999-01-02T17:00:00.000Z', ticket_url: 'https://tickets.example/g1', ...o });
+  // the same game: left out of Ticketmaster's own save, and the kept copy gets the link
+  assert.equal(listed(tm({})), true);
+  assert.equal(toRow(fixtures[0]).ticket_url, 'https://tickets.example/g1');
+  assert.equal(toRow(fixtures[0]).ticketed, true);
+  // a different opponent, a different day, another sport, or a start hours apart is a different game
+  assert.equal(listed(tm({ away_team: 'Cardiff Devils' })), false);
+  assert.equal(listed(tm({ starts_at: '2999-01-03T17:00:00.000Z' })), false);
+  assert.equal(listed(tm({ sport_id: 'basketball' })), false);
+  assert.equal(listed(tm({ starts_at: '2999-01-02T11:00:00.000Z' })), false);
+  // "Rugby" in both names must not make two different games look like one
+  assert.equal(listed(tm({ sport_id: 'rugby', home_team: 'Connacht Rugby', away_team: 'Leinster Rugby', starts_at: '2999-01-02T19:35:00.000Z' })), false);
+  assert.equal(listed(tm({ sport_id: 'rugby', home_team: 'Ulster Rugby', away_team: 'Munster Rugby', starts_at: '2999-01-02T19:35:00.000Z', ticket_url: 'https://tickets.example/r1' })), true);
+  assert.equal(toRow(fixtures[1]).ticket_url, 'https://tickets.example/r1');
+  // an event with no teams is never matched
+  assert.equal(listed(tm({ home_team: null, away_team: null })), false);
+});
