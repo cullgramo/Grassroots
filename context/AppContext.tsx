@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { AppState as PhoneState } from 'react-native';
 
 import type { SportId } from '@/constants/sports';
 import { fixtures as sampleFixtures } from '@/data/fixtures';
@@ -82,18 +83,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [location, setLocation] = useState<UserLocation | null>(null);
   const [locationDenied, setLocationDenied] = useState(false);
 
+  // A short line above the map saying why the view is what it is, or what to do about location.
+  const [viewNote, setViewNote] = useState<string | null>(null);
+
   const requestLocation = useCallback(async () => {
     try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const { status, canAskAgain } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setLocationDenied(true);
+        // The phone will not ask a second time, so pressing the button again would do nothing: say what to do.
+        if (canAskAgain === false) setViewNote('Location is switched off for Grassroots. Turn it on in your settings, or pick a county in Filters.');
         return;
       }
-      const pos = await Location.getCurrentPositionAsync({});
+      // A phone with a weak signal can take minutes to find itself; give up after 15 seconds and say so.
+      const pos = await Promise.race([
+        Location.getCurrentPositionAsync({}),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error('location timed out')), 15_000)),
+      ]);
       setLocationDenied(false);
       setLocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude });
     } catch (e) {
       report(e, 'reading the phone\'s location');
+      setViewNote('Could not find your location just now. Try again, or pick a county in Filters.');
       setLocationDenied(true);
     }
   }, []);
@@ -136,6 +147,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [myAge, setAge] = useState<AgeFilter>('all');
   const [myGender, setGender] = useState<GenderFilter>('all');
   const [myCounty, setCounty] = useState<string | null>(null);
+  // True once the county question has been answered, including with "Show all Ireland", so it is not asked on every launch.
+  const [countyAsked, setCountyAsked] = useState(false);
   const [prefsLoaded, setPrefsLoaded] = useState(false);
   const [viewKey, setViewKey] = useState(0);
   // The view the app opened on: a widened one counts as the opening view, so the Filters button stays plain.
@@ -166,6 +179,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
   const setMyCounty = useCallback((county: string | null) => {
     touched.current = true;
+    setCountyAsked(true);
     setCounty(county);
     // A chosen county replaces "near me"; null means the whole island.
     setAll((f) => ({ ...f, county, distanceKm: null }));
@@ -189,6 +203,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           setAge(age);
           setAll((f) => ({ ...f, age }));
         }
+        if (county !== null) setCountyAsked(true);
         if (county) setCounty(county);
       })
       .catch(reportTo('reading saved preferences'))
@@ -203,12 +218,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Each load gets a number, and only the newest one may update the screen: a slow, older answer arriving after a
   // newer one (a refresh pulled during start-up) must not put old data back.
   const latestLoad = useRef(0);
+  const lastLoaded = useRef(0);
   const load = useCallback(async () => {
     if (!backendConfigured) return;
     const mine = ++latestLoad.current;
     try {
       const fresh = await fetchFixtures();
       if (mine !== latestLoad.current) return;
+      lastLoaded.current = Date.now();
       setAllFixtures(fresh);
       setIsStale(false);
       setLoadState('ready');
@@ -234,6 +251,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
       .finally(load);
   }, [load]);
 
+  // An app left open, or brought back from the background, must not keep showing this morning's "today" or games
+  // that have since been played: the clock ticks every five minutes and on return, and data over half an hour old
+  // is fetched again.
+  const [clock, setClock] = useState(0);
+  useEffect(() => {
+    const tick = setInterval(() => setClock((c) => c + 1), 5 * 60_000);
+    const sub = PhoneState.addEventListener('change', (state) => {
+      if (state !== 'active') return;
+      setClock((c) => c + 1);
+      if (backendConfigured && Date.now() - lastLoaded.current > 30 * 60_000) load();
+    });
+    return () => {
+      clearInterval(tick);
+      sub.remove();
+    };
+  }, [load]);
+
   const refresh = useCallback(async () => {
     setRefreshing(true);
     setLoadState((state) => (state === 'error' ? 'loading' : state));
@@ -256,7 +290,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Once the fixtures have loaded and we know whether location is on, settle the opening view once:
   // use the chosen county when location is off, then widen it if it is quiet. Never after the user has touched a filter.
-  const [viewNote, setViewNote] = useState<string | null>(null);
   const settled = useRef(false);
   useEffect(() => {
     if (settled.current || touched.current || !prefsLoaded || loadState !== 'ready') return;
@@ -276,18 +309,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [prefsLoaded, loadState, location, locationDenied, myCounty, allFixtures, mySports, filters]);
 
-  const needsCounty = prefsLoaded && locationDenied && !myCounty && !filters.county && !touched.current;
+  const needsCounty = prefsLoaded && locationDenied && !myCounty && !countyAsked && !filters.county && !touched.current;
   const dismissViewNote = useCallback(() => setViewNote(null), []);
 
   const fixtures = useMemo(
     () => filterFixtures(allFixtures, filters, location, new Date(), mySports),
-    [allFixtures, filters, location, mySports]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- the clock is a dependency on purpose: time passing changes the answer
+    [allFixtures, filters, location, mySports, clock]
   );
 
   const upcoming = useMemo(() => {
     const now = new Date();
     return allFixtures.filter((f) => !isPlayed(f, now)).sort((a, b) => a.startsAt.localeCompare(b.startsAt));
-  }, [allFixtures]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- the clock is a dependency on purpose
+  }, [allFixtures, clock]);
 
   const value = useMemo(
     () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),

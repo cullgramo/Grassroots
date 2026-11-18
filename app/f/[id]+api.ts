@@ -10,14 +10,30 @@ export async function GET(request: Request, { id }: { id: string }) {
   // address can be an internal or http one, which chat apps cannot load, so the configured site address is used first.
   const origin = (SITE_URL ?? new URL(request.url).origin).replace(/\/+$/, '');
   let fixture = null;
+  // True when the lookup itself failed (the database was slow or down). That is not the same as the fixture being gone.
+  let unavailable = false;
   if (ID.test(id)) {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/fixtures?select=*,venue:venues(name,county,latitude,longitude)&id=eq.${id}&limit=1`, {
-      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
-    });
-    if (res.ok) {
-      const rows = (await res.json()) as FixtureRow[];
-      fixture = rows[0] ? mapFixture(rows[0]) : null;
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/fixtures?select=*,venue:venues(name,county,latitude,longitude)&id=eq.${id}&limit=1`, {
+        headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (res.ok) {
+        const rows = (await res.json()) as FixtureRow[];
+        fixture = rows[0] ? mapFixture(rows[0]) : null;
+      } else {
+        unavailable = true;
+      }
+    } catch {
+      unavailable = true;
     }
+  }
+  if (unavailable) {
+    // Never cached: the next visitor should get a fresh try.
+    return new Response(fixturePageHtml(null, { id, origin, unavailable: true }), {
+      status: 503,
+      headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Retry-After': '60' },
+    });
   }
   return new Response(fixturePageHtml(fixture, { id, origin }), {
     status: fixture ? 200 : 404,

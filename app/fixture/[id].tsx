@@ -43,7 +43,7 @@ function ClubLink({ name, group }: { name: string; group: string }) {
 export default function FixtureScreen() {
   const t = useTheme();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { location, allFixtures, loadState } = useApp();
+  const { location, allFixtures, loadState, isStale, refresh } = useApp();
   const fixture = allFixtures.find((f) => f.id === id);
 
   useEffect(() => {
@@ -53,8 +53,20 @@ export default function FixtureScreen() {
   if (!fixture) {
     return (
       <View style={[styles.missing, { backgroundColor: t.background }]}>
-        <Stack.Screen options={{ title: 'Not found' }} />
-        <Text style={[styles.rowValue, { color: t.text }]}>{loadState === 'loading' ? 'Loading…' : 'This fixture is no longer listed.'}</Text>
+        <Stack.Screen options={{ title: 'Fixture' }} />
+        {loadState === 'loading' ? (
+          <Text style={[styles.rowValue, { color: t.text }]}>Loading…</Text>
+        ) : loadState === 'error' || isStale ? (
+          // The list could not be fetched, so this may well still be on: say so and offer another try.
+          <>
+            <Text style={[styles.rowValue, { color: t.text }]}>Couldn’t load this fixture. Check your connection.</Text>
+            <Pressable onPress={refresh} accessibilityRole="button" style={[styles.retry, { backgroundColor: t.tint }]}>
+              <Text style={[styles.retryText, { color: t.onTint }]}>Try again</Text>
+            </Pressable>
+          </>
+        ) : (
+          <Text style={[styles.rowValue, { color: t.text }]}>This fixture is no longer listed.</Text>
+        )}
       </View>
     );
   }
@@ -62,7 +74,7 @@ export default function FixtureScreen() {
   const sport = getSport(fixture.sport);
   const color = sport.color;
   const km = distanceTo(fixture, location);
-  const date = new Date(fixture.startsAt).toLocaleDateString(undefined, {
+  const date = new Date(fixture.startsAt).toLocaleDateString('en-IE', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -181,7 +193,9 @@ const styles = StyleSheet.create({
   reportLink: { alignItems: 'center', paddingVertical: 18, marginTop: 8 },
   reportText: { fontSize: 14, textDecorationLine: 'underline' },
   content: { paddingBottom: 32 },
-  missing: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  missing: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, gap: 14 },
+  retry: { minHeight: 44, borderRadius: 22, paddingHorizontal: 20, justifyContent: 'center' },
+  retryText: { fontSize: 15, fontWeight: '800' },
   map: { height: 220 },
   body: { padding: 16 },
   sport: { fontSize: 12, fontWeight: '800', letterSpacing: 0.6, marginBottom: 8 },
