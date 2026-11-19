@@ -1,6 +1,6 @@
 import { DEFAULT_FILTERS, openingFilters, type Fixture } from '@/types/fixture';
 import { dayFromKey, dayKey } from '../date';
-import { dayCounts, dayHasPassed, extraStripItem, monthGrid, selectedWhen, stripDays, weekendLabel, whenPatch } from '../days';
+import { dayCounts, calendarChoice, dayHasPassed, monthGrid, selectedWhen, whenPatch } from '../days';
 import { filterFixtures, whenRange } from '../filterFixtures';
 import { whenLabel } from '../view';
 
@@ -20,32 +20,20 @@ describe('a day as text', () => {
   });
 });
 
-describe('the day strip', () => {
-  const days = stripDays(now);
-  it('starts today and runs two weeks, naming today', () => {
-    expect(days).toHaveLength(14);
-    expect(days[0]).toEqual({ key: '2026-11-19', top: 'TODAY', bottom: '19 Nov' });
-    expect(days[2]).toEqual({ key: '2026-11-21', top: 'SAT', bottom: '21 Nov' });
-    expect(days[13].key).toBe('2026-12-02');
-  });
-  it('names the weekend it means, across a month end, and on a Sunday', () => {
-    expect(weekendLabel(now)).toBe('21–22 Nov');
-    expect(weekendLabel(new Date(2027, 1, 25))).toBe('27–28 Feb');
-    expect(weekendLabel(new Date(2026, 9, 29))).toBe('31 Oct–1 Nov');
-    expect(weekendLabel(new Date(2026, 10, 22))).toBe('22 Nov');
-  });
+describe('the date bar', () => {
   it('knows which choice is on', () => {
     expect(selectedWhen(openingFilters(), now)).toBe('weekend');
     expect(selectedWhen({ when: 'today' }, now)).toBe('2026-11-19');
     expect(selectedWhen({ when: 'day', day: '2026-11-21' }, now)).toBe('2026-11-21');
     expect(selectedWhen({ when: 'day', day: null }, now)).toBe('any');
   });
-  it('gives a choice that is not on the strip a place at the front', () => {
-    expect(extraStripItem({ when: 'weekend' }, days, now)).toBeNull();
-    expect(extraStripItem({ when: 'day', day: '2026-11-21' }, days, now)).toBeNull();
-    expect(extraStripItem({ when: 'any' }, days, now)).toEqual({ key: 'any', top: 'ALL', bottom: 'dates' });
-    expect(extraStripItem({ when: 'week' }, days, now)).toEqual({ key: 'week', top: 'NEXT', bottom: '7 days' });
-    expect(extraStripItem({ when: 'day', day: '2026-12-12' }, days, now)).toEqual({ key: '2026-12-12', top: 'SAT', bottom: '12 Dec' });
+  it('says a calendar choice at the end of the bar, and nothing for the three the bar already shows', () => {
+    expect(calendarChoice({ when: 'weekend' }, now)).toBeNull();
+    expect(calendarChoice({ when: 'week' }, now)).toBeNull();
+    expect(calendarChoice({ when: 'today' }, now)).toBeNull();
+    expect(calendarChoice({ when: 'day', day: '2026-11-19' }, now)).toBeNull();
+    expect(calendarChoice({ when: 'day', day: '2026-11-28' }, now)).toBe('28 Nov');
+    expect(calendarChoice({ when: 'any' }, now)).toBe('All dates');
   });
   it('turns a tap into the right date choice; today keeps its own name', () => {
     expect(whenPatch('weekend', now)).toEqual({ when: 'weekend', day: null });

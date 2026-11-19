@@ -232,7 +232,7 @@ export function FixtureMap({
                 );
               }}>
               <View style={styles.cluster}>
-                <Text style={styles.clusterText}>{item.count}</Text>
+                <Text style={styles.clusterText} allowFontScaling={false}>{item.count}</Text>
               </View>
             </Marker>
           );
@@ -248,7 +248,7 @@ export function FixtureMap({
             onPress={() => onSelect?.(f.id)}>
             <View style={[styles.pill, isSelected && styles.pillSelected]}>
               <View style={[styles.dot, { backgroundColor: getSport(f.sport).color }]} />
-              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabelFor(f, undefined, timeOnly)}</Text>
+              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]} allowFontScaling={false}>{pinLabelFor(f, undefined, timeOnly)}</Text>
             </View>
           </Marker>
         );
@@ -265,31 +265,32 @@ const shadow = {
   elevation: 4,
 };
 
+// The bubbles are kept small, and keep their size whatever text size the phone is set to: big bubbles hide the map.
 const styles = StyleSheet.create({
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    borderRadius: 13,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     ...shadow,
   },
   pillSelected: { backgroundColor: PIN_DARK },
-  dot: { width: 9, height: 9, borderRadius: 5, marginRight: 6 },
-  pillText: { fontSize: 13, fontWeight: '800', color: PIN_DARK },
+  dot: { width: 7, height: 7, borderRadius: 4, marginRight: 5 },
+  pillText: { fontSize: 12, fontWeight: '800', color: PIN_DARK },
   pillTextSelected: { color: '#fff' },
   cluster: {
-    minWidth: 40,
-    height: 40,
-    borderRadius: 20,
-    paddingHorizontal: 8,
+    minWidth: 32,
+    height: 32,
+    borderRadius: 16,
+    paddingHorizontal: 6,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: PIN_DARK,
-    borderWidth: 3,
+    borderWidth: 2,
     borderColor: '#fff',
     ...shadow,
   },
-  clusterText: { color: '#fff', fontSize: 15, fontWeight: '800' },
+  clusterText: { color: '#fff', fontSize: 13, fontWeight: '800' },
 });

@@ -1,40 +1,13 @@
 import type { SportId } from '@/constants/sports';
 import type { Filters, Fixture, UserLocation } from '@/types/fixture';
-import { addDays, dayFromKey, dayKey, startOfDay, weekendRange } from './date';
+import { dayFromKey, dayKey, startOfDay } from './date';
 import { filterFixtures } from './filterFixtures';
 
-const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 /** "21 Nov" */
 export const shortDate = (d: Date): string => `${d.getDate()} ${MONTHS[d.getMonth()]}`;
-
-/** One choice on the day strip. `key` is 'weekend', 'week', 'any' or a day ("2026-11-21"). */
-export interface StripItem {
-  key: string;
-  /** The small top line: TODAY, SAT, WEEKEND. */
-  top: string;
-  /** The date under it: "21 Nov". */
-  bottom: string;
-}
-
-/** The days offered on the strip: today and the days after it. */
-export function stripDays(now: Date = new Date(), count = 14): StripItem[] {
-  const today = startOfDay(now);
-  return Array.from({ length: count }, (_, i) => {
-    const d = addDays(today, i);
-    return { key: dayKey(d), top: i === 0 ? 'TODAY' : WEEKDAYS[d.getDay()], bottom: shortDate(d) };
-  });
-}
-
-/** The days "Weekend" means, in words: "21–22 Nov", "28 Feb–1 Mar", or the one day left when today is Sunday. */
-export function weekendLabel(now: Date = new Date()): string {
-  const [start, end] = weekendRange(now);
-  const last = addDays(end, -1);
-  if (dayKey(start) === dayKey(last)) return shortDate(start);
-  return start.getMonth() === last.getMonth() ? `${start.getDate()}–${shortDate(last)}` : `${shortDate(start)}–${shortDate(last)}`;
-}
 
 /** Which choice is on: 'weekend', 'week', 'any', or a day ("2026-11-21"). "Today" is today's own day. */
 export function selectedWhen(filters: Pick<Filters, 'when' | 'day'>, now: Date = new Date()): string {
@@ -44,16 +17,14 @@ export function selectedWhen(filters: Pick<Filters, 'when' | 'day'>, now: Date =
 }
 
 /**
- * The strip shows the weekend and the next two weeks of days. When the choice is none of those (every date, the next
- * 7 days, or a day picked further ahead on the calendar) it gets a place of its own at the front, so the strip always
- * shows what is on.
+ * What the calendar end of the date bar says. Nothing while Today, This weekend or Next 7 days is on (the bar already
+ * shows those); otherwise the chosen day ("28 Nov") or "All dates".
  */
-export function extraStripItem(filters: Pick<Filters, 'when' | 'day'>, days: StripItem[], now: Date = new Date()): StripItem | null {
+export function calendarChoice(filters: Pick<Filters, 'when' | 'day'>, now: Date = new Date()): string | null {
   const on = selectedWhen(filters, now);
-  if (on === 'weekend' || days.some((d) => d.key === on)) return null;
-  if (on === 'week') return { key: 'week', top: 'NEXT', bottom: '7 days' };
+  if (on === 'weekend' || on === 'week' || on === dayKey(now)) return null;
   const d = on === 'any' ? null : dayFromKey(on);
-  return d ? { key: on, top: WEEKDAYS[d.getDay()], bottom: shortDate(d) } : { key: 'any', top: 'ALL', bottom: 'dates' };
+  return d ? shortDate(d) : 'All dates';
 }
 
 /** The filter change a choice makes. Today keeps its own name, so "Nothing on today" still reads right tomorrow. */
