@@ -17,7 +17,9 @@ try {
   existing = await getJson('https://dxkurwkmbnireaptcsbd.supabase.co/rest/v1/fixtures?select=sport_id,home_team,away_team,starts_at,source,source_ref&limit=5000&apikey=' + process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY, 0);
 } catch { /* without it, nothing is replaced */ }
 
-const { fixtures, leftOut, live, replaced } = await gather({ existing, grounds });
+const { fixtures: all, leftOut, live, replaced } = await gather({ existing, grounds });
+// This file writes every row as approved, so a held source's fixtures (collected but not published) stay out of it.
+const fixtures = all.filter((f) => !f.held);
 
 const venues = [...new Map(fixtures.map((f) => [`${f.ground.name}|${f.ground.county}`, f.ground])).values()];
 const sql = [

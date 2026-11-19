@@ -67,7 +67,11 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
   const found = {};
   // The same game can be listed by two sources (a national list and a provincial one); the first copy is kept.
   const seen = new Set();
-  for (const [key, source] of Object.entries(sources)) {
+  // A held source (`hold` on the source) is collected and saved hidden: its fixtures are not shown in the app until the
+  // owner publishes it. Held sources are read last, so a held copy of a game can never displace a published one.
+  const ordered = Object.entries(sources).sort((a, b) => Number(Boolean(a[1].hold)) - Number(Boolean(b[1].hold)));
+  for (const [key, source] of ordered) {
+    const held = Boolean(source.hold);
     const { upcoming, problems: pageProblems } = await collect(source, now);
     found[key] = upcoming.length;
     if (pageProblems.length) problems[key] = pageProblems;
@@ -101,12 +105,12 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
       const startsAt = f.startsAt ?? irishTimeToIso(f.date, f.time ?? '12:00');
       const ref = `${key}-${f.ref}`;
       live[key]?.push(ref);
-      for (const e of existing) {
+      for (const e of held ? [] : existing) {
         if (e.source !== 'admin' || e.sport_id !== f.sport || e.starts_at.slice(0, 10) !== startsAt.slice(0, 10)) continue;
         const theirs = [...words(e.home_team ?? ''), ...words(e.away_team ?? '')];
         if (words(f.home ?? f.title ?? '').some((w) => theirs.includes(w)) && words(f.away ?? f.title ?? '').some((w) => theirs.includes(w))) replaced.add(e.source_ref);
       }
-      fixtures.push({ ...f, source: key, ref, startsAt, ground, timeKnown, venueConfirmed: !homeGround });
+      fixtures.push({ ...f, source: key, ref, startsAt, ground, timeKnown, venueConfirmed: !homeGround, held });
     }
   }
   return { fixtures, leftOut, live, problems, found, replaced };
@@ -127,7 +131,8 @@ const irishDay = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/D
 export function ticketMatcher(fixtures) {
   const byDay = new Map();
   for (const f of fixtures) {
-    if (!f.home || !f.away) continue;
+    // A held fixture is hidden, so it must not stand in for a ticket listing that would otherwise be shown.
+    if (!f.home || !f.away || f.held) continue;
     const k = `${f.sport}|${irishDay(f.startsAt)}`;
     if (!byDay.has(k)) byDay.set(k, []);
     byDay.get(k).push(f);
@@ -152,7 +157,8 @@ export function toRow(f) {
     home_team: f.home ?? null, away_team: f.away ?? null, title: f.title ?? null, time_known: f.timeKnown,
     venue_confirmed: f.venueConfirmed !== false,
     starts_at: f.startsAt, ticketed: Boolean(f.ticketUrl), ticket_url: f.ticketUrl ?? null,
-    status: f.status ?? 'scheduled', approval: 'approved', source: f.source, source_ref: f.ref, source_url: f.url ?? null,
+    // 'pending' rows are hidden by the database's own rule: the public can read approved fixtures only.
+    status: f.status ?? 'scheduled', approval: f.held ? 'pending' : 'approved', source: f.source, source_ref: f.ref, source_url: f.url ?? null,
   };
 }
 
