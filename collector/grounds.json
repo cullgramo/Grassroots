@@ -7606,6 +7606,14 @@
   "longitude": -8.538149,
   "how": "Eircode supplied by the app owner as club-published (Eden Hall, Model Farm Road, Cork, T12 A9XE); the map knows this Eircode"
  },
+ "|greenhills|": {
+  "family": "bowls",
+  "name": "Greenhills Bowling Club",
+  "county": "Dublin",
+  "latitude": 53.3100592,
+  "longitude": -6.3334887,
+  "how": "pin supplied by the owner from Google Maps on 19 Nov 2026 (Greenhills Bowling Club); checked: map county Dublin, 55 m from Greenhills Community Centre on the map"
+ },
  "|hansfield etss|": {
   "name": "Hansfield ETSS",
   "county": "Dublin",
