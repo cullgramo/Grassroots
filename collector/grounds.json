@@ -544,6 +544,14 @@
   "longitude": -8.487095,
   "how": "GAA pitch list, matched on pitch name (St. Kevin's GAA, Castlerea: O'Rourke Park); match read and accepted by hand, 17 Nov 2026"
  },
+ "Connacht|oranmore|@maree oranmore": {
+  "family": "soccer",
+  "name": "Maree-Oranmore FC, Maree Grounds",
+  "county": "Galway",
+  "latitude": 53.232525,
+  "longitude": -8.943749,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/1572186246, leisure/sports_centre: Maree-Oranmore Football Club - Maree Grounds); the owner confirmed on 19 Nov 2026 that the league's \"Oranmore\" is this ground; kept per home club because the league writes only the town"
+ },
  "Connacht|orchard park|": {
   "name": "Orchard Park",
   "county": "Roscommon",
