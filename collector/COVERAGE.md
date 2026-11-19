@@ -3,7 +3,7 @@
 A running record of every county board and league: what we read, what we don't, and why. Update this whenever a
 source changes. The daily report (`collector/run.mjs`) shows live counts; this file keeps the reasons.
 
-Last updated: 16 November 2026.
+Last updated: 19 November 2026.
 
 ## County GAA boards
 
@@ -65,6 +65,19 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | SFAI, Limerick District Schoolchildren League, Kildare & District Football League, Connacht Senior Alliance, Clubforce leagues (LWSSL, Leinster Senior League, Carlow, Kilkenny, Wexford, United Churches), Cork Business League | Not read | Checked 16 Nov 2026. Reasons are in the pull request. Clubforce fixture rows are not in the public HTML; `apicm.clubforce.com` robots.txt disallows every path, and the Comortais feed is not used. Cork Business League answered with a Cloudflare challenge. `carlowsoccer.ie` was not requested (`Disallow: /`). |
 | Athletics Ireland, Leggit, FAI Connect | Not read | Permission or off-season; see the plan. |
 | Cricket Leinster, North West championship, GRI race meetings, Motorsport Ireland, ANICC 2026 calendar, Rowing Ireland 2026 calendar, Volleyball Ireland 2026-27 calendar, Netball Ireland, Belfast Giants home games, Ireland Water Polo, Irish Lawn Bowls | Reading | Added 16 Nov 2026. See the pull request for robots checks, skipped sites, and grounds the directory does not know yet. |
+
+## Gap work, 19 November 2026
+
+Findings from working through the ranked gap list (see the data gap analysis). Permission drafts are in
+`docs/permission-requests.md`; none has been sent.
+
+| Source | Outcome | Notes |
+|---|---|---|
+| Greyhound stadia | 13 of 14 placed | From the map, each named as the greyhound stadium, and tied to greyhound racing only (the source writes just the town). Galway's stadium is not named on the map: needs an owner pin. |
+| Hockey beyond the umpire lists | **Permission needed** | `irish-hockey.mjs` and `ulster-hockey.mjs` read the umpires' appointment lists, which only cover top divisions. Full fixtures for Hockey Ireland, Leinster and Munster are in MyGameDay frames, which have refused automated reading. Leinster's old `/league/<id>` pages now return "Page not found". Ulster's site is a script app with no fixtures in its page. |
+| Basketball National Cup | Reading | Eight cup pages on `ireland.basketball`, same layout as the league pages. The development league, under-20 league and schools pages carry no fixtures in the page. Area board leagues: no public list found. |
+| RunRepublic race calendar | Not read | robots.txt allows `/`, but each race gives only a county, not a start place, and the public page holds 33 of 417 races (the rest load by script). It cannot place races on the map or replace the Running Calendar hand copy. |
+| Bowls NI, Netball NI, Athletics NI, point-to-points, orienteering, mountain running, road bowling, amateur boxing, rounders, triathlon, cycling, pitch and putt, parkrun, Northern and Munster cricket unions | **Not yet checked** | The request to open these sites from the session was refused by the settings service twice on 19 Nov. No rules read, nothing fetched. Hosts are listed in the session notes for the owner to allow. |
 
 ## Protecting the data (audit M5)
 
