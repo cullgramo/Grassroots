@@ -256,6 +256,7 @@ test('placeholders are never saved as fixtures: byes, undecided sides, Christmas
     sources: { fake: source([
       game({ ref: 'bye', away: 'BYE' }),
       game({ ref: 'win', home: 'Winner SF 1', away: 'Winner SF 2' }),
+      game({ ref: 'slot', home: 'S/F 1 - Winner Grp A', away: 'S/F 1 - R/up Grp B' }),
       game({ ref: 'xmas', home: 'Gamma', away: 'Delta', date: '2999-12-25' }),
       game({ ref: 'tbc', home: 'Epsilon', away: 'Zeta', venue: 'Venue TBC', latitude: 53.1424, longitude: -7.6921, county: 'Offaly' }),
       game({ ref: 'real', home: 'Winner Park Rovers', away: 'Byers United' }),
@@ -263,7 +264,7 @@ test('placeholders are never saved as fixtures: byes, undecided sides, Christmas
     grounds,
   });
   assert.deepEqual(fixtures.map((f) => f.ref), ['fake-real']);
-  assert.deepEqual(leftOut.map((r) => r.reason), ['Not a fixture yet (a bye, or a side still to be decided)', 'Not a fixture yet (a bye, or a side still to be decided)', 'Placeholder date (25 December)', 'No ground given']);
+  assert.deepEqual(leftOut.map((r) => r.reason), ['Not a fixture yet (a bye, or a side still to be decided)', 'Not a fixture yet (a bye, or a side still to be decided)', 'Not a fixture yet (a bye, or a side still to be decided)', 'Placeholder date (25 December)', 'No ground given']);
 });
 
 test('a game Ticketmaster also lists is shown once, and takes the ticket link', async () => {
