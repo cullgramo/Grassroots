@@ -7351,6 +7351,14 @@
   "longitude": -5.68929,
   "how": "home ground: place search (leisure/sports_centre: Ards Rangers Football Club); match read and accepted by hand, 17 Nov 2026"
  },
+ "Ulster||@ballymacash rangers": {
+  "family": "soccer",
+  "name": "Ballymacash Rangers, The Bluebell Stadium (Ballymacash Sports Academy)",
+  "county": "Antrim",
+  "latitude": 54.515769,
+  "longitude": -6.075418,
+  "how": "home ground: the map's pitch off Rushmore Park, Ballymacash (OpenStreetMap way/997380835, leisure/pitch); the owner confirmed on 19 Nov 2026 that this is the club's ground (Rushmore Drive, Lisburn)"
+ },
  "Ulster||@coagh united": {
   "family": "soccer",
   "name": "Coagh United FC",
