@@ -8,16 +8,14 @@ import { ClubMatches } from '@/components/ClubMatches';
 import { EmptyState } from '@/components/EmptyState';
 import { FixtureCard } from '@/components/FixtureCard';
 import { FixtureMap } from '@/components/FixtureMap';
-import { SearchPill } from '@/components/SearchPill';
+import { MapControls } from '@/components/MapControls';
 import { Sheet, type Snap } from '@/components/Sheet';
-import { SportChips } from '@/components/SportChips';
-import { ViewSummary } from '@/components/ViewSummary';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { searchFixtures, toSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
 
 const PEEK = 76;
-const TOP_BAR = 140;
+const TOP_BAR = 130;
 
 const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', params: { id } });
 
@@ -34,6 +32,7 @@ export default function ExploreScreen() {
   const [venueIds, setVenueIds] = useState<string[] | null>(null);
   const [recenterKey, setRecenterKey] = useState(0);
   const [fitKey, setFitKey] = useState(0);
+  const [placeKey, setPlaceKey] = useState(0);
   const [query, setQuery] = useState('');
   const searching = query.trim().length > 0;
 
@@ -52,6 +51,14 @@ export default function ExploreScreen() {
   // The search itself runs a beat behind the typing, so each keystroke shows at once even with thousands of fixtures.
   const slowQuery = useDeferredValue(query);
   const shown = useMemo(() => (slowQuery.trim() ? searchFixtures(upcoming, slowQuery) : fixtures), [fixtures, upcoming, slowQuery]);
+  // The map follows the search once the matches are worked out: it fits them, and when the search is cleared it goes
+  // back to the place being shown. (Fitting on each keystroke would fit the matches of the letter before.)
+  const [fittedQuery, setFittedQuery] = useState(slowQuery);
+  if (fittedQuery !== slowQuery) {
+    setFittedQuery(slowQuery);
+    if (slowQuery.trim()) setFitKey((k) => k + 1);
+    else setPlaceKey((k) => k + 1);
+  }
   const selected = shown.find((f) => f.id === pickedId) ?? null;
 
   const visible = useMemo(() => {
@@ -75,24 +82,33 @@ export default function ExploreScreen() {
     setVenueIds(ids);
     setSnap('half');
   }, []);
+  // "Show all": out of a search, or back from wherever the map was dragged, to the place being shown.
   const showAll = useCallback(() => {
-    setQuery('');
+    if (query.trim()) setQuery('');
+    else setPlaceKey((k) => k + 1);
     setSnap('peek');
-    setFitKey((k) => k + 1);
-  }, []);
+  }, [query]);
   const onChangeQuery = useCallback((q: string) => {
     setQuery(q);
     setPickedId(null);
     setVenueIds(null);
-    // Typing narrows the map to the matches and fits it to them.
+    // Typing narrows the map to the matches; the map fits them once they are worked out.
     setSnap('peek');
-    setFitKey((k) => k + 1);
   }, []);
 
   const locate = async () => {
     if (!location) await requestLocation();
     setRecenterKey((k) => k + 1);
   };
+
+  // What the map must keep clear: the controls at the top, and the list at the bottom. With the list fully up there
+  // is no map left to fit, so the half-open figure is kept and nothing moves behind it.
+  const inset = useMemo(
+    () => ({ top: topBar, bottom: snap === 'peek' ? PEEK : Math.round(height * 0.5) }),
+    [topBar, snap, height]
+  );
+  // With one day chosen the pins need only say the time. A search runs across every date, so it keeps the day.
+  const oneDay = (filters.when === 'today' || filters.when === 'day') && !searching;
 
   const count = visible.length;
   const title = loadState === 'loading'
@@ -123,16 +139,17 @@ export default function ExploreScreen() {
         recenterKey={recenterKey}
         // The app changing the place (All Ireland, a chosen county, a widened view) re-fits the map too.
         fitKey={fitKey + viewKey}
-        attributionBottom={PEEK + 2}
+        placeKey={placeKey}
+        attributionBottom={inset.bottom + 2}
+        inset={inset}
+        timeOnly={oneDay}
       />
 
       <View
         style={[styles.top, { paddingTop: insets.top + 8 }]}
         pointerEvents="box-none"
         onLayout={(e) => setTopBar(e.nativeEvent.layout.height)}>
-        <SearchPill query={query} onChangeQuery={onChangeQuery} />
-        <ViewSummary />
-        <SportChips elevated />
+        <MapControls query={query} onChangeQuery={onChangeQuery} elevated />
       </View>
 
       {needsCounty && snap === 'peek' ? (

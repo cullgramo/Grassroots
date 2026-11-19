@@ -14,7 +14,7 @@ export default function RootLayout() {
       <AppProvider>
         <Stack screenOptions={{ headerBackTitle: 'Back' }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="filters" options={{ presentation: 'modal', title: 'Where and when' }} />
+          <Stack.Screen name="filters" options={{ presentation: 'modal', title: 'Filters' }} />
           <Stack.Screen name="sports" options={{ presentation: 'modal', title: 'My sports' }} />
           <Stack.Screen name="county" options={{ presentation: 'modal', title: 'Your county' }} />
           <Stack.Screen name="admin" options={{ title: 'Add fixtures' }} />

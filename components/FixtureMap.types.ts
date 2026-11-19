@@ -22,7 +22,17 @@ export interface FixtureMapProps {
   recenterKey?: number;
   /** Changing this value zooms out to show every fixture. */
   fitKey?: number;
+  /** Changing this value goes back to the place being shown: the search circle when there is one, otherwise every fixture. */
+  placeKey?: number;
   interactive?: boolean;
+  /**
+   * How much of the map is hidden, in points: under the controls at the top and under the list at the bottom.
+   * Everything the app fits or centres is kept inside what is left, and onBoundsChange reports only that part,
+   * so no pin the list is talking about sits behind the list.
+   */
+  inset?: { top: number; bottom: number };
+  /** Pins show the time alone ("14:00"): for when one day is chosen and the day goes without saying. */
+  timeOnly?: boolean;
   /** Web only: lifts the map credit this many pixels so it clears a bottom sheet. */
   attributionBottom?: number;
   style?: StyleProp<ViewStyle>;

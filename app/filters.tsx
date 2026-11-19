@@ -4,27 +4,18 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Chip } from '@/components/Chip';
-import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { legalReady } from '@/constants/legal';
-import { COUNTIES } from '@/data/counties';
-import type { Level, When } from '@/types/fixture';
+import type { Level } from '@/types/fixture';
 import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
 import { GENDER_LABEL, isWomensCode, type GenderFilter } from '@/utils/category';
 import { unlabelledCount } from '@/utils/filterFixtures';
 
-const WHEN: { value: When; label: string }[] = [
-  { value: 'any', label: 'Any time' },
-  { value: 'today', label: 'Today' },
-  { value: 'weekend', label: 'This weekend' },
-  { value: 'week', label: 'Next 7 days' },
-];
 const LEVELS: Level[] = ['Local', 'Top level'];
 const AGES: AgeFilter[] = ['all', 'adult', 'underage'];
 const GENDERS: GenderFilter[] = ['all', 'men', 'women'];
-const DISTANCES = [5, 10, 25, 50, 100];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   const t = useTheme();
@@ -39,7 +30,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 export default function FiltersScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { filters, setFilters, resetFilters, fixtures, allFixtures, location, requestLocation, mySports, setMyAge, setMyGender } = useApp();
+  const { filters, setFilters, resetFilters, fixtures, allFixtures, location, mySports, setMyAge, setMyGender } = useApp();
   // Camogie and ladies football are women's games already, so there is nothing to split.
   const womensOnly = isWomensCode(filters.sport);
   const unlabelled = useMemo(
@@ -50,41 +41,7 @@ export default function FiltersScreen() {
   return (
     <View style={[styles.screen, { backgroundColor: t.background }]}>
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.map}>
-          <FixtureMap
-            fixtures={fixtures}
-            selectedId={null}
-            userLocation={location}
-            radiusKm={filters.distanceKm}
-            fitRadius
-            interactive={false}
-          />
-        </View>
-
-        <Section title="Distance from you">
-          {location ? (
-            <>
-              <Chip label="Any distance" selected={filters.distanceKm == null} onPress={() => setFilters({ distanceKm: null })} />
-              {DISTANCES.map((d) => (
-                <Chip key={d} label={`${d}km`} selected={filters.distanceKm === d} onPress={() => setFilters({ distanceKm: d })} />
-              ))}
-            </>
-          ) : (
-            <View style={styles.locationNote}>
-              <Text style={[styles.note, { color: t.muted }]}>
-                Turn on location to find fixtures near you.
-              </Text>
-              <Chip label="Use my location" onPress={requestLocation} />
-            </View>
-          )}
-        </Section>
-
-        <Section title="When">
-          {WHEN.map((w) => (
-            <Chip key={w.value} label={w.label} selected={filters.when === w.value} onPress={() => setFilters({ when: w.value })} />
-          ))}
-        </Section>
-
+        {/* Sport, place and date are chosen with the controls over the map; this screen holds the rest. */}
         <Section title="Age">
           {AGES.map((a) => (
             <Chip key={a} label={AGE_LABEL[a]} selected={filters.age === a} onPress={() => setMyAge(a)} />
@@ -110,8 +67,6 @@ export default function FiltersScreen() {
           )}
         </Section>
 
-        <Text style={[styles.more, { color: t.muted }]}>MORE FILTERS</Text>
-
         <Section title="Level">
           <Chip label="All levels" selected={!filters.level} onPress={() => setFilters({ level: null })} />
           {LEVELS.map((l) => (
@@ -126,12 +81,6 @@ export default function FiltersScreen() {
           <Chip label="Change my sports" onPress={() => router.push('/sports')} />
         </Section>
 
-        <Section title="County">
-          <Chip label="All counties" selected={!filters.county} onPress={() => setFilters({ county: null })} />
-          {COUNTIES.map((c) => (
-            <Chip key={c} label={c} selected={filters.county === c} onPress={() => setFilters({ county: c, distanceKm: null })} />
-          ))}
-        </Section>
         <Pressable onPress={() => router.push('/credits')} accessibilityRole="link" style={styles.adminLink}>
           <Text style={[styles.note, { color: t.muted }]}>Credits: where the fixtures and maps come from</Text>
         </Pressable>

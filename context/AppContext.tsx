@@ -12,6 +12,7 @@ import { openingFilters, type Filters, type Fixture, type UserLocation } from '@
 import type { AgeFilter } from '@/utils/ageGroup';
 import { isGenderFilter, type GenderFilter } from '@/utils/category';
 import type { FollowedClub } from '@/utils/club';
+import { dayHasPassed } from '@/utils/days';
 import { filterFixtures } from '@/utils/filterFixtures';
 import { isPlayed } from '@/utils/played';
 import { widenView } from '@/utils/view';
@@ -56,6 +57,8 @@ interface AppState {
   myCounty: string | null;
   /** Choose a county (or null for all of Ireland) and look there instead of near the user. */
   setMyCounty: (county: string | null) => void;
+  /** Sets where to look: a distance from the user, one county, or (both null) the whole island. The map moves to match. */
+  choosePlace: (place: { county: string | null; distanceKm: number | null }) => void;
   /** True when location is off and no county is chosen yet, so the map has nowhere sensible to open. */
   needsCounty: boolean;
   /** Said once when the opening view was quiet and the app widened it. */
@@ -188,9 +191,24 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
   const showAllIreland = useCallback(() => {
     touched.current = true;
-    setAll((f) => ({ ...f, county: null, distanceKm: null, when: 'any' }));
+    setAll((f) => ({ ...f, county: null, distanceKm: null, when: 'any', day: null }));
     setViewKey((k) => k + 1);
   }, []);
+  const choosePlace = useCallback(
+    (place: { county: string | null; distanceKm: number | null }) => {
+      touched.current = true;
+      setAll((f) => ({ ...f, county: place.county, distanceKm: place.county ? null : place.distanceKm }));
+      // With location off, the county someone picks is their home county: remember it, so the app opens there next time.
+      if (place.county && !location) {
+        setCountyAsked(true);
+        setCounty(place.county);
+        AsyncStorage.setItem(COUNTY_KEY, place.county).catch(reportTo('saving the county choice'));
+      }
+      // A county or the whole island has no circle to fit, so the map is asked to show everything there. A distance fits its own circle.
+      if (place.county || place.distanceKm == null) setViewKey((k) => k + 1);
+    },
+    [location]
+  );
 
   useEffect(() => {
     Promise.all([AsyncStorage.getItem(AGE_KEY), AsyncStorage.getItem(COUNTY_KEY), AsyncStorage.getItem(GENDER_KEY)])
@@ -309,6 +327,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [prefsLoaded, loadState, location, locationDenied, myCounty, allFixtures, mySports, filters]);
 
+  // A chosen day that has gone by (the app was left open overnight) falls back to the weekend.
+  useEffect(() => {
+    if (dayHasPassed(filters)) setAll((f) => ({ ...f, when: 'weekend', day: null }));
+  }, [filters, clock]);
+
   const needsCounty = prefsLoaded && locationDenied && !myCounty && !countyAsked && !filters.county && !touched.current;
   const dismissViewNote = useCallback(() => setViewNote(null), []);
 
@@ -325,8 +348,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [allFixtures, clock]);
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

@@ -6,8 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ClubMatches } from '@/components/ClubMatches';
 import { EmptyState } from '@/components/EmptyState';
 import { FixtureCard } from '@/components/FixtureCard';
-import { SearchPill } from '@/components/SearchPill';
-import { SportChips } from '@/components/SportChips';
+import { MapControls } from '@/components/MapControls';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { searchFixtures, toSections } from '@/utils/filterFixtures';
@@ -36,8 +35,7 @@ export default function ListScreen() {
 
   return (
     <View style={[styles.screen, { backgroundColor: t.background, paddingTop: insets.top + 8 }]}>
-      <SearchPill query={query} onChangeQuery={setQuery} />
-      <SportChips elevated />
+      <MapControls query={query} onChangeQuery={setQuery} />
       <SectionList
         sections={sections}
         keyExtractor={(f) => f.id}
@@ -73,7 +71,7 @@ export default function ListScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1 },
   list: { paddingHorizontal: 16, paddingBottom: 24 },
-  summary: { fontSize: 13, fontWeight: '600', marginBottom: 4 },
+  summary: { fontSize: 13, fontWeight: '600', marginTop: 8, marginBottom: 4 },
   section: { fontSize: 20, fontWeight: '800', marginTop: 8, marginBottom: 10 },
   item: { marginBottom: 12 },
 });

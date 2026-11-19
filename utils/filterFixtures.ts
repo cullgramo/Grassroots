@@ -2,13 +2,26 @@ import { getSport, type SportId } from '@/constants/sports';
 import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import { matchesAge } from './ageGroup';
 import { countUnlabelled, isWomensCode, matchesGender } from './category';
-import { addDays, startOfDay, weekendRange } from './date';
+import { addDays, dayFromKey, startOfDay, weekendRange } from './date';
 import { calculateDistance } from './distance';
 import { isPlayed } from './played';
 
 export function distanceTo(fixture: Fixture, location: UserLocation | null): number | null {
   if (!location) return null;
   return calculateDistance(location.latitude, location.longitude, fixture.latitude, fixture.longitude);
+}
+
+/** The stretch of time the date choice covers, start to end (end not included); nulls mean no limit. */
+export function whenRange(filters: Pick<Filters, 'when' | 'day'>, now: Date = new Date()): [Date | null, Date | null] {
+  const today = startOfDay(now);
+  if (filters.when === 'today') return [today, addDays(today, 1)];
+  if (filters.when === 'weekend') return weekendRange(now);
+  if (filters.when === 'week') return [today, addDays(today, 7)];
+  if (filters.when === 'day') {
+    const day = filters.day ? dayFromKey(filters.day) : null;
+    if (day) return [day, addDays(day, 1)];
+  }
+  return [null, null];
 }
 
 export function filterFixtures(
@@ -19,12 +32,7 @@ export function filterFixtures(
   /** Sports the user follows; used when no sport or group is picked. Empty means every sport. */
   mySports: readonly SportId[] = []
 ): Fixture[] {
-  const today = startOfDay(now);
-  let from: Date | null = null;
-  let to: Date | null = null;
-  if (filters.when === 'today') [from, to] = [today, addDays(today, 1)];
-  if (filters.when === 'weekend') [from, to] = weekendRange(now);
-  if (filters.when === 'week') [from, to] = [today, addDays(today, 7)];
+  const [from, to] = whenRange(filters, now);
 
   // Picking camogie or ladies football alone is already women's games, so a men's choice made elsewhere does not empty it.
   const womensCode = isWomensCode(filters.sport);
@@ -61,7 +69,16 @@ export function activeFilterCount(filters: Filters, baseline: Filters = DEFAULT_
     (filters.level !== baseline.level ? 1 : 0) +
     (filters.county !== baseline.county ? 1 : 0) +
     (filters.distanceKm !== baseline.distanceKm ? 1 : 0) +
-    (filters.when !== baseline.when ? 1 : 0) +
+    (filters.when !== baseline.when || (filters.when === 'day' && filters.day !== baseline.day) ? 1 : 0) +
+    ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0) +
+    ((filters.gender ?? 'all') !== (baseline.gender ?? 'all') ? 1 : 0)
+  );
+}
+
+/** How many of the limits kept on the Filters screen (level, age, men or women) differ from the opening view. */
+export function screenFilterCount(filters: Filters, baseline: Filters = DEFAULT_FILTERS): number {
+  return (
+    (filters.level !== baseline.level ? 1 : 0) +
     ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0) +
     ((filters.gender ?? 'all') !== (baseline.gender ?? 'all') ? 1 : 0)
   );
@@ -124,7 +141,7 @@ export function describeWhere(filters: Filters, hasLocation: boolean): string {
 }
 
 export function describeWhen(filters: Filters): string {
-  const when = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days' }[filters.when];
+  const when = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days', day: filters.day ?? 'One day' }[filters.when];
   return `${when} · ${filters.level ?? 'All levels'}`;
 }
 
