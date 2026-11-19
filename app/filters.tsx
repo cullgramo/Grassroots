@@ -7,7 +7,6 @@ import { Chip } from '@/components/Chip';
 import { useTheme } from '@/components/useTheme';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
-import { legalReady } from '@/constants/legal';
 import type { Level } from '@/types/fixture';
 import { AGE_LABEL, type AgeFilter } from '@/utils/ageGroup';
 import { GENDER_LABEL, isWomensCode, type GenderFilter } from '@/utils/category';
@@ -74,31 +73,6 @@ export default function FiltersScreen() {
           ))}
         </Section>
 
-        <Section title="My sports">
-          <Text style={[styles.note, { color: t.muted }]}>
-            {mySports.length === 0 ? 'Every sport' : mySports.map((id) => getSport(id).name).join(', ')}
-          </Text>
-          <Chip label="Change my sports" onPress={() => router.push('/sports')} />
-        </Section>
-
-        <Pressable onPress={() => router.push('/credits')} accessibilityRole="link" style={styles.adminLink}>
-          <Text style={[styles.note, { color: t.muted }]}>Credits: where the fixtures and maps come from</Text>
-        </Pressable>
-        {legalReady() ? (
-          <>
-            <Pressable onPress={() => router.push('/privacy')} accessibilityRole="link" style={styles.adminLink}>
-              <Text style={[styles.note, { color: t.muted }]}>Privacy</Text>
-            </Pressable>
-            <Pressable onPress={() => router.push('/terms')} accessibilityRole="link" style={styles.adminLink}>
-              <Text style={[styles.note, { color: t.muted }]}>Terms of use</Text>
-            </Pressable>
-          </>
-        ) : null}
-        {__DEV__ ? (
-          <Pressable onPress={() => router.push('/admin')} accessibilityRole="link" style={styles.adminLink}>
-            <Text style={[styles.note, { color: t.muted }]}>Add fixtures (admin)</Text>
-          </Pressable>
-        ) : null}
       </ScrollView>
 
       <View style={[styles.footer, { backgroundColor: t.card, borderColor: t.border, paddingBottom: insets.bottom + 12 }]}>
@@ -118,13 +92,9 @@ export default function FiltersScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1 },
   content: { padding: 16, paddingBottom: 32 },
-  map: { height: 200, borderRadius: 18, overflow: 'hidden', marginBottom: 20 },
-  more: { fontSize: 12, fontWeight: '800', letterSpacing: 0.8, marginBottom: 14 },
-  adminLink: { minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' },
   section: { marginBottom: 24 },
   sectionTitle: { fontSize: 17, fontWeight: '800', marginBottom: 10 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
-  locationNote: { gap: 10, alignItems: 'flex-start' },
   note: { fontSize: 14 },
   footer: { flexDirection: 'row', gap: 12, padding: 12, borderTopWidth: 1 },
   reset: { minHeight: 48, paddingHorizontal: 20, justifyContent: 'center' },

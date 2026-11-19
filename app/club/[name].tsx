@@ -32,7 +32,7 @@ export default function ClubScreen() {
         {[group ? groupLabel(group) : null, county, games.length === 1 ? '1 upcoming game' : `${games.length} upcoming games`].filter(Boolean).join(' · ')}
       </Text>
       {group && name ? <FollowButton large club={{ id: clubId(name, group), name, group }} /> : null}
-      {group && name ? <Text style={[styles.followNote, { color: t.muted }]}>Followed clubs are kept on this phone, under Saved.</Text> : null}
+      {group && name ? <Text style={[styles.followNote, { color: t.muted }]}>Followed clubs are kept on this phone, under Favourites.</Text> : null}
       <SponsorSlot clubs={[name]} county={county ?? undefined} />
       <Pressable
         onPress={() => router.push({ pathname: '/claim', params: { club: name, county: county ?? '' } })}

@@ -10,8 +10,8 @@ import { clubFixtures } from '@/utils/club';
 import { fixtureTitle } from '@/types/fixture';
 import { pinLabel } from '@/utils/date';
 
-/** The clubs someone follows, each with its next game, then the fixtures they saved. All kept on this phone. */
-export default function SavedScreen() {
+/** Favourites: the clubs someone follows, each with its next game, then the fixtures they starred. All kept on this phone. */
+export default function FavouritesScreen() {
   const t = useTheme();
   const { savedIds, upcoming, followedClubs, loadState } = useApp();
   const saved = useMemo(() => upcoming.filter((f) => savedIds.includes(f.id)), [upcoming, savedIds]);
@@ -27,11 +27,11 @@ export default function SavedScreen() {
   if (clubs.length === 0 && saved.length === 0) {
     return (
       <View style={[styles.empty, { backgroundColor: t.background }]}>
-        <Text style={styles.emptyHeart}>{'♡'}</Text>
+        <Text style={styles.emptyStar}>{'☆'}</Text>
         <Text style={[styles.emptyTitle, { color: t.text }]}>{loading ? 'Loading…' : 'Nothing here yet'}</Text>
         {loading ? null : (
           <Text style={[styles.emptyText, { color: t.muted }]}>
-            Search for your club and tap Follow to see all its games here. Tap the heart on any fixture to keep it too.
+            Search for your club and tap Follow to see all its games here. Tap the star on any fixture to keep it too.
           </Text>
         )}
       </View>
@@ -46,7 +46,7 @@ export default function SavedScreen() {
         const detail = loading
           ? 'Loading…'
           : next
-            ? `${games.length === 1 ? '1 game' : `${games.length} games`} · next ${pinLabel(next.startsAt, undefined, next.timeTbc)}: ${fixtureTitle(next)}`
+            ? `${games.length === 1 ? '1 game' : `${games.length} games`}\nNext: ${pinLabel(next.startsAt, undefined, next.timeTbc)}, ${fixtureTitle(next)}`
             : 'No upcoming games listed';
         return (
           <View key={club.id} style={styles.item}>
@@ -54,7 +54,7 @@ export default function SavedScreen() {
           </View>
         );
       })}
-      {saved.length > 0 ? <Text style={[styles.section, clubs.length > 0 && styles.sectionGap, { color: t.text }]}>Saved fixtures</Text> : null}
+      {saved.length > 0 ? <Text style={[styles.section, clubs.length > 0 && styles.sectionGap, { color: t.text }]}>My fixtures</Text> : null}
       {saved.map((item) => (
         <View key={item.id} style={styles.item}>
           <FixtureRow fixture={item} showDay onPress={() => router.push({ pathname: '/fixture/[id]', params: { id: item.id } })} />
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   section: { fontSize: 18, fontWeight: '800', marginBottom: 12 },
   sectionGap: { marginTop: 16 },
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 6 },
-  emptyHeart: { fontSize: 56, color: '#e11d48' },
+  emptyStar: { fontSize: 56, color: '#f59e0b' },
   emptyTitle: { fontSize: 20, fontWeight: '800' },
   emptyText: { fontSize: 15, textAlign: 'center' },
 });
