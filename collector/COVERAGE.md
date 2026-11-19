@@ -63,7 +63,8 @@ Provincial pages (Leinster, Munster, Ulster, Connacht GAA) are also read.
 | Amateur Football League (Republic) | Reading | `amateur-fl.mjs`. SportsPress list. Distinct from the Northern Amateur Football League. The published rows name no ground (`N/A`). |
 | Northern Amateur Football League | Reading | `nafl.mjs`. The fixtures page is filled from `/data/fixtures.json` (the given `/grounds/fixtures.html` URL returns the homepage). Every scheduled row has a blank venue. `robots.txt` allows `/`; Cloudflare content-signal sets `ai-train=no` and `use=reference`. |
 | SFAI, Limerick District Schoolchildren League, Kildare & District Football League, Connacht Senior Alliance, Clubforce leagues (LWSSL, Leinster Senior League, Carlow, Kilkenny, Wexford, United Churches), Cork Business League | Not read | Checked 16 Nov 2026. Reasons are in the pull request. Clubforce fixture rows are not in the public HTML; `apicm.clubforce.com` robots.txt disallows every path, and the Comortais feed is not used. Cork Business League answered with a Cloudflare challenge. `carlowsoccer.ie` was not requested (`Disallow: /`). |
-| Athletics Ireland, Leggit, FAI Connect | Not read | Permission or off-season; see the plan. |
+| Athletics Ireland | **Held** (collected, not published) | `athletics-ireland.mjs`, owner's decision 19 Nov 2026. Saved with `approval = 'pending'`, which the database hides from the public; published only when Athletics Ireland agrees (remove `hold` from the source). robots.txt allows ordinary readers, disallows `?location=` addresses (not used) and names AI crawlers (nothing read is used to train a model). The venue position comes from each event's own page; on 19 Nov only 6 of 85 upcoming events had a page, so 79 have no ground yet. |
+| Leggit, FAI Connect | Not read | Permission or off-season; see the plan. |
 | Cricket Leinster, North West championship, GRI race meetings, Motorsport Ireland, ANICC 2026 calendar, Rowing Ireland 2026 calendar, Volleyball Ireland 2026-27 calendar, Netball Ireland, Belfast Giants home games, Ireland Water Polo, Irish Lawn Bowls | Reading | Added 16 Nov 2026. See the pull request for robots checks, skipped sites, and grounds the directory does not know yet. |
 
 ## Gap work, 19 November 2026
@@ -78,6 +79,14 @@ Findings from working through the ranked gap list (see the data gap analysis). P
 | Basketball National Cup | Reading | Eight cup pages on `ireland.basketball`, same layout as the league pages. The development league, under-20 league and schools pages carry no fixtures in the page. Area board leagues: no public list found. |
 | RunRepublic race calendar | Not read | robots.txt allows `/`, but each race gives only a county, not a start place, and the public page holds 33 of 417 races (the rest load by script). It cannot place races on the map or replace the Running Calendar hand copy. |
 | Bowls NI, Netball NI, Athletics NI, point-to-points, orienteering, mountain running, road bowling, amateur boxing, rounders, triathlon, cycling, pitch and putt, parkrun, Northern and Munster cricket unions | **Not yet checked** | The request to open these sites from the session was refused by the settings service twice on 19 Nov. No rules read, nothing fetched. Hosts are listed in the session notes for the owner to allow. |
+
+## Held sources
+
+A source with `export const hold = true` is read like any other but saved hidden (`approval = 'pending'`). Held sources
+are read last, so a held copy of a game never displaces a published one; they do not replace hand-entered fixtures or
+stand in for ticket listings; and `make-sql.mjs` leaves them out. Their venues are saved to the public venues table
+(a name and a position only). To publish a held source, remove its `hold` line: the next run saves its rows as approved.
+A site that refuses automated reading is not a candidate for holding: the refusal stands whether or not we publish.
 
 ## Protecting the data (audit M5)
 

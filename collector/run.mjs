@@ -72,7 +72,8 @@ try {
     stats.sources[key] = entry;
     stats.pages.found += found[key];
     stats.pages.placed += mine.length;
-    note(`## ${source.name}`, '', `- On the pages, still to be played: ${found[key]}`, `- Placed on the map and ready: ${mine.length}`);
+    if (source.hold) entry.held = true;
+    note(`## ${source.name}${source.hold ? ' (held: saved hidden, not shown in the app)' : ''}`, '', `- On the pages, still to be played: ${found[key]}`, `- Placed on the map and ready: ${mine.length}`);
     if (problems[key]) {
       warnings.push(`${source.name}: ${problems[key].join('; ')}`);
       note('- Problems (nothing removed for this source today):', ...problems[key].map((p) => `  - ${p}`));

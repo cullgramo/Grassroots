@@ -50,6 +50,7 @@ import * as netball from './sources/netball.mjs';
 import * as belfastGiants from './sources/belfast-giants.mjs';
 import * as waterPolo from './sources/water-polo.mjs';
 import * as irishBowls from './sources/irish-bowls.mjs';
+import * as athleticsIreland from './sources/athletics-ireland.mjs';
 
 // One source per line. Add a new source on its OWN line (and its import above), so two branches adding different sources
 // merge cleanly: a single long line made them conflict every time, and a resolution once dropped four imports.
@@ -111,6 +112,8 @@ export const SOURCES = {
   'belfast-giants': belfastGiants,
   'water-polo': waterPolo,
   'irish-bowls': irishBowls,
+  // Held: collected and saved hidden, not shown in the app until Athletics Ireland agrees (see the source file).
+  'athletics-ireland': athleticsIreland,
 };
 
 export async function collect(source, now = new Date()) {
