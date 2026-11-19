@@ -8,6 +8,16 @@ export const pages = [
   { url: 'https://ireland.basketball/WomensSuperLeagueFixtures', competition: "Women's Super League", category: 'women', level: 'top' },
   { url: 'https://ireland.basketball/MensDivisionOneFixtures', competition: "Men's Division One", category: 'men', level: 'local' },
   { url: 'https://ireland.basketball/WomensDivisionOneFixtures', competition: "Women's Division One", category: 'women', level: 'local' },
+  // The National Cup pages on the same site use the same layout (added 19 Nov 2026). The development league,
+  // under-20 league and schools pages carry no fixtures in the page itself, so they are not read.
+  { url: 'https://ireland.basketball/MSLNationalCup', competition: "Men's Super League National Cup", category: 'men', level: 'top' },
+  { url: 'https://ireland.basketball/WSLNationalCup', competition: "Women's Super League National Cup", category: 'women', level: 'top' },
+  { url: 'https://ireland.basketball/MD1NationalCup2', competition: "Men's Division One National Cup", category: 'men', level: 'local' },
+  { url: 'https://ireland.basketball/WD1NationalCup2', competition: "Women's Division One National Cup", category: 'women', level: 'local' },
+  { url: 'https://ireland.basketball/U20MensNationalCup', competition: "Under-20 Men's National Cup", category: 'men', level: 'local' },
+  { url: 'https://ireland.basketball/U20WomensNationalCup', competition: "Under-20 Women's National Cup", category: 'women', level: 'local' },
+  { url: 'https://ireland.basketball/NICCMensNationalCup', competition: "NICC Men's National Cup", category: 'men', level: 'local' },
+  { url: 'https://ireland.basketball/NICCWomensNationalCup', competition: "NICC Women's National Cup", category: 'women', level: 'local' },
 ];
 
 // Which county each arena is in. The page does not say, and a name alone can match the wrong town
