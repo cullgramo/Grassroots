@@ -6,10 +6,10 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useApp } from '@/context/AppContext';
 import { screenFilterCount, unlabelledCount } from '@/utils/filterFixtures';
 import { placeChoice, sportChoice } from '@/utils/view';
-import { DayStrip } from './DayStrip';
 import { PlacePanel } from './PlacePanel';
 import { SportPanel } from './SportPanel';
 import { useTheme } from './useTheme';
+import { WhenChips } from './WhenChips';
 
 interface Props {
   query: string;
@@ -118,7 +118,7 @@ export function MapControls({ query, onChangeQuery, elevated }: Props) {
         </View>
       )}
 
-      <DayStrip elevated={elevated} />
+      <WhenChips elevated={elevated} />
 
       {genderOn && unlabelled > 0 ? (
         <View style={[styles.note, { backgroundColor: t.card, borderColor: t.border }]}>
