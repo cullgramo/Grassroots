@@ -16,14 +16,14 @@ import { pinLabelFor } from '@/utils/date';
 import type { Bounds } from '@/utils/filterFixtures';
 import { IRELAND, PIN_DARK, type FixtureMapProps } from './FixtureMap.types';
 
-const FONT = 'font:800 13px system-ui,-apple-system,sans-serif';
+const FONT = 'font:800 12px system-ui,-apple-system,sans-serif';
 const CENTRED = 'position:absolute;transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.35);white-space:nowrap';
 
 function pillIcon(label: string, color: string, selected: boolean) {
   return L.divIcon({
     className: '',
     iconSize: [0, 0],
-    html: `<div style="${CENTRED};${FONT};display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:16px;background:${selected ? PIN_DARK : '#fff'};color:${selected ? '#fff' : PIN_DARK}"><span style="width:9px;height:9px;border-radius:50%;background:${color}"></span>${label}</div>`,
+    html: `<div style="${CENTRED};${FONT};display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:13px;background:${selected ? PIN_DARK : '#fff'};color:${selected ? '#fff' : PIN_DARK}"><span style="width:7px;height:7px;border-radius:50%;background:${color}"></span>${label}</div>`,
   });
 }
 
@@ -31,7 +31,7 @@ function clusterIcon(count: number) {
   return L.divIcon({
     className: '',
     iconSize: [0, 0],
-    html: `<div style="${CENTRED};font:800 15px system-ui,-apple-system,sans-serif;box-sizing:border-box;min-width:40px;height:40px;padding:0 8px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:${PIN_DARK};color:#fff;border:3px solid #fff">${count}</div>`,
+    html: `<div style="${CENTRED};font:800 13px system-ui,-apple-system,sans-serif;box-sizing:border-box;min-width:32px;height:32px;padding:0 6px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:${PIN_DARK};color:#fff;border:2px solid #fff">${count}</div>`,
   });
 }
 
