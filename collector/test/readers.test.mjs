@@ -504,3 +504,27 @@ test('a bare ground name shared by two clubs is placed per home club, and never 
   assert.equal(grounds[slotFor(at('Fermoy U17'), grounds)], undefined);
   assert.equal(slotFor({ venue: 'Town Park', area: 'Munster', sport: 'soccer', title: 'Cup day', postcode: null }, grounds), 'Munster|town park|');
 });
+
+test('a place named for another sport is not the ground: a rugby game is not at a boxing club', async () => {
+  const { namedForAnotherSport } = await import('../lib/grounds.mjs');
+  // the case that went wrong
+  assert.equal(namedForAnotherSport('Corinthians Boxing Club', 'rugby', 'Corinthians'), true);
+  // a place named for the fixture's own sport, or for no sport at all, is fine
+  assert.equal(namedForAnotherSport('Galway Corinthians RFC', 'rugby', 'Corinthians'), false);
+  assert.equal(namedForAnotherSport('Corinthian Park', 'rugby', 'Corinthians'), false);
+  assert.equal(namedForAnotherSport('Kilkenny College', 'rugby', 'Kilkenny College'), false);
+  assert.equal(namedForAnotherSport('Killarney Sports & Leisure Centre', 'basketball', 'Killarney Sports Leisure Centre'), false);
+  // the four GAA codes are one family; another club's sport is not
+  assert.equal(namedForAnotherSport('Clara GAA Club', 'camogie', 'Clara'), false);
+  assert.equal(namedForAnotherSport('Blackrock College RFC', 'hurling', 'Blackrock'), true);
+  assert.equal(namedForAnotherSport('Clooney-Quin GAA', 'handball', 'Clooney Quin'), true);
+  // a club that names two sports is fine for either
+  assert.equal(namedForAnotherSport('Railway Union Hockey and Tennis Club', 'hockey', 'Railway Union'), false);
+  // water polo is played in swimming pools, bowls at bowling clubs
+  assert.equal(namedForAnotherSport('National Aquatic Centre', 'water-polo', 'NAC'), false);
+  assert.equal(namedForAnotherSport('Shankill Bowling Club', 'bowls', 'Shankill'), false);
+  assert.equal(namedForAnotherSport('Shankill Bowling Club', 'soccer', 'Shankill'), true);
+  // when the source itself names the other sport's ground, that is where the game is
+  assert.equal(namedForAnotherSport('Kiltormer GAA', 'soccer', 'Kiltormer GAA Grounds'), false);
+  assert.equal(namedForAnotherSport('Kiltormer GAA', 'soccer', 'Kiltormer'), true);
+});
