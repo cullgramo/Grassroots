@@ -6,13 +6,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClubMatches } from '@/components/ClubMatches';
 import { EmptyState } from '@/components/EmptyState';
-import { FixtureCard } from '@/components/FixtureCard';
+import { FixtureRow } from '@/components/FixtureRow';
 import { FixtureMap } from '@/components/FixtureMap';
 import { MapControls } from '@/components/MapControls';
 import { Sheet, type Snap } from '@/components/Sheet';
+import { SortSwitch } from '@/components/SortSwitch';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
-import { searchFixtures, toSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
+import { searchFixtures, toListSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
+import { placeChoice, whenLabel } from '@/utils/view';
 
 const PEEK = 76;
 const TOP_BAR = 130;
@@ -22,7 +24,7 @@ const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', par
 export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, upcoming, filters, location, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh } =
+  const { fixtures, upcoming, filters, location, sort, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh } =
     useApp();
   const [height, setHeight] = useState(0);
   const [topBar, setTopBar] = useState(TOP_BAR);
@@ -66,7 +68,7 @@ export default function ExploreScreen() {
     if (searching) return shown;
     return bounds ? shown.filter((f) => withinBounds(f, bounds)) : shown;
   }, [shown, bounds, venueIds, searching]);
-  const sections = useMemo(() => toSections(visible), [visible]);
+  const sections = useMemo(() => toListSections(visible, sort, location), [visible, sort, location]);
 
   const onBoundsChange = useCallback((b: Bounds) => {
     setBounds(b);
@@ -122,6 +124,16 @@ export default function ExploreScreen() {
     : count === 0
       ? 'No fixtures in this area'
       : `${count} ${count === 1 ? 'fixture' : 'fixtures'} in this area`;
+  // Under the count: what the list is of, in the same words as the controls, or that it is an offline copy.
+  const place = placeChoice(filters, location != null);
+  const subtitle =
+    isStale && loadState === 'ready'
+      ? 'Offline: showing the last saved copy'
+      : searching
+        ? 'Every date, all Ireland'
+        : `${whenLabel(filters)} · ${place === 'Near me' ? `within ${filters.distanceKm} km of you` : place}`;
+  // Nearest first mixes days together, so each row then says its own day (unless only one day is showing).
+  const showDay = sort === 'nearest' && location != null && !oneDay;
   const floating = snap === 'peek' && (selected || count === 0);
 
   return (
@@ -182,7 +194,7 @@ export default function ExploreScreen() {
           </Pressable>
           {floating ? (
             selected ? (
-              <FixtureCard fixture={selected} elevated onPress={() => openFixture(selected.id)} />
+              <FixtureRow fixture={selected} elevated showDay={!oneDay} onPress={() => openFixture(selected.id)} />
             ) : (
               <View style={[styles.emptyCard, { backgroundColor: t.card }]}>
                 <EmptyState onShowAll={showAll} />
@@ -198,19 +210,12 @@ export default function ExploreScreen() {
         peekHeight={PEEK}
         snap={snap}
         onSnap={setSnap}
-        summary={isStale && loadState === 'ready' ? `${title}. Offline, showing the last saved copy` : title}
+        summary={`${title}. ${subtitle}`}
+        accessory={<SortSwitch />}
         header={
           <View style={styles.sheetHeader}>
-            <Text style={[styles.sheetTitle, { color: t.text }]}>{title}</Text>
-            <Text style={[styles.sheetHint, { color: t.muted }]}>
-              {isStale && loadState === 'ready'
-                ? 'Offline: showing the last saved copy'
-                : snap === 'full'
-                  ? 'Tap to show the map'
-                  : snap === 'half'
-                    ? 'Pull up for more'
-                    : 'Pull up for the list'}
-            </Text>
+            <Text style={[styles.sheetTitle, { color: t.text }]} numberOfLines={1}>{title}</Text>
+            <Text style={[styles.sheetHint, { color: t.muted }]} numberOfLines={1}>{subtitle}</Text>
           </View>
         }>
         {(hidden) => (
@@ -225,11 +230,16 @@ export default function ExploreScreen() {
             keyboardDismissMode="on-drag"
             ListHeaderComponent={searching ? <ClubMatches query={query} /> : undefined}
             renderSectionHeader={({ section }) => (
-              <Text style={[styles.section, { color: t.text }]}>{section.title}</Text>
+              <View style={[styles.sectionRow, { backgroundColor: t.background }]}>
+                <Text style={[styles.section, { color: t.muted }]} numberOfLines={1}>{section.title.toUpperCase()}</Text>
+                <Text style={[styles.sectionCount, { color: t.muted }]}>
+                  {section.data.length} {section.data.length === 1 ? 'fixture' : 'fixtures'}
+                </Text>
+              </View>
             )}
             renderItem={({ item }) => (
               <View style={styles.item}>
-                <FixtureCard fixture={item} onPress={() => openFixture(item.id)} />
+                <FixtureRow fixture={item} showDay={showDay} onPress={() => openFixture(item.id)} />
               </View>
             )}
             ListEmptyComponent={<EmptyState onShowAll={showAll} />}
@@ -268,10 +278,13 @@ const styles = StyleSheet.create({
   countyButtons: { flexDirection: 'row', gap: 10, marginTop: 12 },
   countyButton: { minHeight: 44, paddingHorizontal: 16, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
   countyButtonText: { fontSize: 15, fontWeight: '800' },
-  sheetHeader: { alignItems: 'center', paddingTop: 10, paddingBottom: 14 },
-  sheetTitle: { fontSize: 16, fontWeight: '800' },
-  sheetHint: { fontSize: 12, marginTop: 2 },
-  list: { paddingHorizontal: 16 },
-  section: { fontSize: 20, fontWeight: '800', marginTop: 8, marginBottom: 10 },
-  item: { marginBottom: 12 },
+  // Room is kept at the right for the Time / Nearest switch, which sits beside the header.
+  sheetHeader: { paddingTop: 8, paddingBottom: 12, paddingLeft: 16, paddingRight: 158 },
+  sheetTitle: { fontSize: 17, fontWeight: '800' },
+  sheetHint: { fontSize: 12.5, marginTop: 1 },
+  list: { paddingHorizontal: 10 },
+  sectionRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8, paddingHorizontal: 8, paddingTop: 4, paddingBottom: 6 },
+  section: { flexShrink: 1, fontSize: 11.5, fontWeight: '800', letterSpacing: 0.7 },
+  sectionCount: { fontSize: 11.5, fontWeight: '700' },
+  item: { marginBottom: 6 },
 });

@@ -82,6 +82,11 @@ export function pinLabelFor(f: { startsAt: string; timeTbc?: boolean; status?: s
   return pinLabel(f.startsAt, now, f.timeTbc);
 }
 
+/** True once a fixture's start time has gone by. A fixture with no confirmed time never counts as started. */
+export function hasStarted(f: { startsAt: string; timeTbc?: boolean }, now: Date = new Date()): boolean {
+  return !f.timeTbc && new Date(f.startsAt).getTime() < now.getTime();
+}
+
 /** Card badge that stresses how soon a game is, or null when it is more than a day away. */
 export function urgencyLabel(startsAt: string, now: Date = new Date(), timeTbc = false): string | null {
   const mins = Math.round((new Date(startsAt).getTime() - now.getTime()) / 60_000);

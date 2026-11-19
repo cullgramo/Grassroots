@@ -116,22 +116,46 @@ export function widerDistance(km: number): number | null {
   return DISTANCE_STEPS.find((d) => d > km) ?? null;
 }
 
-export function toSections(fixtures: Fixture[], now: Date = new Date()) {
-  const [weekendStart, weekendEnd] = weekendRange(now);
-  const today: Fixture[] = [];
-  const weekend: Fixture[] = [];
-  const later: Fixture[] = [];
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export type Sort = 'time' | 'nearest';
+
+export interface FixtureSection {
+  title: string;
+  data: Fixture[];
+}
+
+/**
+ * The list under one heading per day, each day's fixtures in time order: "Today, Thursday 19 November",
+ * "Saturday 21 November". Fixtures arrive in time order, so the days come out in order too.
+ */
+export function toDaySections(fixtures: Fixture[], now: Date = new Date()): FixtureSection[] {
+  const today = startOfDay(now).getTime();
+  const sections: (FixtureSection & { at: number })[] = [];
   for (const f of fixtures) {
-    const t = new Date(f.startsAt);
-    if (startOfDay(t).getTime() === startOfDay(now).getTime()) today.push(f);
-    else if (t >= weekendStart && t < weekendEnd) weekend.push(f);
-    else later.push(f);
+    const day = startOfDay(new Date(f.startsAt));
+    let section = sections[sections.length - 1];
+    if (!section || section.at !== day.getTime()) {
+      const name = `${DAY_NAMES[day.getDay()]} ${day.getDate()} ${MONTH_NAMES[day.getMonth()]}`;
+      section = { at: day.getTime(), title: day.getTime() === today ? `Today, ${name}` : name, data: [] };
+      sections.push(section);
+    }
+    section.data.push(f);
   }
-  return [
-    { title: 'On today', data: today },
-    { title: 'This weekend', data: weekend },
-    { title: 'Coming up', data: later },
-  ].filter((s) => s.data.length > 0);
+  return sections.map(({ title, data }) => ({ title, data }));
+}
+
+/**
+ * The list for the chosen order. By time it is a heading per day. Nearest first is one run, closest ground first
+ * (earlier game first at the same ground); without a location there is no "nearest", so it falls back to time.
+ */
+export function toListSections(fixtures: Fixture[], sort: Sort, location: UserLocation | null, now: Date = new Date()): FixtureSection[] {
+  if (sort !== 'nearest' || !location) return toDaySections(fixtures, now);
+  if (fixtures.length === 0) return [];
+  const km = new Map(fixtures.map((f) => [f.id, distanceTo(f, location)!]));
+  const data = [...fixtures].sort((a, b) => km.get(a.id)! - km.get(b.id)! || a.startsAt.localeCompare(b.startsAt));
+  return [{ title: 'Nearest first', data }];
 }
 
 export function describeWhere(filters: Filters, hasLocation: boolean): string {

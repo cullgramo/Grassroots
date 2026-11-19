@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { FollowButton, groupLabel } from '@/components/ClubRow';
-import { FixtureCard } from '@/components/FixtureCard';
+import { FixtureRow } from '@/components/FixtureRow';
 import { SponsorSlot } from '@/components/SponsorSlot';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
@@ -53,14 +53,14 @@ export default function ClubScreen() {
         keyExtractor={(f) => f.id}
         ListHeaderComponent={header}
         contentContainerStyle={styles.content}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
         ListEmptyComponent={
           <Text style={[styles.sub, { color: t.muted }]}>
             {loadState === 'loading' ? 'Loading…' : 'No upcoming games listed for this club yet.'}
           </Text>
         }
         renderItem={({ item }) => (
-          <FixtureCard fixture={item} onPress={() => router.push({ pathname: '/fixture/[id]', params: { id: item.id } })} />
+          <FixtureRow fixture={item} showDay onPress={() => router.push({ pathname: '/fixture/[id]', params: { id: item.id } })} />
         )}
       />
     </View>

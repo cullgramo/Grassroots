@@ -13,7 +13,7 @@ import type { AgeFilter } from '@/utils/ageGroup';
 import { isGenderFilter, type GenderFilter } from '@/utils/category';
 import type { FollowedClub } from '@/utils/club';
 import { dayHasPassed } from '@/utils/days';
-import { filterFixtures } from '@/utils/filterFixtures';
+import { filterFixtures, type Sort } from '@/utils/filterFixtures';
 import { isPlayed } from '@/utils/played';
 import { widenView } from '@/utils/view';
 
@@ -37,6 +37,9 @@ interface AppState {
   upcoming: Fixture[];
   savedIds: string[];
   toggleSaved: (id: string) => void;
+  /** The order of the lists: by time, or nearest first. One choice for the map's list and the List tab. */
+  sort: Sort;
+  setSort: (sort: Sort) => void;
   /** Clubs the user follows, kept on the phone. */
   followedClubs: FollowedClub[];
   toggleFollow: (club: FollowedClub) => void;
@@ -129,6 +132,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return next;
     });
   }, []);
+
+  const [sort, setSort] = useState<Sort>('time');
 
   const [followedClubs, setFollowedClubs] = useState<FollowedClub[]>([]);
   useEffect(() => {
@@ -348,8 +353,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [allFixtures, clock]);
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

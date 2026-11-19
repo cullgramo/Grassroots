@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { ClubRow } from '@/components/ClubRow';
-import { FixtureCard } from '@/components/FixtureCard';
+import { FixtureRow } from '@/components/FixtureRow';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { clubFixtures } from '@/utils/club';
@@ -57,7 +57,7 @@ export default function SavedScreen() {
       {saved.length > 0 ? <Text style={[styles.section, clubs.length > 0 && styles.sectionGap, { color: t.text }]}>Saved fixtures</Text> : null}
       {saved.map((item) => (
         <View key={item.id} style={styles.item}>
-          <FixtureCard fixture={item} onPress={() => router.push({ pathname: '/fixture/[id]', params: { id: item.id } })} />
+          <FixtureRow fixture={item} showDay onPress={() => router.push({ pathname: '/fixture/[id]', params: { id: item.id } })} />
         </View>
       ))}
     </ScrollView>
