@@ -5,7 +5,10 @@ name: Deploy web
 #
 # Needs one secret, entered in GitHub only: EXPO_TOKEN (expo.dev, Account settings, Access tokens).
 # Optional secret: EXPO_PUBLIC_MAPTILER_KEY, the web map's tile key; without it the map uses OpenStreetMap's own tiles.
-# The Expo project is named in app.json (expo.extra.eas.projectId); without it this job stops and says so.
+# The Expo project is named in app.json (expo.extra.eas.projectId).
+#
+# Until both are in place nothing is published, and the run says so in a notice. That is not a failure: the publish
+# job is skipped, so a merge does not show a red mark or send a failure email for something not switched on yet.
 on:
   push:
     branches: [main]
@@ -29,8 +32,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  ready:
+    name: Is publishing set up?
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        name: Look for the Expo token and the project it publishes to
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "::notice::Not published: EXPO_TOKEN is not set yet. Add it under Settings, Secrets and variables, Actions."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if ! node -e "process.exit(require('./app.json').expo?.extra?.eas?.projectId ? 0 : 1)"; then
+            echo "::notice::Not published: app.json has no expo.extra.eas.projectId yet, so Expo does not know which project to publish to."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
   deploy:
     name: Build and publish the website
+    needs: ready
+    if: needs.ready.outputs.ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -41,16 +71,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Check the deploy is set up
-        run: |
-          if [ -z "$EXPO_TOKEN" ]; then
-            echo "::error::EXPO_TOKEN is not set. Add it under Settings, Secrets and variables, Actions."
-            exit 1
-          fi
-          if ! node -e "process.exit(require('./app.json').expo?.extra?.eas?.projectId ? 0 : 1)"; then
-            echo "::error::app.json has no expo.extra.eas.projectId, so Expo does not know which project to publish to."
-            exit 1
-          fi
       - run: npm ci --ignore-scripts
       # A build that does not typecheck or pass its tests is not published.
       - run: npx tsc --noEmit
