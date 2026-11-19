@@ -1910,6 +1910,14 @@
   "longitude": -8.995464,
   "how": "checked by hand (OpenStreetMap: Racecourse Road, Ballybrit (marker at the racecourse entrance))"
  },
+ "Ireland|galway|": {
+  "family": "greyhound-racing",
+  "name": "Galway Greyhound Stadium",
+  "county": "Galway",
+  "latitude": 53.2790324,
+  "longitude": -9.03996,
+  "how": "pin supplied by the owner from Google Maps on 19 Nov 2026 (Galway Greyhound Stadium); checked: map county Galway, the map shows leisure/pitch at this point; used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|gowran park racecourse|": {
   "name": "Gowran Park Racecourse",
   "county": "Kilkenny",
