@@ -4,22 +4,26 @@ import { Tabs } from 'expo-router';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 
+/** The four places in the app. The map comes first: it is what Grassroots is for. */
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const tint = Colors[colorScheme].tint;
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: tint,
+        // The tab you are on sits on a soft wash of the tint, so it reads at a glance.
+        tabBarActiveBackgroundColor: `${tint}1f`,
+        tabBarItemStyle: { borderRadius: 14, marginHorizontal: 6 },
+        tabBarLabelStyle: { fontWeight: '700' },
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Explore',
+          title: 'Map',
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <SymbolView name={{ ios: 'map', android: 'map', web: 'map' }} tintColor={color} size={28} />
-          ),
+          tabBarIcon: ({ color }) => <SymbolView name={{ ios: 'map', android: 'map', web: 'map' }} tintColor={color} size={26} />,
         }}
       />
       <Tabs.Screen
@@ -27,18 +31,21 @@ export default function TabLayout() {
         options={{
           title: 'List',
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <SymbolView name={{ ios: 'list.bullet', android: 'list', web: 'list' }} tintColor={color} size={28} />
-          ),
+          tabBarIcon: ({ color }) => <SymbolView name={{ ios: 'list.bullet', android: 'list', web: 'list' }} tintColor={color} size={26} />,
         }}
       />
       <Tabs.Screen
-        name="saved"
+        name="favourites"
         options={{
-          title: 'Saved',
-          tabBarIcon: ({ color }) => (
-            <SymbolView name={{ ios: 'heart', android: 'favorite', web: 'favorite' }} tintColor={color} size={28} />
-          ),
+          title: 'Favourites',
+          tabBarIcon: ({ color }) => <SymbolView name={{ ios: 'star', android: 'star', web: 'star' }} tintColor={color} size={26} />,
+        }}
+      />
+      <Tabs.Screen
+        name="more"
+        options={{
+          title: 'More',
+          tabBarIcon: ({ color }) => <SymbolView name={{ ios: 'ellipsis.circle', android: 'more_horiz', web: 'more_horiz' }} tintColor={color} size={26} />,
         }}
       />
     </Tabs>

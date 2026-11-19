@@ -4,7 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Chip } from '@/components/Chip';
-import { FixtureCard } from '@/components/FixtureCard';
+import { FixtureRow } from '@/components/FixtureRow';
 import { FixtureMap } from '@/components/FixtureMap';
 import { useTheme } from '@/components/useTheme';
 import { SPORTS, type SportId } from '@/constants/sports';
@@ -228,7 +228,7 @@ function AdminTool() {
         ))}
         {ready.map(({ fixture }) => (
           <View key={fixture.id} style={styles.card} pointerEvents="none">
-            <FixtureCard fixture={fixture} onPress={() => {}} />
+            <FixtureRow fixture={fixture} showDay onPress={() => {}} />
           </View>
         ))}
       </ScrollView>

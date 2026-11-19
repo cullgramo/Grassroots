@@ -17,12 +17,14 @@ interface SheetProps {
   header: ReactNode;
   /** What the header says, for a screen reader: the count of fixtures, or that the list is an offline copy. */
   summary?: string;
+  /** A control shown at the right of the header (the list order). It sits beside the header, not inside it, so tapping it does not move the sheet. */
+  accessory?: ReactNode;
   /** Receives the height hidden below the screen edge, to pad scrolling content. */
   children: (hiddenHeight: number) => ReactNode;
 }
 
 /** Draggable bottom sheet. Drag or tap the header to move between peek, half and full. */
-export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, summary, children }: SheetProps) {
+export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, summary, accessory, children }: SheetProps) {
   const t = useTheme();
   const full = height - topOffset;
   const offsets = useMemo(
@@ -63,7 +65,7 @@ export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, sum
 
   return (
     <Animated.View
-      style={[styles.sheet, { top: topOffset, height: full, backgroundColor: t.card, transform: [{ translateY: y }] }]}>
+      style={[styles.sheet, { top: topOffset, height: full, backgroundColor: t.background, transform: [{ translateY: y }] }]}>
       <View {...pan.panHandlers}>
         <Pressable
           onPress={() => onSnap(snap === 'peek' ? 'half' : snap === 'half' ? 'full' : 'peek')}
@@ -72,6 +74,7 @@ export function Sheet({ height, topOffset, peekHeight, snap, onSnap, header, sum
           <View style={[styles.grabber, { backgroundColor: t.border }]} />
           {header}
         </Pressable>
+        {accessory ? <View style={styles.accessory}>{accessory}</View> : null}
       </View>
       {children(offsets[snap])}
     </Animated.View>
@@ -92,4 +95,5 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   grabber: { alignSelf: 'center', width: 40, height: 5, borderRadius: 3, marginTop: 8 },
+  accessory: { position: 'absolute', right: 12, top: 24 },
 });

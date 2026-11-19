@@ -10,6 +10,19 @@ export function addDays(d: Date, days: number): Date {
   return s;
 }
 
+/** A day as the phone's own calendar names it: "2026-11-21". This is how a day picked on the day strip is kept. */
+export function dayKey(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/** Midnight at the start of that day on the phone's clock, or null when the text is not a real date. */
+export function dayFromKey(key: string): Date | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(key);
+  if (!m) return null;
+  const d = new Date(+m[1], +m[2] - 1, +m[3]);
+  return d.getFullYear() === +m[1] && d.getMonth() === +m[2] - 1 && d.getDate() === +m[3] ? d : null;
+}
+
 /** Whole calendar days from now until the fixture; 0 means today. */
 export function getDaysUntil(startsAt: string, now: Date = new Date()): number {
   const ms = startOfDay(new Date(startsAt)).getTime() - startOfDay(now).getTime();
@@ -61,10 +74,17 @@ export function pinLabel(startsAt: string, now: Date = new Date(), timeTbc = fal
 }
 
 /** What a map pin says for a fixture: a game that is off says so, in place of a time people would turn up for. */
-export function pinLabelFor(f: { startsAt: string; timeTbc?: boolean; status?: string }, now: Date = new Date()): string {
+export function pinLabelFor(f: { startsAt: string; timeTbc?: boolean; status?: string }, now: Date = new Date(), timeOnly = false): string {
   if (f.status === 'cancelled') return 'Cancelled';
   if (f.status === 'postponed') return 'Postponed';
+  // With one day chosen, the day goes without saying: the pin is just the time.
+  if (timeOnly) return f.timeTbc ? 'Time TBC' : timeLabel(f.startsAt);
   return pinLabel(f.startsAt, now, f.timeTbc);
+}
+
+/** True once a fixture's start time has gone by. A fixture with no confirmed time never counts as started. */
+export function hasStarted(f: { startsAt: string; timeTbc?: boolean }, now: Date = new Date()): boolean {
+  return !f.timeTbc && new Date(f.startsAt).getTime() < now.getTime();
 }
 
 /** Card badge that stresses how soon a game is, or null when it is more than a day away. */

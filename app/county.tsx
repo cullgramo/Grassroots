@@ -20,7 +20,7 @@ export default function CountyScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={[styles.title, { color: t.text }]}>Which county?</Text>
         <Text style={[styles.text, { color: t.muted }]}>
-          Location is off, so pick the county you want to see. You can change it any time from Filters.
+          Pick the county you want the app to open on when location is off. You can change it any time, here or with the place control over the map.
         </Text>
         <View style={styles.chips}>
           <Chip label="All Ireland" selected={myCounty == null} onPress={() => choose(null)} />

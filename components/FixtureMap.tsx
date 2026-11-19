@@ -21,6 +21,15 @@ function toBounds(r: Region): Bounds {
 
 const toZoom = (r: Region) => Math.log2(360 / r.longitudeDelta);
 
+type Inset = { top: number; bottom: number };
+
+/** The ground people can actually see: the region without the strips hidden under the controls and the list. */
+function visibleBounds(r: Region, inset: Inset, height: number): Bounds {
+  const b = toBounds(r);
+  if (height <= 0 || height - inset.top - inset.bottom < 80) return b;
+  return { ...b, north: b.north - r.latitudeDelta * (inset.top / height), south: b.south + r.latitudeDelta * (inset.bottom / height) };
+}
+
 export function FixtureMap({
   fixtures,
   selectedId,
@@ -33,10 +42,60 @@ export function FixtureMap({
   startOnUser,
   recenterKey,
   fitKey,
+  placeKey,
   interactive = true,
+  inset,
+  timeOnly = false,
   style,
 }: FixtureMapProps) {
   const map = useRef<MapView>(null);
+  const [height, setHeight] = useState(0);
+  const insetRef = useRef<Inset>({ top: inset?.top ?? 0, bottom: inset?.bottom ?? 0 });
+  // The last move the app itself made. It is made again when the list covers more or less of the map; once the user
+  // moves the map by hand it is forgotten, because their view wins.
+  const lastFit = useRef<(() => void) | null>(null);
+  // One change can ask for two fits at once (choosing a county turns the search circle off, which asks for the whole
+  // island, and also asks for that county's fixtures). Only the last one asked is made.
+  const waiting = useRef<(() => void) | null>(null);
+  const fit = (move: () => void) => {
+    lastFit.current = move;
+    const first = waiting.current === null;
+    waiting.current = move;
+    if (!first) return;
+    requestAnimationFrame(() => {
+      const latest = waiting.current;
+      waiting.current = null;
+      latest?.();
+    });
+  };
+  // Padding that keeps a fitted area inside the visible part of the map, with a little air around it.
+  const edge = (side: number, air: number) => ({ top: insetRef.current.top + air, bottom: insetRef.current.bottom + air, left: side, right: side });
+  // The four outermost points of the search circle; the padding keeps all of it clear of the controls and the list.
+  const fitCircle = (latitude: number, longitude: number, km: number) => {
+    const dLat = km / 111;
+    const dLon = dLat / Math.cos((latitude * Math.PI) / 180);
+    fit(() =>
+      map.current?.fitToCoordinates(
+        [
+          { latitude: latitude + dLat, longitude },
+          { latitude: latitude - dLat, longitude },
+          { latitude, longitude: longitude + dLon },
+          { latitude, longitude: longitude - dLon },
+        ],
+        { edgePadding: edge(14, 14), animated: true }
+      )
+    );
+  };
+  const fitFixtures = () => {
+    const points = fixtures.map((f) => ({ latitude: f.latitude, longitude: f.longitude }));
+    // One ground on its own would be shown at street-corner scale; give it some room either side.
+    const lats = points.map((c) => c.latitude);
+    const lons = points.map((c) => c.longitude);
+    if (Math.max(...lats) - Math.min(...lats) < 0.02 && Math.max(...lons) - Math.min(...lons) < 0.02) {
+      points.push({ latitude: lats[0] + 0.02, longitude: lons[0] + 0.03 }, { latitude: lats[0] - 0.02, longitude: lons[0] - 0.03 });
+    }
+    fit(() => map.current?.fitToCoordinates(points, { edgePadding: edge(60, 34), animated: true }));
+  };
   const single = fixtures.length === 1 ? fixtures[0] : null;
   const initial: Region = single
     ? { latitude: single.latitude, longitude: single.longitude, latitudeDelta: 0.05, longitudeDelta: 0.05 }
@@ -54,15 +113,35 @@ export function FixtureMap({
 
   useEffect(() => {
     if (!selected || single) return;
-    map.current?.animateCamera({ center: { latitude: selected.latitude, longitude: selected.longitude } }, { duration: 350 });
+    lastFit.current = null;
+    // The chosen pin goes to the middle of what can be seen, not the middle of the whole map, so it is never behind the list.
+    const shift = height > 0 ? (region.latitudeDelta * (insetRef.current.bottom - insetRef.current.top)) / 2 / height : 0;
+    map.current?.animateCamera({ center: { latitude: selected.latitude - shift, longitude: selected.longitude } }, { duration: 350 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected?.id]);
+
+  // The list was pulled up or let down, or the controls grew: make the app's last fit again for the new visible part.
+  useEffect(() => {
+    const next = { top: inset?.top ?? 0, bottom: inset?.bottom ?? 0 };
+    const prev = insetRef.current;
+    if (prev.top === next.top && prev.bottom === next.bottom) return;
+    insetRef.current = next;
+    lastFit.current?.();
+    onBoundsChange?.(visibleBounds(region, next, height));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inset?.top, inset?.bottom]);
 
   useEffect(() => {
     if (!userLocation) return;
     if (recenterKey || (startOnUser && !startedOnUser.current)) {
       startedOnUser.current = true;
-      map.current?.animateToRegion({ ...userLocation, latitudeDelta: 0.9, longitudeDelta: 0.9 }, 400);
+      const { latitude, longitude } = userLocation;
+      fit(() =>
+        map.current?.fitToCoordinates(
+          [{ latitude: latitude + 0.45, longitude }, { latitude: latitude - 0.45, longitude }],
+          { edgePadding: edge(0, 0), animated: true }
+        )
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recenterKey, userLocation]);
@@ -70,33 +149,48 @@ export function FixtureMap({
   useEffect(() => {
     if (!fitRadius) return;
     if (!userLocation || !radiusKm) {
-      if (hadRadius.current) map.current?.animateToRegion(COUNTRY, 300);
+      if (hadRadius.current) {
+        fit(() =>
+          map.current?.fitToCoordinates(
+            [{ latitude: 51.3, longitude: -10.7 }, { latitude: 55.4, longitude: -5.4 }],
+            { edgePadding: edge(10, 10), animated: true }
+          )
+        );
+      }
       hadRadius.current = false;
       return;
     }
     hadRadius.current = true;
-    const latitudeDelta = (radiusKm * 2.6) / 111;
-    const longitudeDelta = latitudeDelta / Math.cos((userLocation.latitude * Math.PI) / 180);
-    map.current?.animateToRegion({ ...userLocation, latitudeDelta, longitudeDelta }, 300);
+    fitCircle(userLocation.latitude, userLocation.longitude, radiusKm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fitRadius, radiusKm, userLocation]);
 
   useEffect(() => {
     if (!fitKey || fixtures.length === 0) return;
-    map.current?.fitToCoordinates(
-      fixtures.map((f) => ({ latitude: f.latitude, longitude: f.longitude })),
-      { edgePadding: { top: 160, right: 60, bottom: 160, left: 60 }, animated: true }
-    );
+    fitFixtures();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fitKey]);
+
+  // Back to the place being shown: the search circle when there is one, otherwise every fixture.
+  useEffect(() => {
+    if (!placeKey) return;
+    if (fitRadius && userLocation && radiusKm) fitCircle(userLocation.latitude, userLocation.longitude, radiusKm);
+    else if (fixtures.length > 0) fitFixtures();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [placeKey]);
 
   return (
     <MapView
       ref={map}
       style={[StyleSheet.absoluteFill, style]}
       initialRegion={initial}
-      onRegionChangeComplete={(r) => {
+      onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
+      onRegionChangeComplete={(r, details) => {
+        // A move made by hand replaces whatever the app last fitted.
+        if (details?.isGesture) lastFit.current = null;
         setRegion(r);
-        onBoundsChange?.(toBounds(r));
+        // Pins are drawn for the whole map; the list is told only about the part people can see.
+        onBoundsChange?.(visibleBounds(r, insetRef.current, height));
       }}
       onPress={(e) => {
         if (e.nativeEvent.action !== 'marker-press') onSelect?.(null);
@@ -130,6 +224,7 @@ export function FixtureMap({
                   onVenuePress?.(item.fixtureIds);
                   return;
                 }
+                lastFit.current = null;
                 const delta = 360 / Math.pow(2, item.expansionZoom + 0.5);
                 map.current?.animateToRegion(
                   { latitude: item.latitude, longitude: item.longitude, latitudeDelta: delta, longitudeDelta: delta },
@@ -153,7 +248,7 @@ export function FixtureMap({
             onPress={() => onSelect?.(f.id)}>
             <View style={[styles.pill, isSelected && styles.pillSelected]}>
               <View style={[styles.dot, { backgroundColor: getSport(f.sport).color }]} />
-              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabelFor(f)}</Text>
+              <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{pinLabelFor(f, undefined, timeOnly)}</Text>
             </View>
           </Marker>
         );

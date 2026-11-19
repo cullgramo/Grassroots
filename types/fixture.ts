@@ -4,7 +4,8 @@ import type { Category, GenderFilter } from '@/utils/category';
 
 export type Level = 'Local' | 'Top level';
 export type FixtureStatus = 'scheduled' | 'postponed' | 'cancelled' | 'finished';
-export type When = 'any' | 'today' | 'weekend' | 'week';
+/** 'day' is one chosen day, named in Filters.day. */
+export type When = 'any' | 'today' | 'weekend' | 'week' | 'day';
 
 export interface Fixture {
   id: string;
@@ -58,6 +59,8 @@ export interface Filters {
   county: string | null;
   distanceKm: number | null;
   when: When;
+  /** The chosen day when `when` is 'day', as the phone's own calendar date: "2026-11-21". */
+  day?: string | null;
   /** Show every sport, not only the ones the user follows. */
   allSports?: boolean;
   age: AgeFilter;

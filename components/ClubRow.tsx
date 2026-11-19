@@ -37,7 +37,7 @@ export function ClubRow({ club, detail }: { club: FollowedClub; detail: string }
       style={[styles.row, { backgroundColor: t.card, borderColor: t.border }]}>
       <View style={styles.text}>
         <Text style={[styles.name, { color: t.text }]} numberOfLines={1}>{club.name}</Text>
-        <Text style={[styles.detail, { color: t.muted }]} numberOfLines={1}>{groupLabel(club.group)} · {detail}</Text>
+        <Text style={[styles.detail, { color: t.muted }]} numberOfLines={2}>{groupLabel(club.group)} · {detail}</Text>
       </View>
       <FollowButton club={club} />
     </Pressable>

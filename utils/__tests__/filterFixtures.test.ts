@@ -87,7 +87,7 @@ describe('date and distance helpers', () => {
 
 describe('map helpers', () => {
   const { buildClusterIndex, getMapItems, MAX_SPLIT_ZOOM, WORLD } = require('../cluster');
-  const { withinBounds, widerDistance, toSections, describeWhere } = require('../filterFixtures');
+  const { withinBounds, widerDistance, toDaySections, toListSections, describeWhere } = require('../filterFixtures');
   const { pinLabel, urgencyLabel, timeLabel, shortDay } = require('../date');
 
   it('withinBounds keeps only fixtures inside the box', () => {
@@ -109,12 +109,23 @@ describe('map helpers', () => {
     expect(widerDistance(10)).toBe(25);
     expect(widerDistance(100)).toBeNull();
   });
-  it('groups fixtures into today, weekend and later', () => {
-    expect(toSections(fixtures, now).map((s: { title: string; data: Fixture[] }) => [s.title, ids(s.data)])).toEqual([
-      ['On today', ['today']],
-      ['This weekend', ['sat']],
-      ['Coming up', ['cork', 'later']],
-    ]);
+  it('lists fixtures under a heading for each day, in order, naming today', () => {
+    const ordered = filterFixtures(fixtures, DEFAULT_FILTERS, null, now);
+    const sections = toDaySections(ordered, now);
+    expect(sections.map((s: { title: string }) => s.title)).toEqual(['Today, Wednesday 10 June', 'Thursday 11 June', 'Saturday 13 June', 'Thursday 25 June']);
+    expect(sections.map((s: { data: Fixture[] }) => ids(s.data))).toEqual([['today'], ['cork'], ['sat'], ['later']]);
+    expect(toDaySections([], now)).toEqual([]);
+  });
+  it('lists nearest first as one run when asked and a location is known, and by day otherwise', () => {
+    const ordered = filterFixtures(fixtures, DEFAULT_FILTERS, null, now);
+    const nearest = toListSections(ordered, 'nearest', dublin, now);
+    expect(nearest).toHaveLength(1);
+    expect(nearest[0].title).toBe('Nearest first');
+    // the three Croke Park games in time order, then Cork
+    expect(ids(nearest[0].data)).toEqual(['today', 'sat', 'later', 'cork']);
+    expect(toListSections(ordered, 'nearest', null, now)).toEqual(toDaySections(ordered, now));
+    expect(toListSections(ordered, 'time', dublin, now)).toEqual(toDaySections(ordered, now));
+    expect(toListSections([], 'nearest', dublin, now)).toEqual([]);
   });
   it('labels pins, urgency and filters', () => {
     expect(timeLabel(iso(10, 9))).toBe('09:00');

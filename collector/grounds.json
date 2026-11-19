@@ -2593,11 +2593,12 @@
   "how": "checked by hand (OpenStreetMap: Edenderry Rugby Football Club, Carbury)"
  },
  "Leinster|corinthians|": {
-  "name": "Corinthians",
-  "county": "Dublin",
-  "latitude": 53.354694,
-  "longitude": -6.25063,
-  "how": "place search (leisure/sports_centre: Corinthians Boxing Club)"
+  "family": "rugby",
+  "name": "Corinthian Park",
+  "county": "Galway",
+  "latitude": 53.317765,
+  "longitude": -8.983548,
+  "how": "checked by hand, 19 Nov 2026: the Leinster U20 league writes Galway Corinthians' home ground as \"Corinthians\"; it is Corinthian Park, the same ground and position as the entry 'Connacht|corinthian park|' (OpenStreetMap: Galway Corinthians RFC, Cloonacauneen). It was wrongly placed at Corinthians Boxing Club in Dublin by a place search on the name alone."
  },
  "Leinster|craanford|": {
   "family": "gaa",

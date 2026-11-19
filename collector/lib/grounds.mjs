@@ -178,6 +178,46 @@ async function findStart(f) {
   return null;
 }
 
+// What a place's name says is played there. A place named for one sport is not the ground for another: a rugby game
+// listed at "Corinthians" was once put at Corinthians Boxing Club. Schools, parks and plain sports centres name no
+// sport, so they are not affected.
+const PLAYED_THERE = {
+  boxing: /\bboxing\b/,
+  bowls: /\bbowl(s|ing)\b/,
+  golf: /\bgolf\b|pitch (and|&) putt/,
+  tennis: /\btennis\b/,
+  swimming: /\bswim(ming)?\b|\baquatic/,
+  'martial arts': /\b(karate|judo|taekwondo|kickboxing|martial arts)\b/,
+  snooker: /\b(snooker|darts)\b/,
+  squash: /\b(squash|badminton)\b/,
+  riding: /\b(equestrian|riding|pony)\b/,
+  boats: /\b(rowing|sailing|yacht|kayak|canoe|angling)\b/,
+  cricket: /\bcricket\b/,
+  hockey: /\bhockey\b/,
+  basketball: /\bbasketball\b/,
+  rugby: /\brugby\b|\brfc\b/,
+  soccer: /\bsoccer\b|\bafc\b|\bfc\b|football club/,
+  gaa: /\bgaa\b|\bgac\b|\bclg\b|\bgaelic\b|\bhurling\b|\bcamogie\b/,
+  handball: /\bhandball\b/,
+  athletics: /\bathletics? club\b|\bharriers\b/,
+};
+// Which of those a fixture's own sport counts as. Water polo is played in swimming pools; rowing on the water.
+const PLAYS_AS = { 'water-polo': ['swimming'], rowing: ['boats'], 'ice-hockey': ['hockey'] };
+
+/**
+ * True when the place found is named for a sport, and it is not this fixture's. The place is still accepted when the
+ * source itself names that sport in the ground ("Kiltormer GAA Grounds" for a soccer game is where the source says).
+ */
+export function namedForAnotherSport(placeName, sport, venueAsWritten = '') {
+  const name = norm(placeName);
+  const named = Object.keys(PLAYED_THERE).filter((k) => PLAYED_THERE[k].test(name));
+  if (named.length === 0) return false;
+  const mine = [familyOf(sport), ...(PLAYS_AS[sport] ?? [])];
+  if (named.some((k) => mine.includes(k))) return false;
+  const written = norm(venueAsWritten);
+  return !named.some((k) => PLAYED_THERE[k].test(written));
+}
+
 /** Looks one ground up on OpenStreetMap. Only a confident answer is accepted; anything doubtful returns null. */
 export async function findGround(f) {
   // A postcode pins the spot far better than a name.
@@ -215,6 +255,7 @@ export async function findGround(f) {
       const inTeamPlace = allowed || teamPlaces.some((w) => norm(h.display_name).includes(w));
       const got = norm(`${h.name ?? ''} ${(h.display_name ?? '').split(',')[0]}`);
       const nameMatches = wanted.length > 0 && wanted.filter((w) => got.includes(w)).length / wanted.length >= 0.6;
+      if (namedForAnotherSport(`${h.name ?? ''} ${(h.display_name ?? '').split(',')[0]}`, f.sport, f.venue)) return false;
       return rightKind && inTeamPlace && (!isSchool || namesSchool) && nameMatches && inIreland(+h.lat, +h.lon) && (!allowed || allowed.includes(countyOf(h)));
     });
     if (good.length === 0) continue;

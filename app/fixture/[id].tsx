@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { SaveButton } from '@/components/FixtureCard';
+import { SaveButton } from '@/components/FixtureRow';
 import { FixtureMap } from '@/components/FixtureMap';
 import { ShareFixture, ShareHeaderButton } from '@/components/ShareFixture';
 import { SponsorSlot } from '@/components/SponsorSlot';

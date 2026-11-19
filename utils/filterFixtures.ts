@@ -2,13 +2,26 @@ import { getSport, type SportId } from '@/constants/sports';
 import { DEFAULT_FILTERS, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import { matchesAge } from './ageGroup';
 import { countUnlabelled, isWomensCode, matchesGender } from './category';
-import { addDays, startOfDay, weekendRange } from './date';
+import { addDays, dayFromKey, startOfDay, weekendRange } from './date';
 import { calculateDistance } from './distance';
 import { isPlayed } from './played';
 
 export function distanceTo(fixture: Fixture, location: UserLocation | null): number | null {
   if (!location) return null;
   return calculateDistance(location.latitude, location.longitude, fixture.latitude, fixture.longitude);
+}
+
+/** The stretch of time the date choice covers, start to end (end not included); nulls mean no limit. */
+export function whenRange(filters: Pick<Filters, 'when' | 'day'>, now: Date = new Date()): [Date | null, Date | null] {
+  const today = startOfDay(now);
+  if (filters.when === 'today') return [today, addDays(today, 1)];
+  if (filters.when === 'weekend') return weekendRange(now);
+  if (filters.when === 'week') return [today, addDays(today, 7)];
+  if (filters.when === 'day') {
+    const day = filters.day ? dayFromKey(filters.day) : null;
+    if (day) return [day, addDays(day, 1)];
+  }
+  return [null, null];
 }
 
 export function filterFixtures(
@@ -19,12 +32,7 @@ export function filterFixtures(
   /** Sports the user follows; used when no sport or group is picked. Empty means every sport. */
   mySports: readonly SportId[] = []
 ): Fixture[] {
-  const today = startOfDay(now);
-  let from: Date | null = null;
-  let to: Date | null = null;
-  if (filters.when === 'today') [from, to] = [today, addDays(today, 1)];
-  if (filters.when === 'weekend') [from, to] = weekendRange(now);
-  if (filters.when === 'week') [from, to] = [today, addDays(today, 7)];
+  const [from, to] = whenRange(filters, now);
 
   // Picking camogie or ladies football alone is already women's games, so a men's choice made elsewhere does not empty it.
   const womensCode = isWomensCode(filters.sport);
@@ -61,7 +69,16 @@ export function activeFilterCount(filters: Filters, baseline: Filters = DEFAULT_
     (filters.level !== baseline.level ? 1 : 0) +
     (filters.county !== baseline.county ? 1 : 0) +
     (filters.distanceKm !== baseline.distanceKm ? 1 : 0) +
-    (filters.when !== baseline.when ? 1 : 0) +
+    (filters.when !== baseline.when || (filters.when === 'day' && filters.day !== baseline.day) ? 1 : 0) +
+    ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0) +
+    ((filters.gender ?? 'all') !== (baseline.gender ?? 'all') ? 1 : 0)
+  );
+}
+
+/** How many of the limits kept on the Filters screen (level, age, men or women) differ from the opening view. */
+export function screenFilterCount(filters: Filters, baseline: Filters = DEFAULT_FILTERS): number {
+  return (
+    (filters.level !== baseline.level ? 1 : 0) +
     ((filters.age ?? 'all') !== (baseline.age ?? 'all') ? 1 : 0) +
     ((filters.gender ?? 'all') !== (baseline.gender ?? 'all') ? 1 : 0)
   );
@@ -99,22 +116,46 @@ export function widerDistance(km: number): number | null {
   return DISTANCE_STEPS.find((d) => d > km) ?? null;
 }
 
-export function toSections(fixtures: Fixture[], now: Date = new Date()) {
-  const [weekendStart, weekendEnd] = weekendRange(now);
-  const today: Fixture[] = [];
-  const weekend: Fixture[] = [];
-  const later: Fixture[] = [];
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export type Sort = 'time' | 'nearest';
+
+export interface FixtureSection {
+  title: string;
+  data: Fixture[];
+}
+
+/**
+ * The list under one heading per day, each day's fixtures in time order: "Today, Thursday 19 November",
+ * "Saturday 21 November". Fixtures arrive in time order, so the days come out in order too.
+ */
+export function toDaySections(fixtures: Fixture[], now: Date = new Date()): FixtureSection[] {
+  const today = startOfDay(now).getTime();
+  const sections: (FixtureSection & { at: number })[] = [];
   for (const f of fixtures) {
-    const t = new Date(f.startsAt);
-    if (startOfDay(t).getTime() === startOfDay(now).getTime()) today.push(f);
-    else if (t >= weekendStart && t < weekendEnd) weekend.push(f);
-    else later.push(f);
+    const day = startOfDay(new Date(f.startsAt));
+    let section = sections[sections.length - 1];
+    if (!section || section.at !== day.getTime()) {
+      const name = `${DAY_NAMES[day.getDay()]} ${day.getDate()} ${MONTH_NAMES[day.getMonth()]}`;
+      section = { at: day.getTime(), title: day.getTime() === today ? `Today, ${name}` : name, data: [] };
+      sections.push(section);
+    }
+    section.data.push(f);
   }
-  return [
-    { title: 'On today', data: today },
-    { title: 'This weekend', data: weekend },
-    { title: 'Coming up', data: later },
-  ].filter((s) => s.data.length > 0);
+  return sections.map(({ title, data }) => ({ title, data }));
+}
+
+/**
+ * The list for the chosen order. By time it is a heading per day. Nearest first is one run, closest ground first
+ * (earlier game first at the same ground); without a location there is no "nearest", so it falls back to time.
+ */
+export function toListSections(fixtures: Fixture[], sort: Sort, location: UserLocation | null, now: Date = new Date()): FixtureSection[] {
+  if (sort !== 'nearest' || !location) return toDaySections(fixtures, now);
+  if (fixtures.length === 0) return [];
+  const km = new Map(fixtures.map((f) => [f.id, distanceTo(f, location)!]));
+  const data = [...fixtures].sort((a, b) => km.get(a.id)! - km.get(b.id)! || a.startsAt.localeCompare(b.startsAt));
+  return [{ title: 'Nearest first', data }];
 }
 
 export function describeWhere(filters: Filters, hasLocation: boolean): string {
@@ -124,7 +165,7 @@ export function describeWhere(filters: Filters, hasLocation: boolean): string {
 }
 
 export function describeWhen(filters: Filters): string {
-  const when = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days' }[filters.when];
+  const when = { any: 'Any time', today: 'Today', weekend: 'This weekend', week: 'Next 7 days', day: filters.day ?? 'One day' }[filters.when];
   return `${when} · ${filters.level ?? 'All levels'}`;
 }
 
