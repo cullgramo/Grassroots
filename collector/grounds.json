@@ -1806,6 +1806,14 @@
   "longitude": -7.680162,
   "how": "place search (leisure/sports_centre: Clonmel Racecourse)"
  },
+ "Ireland|clonmel|": {
+  "family": "greyhound-racing",
+  "name": "Clonmel Greyhound Stadium",
+  "county": "Tipperary",
+  "latitude": 52.353238,
+  "longitude": -7.691557,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/640922357: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|clooney quin|": {
   "family": "handball",
   "name": "Clooney Quin GAA Club",
@@ -1835,6 +1843,14 @@
   "longitude": -6.83981,
   "how": "checked by hand (OpenStreetMap: Curragh Racecourse Entrance)"
  },
+ "Ireland|curraheen park|": {
+  "family": "greyhound-racing",
+  "name": "Curraheen Park Greyhound Stadium",
+  "county": "Cork",
+  "latitude": 51.876167,
+  "longitude": -8.549861,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/152491498: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|down royal racecourse|": {
   "name": "Down Royal Racecourse",
   "county": "Down",
@@ -1855,6 +1871,22 @@
   "latitude": 54.02007,
   "longitude": -6.38299,
   "how": "checked by hand (OpenStreetMap: Dundalk Stadium)"
+ },
+ "Ireland|dundalk|": {
+  "family": "greyhound-racing",
+  "name": "Dundalk Stadium",
+  "county": "Louth",
+  "latitude": 54.020071,
+  "longitude": -6.382989,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/260443404: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
+ "Ireland|enniscorthy|": {
+  "family": "greyhound-racing",
+  "name": "Enniscorthy Greyhound Stadium",
+  "county": "Wexford",
+  "latitude": 52.500028,
+  "longitude": -6.576756,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/57041671: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|fairyhouse racecourse|": {
   "name": "Fairyhouse Racecourse",
@@ -1899,6 +1931,14 @@
   "longitude": -7.49588,
   "how": "checked by hand (OpenStreetMap: Kilbeggan Races)"
  },
+ "Ireland|kilkenny|": {
+  "family": "greyhound-racing",
+  "name": "Kilkenny Greyhound Stadium",
+  "county": "Kilkenny",
+  "latitude": 52.663094,
+  "longitude": -7.26346,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/469485064: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|kilkishen|": {
   "family": "handball",
   "name": "Kilkishen Handball Club",
@@ -1928,12 +1968,28 @@
   "longitude": -6.189041,
   "how": "place search (leisure/sports_centre: Leopardstown Racecourse)"
  },
+ "Ireland|lifford|": {
+  "family": "greyhound-racing",
+  "name": "Lifford Greyhound Stadium",
+  "county": "Donegal",
+  "latitude": 54.834837,
+  "longitude": -7.484614,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/178560802: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|limerick racecourse|": {
   "name": "Limerick Racecourse",
   "county": "Limerick",
   "latitude": 52.590827,
   "longitude": -8.690965,
   "how": "place search (leisure/sports_centre: Limerick Racecourse)"
+ },
+ "Ireland|limerick|": {
+  "family": "greyhound-racing",
+  "name": "Limerick Greyhound Stadium",
+  "county": "Limerick",
+  "latitude": 52.648996,
+  "longitude": -8.657339,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/284619233: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|listowel racecourse|": {
   "name": "Listowel Racecourse",
@@ -1964,6 +2020,14 @@
   "longitude": -8.500151,
   "how": "place search (leisure/sports_centre: Mardyke Arena)"
  },
+ "Ireland|mullingar|": {
+  "family": "greyhound-racing",
+  "name": "Mullingar Greyhound Track",
+  "county": "Westmeath",
+  "latitude": 53.521214,
+  "longitude": -7.340235,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/147600010: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|naas racecourse|": {
   "name": "Naas Racecourse",
   "county": "Kildare",
@@ -1985,6 +2049,14 @@
   "latitude": 52.846798,
   "longitude": -6.916638,
   "how": "place search (leisure/stadium: Netwatch Cullen Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ireland|newbridge|": {
+  "family": "greyhound-racing",
+  "name": "Newbridge Greyhound Stadium",
+  "county": "Kildare",
+  "latitude": 53.190189,
+  "longitude": -6.823066,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/263720004: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|newmarket on fergus|": {
   "family": "handball",
@@ -2109,6 +2181,14 @@
   "longitude": -6.272811,
   "how": "Get Ireland Active club list, matched on club name (Three Rock Rovers Hockey Club); match read and accepted by hand, 17 Nov 2026"
  },
+ "Ireland|thurles park|": {
+  "family": "greyhound-racing",
+  "name": "Thurles Greyhound Stadium",
+  "county": "Tipperary",
+  "latitude": 52.684299,
+  "longitude": -7.822462,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/174915505: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|thurles racecourse|": {
   "name": "Thurles Racecourse",
   "county": "Tipperary",
@@ -2130,6 +2210,14 @@
   "latitude": 52.8903467,
   "longitude": -9.0348917,
   "how": "pin supplied by the owner from Google Maps (place: Toonagh handball court), 17 Nov 2026; checked against the map"
+ },
+ "Ireland|tralee|": {
+  "family": "greyhound-racing",
+  "name": "Kingdom Greyhound Stadium",
+  "county": "Kerry",
+  "latitude": 52.274878,
+  "longitude": -9.700194,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/292316338: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|tramore racecourse|": {
   "name": "Tramore Racecourse",
@@ -2154,6 +2242,14 @@
   "family": "handball",
   "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on the UCD Belfield campus, 43 m from the map’s building named UCD Sports Centre (Wynnsward Drive)"
  },
+ "Ireland|waterford|": {
+  "family": "greyhound-racing",
+  "name": "Kilcohan Park Greyhound Stadium",
+  "county": "Waterford",
+  "latitude": 52.243149,
+  "longitude": -7.111557,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/863520347: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
+ },
  "Ireland|wesley college|": {
   "family": "hockey",
   "name": "Wesley College",
@@ -2175,6 +2271,14 @@
   "latitude": 53.267379,
   "longitude": -6.272374,
   "how": "checked by hand (OpenStreetMap: Corinthian Hockey Club, Ballyboden)"
+ },
+ "Ireland|youghal|": {
+  "family": "greyhound-racing",
+  "name": "Youghal Greyhound Stadium",
+  "county": "Cork",
+  "latitude": 51.940219,
+  "longitude": -7.856919,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/1557433306: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Kildare|clane gaa|": {
   "name": "clane GAA",
