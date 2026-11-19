@@ -258,6 +258,14 @@
   "longitude": -8.9592,
   "how": "GAA pitch list, matched on pitch name (St. Brendan's GAA, Annaghdown: Cregg)"
  },
+ "Connacht|cregmore|@cregmore claregalway": {
+  "family": "soccer",
+  "name": "Cregmore Community Pitch",
+  "county": "Galway",
+  "latitude": 53.337744,
+  "longitude": -8.872176,
+  "how": "place search, 19 Nov 2026 (OpenStreetMap way/1470445843, leisure/sports_centre: Cregmore Community Pitch); kept per home club because the league writes only the townland"
+ },
  "Connacht|crowley park|": {
   "name": "Crowley Park",
   "county": "Galway",
@@ -441,6 +449,14 @@
   "how": "rugby club search (landuse/recreation_ground: Loughrea Rugby Club); the source names the club or town, not the pitch"
  },
  "Connacht|louisburgh|": null,
+ "Connacht|maree astro|": {
+  "family": "soccer",
+  "name": "Maree-Oranmore FC, 4G pitch, Maree Grounds",
+  "county": "Galway",
+  "latitude": 53.232437,
+  "longitude": -8.943563,
+  "how": "Plus Code 63J4+XH supplied by the owner on 19 Nov 2026 (centre of the cell); checked: the map shows a pitch at this point, 16 m from OpenStreetMap way/1572186246 \"Maree-Oranmore Football Club - Maree Grounds\""
+ },
  "Connacht|markievicz park sligo|": {
   "name": "Markievicz Park, Sligo",
   "county": "Sligo",
@@ -1782,6 +1798,14 @@
   "longitude": -7.680162,
   "how": "place search (leisure/sports_centre: Clonmel Racecourse)"
  },
+ "Ireland|clooney quin|": {
+  "family": "handball",
+  "name": "Clooney Quin GAA Club",
+  "county": "Clare",
+  "latitude": 52.83639,
+  "longitude": -8.8556,
+  "how": "position supplied by the owner on 19 Nov 2026 (handball is played at the GAA grounds, Ballyhickey); checked: the map shows a pitch at this point, 37 m from the GAA pitch list entry for Clooney Quin"
+ },
  "Ireland|comber road lisnagarvey hc|BT26 6LN": {
   "name": "Comber Road (Lisnagarvey HC)",
   "county": "Down",
@@ -1953,6 +1977,14 @@
   "latitude": 52.846798,
   "longitude": -6.916638,
   "how": "place search (leisure/stadium: Netwatch Cullen Park); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ireland|newmarket on fergus|": {
+  "family": "handball",
+  "name": "Newmarket-on-Fergus GAA Handball & Squash",
+  "county": "Clare",
+  "latitude": 52.760883,
+  "longitude": -8.888355,
+  "how": "position supplied by the owner on 19 Nov 2026 (handball is played at the GAA grounds, Ballycar Road); checked: 15 m from our Newmarket-on-Fergus GAA entry, map county Clare"
  },
  "Ireland|ocallaghans mills|": {
   "family": "handball",
@@ -7335,6 +7367,14 @@
   "longitude": -6.007933,
   "how": "home ground: place search (leisure/pitch: Derriaghy CC Football Club); match read and accepted by hand, 17 Nov 2026"
  },
+ "Ulster||@dollingstown": {
+  "family": "soccer",
+  "name": "Planters Park (Dollingstown FC)",
+  "county": "Down",
+  "latitude": 54.44769,
+  "longitude": -6.27815,
+  "how": "home ground: position supplied by the owner on 19 Nov 2026; checked: the map names this spot \"Planters Park\" (leisure/pitch, Dromore Road, Magheralin)"
+ },
  "Ulster||@dromara village": {
   "family": "soccer",
   "name": "Dromara Village FC",
@@ -7382,6 +7422,14 @@
   "latitude": 54.535897,
   "longitude": -6.0037,
   "how": "home ground: place search (leisure/pitch: Lisburn Distillery Football Club); match read and accepted by hand, 17 Nov 2026"
+ },
+ "Ulster||@portstewart": {
+  "family": "soccer",
+  "name": "Portstewart Football Club, Mullaghacall",
+  "county": "Derry",
+  "latitude": 55.18083,
+  "longitude": -6.711756,
+  "how": "home ground: place search, 19 Nov 2026 (OpenStreetMap way/146213087, leisure/pitch: Portstewart Football Club, Mullaghacall Crescent); the owner named the same ground (Mullaghacall, off Seahaven Drive)"
  },
  "Waterford|brickey rangers g a a club|": null,
  "Waterford|dungarvan|X35 AH76": {
