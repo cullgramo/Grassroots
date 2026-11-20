@@ -82,3 +82,48 @@ test('Athletics Ireland: events abroad and awards nights are dropped; an event w
   ]);
   assert.ok(got.every((f) => f.sport === 'athletics' && f.home === null && f.time === null));
 });
+
+// Double listings: one game written two ways by two sources.
+const gaa = (o) => ({ ref: 'x', sport: 'gaelic-football', level: 'local', category: 'men', competition: 'Cup', home: 'A', away: 'B', date: '2999-11-21', time: '11:45', venue: 'Ground One', area: 'Leinster', url: 'http://x', ...o });
+const twoGrounds = { ...grounds, 'Leinster|ground two|': { name: 'Ground Two', county: 'Kerry', latitude: 53.3002, longitude: -6.2002 }, 'Leinster|far away|': { name: 'Far Away', county: 'Cork', latitude: 51.9, longitude: -8.5 } };
+
+test('a county board\'s copy of a provincial game is dropped when the council lists the same sport, start and ground', async () => {
+  const { fixtures, leftOut, live } = await gather({
+    sources: {
+      'county-gaa': source([gaa({ ref: 'c', competition: 'Munster IF Club Championships - Semi Final', home: 'Fossa', away: 'An Bratach Inis', venue: 'Ground Two' })]),
+      'munster-gaa': source([gaa({ ref: 'm', competition: 'AIB Munster Club Intermediate Football Championship Semi-Final', home: 'Fossa (Kerry)', away: 'Banner (Clare)' })]),
+    },
+    grounds: twoGrounds,
+  });
+  assert.deepEqual(fixtures.map((f) => f.source), ['munster-gaa']);
+  assert.deepEqual(leftOut.map((r) => [r.home, r.reason]), [['Fossa', 'Already listed by another source']]);
+  assert.deepEqual(live['county-gaa'], []);
+});
+
+test('two different games are not merged: another ground, another time, or a competition that names no province', async () => {
+  const council = gaa({ ref: 'm', competition: 'AIB Munster Club Championship Final', home: 'Alpha (Cork)', away: 'Beta (Kerry)' });
+  for (const other of [
+    gaa({ ref: 'c1', competition: 'Munster Junior Cup', home: 'Gamma', away: 'Delta', venue: 'Far Away' }),
+    gaa({ ref: 'c2', competition: 'Munster Junior Cup', home: 'Gamma', away: 'Delta', time: '14:00' }),
+    gaa({ ref: 'c3', competition: 'County Under 13 League', home: 'Gamma', away: 'Delta' }),
+    gaa({ ref: 'c4', competition: 'Munster Junior Cup', home: 'Gamma', away: 'Delta', sport: 'hurling' }),
+  ]) {
+    const { fixtures } = await gather({ sources: { 'munster-gaa': source([council]), 'county-gaa': source([other]) }, grounds: twoGrounds });
+    assert.equal(fixtures.length, 2, other.ref);
+  }
+});
+
+test('a hand-entered fixture is replaced when a source lists the same start with one side matching', async () => {
+  const hand = { source: 'admin', source_ref: 'hand-1', sport_id: 'ladies-football', starts_at: '2999-11-21T13:00:00+00:00', home_team: 'Aghada', away_team: 'Gaultier' };
+  const listed = gaa({ sport: 'ladies-football', category: 'women', time: '13:00', home: 'Áth Fhada (Cork)', away: 'Gaultier (Waterford)' });
+  assert.deepEqual([...(await gather({ existing: [hand], sources: { 'munster-gaa': source([listed]) }, grounds })).replaced], ['hand-1']);
+  // An hour apart with only one side matching is another game (a club's second team, or a replay later that day).
+  assert.equal((await gather({ existing: [hand], sources: { 'munster-gaa': source([{ ...listed, time: '14:00' }]) }, grounds })).replaced.size, 0);
+});
+
+test('a general tickets page gives way to a ticket listing for the game itself', async () => {
+  const { fixtures } = await gather({ sources: { 'munster-gaa': source([gaa({ home: 'Alpha', away: 'Bravo', ticketUrl: 'http://council/tickets', ticketUrlGeneral: true })]) }, grounds });
+  assert.equal(toRow(fixtures[0]).ticket_url, 'http://council/tickets');
+  assert.equal(ticketMatcher(fixtures)({ sport_id: 'gaelic-football', starts_at: fixtures[0].startsAt, home_team: 'Alpha', away_team: 'Bravo', ticket_url: 'http://seller/this-game' }), true);
+  assert.equal(toRow(fixtures[0]).ticket_url, 'http://seller/this-game');
+});

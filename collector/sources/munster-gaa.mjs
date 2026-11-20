@@ -4,6 +4,10 @@ import { gaaGame, tidy } from '../lib/util.mjs';
 
 export const name = 'Munster GAA';
 
+// From munster.gaa.ie/fixtures/munster-gaa-tickets/ (read 20 Nov 2026).
+const TICKETS = 'https://munster.gaa.ie/fixtures/munster-gaa-tickets/';
+const SCHOOLS_TICKETS = 'https://www.universe.com/users/munster-pps-710YJS';
+
 // This month's calendar and next month's.
 const month = (d) => `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
 const today = new Date();
@@ -38,6 +42,9 @@ export function read(html, page) {
         // The calendar's times are Irish local time. Midnight means the time has not been set.
         date: e.startDate.slice(0, 10), time: time === '00:00' ? null : time,
         venue: decode(e.location?.name), county: null, postcode: null, area: 'Munster',
+        // The calendar carries no ticket link for a game, so "Get tickets" opens the council's own tickets page
+        // (schools games: the schools ticket seller that page names). A listing for the game itself replaces it.
+        ticketUrl: /school|p\.?p\.?s\b|coll[eé]ge|col[aá]iste/i.test(competition) ? SCHOOLS_TICKETS : TICKETS, ticketUrlGeneral: true,
         url: e.url ?? page.url,
       });
     }
