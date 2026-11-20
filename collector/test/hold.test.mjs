@@ -30,8 +30,9 @@ test('a held fixture does not replace a hand-entered one or hide a ticket listin
   assert.equal(listed({ sport_id: 'rugby', starts_at: fixtures[0].startsAt, home_team: 'Alpha', away_team: 'Beta', ticket_url: 'http://t' }), false);
 });
 
-test('Athletics Ireland is registered and held', () => {
-  assert.equal(SOURCES['athletics-ireland'].hold, true);
+test('Athletics Ireland is registered and shown (the owner lifted its hold on 20 Nov 2026)', () => {
+  assert.ok(SOURCES['athletics-ireland']);
+  assert.notEqual(SOURCES['athletics-ireland'].hold, true);
 });
 
 // The list page's own markup for two events, cut down: one with a page of its own, one without.
