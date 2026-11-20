@@ -531,3 +531,15 @@ test('a place named for another sport is not the ground: a rugby game is not at 
   assert.equal(namedForAnotherSport('Kiltormer GAA', 'soccer', 'Kiltormer GAA Grounds'), false);
   assert.equal(namedForAnotherSport('Kiltormer GAA', 'soccer', 'Kiltormer'), true);
 });
+
+// On 20 Nov 2026 all eleven handball grounds were re-labelled as GAA handball, four of them wrongly, and every Olympic
+// handball fixture lost its ground. The list is fixed, so every venue in it must stay placed for Olympic handball.
+test('Olympic handball snapshot: every fixture has a ground placed for Olympic handball', async () => {
+  const { read, pages } = await import('../sources/handball-snapshot.mjs');
+  const { slotFor, loadGrounds } = await import('../lib/grounds.mjs');
+  const grounds = loadGrounds();
+  const fixtures = read(pages[0].text, pages[0]);
+  assert.ok(fixtures.length > 0);
+  const unplaced = [...new Set(fixtures.filter((f) => grounds[slotFor(f, grounds)]?.latitude == null).map((f) => f.venue))];
+  assert.deepEqual(unplaced, []);
+});
