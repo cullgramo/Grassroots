@@ -3,8 +3,8 @@
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { runImport } from '../supabase/functions/import-ticketmaster/index.ts';
 import { SOURCES } from './look.mjs';
-import { gather, ticketMatcher, unplacedGrounds } from './lib/build.mjs';
-import { redact } from './lib/watchdog.mjs';
+import { gather, notReadThisRun, storedAsFixtures, ticketMatcher, unplacedGrounds } from './lib/build.mjs';
+import { redact, ticketmasterStats } from './lib/watchdog.mjs';
 import { countUpcoming, makeDb, removeReplaced, removeUnseen, safeToRemove, saveFixtures } from './lib/save.mjs';
 
 const dry = process.env.DRY === '1' || process.env.DRY === 'true';
@@ -42,11 +42,22 @@ try {
 // 1. Ticketmaster and Universe (top-level fixtures and club listings with tickets).
 if (ticketmasterKey && SUPABASE_URL && serviceKey) {
   try {
-    const r = await runImport(ticketmasterKey, dry, gathered ? { alreadyListed: ticketMatcher(gathered.fixtures) } : {});
+    // A source that could not be read this run keeps its stored fixtures on show, so those count as already listed too.
+    let stored = [];
+    const notRead = gathered ? notReadThisRun(gathered) : [];
+    if (notRead.length) {
+      try {
+        const rows = await db('GET', `fixtures?select=sport_id,home_team,away_team,starts_at,time_known,ticket_url&source=in.(${notRead.map(encodeURIComponent).join(',')})&approval=eq.approved&starts_at=gt.${encodeURIComponent(runStarted.toISOString())}&limit=5000`, { prefer: 'return=representation' });
+        stored = storedAsFixtures(rows);
+      } catch (e) {
+        note(`- Could not read the stored fixtures of sources not read this run (${redact(e.message)}); a game of theirs that Ticketmaster also lists may show twice until the next run.`, '');
+      }
+    }
+    const r = await runImport(ticketmasterKey, dry, gathered ? { alreadyListed: ticketMatcher([...gathered.fixtures, ...stored]) } : {});
     const sports = Object.entries(r.bySport).map(([k, n]) => `${k} ${n}`).join(', ');
-    stats.sources.ticketmaster = { name: 'Ticketmaster and Universe', found: r.importable, placed: r.importable, saved: r.saved, problems: r.errors.map((e) => redact(e)) };
+    stats.sources.ticketmaster = ticketmasterStats(r);
     stats.saved += r.saved ?? 0;
-    note('## Ticketmaster and Universe', '', `- Found: ${r.importable}`, `- Also listed by another source, shown once with the ticket link: ${r.listedByAnotherSource ?? 0}`, `- Saved: ${r.saved}`, `- Removed as no longer listed: ${r.removedAsNoLongerListed}`, `- By sport: ${sports || 'none'}`);
+    note('## Ticketmaster and Universe', '', `- Found: ${stats.sources.ticketmaster.found}`, `- Of those, also listed by another source and shown once with the ticket link: ${r.listedByAnotherSource ?? 0}`, `- Left to show from Ticketmaster: ${r.importable}`, `- Saved: ${r.saved}`, `- Removed as no longer listed: ${r.removedAsNoLongerListed}`, `- By sport: ${sports || 'none'}`);
     if (r.errors.length) {
       failed = true;
       note('- Problems:', ...r.errors.map((e) => `  - ${e}`));

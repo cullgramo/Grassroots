@@ -173,6 +173,19 @@ export function ticketMatcher(fixtures) {
   };
 }
 
+/**
+ * The sources whose pages were not all read in this run, or that gave nothing. Their fixtures already in the database
+ * stay on show (nothing is tidied away for a source that was not fully read), so they still count as "already listed".
+ */
+export const notReadThisRun = (gathered) => Object.keys(gathered.found).filter((key) => !(key in gathered.live));
+
+/**
+ * Stored fixtures in the shape `ticketMatcher` reads. On 20 Nov 2026 the Belfast Giants' site failed for one run; its
+ * 24 games were not among the fixtures read, so Ticketmaster's copies were not recognised and showed as second listings
+ * until the next run. Giving the matcher the stored games of any source that could not be read prevents that.
+ */
+export const storedAsFixtures = (rows) => rows.map((r) => ({ sport: r.sport_id, home: r.home_team, away: r.away_team, startsAt: r.starts_at, timeKnown: r.time_known !== false, ticketUrl: r.ticket_url ?? null }));
+
 /** The database row for a fixture from `gather`, without its venue (the caller adds venue_id). */
 export function toRow(f) {
   return {
