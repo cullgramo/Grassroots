@@ -56,6 +56,12 @@ const KNOCKOUT_SLOT = /\b(winners?|losers?|r\/up|runners?[- ]?up)\s+(of\s+)?(grp
 // A ground that is not a ground yet ("Venue TBC"). Some feeds give one shared placeholder record, with a map position.
 const NOT_A_GROUND = /^(venue\s*)?(tbc|tba|tbd|to be (confirmed|decided|announced))$|\b(venue|ground|pitch)\s+(tbc|tba|tbd)\b/i;
 const NEUTRAL = /\bfinals?\b|\bsemi/i;
+// The four provincial councils' own sources, and what counts as a county board's source.
+const PROVINCIAL_COUNCILS = new Set(['munster-gaa', 'leinster-gaa', 'ulster-gaa', 'connacht-gaa']);
+const isCountyBoard = (key) => key === 'county-gaa' || (/-gaa$/.test(key) && !PROVINCIAL_COUNCILS.has(key));
+const NAMES_A_PROVINCE = /\b(munster|leinster|ulster|connacht)\b/i;
+const SAME_PITCH_KM = 0.5;
+const kmApart = (a, b) => Math.hypot((a.latitude - b.latitude) * 111.2, (a.longitude - b.longitude) * 111.2 * Math.cos((a.latitude * Math.PI) / 180));
 const isBareName = (venue) => !venue.includes(',') && venue.trim().split(/\s+/).length <= 2 && !/park|p[aá]irc|gaa|gac|club|field|grounds|college|school|university/i.test(venue);
 
 export async function gather({ existing = [], sources = SOURCES, grounds = loadGrounds(), now = new Date() } = {}) {
@@ -108,12 +114,29 @@ export async function gather({ existing = [], sources = SOURCES, grounds = loadG
       for (const e of held ? [] : existing) {
         if (e.source !== 'admin' || e.sport_id !== f.sport || e.starts_at.slice(0, 10) !== startsAt.slice(0, 10)) continue;
         const theirs = [...words(e.home_team ?? ''), ...words(e.away_team ?? '')];
-        if (words(f.home ?? f.title ?? '').some((w) => theirs.includes(w)) && words(f.away ?? f.title ?? '').some((w) => theirs.includes(w))) replaced.add(e.source_ref);
+        const shares = (t) => words(t ?? '').some((w) => theirs.includes(w));
+        const both = shares(f.home ?? f.title) && shares(f.away ?? f.title);
+        // One side matching is enough when the two start at the same minute: a hand-entered "Aghada v Gaultier" and
+        // a council's "Áth Fhada v Gaultier" are one game, and Irish spellings defeat a match on both sides.
+        const sameStart = Date.parse(e.starts_at) === Date.parse(startsAt);
+        if (both || (sameStart && (shares(f.home) || shares(f.away)))) replaced.add(e.source_ref);
       }
       fixtures.push({ ...f, source: key, ref, startsAt, ground, timeKnown, venueConfirmed: !homeGround, held });
     }
   }
-  return { fixtures, leftOut, live, problems, found, replaced };
+  // A county board often relays a provincial championship game on its own page, with the clubs written differently
+  // (in Irish, or without the county), so the two do not look like one game by name. The same sport, the same start
+  // and the same ground as the provincial council's own listing is the same game; the council's version is kept.
+  const council = fixtures.filter((f) => PROVINCIAL_COUNCILS.has(f.source));
+  const kept = fixtures.filter((f) => {
+    if (!isCountyBoard(f.source) || !NAMES_A_PROVINCE.test(f.competition ?? '')) return true;
+    const relayed = council.some((p) => p.sport === f.sport && Date.parse(p.startsAt) === Date.parse(f.startsAt) && kmApart(p.ground, f.ground) <= SAME_PITCH_KM);
+    if (!relayed) return true;
+    leftOut.push({ source: sources[f.source]?.name ?? f.source, date: f.date, time: f.time ?? '', home: f.home, away: f.away, title: f.title, venue: f.venue, area: f.area, sport: f.sport, competition: f.competition ?? '', countyHint: f.countyHint ?? '', reason: 'Already listed by another source' });
+    if (live[f.source]) live[f.source] = live[f.source].filter((r) => r !== f.ref);
+    return false;
+  });
+  return { fixtures: kept, leftOut, live, problems, found, replaced };
 }
 
 // Words that say what kind of side it is, not which side: they must not make two different games look like one.
@@ -145,7 +168,7 @@ export function ticketMatcher(fixtures) {
       return sides && near;
     });
     if (!hit) return false;
-    if (!hit.ticketUrl && t.ticket_url) hit.ticketUrl = t.ticket_url;
+    if ((!hit.ticketUrl || hit.ticketUrlGeneral) && t.ticket_url) { hit.ticketUrl = t.ticket_url; hit.ticketUrlGeneral = false; }
     return true;
   };
 }

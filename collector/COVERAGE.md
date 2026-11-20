@@ -99,6 +99,8 @@ A site that refuses automated reading is not a candidate for holding: the refusa
 - A ground found from a club or town name is only used for the sport it was found for (`slotFor` in `lib/grounds.mjs`).
 - On a county board's page, a bare village name placed in another county is held for checking (`lib/build.mjs`).
 - Positions supplied by the owner as Google Maps pins are noted as such in `grounds.json`. Use the full link, not a short one.
+- One game written two ways (20 Nov 2026): a county board's copy of a provincial championship game is dropped when the provincial council lists the same sport, the same start and a ground within 500 m (`lib/build.mjs`); the council's version is kept. A hand-entered fixture is replaced when a source lists the same start with one side matching. Both exist because Irish and English club names ("Uibh Laoire" and "Iveleary") defeat a match by name.
+- Munster GAA's calendar has no ticket link per game, so its fixtures carry the council's tickets page as a general link (`ticketUrlGeneral`); a ticket listing for the game itself replaces it.
 
 ## Parked app features
 
