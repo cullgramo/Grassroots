@@ -48,6 +48,16 @@ const fmt = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
 export const redact = (s) => String(s).replace(/((?:api[_-]?key|key|token|secret|password|authorization)=)[^&\s"']+/gi, '$1***').replace(/\s+/g, ' ').slice(0, 200);
 const short = redact;
 
+/**
+ * Ticketmaster's line in the run's record. "Found" is everything Ticketmaster returned, including the games another
+ * source also lists (those are shown once, from the other source, with Ticketmaster's ticket link). Counting only the
+ * games left over made the figure jump whenever another source appeared, changed or failed, which read as a drop.
+ */
+export function ticketmasterStats(r) {
+  const found = (r.importable ?? 0) + (r.listedByAnotherSource ?? 0);
+  return { name: 'Ticketmaster and Universe', found, placed: found, saved: r.saved, problems: (r.errors ?? []).map((e) => redact(e)) };
+}
+
 /** A source's usual figure: the median over the baseline runs where it read cleanly (null if too few). */
 function usual(baseline, key, field) {
   const vals = baseline.map((r) => r.sources[key]).filter((s) => s && !s.problems?.length && Number.isFinite(s[field])).map((s) => s[field]);
