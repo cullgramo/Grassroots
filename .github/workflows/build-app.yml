@@ -1,0 +1,67 @@
+name: Build the app
+
+# Makes the phone app on Expo's servers. Started by hand only, from the Actions page: Run workflow.
+#
+#   preview     an Android app file (APK) that installs straight onto a phone, for testing
+#   production  the file Google Play asks for (only useful once there is a Google Play account)
+#
+# The run here takes a few minutes: it checks the code, then hands the build to Expo and finishes. The build itself
+# carries on at Expo (often 15 to 40 minutes on the free plan). The run's summary gives the link to it; the install
+# link is on that page when the build is done.
+#
+# Needs the EXPO_TOKEN secret, the same one the website publish uses. Until a Google Maps key is entered on expo.dev
+# the Android app's map shows blank. iPhone builds need an Apple Developer account and are not made here.
+# See docs/store-builds.md.
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Which build
+        type: choice
+        options:
+          - preview
+          - production
+        default: preview
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-app
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Start the Android build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      PROFILE: ${{ inputs.profile }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Look for the Expo token
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "::error::EXPO_TOKEN is not set. Add it under Settings, Secrets and variables, Actions."
+            exit 1
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      # An app that does not typecheck or pass its tests is not built.
+      - run: npx tsc --noEmit
+      - run: npx jest --silent
+      - name: Hand the build to Expo
+        run: |
+          npx eas-cli@latest build --platform android --profile "$PROFILE" --non-interactive --no-wait --json > build.json
+          node -e "
+            let id = null;
+            try { id = JSON.parse(require('fs').readFileSync('build.json', 'utf8'))[0]?.id ?? null; } catch {}
+            const page = 'https://expo.dev/accounts/aggfh/projects/grassroots/builds' + (id ? '/' + id : '');
+            const lines = ['# The build has started at Expo', '', 'Follow it, and install the app when it is done: ' + page, '',
+              'Open that page on the Android phone and press Install. The phone will ask once to allow installing from the browser.'];
+            require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n');
+            console.log(page);
+          "
