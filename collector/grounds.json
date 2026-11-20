@@ -2021,7 +2021,7 @@
   "how": "place search (amenity/school: Loreto High School Beaufort)"
  },
  "Ireland|mardyke arena|": {
-  "family": "gaa-handball",
+  "family": "handball",
   "name": "Mardyke Arena",
   "county": "Cork",
   "latitude": 51.894729,
@@ -2095,7 +2095,7 @@
   "county": "Dublin",
   "latitude": 53.397327,
   "longitude": -6.436325,
-  "family": "gaa-handball",
+  "family": "handball",
   "how": "pin supplied by the app owner (unlabelled link, 15 Nov 2026); the point is in Hansfield, Blanchardstown, Dublin 15, where Phibblestown is, and the map names the site Coláiste Pobail Setanta (a school with community facilities)"
  },
  "Ireland|punchestown racecourse|": {
@@ -2170,7 +2170,7 @@
   "county": "Dublin",
   "latitude": 53.3051803,
   "longitude": -6.2918034,
-  "family": "gaa-handball",
+  "family": "handball",
   "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on Templeogue Road, Terenure, about 300 m from Terenure College; the map does not name a dome there, so the position is the owner’s alone"
  },
  "Ireland|the dub malone playing fields|BT9 5NA": null,
@@ -2247,7 +2247,7 @@
   "county": "Dublin",
   "latitude": 53.3081049,
   "longitude": -6.2294969,
-  "family": "gaa-handball",
+  "family": "handball",
   "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on the UCD Belfield campus, 43 m from the map’s building named UCD Sports Centre (Wynnsward Drive)"
  },
  "Ireland|waterford|": {
