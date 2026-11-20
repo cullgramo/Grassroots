@@ -127,3 +127,21 @@ export function renderReport({ problems, baselineRuns }, { runUrl, ranAt, histor
   if (runUrl) lines.push('', `Run: ${runUrl}`);
   return lines.join('\n');
 }
+
+const SIG = /<!-- watchdog:([^>]*?) -->/;
+/** The fingerprint kept in the watchdog issue's text, or null. */
+export const signatureIn = (body) => String(body ?? '').match(SIG)?.[1] ?? null;
+export const withSignature = (text, problems) => `${text}\n\n<!-- watchdog:${signature(problems)} -->`;
+
+/**
+ * What to do with the one watchdog issue: open it when problems first appear, add a comment when the list of problems
+ * changes, say nothing when it is the same as last time, and close it when everything is healthy again.
+ * @param {{ problems: { id: string }[] }} result from `evaluate`
+ * @param {{ body?: string } | null} openIssue the watchdog issue if one is open
+ * @returns {'open' | 'comment' | 'close' | 'nothing'}
+ */
+export function issueStep(result, openIssue) {
+  if (!result.problems.length) return openIssue ? 'close' : 'nothing';
+  if (!openIssue) return 'open';
+  return signatureIn(openIssue.body) === signature(result.problems) ? 'nothing' : 'comment';
+}
