@@ -12,6 +12,7 @@ import { report, reportTo } from '@/lib/report';
 import { openingFilters, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import type { AgeFilter } from '@/utils/ageGroup';
 import { isGenderFilter, type GenderFilter } from '@/utils/category';
+import type { MapStyle } from '@/components/FixtureMap.types';
 import type { FollowedClub } from '@/utils/club';
 import { dayHasPassed } from '@/utils/days';
 import { filterFixtures, type Sort } from '@/utils/filterFixtures';
@@ -45,6 +46,9 @@ interface AppState {
   /** Clubs the user follows, kept on the phone. */
   followedClubs: FollowedClub[];
   toggleFollow: (club: FollowedClub) => void;
+  /** The street map or satellite imagery. Remembered on the phone. */
+  mapStyle: MapStyle;
+  setMapStyle: (style: MapStyle) => void;
   /** True when the phone reminds the user before starred games and followed clubs' games. Always false on the website. */
   remindersOn: boolean;
   /**
@@ -85,6 +89,7 @@ interface AppState {
 const SAVED_KEY = 'grassroots.saved';
 const CLUBS_KEY = 'grassroots.clubs';
 const REMINDERS_KEY = 'grassroots.reminders';
+const MAP_STYLE_KEY = 'grassroots.mapStyle';
 const SPORTS_KEY = 'grassroots.mySports';
 const AGE_KEY = 'grassroots.myAge';
 const GENDER_KEY = 'grassroots.myGender';
@@ -362,6 +367,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- the clock is a dependency on purpose
   }, [allFixtures, clock]);
 
+  const [mapStyle, setMapStyleState] = useState<MapStyle>('map');
+  useEffect(() => {
+    AsyncStorage.getItem(MAP_STYLE_KEY)
+      .then((raw) => raw === 'satellite' && setMapStyleState('satellite'))
+      .catch(reportTo('reading the map view choice'));
+  }, []);
+  const setMapStyle = useCallback((style: MapStyle) => {
+    setMapStyleState(style);
+    AsyncStorage.setItem(MAP_STYLE_KEY, style).catch(reportTo('saving the map view choice'));
+  }, []);
+
   // Game reminders: the phone holds one for each starred fixture and each followed club's fixture. Whenever the
   // fixtures, the stars or the followed clubs change, the phone's list is brought back in line.
   const [remindersOn, setRemindersFlag] = useState(false);
@@ -402,8 +418,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [remindersOn, haveFixtures, upcoming, savedIds, followedClubs]);
 
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mapStyle, setMapStyle, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mapStyle, setMapStyle, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

@@ -46,6 +46,7 @@ export function FixtureMap({
   interactive = true,
   inset,
   timeOnly = false,
+  mapStyle = 'map',
   style,
 }: FixtureMapProps) {
   const map = useRef<MapView>(null);
@@ -184,6 +185,8 @@ export function FixtureMap({
       ref={map}
       style={[StyleSheet.absoluteFill, style]}
       initialRegion={initial}
+      // Satellite is shown with place names and roads on top ("hybrid"): bare imagery is hard to find your way around.
+      mapType={mapStyle === 'satellite' ? 'hybrid' : 'standard'}
       onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
       onRegionChangeComplete={(r, details) => {
         // A move made by hand replaces whatever the app last fitted.
