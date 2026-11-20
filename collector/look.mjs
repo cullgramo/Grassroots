@@ -112,7 +112,6 @@ export const SOURCES = {
   'belfast-giants': belfastGiants,
   'water-polo': waterPolo,
   'irish-bowls': irishBowls,
-  // Held: collected and saved hidden, not shown in the app until Athletics Ireland agrees (see the source file).
   'athletics-ireland': athleticsIreland,
 };
 

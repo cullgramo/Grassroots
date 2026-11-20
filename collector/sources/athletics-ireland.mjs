@@ -1,7 +1,8 @@
 // Athletics Ireland fixtures: track and field, indoor, cross country, schools and regional championships.
 //
-// HELD (owner's decision, 19 Nov 2026): these fixtures are collected and saved hidden. They are not shown in the app
-// until Athletics Ireland agrees, at which point `hold` below is removed. See docs/permission-requests.md.
+// SHOWN (owner's decision, 20 Nov 2026). These fixtures were first collected hidden (19 Nov); the owner then chose to
+// show them. Athletics Ireland has not been asked yet: before the public launch, either have its permission or put
+// `export const hold = true;` back below `name`, which hides them again at the next run. See docs/permission-requests.md.
 //
 // Checked 19 Nov 2026: robots.txt lets ordinary readers read the fixtures pages. It disallows addresses carrying
 // "?location=" (never used here) and it shuts out AI crawlers by name, so nothing read here is used to train a model.
@@ -12,7 +13,6 @@ import { parse } from 'node-html-parser';
 import { getPage, tidy } from '../lib/util.mjs';
 
 export const name = 'Athletics Ireland';
-export const hold = true;
 
 const BASE = 'https://www.athleticsireland.ie/competitions-events/fixtures-results/';
 // The plain address lists the current year; next year's list is asked for by year.
