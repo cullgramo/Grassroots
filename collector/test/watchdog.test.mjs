@@ -1,7 +1,7 @@
 // The data watchdog's comparison rules. Nothing here touches the network or GitHub.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluate, median, pickBaseline, redact, renderReport, signature } from '../lib/watchdog.mjs';
+import { evaluate, issueStep, median, pickBaseline, redact, renderReport, signature, signatureIn, withSignature } from '../lib/watchdog.mjs';
 
 const src = (found, placed = found, problems = []) => ({ name: 'Source', found, placed, saved: placed, problems });
 /** A run on a given day (2026-11-<day>) with the given per-source counts. */
@@ -130,4 +130,19 @@ test('the report names each problem with the run link, and says so when all is w
   assert.match(bad, /\| Source \| zero found \|/);
   assert.match(bad, /actions\/runs\/1/);
   assert.match(renderReport(evaluate(run(8, { a: src(30) }), history)), /All sources are healthy/);
+});
+
+test('one issue: opened when problems appear, commented on when they change, silent when the same, closed when healthy', () => {
+  const a = { problems: [{ id: 'source:a:zero' }] };
+  const ab = { problems: [{ id: 'source:a:zero' }, { id: 'source:b:failed' }] };
+  const healthy = { problems: [] };
+  assert.equal(issueStep(healthy, null), 'nothing');
+  assert.equal(issueStep(a, null), 'open');
+  const issue = { body: withSignature('report text', a.problems) };
+  assert.equal(signatureIn(issue.body), signature(a.problems));
+  assert.equal(issueStep(a, issue), 'nothing');
+  assert.equal(issueStep(ab, issue), 'comment');
+  assert.equal(issueStep(healthy, issue), 'close');
+  // An issue someone edited by hand, with no fingerprint left, is treated as changed, not as the same.
+  assert.equal(issueStep(a, { body: 'edited' }), 'comment');
 });

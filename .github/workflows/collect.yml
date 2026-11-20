@@ -63,3 +63,37 @@ jobs:
           path: collector-report/run-stats.json
           if-no-files-found: ignore
           retention-days: 3
+
+  # After the collection: compare each source with the past week and tell the owner when one has broken or dropped.
+  # It keeps a single GitHub issue (opened, updated or closed as things change), so nothing is repeated every morning.
+  watchdog:
+    name: Data watchdog
+    needs: collect
+    if: ${{ always() && !inputs.dry }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    env:
+      SUPABASE_URL: https://dxkurwkmbnireaptcsbd.supabase.co
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Fetch today's per-source counts
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: run-stats
+          path: collector-report
+
+      - name: Check every source against the past week
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          COLLECT_RESULT: ${{ needs.collect.result }}
+        run: node collector/watchdog.mjs

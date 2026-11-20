@@ -5,9 +5,9 @@ name: Deploy web
 #
 # Needs one secret, entered in GitHub only: EXPO_TOKEN (expo.dev, Account settings, Access tokens).
 # Optional secret: EXPO_PUBLIC_MAPTILER_KEY, the web map's tile key; without it the map uses OpenStreetMap's own tiles.
-# The Expo project is @aggfh/grassroots; its ID belongs in app.json (expo.extra.eas.projectId) once known.
+# The Expo project is @aggfh/grassroots; its ID is in app.json (expo.extra.eas.projectId).
 #
-# Until both are in place nothing is published, and the run says so in a notice. That is not a failure: the publish
+# Until the token is in place nothing is published, and the run says so in a notice. That is not a failure: the publish
 # job is skipped, so a merge does not show a red mark or send a failure email for something not switched on yet.
 on:
   push:
@@ -70,13 +70,6 @@ jobs:
       # A build that does not typecheck or pass its tests is not published.
       - run: npx tsc --noEmit
       - run: npx jest --silent
-      # The project is @aggfh/grassroots on expo.dev. Until its ID is written into app.json, look it up by that name.
-      - name: Find the Expo project
-        run: |
-          if node -e "process.exit(require('./app.json').expo?.extra?.eas?.projectId ? 0 : 1)"; then exit 0; fi
-          node -e "const fs=require('fs');const a=require('./app.json');a.expo.owner='aggfh';fs.writeFileSync('app.json',JSON.stringify(a,null,2))"
-          npx eas-cli@latest init --force --non-interactive
-          node -e "console.log('Expo project ID:', require('./app.json').expo?.extra?.eas?.projectId)"
       - name: Build the website
         run: npx expo export --platform web
       - name: Publish to grassroots.expo.app

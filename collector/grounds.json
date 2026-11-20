@@ -1792,7 +1792,7 @@
   "how": "GAA pitch list, matched on club name (Boardsmill GAA); match read and accepted by hand, 17 Nov 2026"
  },
  "Ireland|clarecastle|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Clarecastle Sports Complex",
   "county": "Clare",
   "latitude": 52.8156689,
@@ -1815,7 +1815,7 @@
   "how": "place search, 19 Nov 2026 (OpenStreetMap way/640922357: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|clooney quin|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Clooney Quin GAA Club",
   "county": "Clare",
   "latitude": 52.83639,
@@ -1948,7 +1948,7 @@
   "how": "place search, 19 Nov 2026 (OpenStreetMap way/469485064: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|kilkishen|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Kilkishen Handball Club",
   "county": "Clare",
   "latitude": 52.80249,
@@ -2021,7 +2021,7 @@
   "how": "place search (amenity/school: Loreto High School Beaufort)"
  },
  "Ireland|mardyke arena|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Mardyke Arena",
   "county": "Cork",
   "latitude": 51.894729,
@@ -2067,7 +2067,7 @@
   "how": "place search, 19 Nov 2026 (OpenStreetMap way/263720004: the map names this spot as the greyhound stadium); used for greyhound racing only, because the source writes just the town"
  },
  "Ireland|newmarket on fergus|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Newmarket-on-Fergus GAA Handball & Squash",
   "county": "Clare",
   "latitude": 52.760883,
@@ -2075,7 +2075,7 @@
   "how": "position supplied by the owner on 19 Nov 2026 (handball is played at the GAA grounds, Ballycar Road); checked: 15 m from our Newmarket-on-Fergus GAA entry, map county Clare"
  },
  "Ireland|ocallaghans mills|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "O'Callaghans Mills GAA Club - Hamilton Park Kilkishen",
   "county": "Clare",
   "latitude": 52.8025837,
@@ -2095,7 +2095,7 @@
   "county": "Dublin",
   "latitude": 53.397327,
   "longitude": -6.436325,
-  "family": "handball",
+  "family": "gaa-handball",
   "how": "pin supplied by the app owner (unlabelled link, 15 Nov 2026); the point is in Hansfield, Blanchardstown, Dublin 15, where Phibblestown is, and the map names the site Coláiste Pobail Setanta (a school with community facilities)"
  },
  "Ireland|punchestown racecourse|": {
@@ -2170,7 +2170,7 @@
   "county": "Dublin",
   "latitude": 53.3051803,
   "longitude": -6.2918034,
-  "family": "handball",
+  "family": "gaa-handball",
   "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on Templeogue Road, Terenure, about 300 m from Terenure College; the map does not name a dome there, so the position is the owner’s alone"
  },
  "Ireland|the dub malone playing fields|BT9 5NA": null,
@@ -2212,7 +2212,7 @@
   "how": "place search (leisure/sports_centre: Tipperary Racecourse)"
  },
  "Ireland|toonagh|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Toonagh handball court",
   "county": "Clare",
   "latitude": 52.8903467,
@@ -2235,7 +2235,7 @@
   "how": "place search (leisure/sports_centre: Waterford & Tramore Racecourse)"
  },
  "Ireland|tuamgraney|": {
-  "family": "handball",
+  "family": "gaa-handball",
   "name": "Tuamgraney",
   "county": "Clare",
   "latitude": 52.896892,
@@ -2247,7 +2247,7 @@
   "county": "Dublin",
   "latitude": 53.3081049,
   "longitude": -6.2294969,
-  "family": "handball",
+  "family": "gaa-handball",
   "how": "pin supplied by the app owner (Google Maps, 15 Nov 2026); the point is on the UCD Belfield campus, 43 m from the map’s building named UCD Sports Centre (Wynnsward Drive)"
  },
  "Ireland|waterford|": {

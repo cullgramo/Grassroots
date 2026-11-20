@@ -7,6 +7,7 @@ import type { SportId } from '@/constants/sports';
 import { fixtures as sampleFixtures } from '@/data/fixtures';
 import { loadFixtureCache, saveFixtureCache } from '@/lib/cache';
 import { backendConfigured, fetchFixtures } from '@/lib/fixtures';
+import { askForReminders, clearReminders, remindersSupported, syncReminders, type ReminderPermission } from '@/lib/reminders';
 import { report, reportTo } from '@/lib/report';
 import { openingFilters, type Filters, type Fixture, type UserLocation } from '@/types/fixture';
 import type { AgeFilter } from '@/utils/ageGroup';
@@ -15,6 +16,7 @@ import type { FollowedClub } from '@/utils/club';
 import { dayHasPassed } from '@/utils/days';
 import { filterFixtures, type Sort } from '@/utils/filterFixtures';
 import { isPlayed } from '@/utils/played';
+import { planReminders } from '@/utils/reminders';
 import { widenView } from '@/utils/view';
 
 interface AppState {
@@ -43,6 +45,13 @@ interface AppState {
   /** Clubs the user follows, kept on the phone. */
   followedClubs: FollowedClub[];
   toggleFollow: (club: FollowedClub) => void;
+  /** True when the phone reminds the user before starred games and followed clubs' games. Always false on the website. */
+  remindersOn: boolean;
+  /**
+   * Switches reminders on or off. Switching on asks the phone's permission first and answers with what the phone said:
+   * anything but 'granted' means reminders stayed off.
+   */
+  setRemindersOn: (on: boolean) => Promise<ReminderPermission>;
   /** Sports the user follows. Empty means every sport. */
   mySports: SportId[];
   setMySports: (ids: SportId[]) => void;
@@ -75,6 +84,7 @@ interface AppState {
 
 const SAVED_KEY = 'grassroots.saved';
 const CLUBS_KEY = 'grassroots.clubs';
+const REMINDERS_KEY = 'grassroots.reminders';
 const SPORTS_KEY = 'grassroots.mySports';
 const AGE_KEY = 'grassroots.myAge';
 const GENDER_KEY = 'grassroots.myGender';
@@ -352,9 +362,48 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- the clock is a dependency on purpose
   }, [allFixtures, clock]);
 
+  // Game reminders: the phone holds one for each starred fixture and each followed club's fixture. Whenever the
+  // fixtures, the stars or the followed clubs change, the phone's list is brought back in line.
+  const [remindersOn, setRemindersFlag] = useState(false);
+  useEffect(() => {
+    if (!remindersSupported) return;
+    AsyncStorage.getItem(REMINDERS_KEY)
+      .then((raw) => setRemindersFlag(raw === 'on'))
+      .catch(reportTo('reading the reminders choice'));
+  }, []);
+  const setRemindersOn = useCallback(async (on: boolean): Promise<ReminderPermission> => {
+    if (!on) {
+      setRemindersFlag(false);
+      AsyncStorage.setItem(REMINDERS_KEY, 'off').catch(reportTo('saving the reminders choice'));
+      clearReminders().catch(reportTo('removing game reminders'));
+      return 'granted';
+    }
+    const answer = await askForReminders();
+    if (answer === 'granted') {
+      setRemindersFlag(true);
+      AsyncStorage.setItem(REMINDERS_KEY, 'on').catch(reportTo('saving the reminders choice'));
+    }
+    return answer;
+  }, []);
+  // The plan is worked out again every few minutes as the clock ticks; the phone is only touched when it changes.
+  const lastSynced = useRef<string | null>(null);
+  const haveFixtures = allFixtures.length > 0;
+  useEffect(() => {
+    // With nothing loaded there is nothing to plan from, and syncing would wipe reminders that are still right.
+    if (!remindersOn || !haveFixtures) {
+      lastSynced.current = null;
+      return;
+    }
+    const plan = planReminders(upcoming, savedIds, followedClubs);
+    const key = plan.map((r) => r.id).join('|');
+    if (key === lastSynced.current) return;
+    lastSynced.current = key;
+    syncReminders(plan).catch(reportTo('setting game reminders'));
+  }, [remindersOn, haveFixtures, upcoming, savedIds, followedClubs]);
+
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

@@ -16,6 +16,8 @@ export const SPORTS = [
   { id: 'gaelic-football', name: 'Gaelic Football', group: 'gaa', shape: 'match', color: '#16a34a', startWord: 'Throw-in' },
   { id: 'camogie', name: 'Camogie', group: 'gaa', shape: 'match', color: '#9333ea', startWord: 'Throw-in' },
   { id: 'ladies-football', name: 'Ladies Football', group: 'gaa', shape: 'match', color: '#db2777', startWord: 'Throw-in' },
+  // The GAA's own handball (alleys and one-wall courts). A different sport from Olympic handball, further down.
+  { id: 'gaa-handball', name: 'GAA Handball', group: 'gaa', shape: 'match', color: '#a16207', startWord: 'First serve' },
   { id: 'soccer', name: 'Soccer', group: 'soccer', shape: 'match', color: '#2563eb', startWord: 'Kick-off' },
   { id: 'rugby', name: 'Rugby', group: 'rugby', shape: 'match', color: '#1e3a8a', startWord: 'Kick-off' },
   { id: 'hockey', name: 'Hockey', group: 'hockey', shape: 'match', color: '#0891b2', startWord: 'Push-back' },

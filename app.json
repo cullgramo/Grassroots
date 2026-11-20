@@ -2,6 +2,7 @@
   "expo": {
     "name": "Grassroots",
     "slug": "grassroots",
+    "owner": "aggfh",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -46,10 +47,21 @@
         {
           "locationWhenInUsePermission": "Grassroots uses your location to show games near you."
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "enableRemoteNotifications": false
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ffaef679-1304-45d0-bb73-74c552447f66"
+      }
     }
   }
 }

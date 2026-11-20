@@ -65,6 +65,20 @@ export function readVenue(html) {
   return null;
 }
 
+// Athletics Ireland names only the town or postal district ("Dublin 15") beside each position. Where a position it
+// gives has been looked up on the map (20 Nov 2026), the place's own name is used; any other keeps the site's wording.
+const NAMED = [
+  [53.39811, -6.35983, 'National Indoor Arena'], // OpenStreetMap way/651690893, 61 m from the position given
+  [53.3958, -6.35526, 'Sport Ireland Campus'], // the map's sports centre at the position
+  [53.3918, -6.35668, 'Abbotstown Cross Country Track'], // the map's track at the position (way/825387209)
+  [53.38739, -6.36427, 'Abbotstown'], // the map's name for the area; nothing nearer names the course
+  [53.38041, -6.17509, 'Raheny (Station Road)'], // a road walk: the position is on Station Road in Raheny
+];
+const SAME_PLACE_KM = 0.15;
+const kmApart = (aLat, aLon, bLat, bLon) => Math.hypot((aLat - bLat) * 111.2, (aLon - bLon) * 111.2 * Math.cos((aLat * Math.PI) / 180));
+/** The map's name for a position Athletics Ireland gives, or null when that position has not been looked up. */
+export const placeName = (latitude, longitude) => NAMED.find(([lat, lon]) => kmApart(latitude, longitude, lat, lon) <= SAME_PLACE_KM)?.[2] ?? null;
+
 const onTheIsland = (v) => v.latitude > 51.3 && v.latitude < 55.5 && v.longitude > -10.8 && v.longitude < -5.3;
 
 export async function read(html, page, now = new Date(), fetchPage = getPage) {
@@ -87,7 +101,7 @@ export async function read(html, page, now = new Date(), fetchPage = getPage) {
       home: null, away: null, title: card.title,
       date: card.date, time: null, timeUnknownOk: true,
       // With no position from the event's page the venue is left blank, so a town's name is never used as a ground.
-      venue: venue ? venue.name || card.place.replace(/,\s*[A-Z]{2}$/, '') : '',
+      venue: venue ? placeName(venue.latitude, venue.longitude) ?? (venue.name || card.place.replace(/,\s*[A-Z]{2}$/, '')) : '',
       county: null, postcode: null, area: 'Ireland',
       latitude: venue?.latitude ?? null, longitude: venue?.longitude ?? null,
       url: card.link ?? page.url,

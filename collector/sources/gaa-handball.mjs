@@ -55,8 +55,8 @@ export function read(body, page) {
     const named = `${row.cname ?? ''} ${row.sname ?? ''}`;
     out.push({
       ref: String(row.match_id),
-      // GAA handball. The app's handball sport is the id these rows use.
-      sport: 'handball', level: /all.ireland|national/i.test(row.tname ?? '') ? 'top' : 'local',
+      // GAA handball has its own sport in the app; 'handball' alone is Olympic handball, a different game.
+      sport: 'gaa-handball', level: /all.ireland|national/i.test(row.tname ?? '') ? 'top' : 'local',
       category: categoryFromText(named),
       competition, home, away, title: null, date: when[1], time,
       venue, county: null, postcode: null, area: page.area ?? 'Ireland', countyHint: null,
