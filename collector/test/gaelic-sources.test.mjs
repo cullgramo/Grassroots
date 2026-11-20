@@ -110,7 +110,7 @@ test('GAA Handball: reads players, skips placeholders, results and the referee f
   const got = gaaHandball.read(body, gaaHandball.pages[0]);
   assert.equal(got.length, 2);
   assert.deepEqual([got[0].home, got[0].away, got[0].date, got[0].time, got[0].venue, got[0].sport, got[0].category, got[0].level, got[0].ref],
-    ['Joshua Quilter (Ballymacelligott)', "John Paul O'Brien (Clooney Quin)", '2026-11-27', '18:00', "OCallaghans Mills", 'handball', 'men', 'top', '10']);
+    ['Joshua Quilter (Ballymacelligott)', "John Paul O'Brien (Clooney Quin)", '2026-11-27', '18:00', "OCallaghans Mills", 'gaa-handball', 'men', 'top', '10']);
   assert.equal(got[1].time, null);
   assert.equal(got[1].venue, '');
   const dumped = JSON.stringify(got);

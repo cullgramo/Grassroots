@@ -202,7 +202,7 @@ const PLAYED_THERE = {
   athletics: /\bathletics? club\b|\bharriers\b/,
 };
 // Which of those a fixture's own sport counts as. Water polo is played in swimming pools; rowing on the water.
-const PLAYS_AS = { 'water-polo': ['swimming'], rowing: ['boats'], 'ice-hockey': ['hockey'] };
+const PLAYS_AS = { 'water-polo': ['swimming'], rowing: ['boats'], 'ice-hockey': ['hockey'], 'gaa-handball': ['handball'] };
 
 /**
  * True when the place found is named for a sport, and it is not this fixture's. The place is still accepted when the

@@ -518,6 +518,9 @@ test('a place named for another sport is not the ground: a rugby game is not at 
   assert.equal(namedForAnotherSport('Clara GAA Club', 'camogie', 'Clara'), false);
   assert.equal(namedForAnotherSport('Blackrock College RFC', 'hurling', 'Blackrock'), true);
   assert.equal(namedForAnotherSport('Clooney-Quin GAA', 'handball', 'Clooney Quin'), true);
+  // GAA handball is its own sport: a place named for handball is its own, and a GAA pitch is still not a court.
+  assert.equal(namedForAnotherSport('Kilkishen Handball Club', 'gaa-handball', 'Kilkishen'), false);
+  assert.equal(namedForAnotherSport('Clooney-Quin GAA', 'gaa-handball', 'Clooney Quin'), true);
   // a club that names two sports is fine for either
   assert.equal(namedForAnotherSport('Railway Union Hockey and Tennis Club', 'hockey', 'Railway Union'), false);
   // water polo is played in swimming pools, bowls at bowling clubs
