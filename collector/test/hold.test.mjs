@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gather, ticketMatcher, toRow } from '../lib/build.mjs';
-import { cardDate, read, readCards, readVenue } from '../sources/athletics-ireland.mjs';
+import { cardDate, placeName, read, readCards, readVenue } from '../sources/athletics-ireland.mjs';
 import { SOURCES } from '../look.mjs';
 
 const source = (rows, extra = {}) => ({ name: 'Fake', pages: [{ url: 'data:text/plain,x' }], read: () => rows, ...extra });
@@ -78,7 +78,8 @@ test('Athletics Ireland: events abroad and awards nights are dropped; an event w
   const got = await read(LIST, { url: 'https://example/list' }, new Date('2098-01-01'), async (url) => { fetched.push(url); return EVENT; });
   assert.deepEqual(fetched, ['https://www.athleticsireland.ie/competitions-events/fixtures-results/national-novice/']);
   assert.deepEqual(got.map((f) => [f.ref, f.title, f.level, f.venue, f.latitude]), [
-    ['54001', 'National Novice Cross Country Championships', 'top', 'Dublin 15', 53.3980926],
+    // The position is the one looked up on the map, so the place's own name replaces the site's "Dublin 15".
+    ['54001', 'National Novice Cross Country Championships', 'top', 'National Indoor Arena', 53.3980926],
     ['54002', 'Leinster Indoor Championships Day 1', 'local', '', null],
   ]);
   assert.ok(got.every((f) => f.sport === 'athletics' && f.home === null && f.time === null));
@@ -127,4 +128,12 @@ test('a general tickets page gives way to a ticket listing for the game itself',
   assert.equal(toRow(fixtures[0]).ticket_url, 'http://council/tickets');
   assert.equal(ticketMatcher(fixtures)({ sport_id: 'gaelic-football', starts_at: fixtures[0].startsAt, home_team: 'Alpha', away_team: 'Bravo', ticket_url: 'http://seller/this-game' }), true);
   assert.equal(toRow(fixtures[0]).ticket_url, 'http://seller/this-game');
+});
+
+test('Athletics Ireland: a position looked up on the map gets the place\'s name; any other keeps the site\'s wording', async () => {
+  assert.equal(placeName(53.3918, -6.35668), 'Abbotstown Cross Country Track');
+  assert.equal(placeName(52.5, -7.5), null);
+  const elsewhere = EVENT.replace('53.3980926', '52.5').replace('-6.359768', '-7.5');
+  const got = await read(LIST, { url: 'https://example/list' }, new Date('2098-01-01'), async () => elsewhere);
+  assert.equal(got[0].venue, 'Dublin 15');
 });
