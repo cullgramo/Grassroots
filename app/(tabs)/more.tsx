@@ -3,13 +3,14 @@ import Constants from 'expo-constants';
 import { router, type Href } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { useState, type ComponentProps, type ReactNode } from 'react';
-import { Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, Share, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { useTheme } from '@/components/useTheme';
 import { legalReady } from '@/constants/legal';
 import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { SITE_URL } from '@/lib/config';
+import { remindersSupported } from '@/lib/reminders';
 import { AGE_LABEL } from '@/utils/ageGroup';
 import { GENDER_LABEL } from '@/utils/category';
 
@@ -52,6 +53,30 @@ function Row({ icon, label, detail, onPress, last }: RowProps) {
   );
 }
 
+interface SwitchRowProps {
+  icon: Icon;
+  label: string;
+  detail: string;
+  value: boolean;
+  onChange: (value: boolean) => void;
+  disabled?: boolean;
+}
+
+/** A setting that is on or off. The explanation may run to a few lines, so it is not cut short. */
+function SwitchRow({ icon, label, detail, value, onChange, disabled }: SwitchRowProps) {
+  const t = useTheme();
+  return (
+    <View style={styles.row}>
+      <SymbolView name={icon} tintColor={t.tint} size={22} />
+      <View style={styles.text}>
+        <Text style={[styles.label, { color: t.text }]}>{label}</Text>
+        <Text style={[styles.detail, { color: t.muted }]}>{detail}</Text>
+      </View>
+      <Switch value={value} onValueChange={onChange} disabled={disabled} accessibilityLabel={label} trackColor={{ true: t.tint }} />
+    </View>
+  );
+}
+
 const go = (href: Href) => () => router.push(href);
 
 /**
@@ -60,8 +85,22 @@ const go = (href: Href) => () => router.push(href);
  */
 export default function MoreScreen() {
   const t = useTheme();
-  const { mySports, myAge, myGender, myCounty, location } = useApp();
+  const { mySports, myAge, myGender, myCounty, location, remindersOn, setRemindersOn } = useApp();
   const [told, setTold] = useState<string | null>(null);
+  // Set when the phone refused: 'blocked' means it will not ask again, so the fix is in the phone's own settings.
+  const [refused, setRefused] = useState<'denied' | 'blocked' | null>(null);
+
+  const switchReminders = async (on: boolean) => {
+    const answer = await setRemindersOn(on);
+    setRefused(answer === 'granted' ? null : answer);
+  };
+  const remindersNote = !remindersSupported
+    ? 'Reminders work in the phone app, not on the website.'
+    : refused === 'blocked'
+      ? 'Notifications are switched off for Grassroots. Tap here to open your phone’s settings and allow them.'
+      : refused === 'denied'
+        ? 'Reminders need your permission to show notifications. Switch on to be asked again.'
+        : 'A reminder 2 hours before each game you star and each game of a club you follow. With no time announced yet, it comes at 9 on the morning.';
   const legal = legalReady();
 
   const tellAFriend = async () => {
@@ -87,6 +126,19 @@ export default function MoreScreen() {
         <Row icon={{ ios: 'sportscourt', android: 'sports', web: 'sports' }} label="My sports" detail={sports} onPress={go('/sports')} />
         <Row icon={{ ios: 'person.2', android: 'groups', web: 'groups' }} label="Age and men or women" detail={who} onPress={go('/filters')} />
         <Row icon={{ ios: 'mappin', android: 'location_on', web: 'location_on' }} label="My county" detail={county} onPress={go('/county')} last />
+      </Section>
+
+      <Section title="Reminders">
+        <Pressable disabled={refused !== 'blocked'} onPress={() => Linking.openSettings()} accessibilityRole={refused === 'blocked' ? 'button' : undefined}>
+          <SwitchRow
+            icon={{ ios: 'bell', android: 'notifications', web: 'notifications' }}
+            label="Game reminders"
+            detail={remindersNote}
+            value={remindersOn}
+            onChange={switchReminders}
+            disabled={!remindersSupported}
+          />
+        </Pressable>
       </Section>
 
       <Section title="Grassroots">

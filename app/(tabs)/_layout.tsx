@@ -3,11 +3,14 @@ import { Tabs } from 'expo-router';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
+import { useOpenFromReminder } from '@/lib/reminders';
 
 /** The four places in the app. The map comes first: it is what Grassroots is for. */
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const tint = Colors[colorScheme].tint;
+  // A tapped reminder opens its fixture. It lives here because the tabs only exist once the app can navigate.
+  useOpenFromReminder();
 
   return (
     <Tabs

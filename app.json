@@ -46,6 +46,12 @@
         {
           "locationWhenInUsePermission": "Grassroots uses your location to show games near you."
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "enableRemoteNotifications": false
+        }
       ]
     ],
     "experiments": {
