@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClubMatches } from '@/components/ClubMatches';
@@ -21,10 +21,13 @@ const TOP_BAR = 130;
 
 const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', params: { id } });
 
+// Satellite imagery comes with the phone's own map. The website's map has none yet, so the button is not shown there.
+const SATELLITE_HERE = Platform.OS !== 'web';
+
 export default function ExploreScreen() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
-  const { fixtures, upcoming, filters, location, sort, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh } =
+  const { fixtures, upcoming, filters, location, sort, requestLocation, needsSportsChoice, needsCounty, setMyCounty, viewKey, loadState, isStale, refreshing, refresh, mapStyle, setMapStyle } =
     useApp();
   const [height, setHeight] = useState(0);
   const [topBar, setTopBar] = useState(TOP_BAR);
@@ -135,6 +138,7 @@ export default function ExploreScreen() {
   // Nearest first mixes days together, so each row then says its own day (unless only one day is showing).
   const showDay = sort === 'nearest' && location != null && !oneDay;
   const floating = snap === 'peek' && (selected || count === 0);
+  const satellite = mapStyle === 'satellite';
 
   return (
     <View style={styles.screen} onLayout={(e) => setHeight(e.nativeEvent.layout.height)}>
@@ -155,6 +159,7 @@ export default function ExploreScreen() {
         attributionBottom={inset.bottom + 2}
         inset={inset}
         timeOnly={oneDay}
+        mapStyle={mapStyle}
       />
 
       <View
@@ -181,17 +186,33 @@ export default function ExploreScreen() {
 
       {snap === 'peek' ? (
         <View style={[styles.floating, { bottom: PEEK + 28 }]} pointerEvents="box-none">
-          <Pressable
-            onPress={locate}
-            accessibilityRole="button"
-            accessibilityLabel="Centre map on my location"
-            style={[styles.locate, { backgroundColor: t.card }]}>
-            <SymbolView
-              name={{ ios: 'location.fill', android: 'my_location', web: 'my_location' }}
-              tintColor={t.tint}
-              size={22}
-            />
-          </Pressable>
+          <View style={styles.mapButtons} pointerEvents="box-none">
+            {SATELLITE_HERE ? (
+              <Pressable
+                onPress={() => setMapStyle(satellite ? 'map' : 'satellite')}
+                accessibilityRole="button"
+                accessibilityLabel={satellite ? 'Show the street map' : 'Show satellite view'}
+                accessibilityState={{ selected: satellite }}
+                style={[styles.locate, { backgroundColor: satellite ? t.tint : t.card }]}>
+                <SymbolView
+                  name={{ ios: 'square.2.layers.3d', android: 'layers', web: 'layers' }}
+                  tintColor={satellite ? t.onTint : t.tint}
+                  size={22}
+                />
+              </Pressable>
+            ) : null}
+            <Pressable
+              onPress={locate}
+              accessibilityRole="button"
+              accessibilityLabel="Centre map on my location"
+              style={[styles.locate, { backgroundColor: t.card }]}>
+              <SymbolView
+                name={{ ios: 'location.fill', android: 'my_location', web: 'my_location' }}
+                tintColor={t.tint}
+                size={22}
+              />
+            </Pressable>
+          </View>
           {floating ? (
             selected ? (
               <FixtureRow fixture={selected} elevated showDay={!oneDay} onPress={() => openFixture(selected.id)} />
@@ -262,8 +283,8 @@ const styles = StyleSheet.create({
   screen: { flex: 1, overflow: 'hidden' },
   top: { position: 'absolute', top: 0, left: 0, right: 0 },
   floating: { position: 'absolute', left: 16, right: 16, gap: 12 },
+  mapButtons: { alignSelf: 'flex-end', gap: 10 },
   locate: {
-    alignSelf: 'flex-end',
     width: 48,
     height: 48,
     borderRadius: 24,

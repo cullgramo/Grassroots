@@ -3,6 +3,9 @@ import type { StyleProp, ViewStyle } from 'react-native';
 import type { Fixture, UserLocation } from '@/types/fixture';
 import type { Bounds } from '@/utils/filterFixtures';
 
+/** What the map is drawn from: the street map, or satellite imagery with place names and roads on top. */
+export type MapStyle = 'map' | 'satellite';
+
 export interface FixtureMapProps {
   fixtures: Fixture[];
   selectedId: string | null;
@@ -33,6 +36,8 @@ export interface FixtureMapProps {
   inset?: { top: number; bottom: number };
   /** Pins show the time alone ("14:00"): for when one day is chosen and the day goes without saying. */
   timeOnly?: boolean;
+  /** Phone app only for now: the website's map has no satellite imagery yet, and ignores this. */
+  mapStyle?: MapStyle;
   /** Web only: lifts the map credit this many pixels so it clears a bottom sheet. */
   attributionBottom?: number;
   style?: StyleProp<ViewStyle>;
