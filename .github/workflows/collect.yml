@@ -1,9 +1,14 @@
 name: Collect fixtures
 
 on:
+  # Meant to run early each morning, Irish time. The times below are the evening before, on purpose: every day from
+  # 15 to 20 November 2026 GitHub started scheduled runs of this workflow between 8 hours 40 minutes and 9 hours
+  # 20 minutes after the time set (04:07 and 05:17 UTC ran at about 12:45 and 14:10). Set for 19:07 and 20:17 UTC, they
+  # should land at about 04:00 and 05:30. If GitHub starts running them on time, they run in the evening instead: still
+  # once a day plus a backup, which is what every request tells the sites it reads.
   schedule:
-    - cron: '7 4 * * *' # backup, in case the later one is delayed or skipped: about 4am Irish time in winter
-    - cron: '17 5 * * *' # every morning, about 5am Irish time
+    - cron: '7 19 * * *' # first run: expected to start at about 04:00 UTC
+    - cron: '17 20 * * *' # backup, in case the first is skipped: expected to start at about 05:30 UTC
   workflow_dispatch:
     inputs:
       dry:
