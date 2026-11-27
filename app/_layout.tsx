@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import { AccountProvider } from '@/context/AccountContext';
 import { AppProvider } from '@/context/AppContext';
 import { startErrorReports } from '@/lib/errorReports';
 import { report } from '@/lib/report';
@@ -22,6 +23,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AppProvider>
+        <AccountProvider>
         <Stack screenOptions={{ headerBackTitle: 'Back' }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="filters" options={{ presentation: 'modal', title: 'Filters' }} />
@@ -35,7 +37,9 @@ export default function RootLayout() {
           <Stack.Screen name="report/[id]" options={{ presentation: 'modal', title: 'Something wrong?' }} />
           <Stack.Screen name="club/[name]" options={{ title: 'Club' }} />
           <Stack.Screen name="claim" options={{ presentation: 'modal', title: 'Claim your club' }} />
+          <Stack.Screen name="account" options={{ title: 'Account' }} />
         </Stack>
+        </AccountProvider>
       </AppProvider>
     </ThemeProvider>
   );

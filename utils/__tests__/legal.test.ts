@@ -59,6 +59,14 @@ describe('privacy notice and credits', () => {
     expect(text).toMatch(/location is not sent to us/i);
     expect(text).toMatch(/never stores the names of referees/);
   });
+  it('the notice explains accounts: optional, 16 or over, no marketing, and download or delete in the app', () => {
+    const text = privacySections({ owner: 'J', email: 'e@e.ie' }).map((s: { body: string }) => s.body).join(' ');
+    expect(text).toMatch(/without an account/);
+    expect(text).toMatch(/aged 16 or over/);
+    expect(text).toMatch(/never use your email address for marketing/);
+    expect(text).toMatch(/download everything your account holds/);
+    expect(text).toMatch(/delete your account/);
+  });
   it('the credits name the open data with the wording its licences ask for', () => {
     const text = DATA_CREDITS.map((c: { name: string; note: string }) => c.name + c.note).join(' ');
     expect(text).toMatch(/© OpenStreetMap contributors/);
