@@ -42,6 +42,18 @@ describe('privacy notice and credits', () => {
     expect(filled).toContain('Jane Doe');
     expect(filled).toContain('hello@example.ie');
   });
+  it('says where the owner is based once that is known, and never leaves a stray comma when it is not', () => {
+    const body = (place: string | null) => privacySections({ owner: 'Jane Doe', place, email: 'e@e.ie' }).map((s: { body: string }) => s.body).join(' ');
+    expect(body('Co. Offaly, Ireland')).toContain('run by Jane Doe, Co. Offaly, Ireland.');
+    expect(body(null)).toContain('run by Jane Doe.');
+    expect(termsSections({ owner: 'Jane Doe', place: 'Co. Offaly, Ireland', email: 'e@e.ie', law: 'Ireland' })[0].body).toContain('Jane Doe, Co. Offaly, Ireland');
+  });
+  it('the notice covers what the app now does: reminders set on the phone, and fault messages that hold nothing about the person', () => {
+    const text = privacySections({ owner: 'J', email: 'e@e.ie' }).map((s: { heading: string; body: string }) => s.heading + s.body).join(' ');
+    expect(text).toMatch(/reminders are set by your phone itself/i);
+    expect(text).toMatch(/When something goes wrong/);
+    expect(text).toMatch(/no name, no device identifier and no location/);
+  });
   it('the notice says location stays on the phone and that referees are never stored', () => {
     const text = privacySections({ owner: 'J', email: 'e@e.ie' }).map((s: { body: string }) => s.body).join(' ');
     expect(text).toMatch(/location is not sent to us/i);

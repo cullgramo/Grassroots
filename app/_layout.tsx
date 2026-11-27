@@ -1,10 +1,20 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, ErrorBoundary as RouterErrorBoundary, Stack, ThemeProvider, type ErrorBoundaryProps } from 'expo-router';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { AppProvider } from '@/context/AppContext';
+import { startErrorReports } from '@/lib/errorReports';
+import { report } from '@/lib/report';
 
-export { ErrorBoundary } from 'expo-router';
+startErrorReports();
+
+/** The router's own "something went wrong" screen, which also tells us that a screen failed. */
+export function ErrorBoundary(props: ErrorBoundaryProps) {
+  const { error } = props;
+  useEffect(() => report(error, 'screen crashed'), [error]);
+  return <RouterErrorBoundary {...props} />;
+}
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

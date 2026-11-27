@@ -3,13 +3,21 @@
  * no placeholder ever reaches a user. The owner is a person or, once one exists, the company.
  */
 export const LEGAL = {
-  owner: null as string | null,
+  // A first entry from the owner (27 Nov 2026), to be confirmed with the solicitor: the pages need the legal name of
+  // the person or company behind the app, and "Grassroots.lv" may be a trading name.
+  owner: 'Grassroots.lv' as string | null,
+  /** Where the owner is based, shown after the name. */
+  place: 'Co. Offaly, Ireland' as string | null,
   /** A business or public contact address, not a private one. */
   email: null as string | null,
   /** The country whose courts apply. To be confirmed by the solicitor. */
   law: 'Ireland',
-  updated: '15 November 2026',
+  updated: '27 November 2026',
 };
+
+/** The owner as written in the notices: the name, then where they are based when that is known. */
+const whoRuns = (l: { owner: string | null; place?: string | null }): string =>
+  [l.owner?.trim() || 'the owner of Grassroots', l.place?.trim()].filter(Boolean).join(', ');
 
 export const legalReady = (l: { owner: string | null; email: string | null } = LEGAL): boolean => Boolean(l.owner?.trim() && l.email?.trim());
 
@@ -23,10 +31,10 @@ export interface TermsSection {
  * The data clause is what stops bulk copying; the last sentence of it protects rights people already have under the
  * licences of the third-party data used (OpenStreetMap and others).
  */
-export function termsSections(l: { owner: string | null; email: string | null; law: string } = LEGAL): TermsSection[] {
+export function termsSections(l: { owner: string | null; place?: string | null; email: string | null; law: string } = LEGAL): TermsSection[] {
   const owner = l.owner?.trim() || 'the owner of Grassroots';
   return [
-    { heading: 'Who we are', body: `Grassroots is run by ${owner}. You can reach us at ${l.email?.trim() || 'the contact address in the app store listing'}.` },
+    { heading: 'Who we are', body: `Grassroots is run by ${whoRuns(l)}. You can reach us at ${l.email?.trim() || 'the contact address in the app store listing'}.` },
     {
       heading: 'Using Grassroots',
       body: 'Grassroots helps you find sports fixtures near you. You may use it for yourself and to share a fixture with friends and family, for example with the share buttons. Please do not misuse it or try to break or overload it.',
@@ -55,22 +63,25 @@ export function termsSections(l: { owner: string | null; email: string | null; l
  * DRAFT privacy notice, in plain words. It describes what the app does today; update it whenever the app starts
  * keeping or sending anything new (sign-in, reminders, a crash service). A solicitor should confirm it before launch.
  */
-export function privacySections(l: { owner: string | null; email: string | null } = LEGAL): TermsSection[] {
-  const owner = l.owner?.trim() || 'the owner of Grassroots';
+export function privacySections(l: { owner: string | null; place?: string | null; email: string | null } = LEGAL): TermsSection[] {
   const email = l.email?.trim() || 'the contact address in the app store listing';
   return [
-    { heading: 'The short version', body: 'Grassroots has no accounts and no adverts, and it does not track you. You do not give us your name to use it. Your location, your saved fixtures and the clubs you follow stay on your phone.' },
+    { heading: 'The short version', body: 'Grassroots has no accounts and no adverts, and it does not track you. You do not give us your name to use it. Your location, your saved fixtures, the clubs you follow and your game reminders stay on your phone.' },
     {
       heading: 'Your location',
       body: 'If you allow it, the app uses your location to show fixtures near you and how far away they are. This is worked out on your phone. Your location is not sent to us and we do not keep it. You can turn it off at any time in your phone\'s settings and pick a county instead.',
     },
     {
       heading: 'What is kept on your phone',
-      body: 'Your sports, your age-group and men-or-women choices, your county, the fixtures you save, the clubs you follow, and a copy of the fixture list so the app works with a poor signal. None of this is sent to us. Deleting the app, or clearing the site\'s data in a browser, removes it.',
+      body: 'Your sports, your age-group and men-or-women choices, your county, the fixtures you save, the clubs you follow, whether you want game reminders, the map view you last used, and a copy of the fixture list so the app works with a poor signal. Game reminders are set by your phone itself from that list. None of this is sent to us. Deleting the app, or clearing the site\'s data in a browser, removes it.',
     },
     {
       heading: 'What we count',
       body: 'To see which fixtures people find useful, the app counts when a fixture is opened or shared, and when directions or a ticket link is used. We also count when a sponsor\'s notice is shown or opened. Each count holds the fixture or sponsor, the action, and whether it came from the app or the website. It holds nothing about you: no name, no device identifier and no location.',
+    },
+    {
+      heading: 'When something goes wrong',
+      body: 'If the app hits a fault, it sends us a short technical message so we can fix it: what the app was doing, the error text, whether it was an iPhone, an Android phone or the website, and the app version. It holds nothing about you: no name, no device identifier and no location.',
     },
     {
       heading: 'When you write to us',
@@ -86,7 +97,7 @@ export function privacySections(l: { owner: string | null; email: string | null 
     },
     {
       heading: 'Your rights and how to reach us',
-      body: `Grassroots is run by ${owner}. Under data protection law you can ask what we hold about you, and ask us to correct or delete it. In practice that is only what you sent us in a report or a club claim. Write to ${email}. You can also complain to the Data Protection Commission (dataprotection.ie).`,
+      body: `Grassroots is run by ${whoRuns(l)}. Under data protection law you can ask what we hold about you, and ask us to correct or delete it. In practice that is only what you sent us in a report or a club claim. Write to ${email}. You can also complain to the Data Protection Commission (dataprotection.ie).`,
     },
     { heading: 'Changes', body: 'If the app starts to keep or send anything new, this notice will be updated first. The date below shows the latest version.' },
   ];
