@@ -1,0 +1,32 @@
+name: Health check
+
+# Every hour: is the website up, does the database answer, does sign-in answer; and from the database, is it filling
+# up, has the collector run in the last 30 hours, and are there new app errors. Keeps one GitHub issue (see
+# collector/health.mjs), so the owner gets an email when something first goes wrong and again when it is fixed.
+on:
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: health-check
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check the website, the database and sign-in
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node collector/health.mjs
