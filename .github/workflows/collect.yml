@@ -30,9 +30,9 @@ jobs:
     env:
       SUPABASE_URL: https://dxkurwkmbnireaptcsbd.supabase.co
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
 
@@ -53,7 +53,7 @@ jobs:
 
       - name: Keep the list of fixtures left out
         if: ${{ always() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: left-out
           path: collector-report/left-out.csv
@@ -62,7 +62,7 @@ jobs:
 
       - name: Keep today's per-source counts for the watchdog
         if: ${{ always() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: run-stats
           path: collector-report/run-stats.json
@@ -83,14 +83,14 @@ jobs:
     env:
       SUPABASE_URL: https://dxkurwkmbnireaptcsbd.supabase.co
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
 
       - name: Fetch today's per-source counts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         continue-on-error: true
         with:
           name: run-stats
