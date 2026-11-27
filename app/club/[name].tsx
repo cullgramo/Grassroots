@@ -4,10 +4,12 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { FollowButton, groupLabel } from '@/components/ClubRow';
 import { FixtureRow } from '@/components/FixtureRow';
+import { PageMeta } from '@/components/PageMeta';
 import { SponsorSlot } from '@/components/SponsorSlot';
 import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { clubCounty, clubFixtures, clubGroup, clubId, clubName } from '@/utils/club';
+import { clubMeta } from '@/utils/seo';
 
 /** A club's page: every upcoming game, home and away, its sponsor slot, and a free "claim your club" link. */
 export default function ClubScreen() {
@@ -48,6 +50,7 @@ export default function ClubScreen() {
   return (
     <View style={[styles.screen, { backgroundColor: t.background }]}>
       <Stack.Screen options={{ title: 'Club' }} />
+      {name ? <PageMeta meta={clubMeta(name, { county, group, sportLabel: group ? groupLabel(group) : null })} /> : null}
       <FlatList
         data={games}
         keyExtractor={(f) => f.id}

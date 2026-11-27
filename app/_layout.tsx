@@ -36,6 +36,7 @@ export default function RootLayout() {
           <Stack.Screen name="fixture/[id]" options={{ title: 'Fixture' }} />
           <Stack.Screen name="report/[id]" options={{ presentation: 'modal', title: 'Something wrong?' }} />
           <Stack.Screen name="club/[name]" options={{ title: 'Club' }} />
+          <Stack.Screen name="county/[name]" options={{ title: 'County' }} />
           <Stack.Screen name="claim" options={{ presentation: 'modal', title: 'Claim your club' }} />
           <Stack.Screen name="account" options={{ title: 'Account' }} />
         </Stack>

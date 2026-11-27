@@ -4,6 +4,7 @@ import { directionsUrl, irishParts } from '@/utils/share';
 import { legalReady } from '@/constants/legal';
 import { isPlayed } from '@/utils/played';
 import { ticketLink } from '@/utils/tickets';
+import { fixtureMeta, searchable } from '@/utils/seo';
 
 /**
  * The page a shared fixture link opens. It is plain HTML built on the server, so WhatsApp, Messenger, iMessage
@@ -11,8 +12,8 @@ import { ticketLink } from '@/utils/tickets';
  * From there one tap takes them into Grassroots: the fixture on the map, or more games near them.
  *
  * The preview "little card" in a chat is: the square picture public/og.png (600x600), the fixture's title and its
- * day, time and ground. LOGO PLACEHOLDER: public/og.png and the "G" mark below (.mark) are stand-ins. To use the real
- * logo, replace public/og.png with a square 600x600 PNG (keep the name) and swap the .mark span for an <img>.
+ * day, time and ground. LOGO PLACEHOLDER: public/og.png and the "G" mark below (.mark) are stand-ins. To change the
+ * logo everywhere, see docs/branding.md.
  */
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -72,10 +73,15 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
   const state = pageState(f, now);
   const preview = previewFor(f, state);
   const pageUrl = `${opts.origin}/f/${encodeURIComponent(opts.id)}`;
+  // An upcoming fixture is a page worth finding on Google ("Templeogue v Dublin Raiders"), so it gets a search title and
+  // description and may be indexed. A played or missing one is kept out of search, so Google doesn't list old games,
+  // and so is a children's game (see searchable).
+  const search = f && state === 'upcoming' && searchable(f) ? fixtureMeta(f) : null;
   const head = `<!doctype html><html lang="en-IE"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(preview.title)} · Grassroots</title>
-<meta name="description" content="${esc(preview.description)}">
+<title>${esc(search?.title ?? `${preview.title} · Grassroots`)}</title>
+<meta name="description" content="${esc(search?.description ?? preview.description)}">
+<link rel="canonical" href="${esc(pageUrl)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grassroots">
 <meta property="og:title" content="${esc(preview.title)}">
@@ -84,7 +90,7 @@ export function fixturePageHtml(f: Fixture | null, opts: { id: string; origin: s
 <meta property="og:image" content="${esc(opts.origin)}/og.png">
 <meta property="og:image:width" content="600"><meta property="og:image:height" content="600">
 <meta name="twitter:card" content="summary">
-<meta name="robots" content="noindex">
+${search ? '' : '<meta name="robots" content="noindex">'}
 <style>${STYLE}</style></head><body><main>
 <a class="brand" href="/?ref=share"><span class="mark" aria-hidden="true">G</span>Grassroots</a>`;
 

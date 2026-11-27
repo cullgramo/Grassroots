@@ -1,0 +1,12 @@
+# Grassroots: every page is welcome in search except these, which are personal or only work inside the app.
+User-agent: *
+Disallow: /admin
+Disallow: /account
+Disallow: /claim
+Disallow: /report/
+Disallow: /go/
+Disallow: /filters
+Disallow: /sports
+Disallow: /phone.html
+
+Sitemap: https://grassroots.expo.app/sitemap.xml
