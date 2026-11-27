@@ -8,6 +8,7 @@ import { Linking, Pressable, ScrollView, Share, StyleSheet, Switch, Text, View }
 import { useTheme } from '@/components/useTheme';
 import { legalReady } from '@/constants/legal';
 import { getSport } from '@/constants/sports';
+import { useAccount } from '@/context/AccountContext';
 import { useApp } from '@/context/AppContext';
 import { SITE_URL } from '@/lib/config';
 import { remindersSupported } from '@/lib/reminders';
@@ -86,6 +87,7 @@ const go = (href: Href) => () => router.push(href);
 export default function MoreScreen() {
   const t = useTheme();
   const { mySports, myAge, myGender, myCounty, location, remindersOn, setRemindersOn } = useApp();
+  const { status, email } = useAccount();
   const [told, setTold] = useState<string | null>(null);
   // Set when the phone refused: 'blocked' means it will not ask again, so the fix is in the phone's own settings.
   const [refused, setRefused] = useState<'denied' | 'blocked' | null>(null);
@@ -122,6 +124,16 @@ export default function MoreScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: t.background }} contentContainerStyle={styles.content}>
+      <Section title="Account">
+        <Row
+          icon={{ ios: 'person.crop.circle', android: 'account_circle', web: 'account_circle' }}
+          label={status === 'signedIn' ? 'Your account' : 'Sign in'}
+          detail={status === 'signedIn' ? email ?? 'Signed in' : 'Optional: keep your saved games on every device'}
+          onPress={go('/account')}
+          last
+        />
+      </Section>
+
       <Section title="What I follow">
         <Row icon={{ ios: 'sportscourt', android: 'sports', web: 'sports' }} label="My sports" detail={sports} onPress={go('/sports')} />
         <Row icon={{ ios: 'person.2', android: 'groups', web: 'groups' }} label="Age and men or women" detail={who} onPress={go('/filters')} />

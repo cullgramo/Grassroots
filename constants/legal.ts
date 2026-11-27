@@ -66,14 +66,18 @@ export function termsSections(l: { owner: string | null; place?: string | null; 
 export function privacySections(l: { owner: string | null; place?: string | null; email: string | null } = LEGAL): TermsSection[] {
   const email = l.email?.trim() || 'the contact address in the app store listing';
   return [
-    { heading: 'The short version', body: 'Grassroots has no accounts and no adverts, and it does not track you. You do not give us your name to use it. Your location, your saved fixtures, the clubs you follow and your game reminders stay on your phone.' },
+    { heading: 'The short version', body: 'Grassroots has no adverts and it does not track you. You can use all of it without an account and without giving us your name. Your location and your game reminders stay on your phone. If you choose to make an account, we keep your email address and your saved fixtures, followed clubs and choices, so they are the same on every device, and you can download or delete them at any time.' },
     {
       heading: 'Your location',
       body: 'If you allow it, the app uses your location to show fixtures near you and how far away they are. This is worked out on your phone. Your location is not sent to us and we do not keep it. You can turn it off at any time in your phone\'s settings and pick a county instead.',
     },
     {
       heading: 'What is kept on your phone',
-      body: 'Your sports, your age-group and men-or-women choices, your county, the fixtures you save, the clubs you follow, whether you want game reminders, the map view you last used, and a copy of the fixture list so the app works with a poor signal. Game reminders are set by your phone itself from that list. None of this is sent to us. Deleting the app, or clearing the site\'s data in a browser, removes it.',
+      body: 'Your sports, your age-group and men-or-women choices, your county, the fixtures you save, the clubs you follow, whether you want game reminders, the map view you last used, and a copy of the fixture list so the app works with a poor signal. Game reminders are set by your phone itself from that list. Unless you sign in, none of this is sent to us. Deleting the app, or clearing the site\'s data in a browser, removes it.',
+    },
+    {
+      heading: 'If you make an account',
+      body: 'An account is optional and is for people aged 16 or over. We keep your email address, when the account was made and last signed in to, and a copy of your saved fixtures, the clubs you follow, your sports, your age-group and men-or-women choices and your county. We use these only to sign you in and to keep those choices the same on each device you use; we never use your email address for marketing or share it. The legal basis is that you asked for this service (contract). There is no password: each time you sign in we email you a one-time code. Your sign-in is kept in your phone\'s secure storage. In the app, under More, then Account, you can download everything your account holds, sign out, or delete your account. Deleting it removes your email address and everything saved with it from our database straight away; copies in our hosting provider\'s backups are overwritten within their normal cycle.',
     },
     {
       heading: 'What we count',
@@ -89,7 +93,7 @@ export function privacySections(l: { owner: string | null; place?: string | null
     },
     {
       heading: 'Companies that help run Grassroots',
-      body: 'The fixture data is stored with Supabase and the website is hosted by Expo. The map is drawn from map tiles supplied by OpenStreetMap or MapTiler. Like any website, these services see your internet address when your phone asks them for data, and may keep short-lived technical logs. Ticket links open the ticket seller\'s own site, which has its own privacy policy.',
+      body: 'The fixture data and accounts are stored with Supabase, in the European Union (Stockholm), and the website is hosted by Expo. Sign-in codes are sent by an email delivery service acting for us. The map is drawn from map tiles supplied by OpenStreetMap or MapTiler. Like any website, these services see your internet address when your phone asks them for data, and may keep short-lived technical logs. Ticket links open the ticket seller\'s own site, which has its own privacy policy.',
     },
     {
       heading: 'Children and underage games',
@@ -97,7 +101,7 @@ export function privacySections(l: { owner: string | null; place?: string | null
     },
     {
       heading: 'Your rights and how to reach us',
-      body: `Grassroots is run by ${whoRuns(l)}. Under data protection law you can ask what we hold about you, and ask us to correct or delete it. In practice that is only what you sent us in a report or a club claim. Write to ${email}. You can also complain to the Data Protection Commission (dataprotection.ie).`,
+      body: `Grassroots is run by ${whoRuns(l)}. Under data protection law you can ask what we hold about you, and ask us to correct or delete it. In practice that is your account, if you made one (which you can download or delete yourself in the app), and what you sent us in a report or a club claim. You can also ask us to stop using your data, or for a copy of it in a common format. Write to ${email}. You can also complain to the Data Protection Commission (dataprotection.ie).`,
     },
     { heading: 'Changes', body: 'If the app starts to keep or send anything new, this notice will be updated first. The date below shows the latest version.' },
   ];

@@ -5,6 +5,7 @@ import { AppState as PhoneState } from 'react-native';
 
 import type { SportId } from '@/constants/sports';
 import { fixtures as sampleFixtures } from '@/data/fixtures';
+import type { SyncedData } from '@/lib/accountData';
 import { loadFixtureCache, saveFixtureCache } from '@/lib/cache';
 import { backendConfigured, fetchFixtures } from '@/lib/fixtures';
 import { askForReminders, clearReminders, remindersSupported, syncReminders, type ReminderPermission } from '@/lib/reminders';
@@ -84,6 +85,12 @@ interface AppState {
   showAllIreland: () => void;
   /** Goes up whenever the app itself changes the place, so the map re-fits to the new view. */
   viewKey: number;
+  /** What a signed-in account keeps in step across devices (context/AccountContext.tsx). */
+  syncedData: SyncedData;
+  /** True once the phone's saved choices have been read, so an account never overwrites them with blanks. */
+  syncedLoaded: boolean;
+  /** Puts an account's data on this phone, replacing the phone's own copy of those choices. */
+  applySyncedData: (data: SyncedData) => void;
 }
 
 const SAVED_KEY = 'grassroots.saved';
@@ -135,10 +142,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [requestLocation]);
 
   const [savedIds, setSavedIds] = useState<string[]>([]);
+  const [savedLoaded, setSavedLoaded] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem(SAVED_KEY)
       .then((raw) => raw && setSavedIds(JSON.parse(raw)))
-      .catch(reportTo('reading saved fixtures'));
+      .catch(reportTo('reading saved fixtures'))
+      .finally(() => setSavedLoaded(true));
   }, []);
   const toggleSaved = useCallback((id: string) => {
     setSavedIds((ids) => {
@@ -151,13 +160,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [sort, setSort] = useState<Sort>('time');
 
   const [followedClubs, setFollowedClubs] = useState<FollowedClub[]>([]);
+  const [clubsLoaded, setClubsLoaded] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem(CLUBS_KEY)
       .then((raw) => {
         const list = raw ? JSON.parse(raw) : null;
         if (Array.isArray(list)) setFollowedClubs(list.filter((c) => c && typeof c.id === 'string' && typeof c.name === 'string' && typeof c.group === 'string'));
       })
-      .catch(reportTo('reading followed clubs'));
+      .catch(reportTo('reading followed clubs'))
+      .finally(() => setClubsLoaded(true));
   }, []);
   const toggleFollow = useCallback((club: FollowedClub) => {
     setFollowedClubs((list) => {
@@ -315,10 +326,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const [mySports, setMine] = useState<SportId[]>([]);
   const [needsSportsChoice, setNeedsSportsChoice] = useState(false);
+  const [sportsLoaded, setSportsLoaded] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem(SPORTS_KEY)
       .then((raw) => (raw ? setMine(JSON.parse(raw)) : setNeedsSportsChoice(true)))
-      .catch(reportTo('reading the sports choice'));
+      .catch(reportTo('reading the sports choice'))
+      .finally(() => setSportsLoaded(true));
   }, []);
   const setMySports = useCallback((ids: SportId[]) => {
     setMine(ids);
@@ -417,9 +430,33 @@ export function AppProvider({ children }: { children: ReactNode }) {
     syncReminders(plan).catch(reportTo('setting game reminders'));
   }, [remindersOn, haveFixtures, upcoming, savedIds, followedClubs]);
 
+  const syncedLoaded = savedLoaded && clubsLoaded && sportsLoaded && prefsLoaded;
+  const syncedData = useMemo<SyncedData>(
+    () => ({ saved: savedIds, clubs: followedClubs, sports: mySports, age: myAge, gender: myGender, county: myCounty }),
+    [savedIds, followedClubs, mySports, myAge, myGender, myCounty]
+  );
+  const applySyncedData = useCallback(
+    (d: SyncedData) => {
+      setSavedIds(d.saved);
+      AsyncStorage.setItem(SAVED_KEY, JSON.stringify(d.saved)).catch(reportTo('saving a saved fixture'));
+      setFollowedClubs(d.clubs);
+      AsyncStorage.setItem(CLUBS_KEY, JSON.stringify(d.clubs)).catch(reportTo('saving a followed club'));
+      setMySports(d.sports as SportId[]);
+      setMyAge(d.age);
+      setMyGender(d.gender);
+      // The home county is remembered, but the map is not moved under the person's hands.
+      if (d.county) {
+        setCountyAsked(true);
+        setCounty(d.county);
+        AsyncStorage.setItem(COUNTY_KEY, d.county).catch(reportTo('saving the county choice'));
+      }
+    },
+    [setMySports, setMyAge, setMyGender]
+  );
+
   const value = useMemo(
-    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mapStyle, setMapStyle, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey }),
-    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mapStyle, setMapStyle, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey]
+    () => ({ filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mapStyle, setMapStyle, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey, syncedData, syncedLoaded, applySyncedData }),
+    [filters, setFilters, resetFilters, location, locationDenied, requestLocation, fixtures, allFixtures, upcoming, loadState, isStale, refreshing, refresh, savedIds, toggleSaved, sort, setSort, followedClubs, toggleFollow, mapStyle, setMapStyle, remindersOn, setRemindersOn, mySports, setMySports, needsSportsChoice, myAge, setMyAge, myGender, setMyGender, baseline, myCounty, setMyCounty, choosePlace, needsCounty, viewNote, dismissViewNote, showAllIreland, viewKey, syncedData, syncedLoaded, applySyncedData]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
