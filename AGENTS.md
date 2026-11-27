@@ -39,3 +39,17 @@ Docs: https://docs.expo.dev/eas/index.md
 - If `ios/` and `android/` directories do not exist, they are generated (Continuous Native Generation). Never create or edit them by hand — configure native behavior in `app.json` and config plugins.
 - Expo Go only includes its bundled native modules. After adding a library with native code, the app needs a development build: `npx expo run:ios|android` locally, or `eas build --profile development`.
 - Prefer recommended Expo modules over third-party libraries, and check your available skills before adding dependencies. Docs: https://docs.expo.dev/versions/latest/index.md
+
+## Write only what the task needs
+
+Adapted from the Ponytail rules (github.com/DietrichGebert/ponytail, MIT), in this project's own words.
+
+- Before writing, read the code the change touches and list every place it must reach: callers, tests, settings.
+- Take the first option that fully works, in this order: does it need to exist at all; reuse what the project already has; a built-in feature of the language, Expo or the phone; a dependency already installed; otherwise the least new code that works.
+- Never add a dependency for a few lines of code.
+- No options, wrappers or settings for needs nobody has yet. Removing code beats adding it.
+- For a bug, find every caller first and fix the cause once.
+- New logic that branches, loops, reads outside data, or touches money or security gets one small test.
+- A known shortcut gets a one-line comment: what the limit is and when to come back to it.
+- Never cut: checks on outside data, error handling that prevents lost data, security, accessibility, or anything the owner asked for.
+- End each piece of work by saying what was left out or not checked.
