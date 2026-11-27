@@ -1,0 +1,20 @@
+# Dependabot keeps an eye on the libraries the app and its GitHub Actions use.
+#
+# npm: no routine upgrade pull requests (Expo pins its own versions and upgrades go through an SDK upgrade), so the limit
+# is 0. Security fixes still arrive as pull requests once "Dependabot security updates" is on in the repository settings
+# (Settings, Code security), because those ignore this limit.
+# GitHub Actions: a monthly pull request that keeps the workflow steps up to date, all in one.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']
