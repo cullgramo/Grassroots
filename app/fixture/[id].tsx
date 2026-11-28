@@ -5,6 +5,7 @@ import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-na
 
 import { SaveButton } from '@/components/FixtureRow';
 import { FixtureMap } from '@/components/FixtureMap';
+import { PageMeta } from '@/components/PageMeta';
 import { ShareFixture, ShareHeaderButton } from '@/components/ShareFixture';
 import { SponsorSlot } from '@/components/SponsorSlot';
 import { useTheme } from '@/components/useTheme';
@@ -12,6 +13,7 @@ import { getSport } from '@/constants/sports';
 import { useApp } from '@/context/AppContext';
 import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
+import { fixtureMeta, searchable } from '@/utils/seo';
 import { formatDistance } from '@/utils/distance';
 import { track } from '@/lib/track';
 import { entryLabel, outboundTicketUrl, ticketLink, ticketSearchLink } from '@/utils/tickets';
@@ -95,6 +97,7 @@ export default function FixtureScreen() {
           ),
         }}
       />
+      <PageMeta meta={fixtureMeta(fixture)} noindex={!searchable(fixture)} />
 
       <View style={styles.map}>
         <FixtureMap fixtures={[fixture]} selectedId={fixture.id} userLocation={location} interactive={false} />

@@ -15,6 +15,8 @@ import { useTheme } from '@/components/useTheme';
 import { useApp } from '@/context/AppContext';
 import { searchFixtures, toListSections, withinBounds, type Bounds } from '@/utils/filterFixtures';
 import { placeChoice, whenLabel } from '@/utils/view';
+import { SITE_URL } from '@/lib/config';
+import { HOME_META, toMetadata } from '@/utils/seo';
 
 const PEEK = 76;
 const TOP_BAR = 130;
@@ -23,6 +25,11 @@ const openFixture = (id: string) => router.push({ pathname: '/fixture/[id]', par
 
 // Satellite imagery comes with the phone's own map. The website's map has none yet, so the button is not shown there.
 const SATELLITE_HERE = Platform.OS !== 'web';
+
+/** The site's title and description, written into the home page's HTML when the website is built. */
+export function generateMetadata() {
+  return toMetadata(HOME_META, SITE_URL);
+}
 
 export default function ExploreScreen() {
   const t = useTheme();
