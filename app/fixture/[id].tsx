@@ -1,5 +1,5 @@
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -15,7 +15,9 @@ import { fixtureTitle } from '@/types/fixture';
 import { timeLabel } from '@/utils/date';
 import { fixtureMeta, searchable } from '@/utils/seo';
 import { formatDistance } from '@/utils/distance';
+import { isFlagged } from '@/lib/flags';
 import { track } from '@/lib/track';
+import { sourceNote } from '@/utils/sourceNote';
 import { entryLabel, outboundTicketUrl, ticketLink, ticketSearchLink } from '@/utils/tickets';
 import { distanceTo } from '@/utils/filterFixtures';
 
@@ -52,6 +54,17 @@ export default function FixtureScreen() {
     if (fixture) track(fixture.id, 'view');
   }, [fixture?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // People have reported this game as wrong: shown as a warning, never hidden, since the reports may be mistaken.
+  const [flagged, setFlagged] = useState(false);
+  useEffect(() => {
+    if (!fixture) return;
+    let live = true;
+    isFlagged(fixture.id).then((yes) => live && setFlagged(yes));
+    return () => {
+      live = false;
+    };
+  }, [fixture?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (!fixture) {
     return (
       <View style={[styles.missing, { backgroundColor: t.background }]}>
@@ -74,6 +87,7 @@ export default function FixtureScreen() {
   }
 
   const sport = getSport(fixture.sport);
+  const note = sourceNote(fixture);
   const color = sport.color;
   const km = distanceTo(fixture, location);
   const date = new Date(fixture.startsAt).toLocaleDateString('en-IE', {
@@ -123,6 +137,10 @@ export default function FixtureScreen() {
             <Text style={styles.alertText}>
               {fixture.status === 'cancelled' ? 'This fixture has been cancelled.' : 'This fixture has been postponed.'}
             </Text>
+          </View>
+        ) : flagged ? (
+          <View style={styles.warn} accessibilityRole="alert">
+            <Text style={styles.warnText}>Reported as possibly wrong. Check with the club before you travel.</Text>
           </View>
         ) : null}
 
@@ -180,6 +198,15 @@ export default function FixtureScreen() {
         </Pressable>
         <ShareFixture fixture={fixture} />
         <SponsorSlot clubs={[fixture.homeTeam, fixture.awayTeam]} competition={fixture.competition} county={fixture.county} />
+        {note ? (
+          note.url ? (
+            <Pressable onPress={() => WebBrowser.openBrowserAsync(note.url!)} accessibilityRole="link" accessibilityHint="Opens the page this fixture was read from">
+              <Text style={[styles.source, { color: t.muted }]}>{note.text}. <Text style={{ textDecorationLine: 'underline' }}>See the original</Text></Text>
+            </Pressable>
+          ) : (
+            <Text style={[styles.source, { color: t.muted }]}>{note.text}</Text>
+          )
+        ) : null}
         <Pressable
           onPress={() => router.push({ pathname: '/report/[id]', params: { id: fixture.id } })}
           accessibilityRole="button"
@@ -213,6 +240,9 @@ const styles = StyleSheet.create({
   primaryText: { fontSize: 17, fontWeight: '800' },
   alert: { backgroundColor: '#fee2e2', borderRadius: 12, padding: 12, marginTop: 16 },
   alertText: { color: '#991b1b', fontSize: 15, fontWeight: '700' },
+  warn: { backgroundColor: '#fef3c7', borderRadius: 12, padding: 12, marginTop: 16 },
+  warnText: { color: '#92400e', fontSize: 15, fontWeight: '700' },
+  source: { fontSize: 13, textAlign: 'center', marginTop: 18 },
   hint: { fontSize: 13, textAlign: 'center', marginTop: 8 },
   secondary: { minHeight: 52, borderRadius: 26, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 12 },
   secondaryText: { fontSize: 17, fontWeight: '800' },

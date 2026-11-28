@@ -29,6 +29,10 @@ export interface FixtureRow {
   venue_confirmed?: boolean | null;
   /** 'men', 'women' or 'mixed' when the source says; null when it does not. */
   category?: string | null;
+  /** The page the fixture was read from, when the source gives one. */
+  source_url?: string | null;
+  /** When the collector last saved it: each daily run rewrites every fixture a source still lists. */
+  updated_at?: string | null;
   venue: { name: string; county: string; latitude: number; longitude: number } | null;
 }
 
@@ -59,6 +63,9 @@ export function mapFixture(row: FixtureRow): Fixture | null {
     ageGroup: age.group,
     ageLabel: age.label,
     category: parseCategory(row.category),
+    source: row.source ?? undefined,
+    sourceUrl: row.source_url ?? undefined,
+    checkedAt: row.updated_at ?? undefined,
     status: STATUSES.includes(row.status as FixtureStatus) ? (row.status as FixtureStatus) : 'scheduled',
   };
 }
@@ -66,7 +73,7 @@ export function mapFixture(row: FixtureRow): Fixture | null {
 // Only the columns the app uses: about 40% less to download than every column. If a database is missing one of them
 // (an older copy without venue_confirmed, say) the request is retried asking for every column.
 const COLUMNS =
-  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,time_known,venue_confirmed,category,venue:venues(name,county,latitude,longitude)';
+  'id,sport_id,level,competition,home_team,away_team,title,starts_at,ticketed,ticket_url,status,source,source_url,updated_at,time_known,venue_confirmed,category,venue:venues(name,county,latitude,longitude)';
 const ALL_COLUMNS = '*,venue:venues(name,county,latitude,longitude)';
 
 const PAGE = 1000;

@@ -70,3 +70,16 @@ test('the report names each problem and the database summary', () => {
   assert.match(renderReport(evaluate(facts(), { now }), { facts: facts() }), /Everything is healthy/);
   assert.equal(LIMITS.dbBytesFree, 500 * MB);
 });
+
+test('open fixture reports and new club claims are raised, without notes or names', () => {
+  const r = report({ open_reports: 4, new_claims: 2, reported_fixtures: [
+    { title: 'Tullamore v Edenderry', starts_at: '2026-11-29T14:00:00Z', reports: 3, problems: 'time, ground', note: 'secret note', email: 'x@y.ie' },
+  ] });
+  const result = evaluate(facts({ report: r }), { now });
+  assert.deepEqual(result.problems.map((p) => p.id), ['reports:4', 'claims:2']);
+  assert.match(result.problems[0].text, /4 open reports .*"Tullamore v Edenderry" \(2026-11-29\): 3 reports, time, ground/);
+  assert.doesNotMatch(JSON.stringify(result), /secret note|x@y\.ie/);
+  assert.match(result.problems[1].text, /^2 clubs have asked/);
+  // Marking them done clears them, so the issue can close.
+  assert.deepEqual(ids(facts({ report: report({ open_reports: 0, new_claims: 0 }) })), []);
+});
