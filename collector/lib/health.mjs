@@ -62,6 +62,17 @@ export function evaluate(facts, { now = new Date(), limits = LIMITS } = {}) {
     const kinds = flagged.map((e) => `${e.platform}/${e.place}/${e.message}`).sort().join('|');
     add(`app-errors:${hash(kinds)}`, 'App errors', `In the last 24 hours: ${list}.`);
   }
+
+  // People telling us a game is wrong, and clubs asking to be claimed: nobody sees these unless they are raised here.
+  // The ids carry the counts, so a new report or claim posts a fresh comment and the same number does not.
+  // Only titles, days and problem types: this goes on a public GitHub page, so never notes, names or emails.
+  if (r.open_reports > 0) {
+    const games = (r.reported_fixtures ?? []).slice(0, 5).map((g) => `"${g.title}"${g.starts_at ? ` (${String(g.starts_at).slice(0, 10)})` : ''}: ${g.reports} report${g.reports === 1 ? '' : 's'}, ${g.problems}`).join('; ');
+    add(`reports:${r.open_reports}`, 'Fixture reports to check', `${r.open_reports} open report${r.open_reports === 1 ? '' : 's'} that a fixture is wrong. Most reported: ${games}. Read them and mark them done in the SQL editor (docs/reports.md).`);
+  }
+  if (r.new_claims > 0) {
+    add(`claims:${r.new_claims}`, 'Club claims to answer', `${r.new_claims} club${r.new_claims === 1 ? ' has' : 's have'} asked to claim their page. See who in the SQL editor (docs/reports.md).`);
+  }
   return { problems };
 }
 

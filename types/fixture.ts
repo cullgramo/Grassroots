@@ -38,6 +38,12 @@ export interface Fixture {
   ageLabel?: string;
   /** Who plays, when the source says. Missing means not stated; the app never guesses it. */
   category?: Category;
+  /** Which reader or feed supplied it ("county-gaa", "nifl-snapshot"). */
+  source?: string;
+  /** The page it was read from, when the source gives one. */
+  sourceUrl?: string;
+  /** When the daily collector last found it on its source (ISO time). */
+  checkedAt?: string;
 }
 
 export function fixtureTitle(f: Pick<Fixture, 'title' | 'homeTeam' | 'awayTeam'>): string {

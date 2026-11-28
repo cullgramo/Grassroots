@@ -30,7 +30,9 @@ describe('fetchFixtures', () => {
     expect(select).toContain('starts_at');
     expect(select.split(',')).toContain('category');
     expect(select).not.toBe('*,venue:venues(name,county,latitude,longitude)');
-    expect(select).not.toMatch(/created_at|updated_at|approval|source_ref|submitted_by/);
+    // updated_at and source_url are used: the fixture page says where a game came from and when it was last checked.
+    expect(select.split(',')).toEqual(expect.arrayContaining(['source_url', 'updated_at']));
+    expect(select).not.toMatch(/created_at|approval|source_ref|submitted_by/);
   });
   it('reads one page when everything fits, and many pages together when it does not', async () => {
     expect(await fetchFixtures(now, database(10).get)).toHaveLength(10);
